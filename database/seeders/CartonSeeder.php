@@ -25,6 +25,7 @@ class CartonSeeder extends Seeder
             'content_3' => json_encode(['1','33','3','4','15']),
             'content_4' => json_encode(['1','2','11','4','15']),
             'content_5' => json_encode(['1','45','3','4','15']),
+            'serial' => '123456789101712'
         ]);
 
         DB::table('cartons')->insert([
@@ -33,6 +34,7 @@ class CartonSeeder extends Seeder
             'content_3' => json_encode(['1','33','3','4','15']),
             'content_4' => json_encode(['1','2','11','4','15']),
             'content_5' => json_encode(['1','45','3','4','15']),
+            'serial' => '123456789101162'
         ]);
 
         DB::table('cartons')->insert([
@@ -41,6 +43,7 @@ class CartonSeeder extends Seeder
             'content_3' => json_encode(['1','33','3','4','15']),
             'content_4' => json_encode(['1','2','11','4','15']),
             'content_5' => json_encode(['1','45','3','4','15']),
+            'serial' => '123456789105112'
         ]);
 
         DB::table('cartons')->insert([
@@ -49,6 +52,7 @@ class CartonSeeder extends Seeder
             'content_3' => json_encode(['1','33','3','4','15']),
             'content_4' => json_encode(['1','2','11','4','15']),
             'content_5' => json_encode(['1','45','3','4','15']),
+            'serial' => '123456789101114'
         ]);
 
         DB::table('cartons')->insert([
@@ -57,6 +61,7 @@ class CartonSeeder extends Seeder
             'content_3' => json_encode(['1','33','3','4','15']),
             'content_4' => json_encode(['1','2','11','4','15']),
             'content_5' => json_encode(['1','45','3','4','15']),
+            'serial' => '123456789101113'
         ]);
 
 

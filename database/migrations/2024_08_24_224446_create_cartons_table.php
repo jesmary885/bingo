@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
+            $table->string('serial')->unique();
             $table->json('content_1');
             $table->json('content_2');
             $table->json('content_3');

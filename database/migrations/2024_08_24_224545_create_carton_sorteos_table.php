@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('carton_id')->nullable();
             $table->foreign('carton_id')->references('id')->on('cartons');
 
-            $table->string('status');
+            $table->string('status'); //no disponible, reservado, disponible
         });
     }
 

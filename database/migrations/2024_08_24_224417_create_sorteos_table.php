@@ -19,6 +19,11 @@ return new class extends Migration
 
             $table->dateTime('fecha_ejecucion')->nullable();
 
+            $table->string('type_1'); //el tipo de sorteo (campo lleno, esquinas etc)
+            $table->string('type_2')->nullable();
+
+            $table->string('status'); //aperturado, finalizado
+
 
         });
     }
