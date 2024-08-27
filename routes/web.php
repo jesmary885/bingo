@@ -41,6 +41,6 @@ Route::middleware(['auth'])->group(function()
 
     Route::get('/home', HomeController::class)->name('home');
 
-    Route::get('cartones', [cartones::class,'index'])->name('cartones.index');
+    Route::get('cartones/{sorteo}', [cartones::class,'index'])->name('cartones.index');
 
 });

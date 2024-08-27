@@ -10,4 +10,9 @@ class Sorteo extends Model
     use HasFactory;
 
     protected $guarded = ['id','created_at','updated_at'];
+
+    //Relacion muchos a muchos
+    public function cartones(){
+        return $this->belongsToMany(Carton::class);
+    }
 }

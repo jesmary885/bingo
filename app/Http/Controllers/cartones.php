@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class cartones extends Controller
 {
-    public function index(){
-        return view('cartones.index');
+    public function index($sorteo){
+        return view('cartones.index',compact('sorteo'));
     }
 }

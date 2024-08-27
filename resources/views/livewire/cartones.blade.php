@@ -11,77 +11,102 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
 
         <aside>
-    
-            <button class="text-blue-600 text-lg hover:text-green-900" wire:click="type('disponibles'}')">
-                DISPONIBLES
-            </button>
 
-            <button class="text-blue-600 text-lg hover:text-green-900" wire:click="type('reservados'}')">
-                RESERVADOS
-            </button>
+            <ul class="divide-y divide-gray-200">
+                <li class="py-2 text-sm text-center">
+                    <a class="cursor-pointer hover:text-orange-500 capitalize }}"
+                        wire:click="type('disponibles')"
+                    >DISPONIBLES
+                    </a>
+                </li>
 
-            <button class="text-blue-600 text-lg hover:text-green-900" wire:click="type('no_disponibles'}')">
-                NO DISPONIBLES
-            </button>
+                <li class="py-2 text-sm text-center">
+                    <a class="cursor-pointer hover:text-orange-500 capitalize }}"
+                        wire:click="type('reservados')"
+                    >RESERVADOS
+                    </a>
+                </li>
+
+                <li class="py-2 text-sm text-center">
+                    <a class="cursor-pointer hover:text-orange-500 capitalize }}"
+                        wire:click="type('no_disponibles')"
+                    >NO DISPONIBLES
+                    </a>
+                </li>
+
+            </ul>
+
+
     
             
         </aside>
-    
-    
-    
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-    
-    
+
+
+
             @foreach ($cartones as $carton)
-                <div class=" bg-{{$this->color($carton->id)}}-300 rounded-md shadow-md overflow-hidden md:max-w-xl m-2">
+       
+            
+                <div class=" bg-blue-300 rounded-md shadow-md overflow-hidden md:max-w-xl m-2">
     
                     <div class="grid grid-cols-5 gap-0.5 justify-center m-1">  
-                        <div class="bg-{{$this->color($carton->id)}}-300 text-white justify-center text-2xl text-center  py-2  font-bold">B</div>  
-                        <div class="bg-{{$this->color($carton->id)}}-300 text-white justify-center text-2xl text-center  py-2 font-bold">I</div>  
-                        <div class="bg-{{$this->color($carton->id)}}-300 text-white justify-center text-2xl text-center  py-2 font-bold">N</div>  
-                        <div class="bg-{{$this->color($carton->id)}}-300 text-white justify-center text-2xl text-center  py-2 font-bold">G</div>  
-                        <div class="bg-{{$this->color($carton->id)}}-300 text-white justify-center text-2xl text-center py-2 font-bold">O</div>  
+                        <div class="bg-blue-300 text-white justify-center text-2xl text-center  py-2  font-bold">B</div>  
+                        <div class="bg-blue-300 text-white justify-center text-2xl text-center  py-2 font-bold">I</div>  
+                        <div class="bg-blue-300 text-white justify-center text-2xl text-center  py-2 font-bold">N</div>  
+                        <div class="bg-blue-300 text-white justify-center text-2xl text-center  py-2 font-bold">G</div>  
+                        <div class="bg-blue-300 text-white justify-center text-2xl text-center py-2 font-bold">O</div>  
                     </div>  
     
                     <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1 ">  
-                        @foreach (json_decode($carton->content_1) as $item)
+                        @foreach (json_decode($carton->carton->content_1) as $item)
                             <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
                         @endforeach
                     </div>  
     
                     <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
-                        @foreach (json_decode($carton->content_2) as $item)
+                        @foreach (json_decode($carton->carton->content_2) as $item)
                             <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
                         @endforeach
                     </div> 
     
                     <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
-                        @foreach (json_decode($carton->content_3) as $item)
+                        @foreach (json_decode($carton->carton->content_3) as $item)
                             <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
                         @endforeach
                     </div> 
     
                     <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
-                        @foreach (json_decode($carton->content_4) as $item)
+                        @foreach (json_decode($carton->carton->content_4) as $item)
                             <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
                         @endforeach
                     </div> 
     
                     <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
-                        @foreach (json_decode($carton->content_5) as $item)
+                        @foreach (json_decode($carton->carton->content_5) as $item)
                             <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
                         @endforeach
                     </div> 
     
-                    <div class="bg-{{$this->color($carton->id)}}-300 m-1">
+                    <div class="bg-blue-300 m-1">
                         <p class=" text-white font-bold text-lg ">SERIAL NRO. {{$carton->id}}  </p>
                     </div>
     
-                </div>
-    
+                </div> 
+     
+
             @endforeach
+
+     
     
-        </div>
+    
+    
+        
+    
+    
+    
+
+           
+    
+       
     
     </div>
 

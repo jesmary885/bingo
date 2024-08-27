@@ -23,6 +23,8 @@ return new class extends Migration
             $table->json('content_3');
             $table->json('content_4');
             $table->json('content_5');
+
+            
         });
     }
 

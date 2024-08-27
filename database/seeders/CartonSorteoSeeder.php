@@ -30,7 +30,6 @@ class CartonSorteoSeeder extends Seeder
         CartonSorteo::create([
             'sorteo_id' => '1',
             'carton_id' => '3',
-            'type_2' => 'Esquinas',
             'status' => 'disponible',
         ]);
 
@@ -63,7 +62,6 @@ class CartonSorteoSeeder extends Seeder
         CartonSorteo::create([
             'sorteo_id' => '2',
             'carton_id' => '3',
-            'type_2' => 'Esquinas',
             'status' => 'disponible',
         ]);
 
@@ -97,7 +95,6 @@ class CartonSorteoSeeder extends Seeder
         CartonSorteo::create([
             'sorteo_id' => '3',
             'carton_id' => '3',
-            'type_2' => 'Esquinas',
             'status' => 'disponible',
         ]);
 

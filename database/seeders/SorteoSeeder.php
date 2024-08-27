@@ -19,17 +19,20 @@ class SorteoSeeder extends Seeder
             'fecha_ejecucion' => '2024-08-25 9:00:00',
             'type_1' => 'Carton lleno',
             'type_2' => 'Esquinas',
+            'status' => 'Aperturado'
         ]);
 
         Sorteo::create([
             'fecha_ejecucion' => '2024-08-25 14:00:00',
             'type_1' => 'Carton lleno',
+            'status' => 'Aperturado'
         ]);
 
         Sorteo::create([
             'fecha_ejecucion' => '2024-08-25 21:00:00',
             'type_1' => 'Carton lleno',
             'type_2' => 'Esquinas',
+            'status' => 'Aperturado'
         ]);
 
 

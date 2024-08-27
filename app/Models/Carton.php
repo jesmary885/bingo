@@ -11,5 +11,10 @@ class Carton extends Model
 
     protected $guarded = ['id','created_at','updated_at'];
 
+    //Relacion muchos a muchos
+    public function sorteos(){
+        return $this->belongsToMany(Sorteo::class)->withPivot('status', 'id');
+    }
+
 
 }
