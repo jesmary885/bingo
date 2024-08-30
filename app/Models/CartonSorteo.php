@@ -10,6 +10,8 @@ class CartonSorteo extends Model
     use HasFactory;
 
     protected $table = "carton_sorteos";
+    
+    protected $guarded = ['id','created_at','updated_at'];
 
     
     //Relacion uno a muchos inversa
@@ -19,5 +21,9 @@ class CartonSorteo extends Model
 
     public function carton(){
         return $this->belongsTo(Carton::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

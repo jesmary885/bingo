@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\cartones;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ShoppingCartController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -42,5 +43,7 @@ Route::middleware(['auth'])->group(function()
     Route::get('/home', HomeController::class)->name('home');
 
     Route::get('cartones/{sorteo}', [cartones::class,'index'])->name('cartones.index');
+
+    Route::get('shopping-cart', [ShoppingCartController::class,'index'])->name('shopping-cart');
 
 });

@@ -6,67 +6,106 @@ use App\Models\Carton;
 use App\Models\CartonSorteo;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class Cartones extends Component
 {
 
     protected $listeners = ['render' => 'render'];
 
-    public $sorteo, $tipo_cartones='DISPONIBLES';
+    public $sorteo, $status_carton='1', $tipo_cartones, $cartones, $search, $ver_todos_act = 0;
 
-    
+    protected $rules = [
+        'search' => 'required',
+    ];
 
+    public $options = [
+        'carton' => null,
+        'sorteo' => null,
+        'serial' => null,
+    ];
 
+    public function search_(){
+        $this->ver_todos_act = 1;
+    }
 
-    public function color($carton){
-        $busqueda = CartonSorteo::where('sorteo_id',$this->sorteo)
-            ->where('carton_id',$carton)
-            ->first()
-            ->status;
+    public function ver_todos(){
+        $this->ver_todos_act = 0;
+    }
 
-        if($busqueda == 'disponible') return 'green';
-        elseif($busqueda == 'no disponible') return 'red';
-        else return 'blue';
+    public function color($serial_carton){
+        $busqueda =  CartonSorteo::where('id', $serial_carton)->first()->status;
 
+        if($busqueda == 'disponible') return 'bg-blue-500';
+        elseif($busqueda == 'reservado') return 'bg-yellow-500'; 
+        else return 'bg-red-500';
 
     }
 
-    public function type($tipo){
+    public function add_cart($carton_comprar){
 
-        if($tipo == 'disponibles') $this->tipo_cartones='DISPONIBLES';
-        if($tipo == 'reservados') $this->tipo_cartones='RESERVADOS';
-        if($tipo == 'no_disponibles') $this->tipo_cartones='NO DISPONIBLES';
+        $carton_sorteo_update = CartonSorteo::where('sorteo_id', $this->sorteo)
+            ->where('carton_id',$carton_comprar)
+            ->first();
 
-        //$this->resetPage();
+        $this->options['carton'] = $carton_comprar;
+        $this->options['sorteo'] = $this->sorteo;
+        $this->options['serial'] = Carton::where('id',$carton_comprar)
+            ->first()
+            ->serial;
 
-        $this->emitTo('cartones','render');
+        Cart::add([ 'id' => $carton_comprar, 
+            'name' => 'name', 
+            'qty' => '1', 
+            'price' => '1', 
+            'weight' => 550,
+            'options' => $this->options
+        ]);
+
+        
+
+        $carton_sorteo_update->update([
+            'status' => 'reservado'
+        ]);
+
+
+        $this->emitTo('dropdown-cart', 'render');
+
+        $this->emitTo('cartones', 'render');
+
+
+
     }
 
     public function render()
     {
 
-        if($this->tipo_cartones=='DISPONIBLES'){
-
-            $cartones = CartonSorteo::where('sorteo_id', $this->sorteo)
-                ->where('status','disponible')
+        if($this->ver_todos_act == 0){
+            $this->cartones = CartonSorteo::where('sorteo_id', $this->sorteo)
                 ->with('carton')
                 ->get();
-        }
-
-       elseif($this->tipo_cartones=='RESERVADOS'){
-            $cartones = CartonSorteo::where('sorteo_id', $this->sorteo)
-            ->where('status','reservado')
-            ->with('carton')
-            ->get();
         }
 
         else{
-            $cartones = CartonSorteo::where('sorteo_id', $this->sorteo)
-                ->where('status','no_disponible')
+
+            $rules = $this->rules;
+            $this->validate($rules);
+
+            $carton_select = Carton::where('serial',$this->search)->first();
+
+            if($carton_select){
+                $this->cartones = CartonSorteo::where('sorteo_id', $this->sorteo)
+                ->where('carton_id',$carton_select->id)
                 ->with('carton')
                 ->get();
+            }
+
         }
 
-        return view('livewire.cartones',compact('cartones'));
+            
+
+    
+
+        return view('livewire.cartones');
     }
 }

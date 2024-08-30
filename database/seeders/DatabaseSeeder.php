@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SorteoSeeder::class);
         $this->call(CartonSeeder::class);
         $this->call(CartonSorteoSeeder::class);
+        $this->call(MetodopagoSeeder::class);
     }
 }
