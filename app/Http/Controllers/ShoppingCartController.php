@@ -9,4 +9,8 @@ class ShoppingCartController extends Controller
     public function index(){
         return view('carrito.index');
     }
+
+    public function cartones(){
+        return view('carrito.cartones');
+    }
 }

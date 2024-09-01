@@ -19,15 +19,12 @@ return new class extends Migration
 
             $table->foreignId('user_id')->constrained();
 
-            $table->unsignedBigInteger('metodo_pagos_id');
-            $table->foreign('metodo_pagos_id')->references('id')->on('metodo_pagos');
+            $table->string('metodo_pago');
 
             $table->string('monto');
-
+            $table->string('constancia');
             $table->string('status');
-
-            $table->longText('concepto');
-
+            $table->longText('cantidad');
         });
     }
 

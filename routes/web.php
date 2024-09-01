@@ -46,4 +46,6 @@ Route::middleware(['auth'])->group(function()
 
     Route::get('shopping-cart', [ShoppingCartController::class,'index'])->name('shopping-cart');
 
+    Route::get('mis-cartones', [ShoppingCartController::class,'cartones'])->name('mis-cartones');
+
 });

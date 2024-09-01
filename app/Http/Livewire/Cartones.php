@@ -34,7 +34,7 @@ class Cartones extends Component
     }
 
     public function color($serial_carton){
-        $busqueda =  CartonSorteo::where('id', $serial_carton)->first()->status;
+        $busqueda =  CartonSorteo::where('id', $serial_carton)->first()->status_carton;
 
         if($busqueda == 'disponible') return 'bg-blue-500';
         elseif($busqueda == 'reservado') return 'bg-yellow-500'; 
@@ -65,15 +65,14 @@ class Cartones extends Component
         
 
         $carton_sorteo_update->update([
-            'status' => 'reservado'
+            'status_carton' => 'reservado',
+            'status_pago' => 'en espera de pago',
+            'user_id' => auth()->user()->id
         ]);
 
 
         $this->emitTo('dropdown-cart', 'render');
-
         $this->emitTo('cartones', 'render');
-
-
 
     }
 
@@ -99,12 +98,7 @@ class Cartones extends Component
                 ->with('carton')
                 ->get();
             }
-
         }
-
-            
-
-    
 
         return view('livewire.cartones');
     }

@@ -128,7 +128,7 @@
 
             <div class="p-2 text-grey-darker text-justify flex flex-row justify-end border-t">
 
-                @if($carton->status == 'disponible')
+                @if($carton->status_carton == 'disponible')
 
                 <button wire:click="add_cart('{{$carton->carton->id}}')" type="button" class="text-white  bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                     <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
@@ -137,7 +137,7 @@
                     Comprar
                 </button>
 
-                @elseif($carton->status == 'reservado')
+                @elseif($carton->status_carton == 'reservado')
 
                 <div class="mt-2">
                     

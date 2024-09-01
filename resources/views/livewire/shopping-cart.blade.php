@@ -1,3 +1,31 @@
+<div>
+
+    <style>
+      
+        .icon::after{
+        content: '';
+        display: block;
+        position: absolute;
+        border-top: 17px solid transparent;
+        border-bottom: 15px solid transparent;
+        border-left: 14px solid rgb(37 99 235 / var(--tw-bg-opacity));
+        left: 100%;
+        top: 0;
+      }
+      
+      input[type="file"] {
+              display: none;
+          }
+      
+          .custom-file-upload {
+          border: 1px solid #ccc;
+         
+          padding: 6px 12px;
+          cursor: pointer;
+          }
+      
+    </style>
+
 
 <div class=" bg-gray-100 pt-4">
 
@@ -22,6 +50,10 @@
                                     <th class="p-2">
                                         <div class="text-center font-semibold">SERIAL</div>
                                     </th>
+
+                                    <th class="p-2">
+                                        <div class="text-center font-semibold">SORTEO</div>
+                                    </th>
                 
                                     <th class="p-2">
                                         <div class="text-center font-semibold">ELIMINAR</div>
@@ -41,11 +73,15 @@
                                         <td class="p-2 text-center ">
                                             <div class="font-medium text-gray-800">{{$item->options['serial']}}</div>
                                         </td>
-                                
-                            
+
+                                        <td class="p-2 text-center ">
+                                            <div class="font-medium text-gray-800">{{$item->options['sorteo']}}</div>
+                                        </td>
+    
                                         <td class="p-2">
                                             <div class="flex justify-center">
-                                                <button>
+                                                <button wire:click="delete('{{$item->rowId}}','{{$item->options['carton']}}','{{$item->options['sorteo']}}')"
+                                                    wire:loading.class="text-red-600 opacity-25">
                                                     <svg class="h-8 w-8 rounded-full p-1 hover:bg-gray-100 hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                                     </svg>
@@ -64,7 +100,7 @@
                 
             </div>
         <!-- Sub total -->
-            <div class="mt-2 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
+            <div class="mt-2 h-full rounded-lg border bg-white p-1 shadow-md md:mt-0 md:w-1/3">
  
 
                 <div class="bg-white dark:bg-gray-900">
@@ -73,7 +109,7 @@
                             Selecciona el método de pago
                         </p>
         
-                        <div class="mt-2 space-y-8 ">
+                        <div class="mt-2 space-y-2 ">
                            
 
                             <button wire:click="metodo('binance')" class=" w-full px-4 py-4 mx-auto border @if($metodo_select == 1) border-blue-600 @endif cursor-pointer rounded-xl">
@@ -125,10 +161,50 @@
                             </button>
 
                         </div>
+
+                        @if($adjunta == 1)
+
+                        <div class="mt-6 mb-2" >
+
+                            <p class="text-xl text-center text-gray-500 dark:text-gray-300">
+                                Adjunta la constancia de pago
+                            </p>
+            
+    
+    
+                            <div class="mt-2 flex-auto  ">
+                                 
+                                    <div class="flex ">
+                                        <label class="custom-file-upload flex w-full  bg-white rounded-md py-8 text-md font-medium text-gray-700 dark:text-gray-200 ">
+                                            <input type="file"  name="constancia" wire:model="constancia" class="image"/>
+                                            <svg class=" w-5 h-5 text-gray-400 mr-2 " viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m512 144v288c0 26.5-21.5 48-48 48h-416c-26.5 0-48-21.5-48-48v-288c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1l12.4 32.9h88c26.5 0 48 21.5 48 48zm-136 144c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z"/></svg>
+                                              Selecciona un archivo
+                                        </label>
+                      
+                                        @if($constancia) 
+                                            <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 h-8 mt-1 ml-1" viewBox="0 0 64 64">
+                                                <path fill="#4bd37b" d="M56 2L18.8 42.9 8 34.7H2L18.8 62 62 2z"/>
+                                            </svg>
+                                            
+                                        @endif
+                                    </div>
+                            </div>
+
+                        </div>
+
+        
+
+
+                      
+                      
+
+                        @endif
                     </div>
-        </div>
-                
-                <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">PROCESAR PAGO</button>
+                </div>
+
+                @if($constancia)
+                <button wire:click="procesar()" class="mt-4 px-2 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">PROCESAR PAGO</button>
+                @endif
             </div>
         </div>
 
@@ -146,6 +222,10 @@
 
     
 </div>
+
+
+</div>
+
 
 {{-- <div class=" py-2">
     <section class="bg-white rounded-lg shadow-lg p-6 text-gray-700">

@@ -26,7 +26,11 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
 
-            $table->string('status'); //no disponible, reservado, disponible
+            $table->unsignedBigInteger('pago_id')->nullable();
+            $table->foreign('pago_id')->references('id')->on('pagos');
+
+            $table->string('status_carton'); //no disponible, reservado, disponible
+            $table->string('status_pago')->nullable(); //en espera de pago, pago no recibido, pago recibido
         });
     }
 
