@@ -13,7 +13,7 @@
     </div>
     <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
       <a class="px-4 py-2 mt-2 font-bold text-blue-600 rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-blue-100 focus:bg-blue-100 focus:outline-none focus:shadow-outline text-sm tracking-widest uppercase dark-mode:text-white focus:shadow-outline" href="{{route('register')}}">Registrarse</a>
-      <a class="px-4 py-2 mt-2 font-bold text-blue-600 rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-blue-100 focus:bg-blue-100 focus:outline-none focus:shadow-outline text-sm tracking-widest uppercase dark-mode:text-white focus:shadow-outline" href="#">Iniciar sesión</a>
+      <a class="px-4 py-2 mt-2 font-bold text-blue-600 rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-blue-100 focus:bg-blue-100 focus:outline-none focus:shadow-outline text-sm tracking-widest uppercase dark-mode:text-white focus:shadow-outline" href="{{route('login')}}">Iniciar sesión</a>
 
       <div @click.away="open = false" class="relative" x-data="{ open: false }">
        

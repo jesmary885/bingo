@@ -24,6 +24,8 @@ return new class extends Migration
 
             $table->string('status'); //Aperturado, Finalizado
 
+            $table->string('premio'); //Aperturado, Finalizado
+
 
         });
     }
