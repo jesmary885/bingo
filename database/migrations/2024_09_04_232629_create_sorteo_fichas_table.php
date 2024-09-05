@@ -13,19 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sorteos', function (Blueprint $table) {
+        Schema::create('sorteo_fichas', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
-            $table->dateTime('fecha_ejecucion')->nullable();
-
-            $table->string('type_1'); //el tipo de sorteo (campo lleno, esquinas etc)
-            $table->string('type_2')->nullable();
-
-            $table->string('status'); //Aperturado, Finalizado
-
-            $table->string('premio')->nullable(); //Aperturado, Finalizado
-
+            $table->unsignedBigInteger('sorteo_id')->nullable();
+            $table->foreign('sorteo_id')->references('id')->on('sorteos');
+            $table->string('letra');
+            $table->string('numero');
 
         });
     }
@@ -37,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sorteos');
+        Schema::dropIfExists('sorteo_fichas');
     }
 };

@@ -22,4 +22,9 @@ class AdminController extends Controller
         return view('admin.iniciar_sorteo');
     }
 
+    public function sorteo_jugar($sorteo){
+
+        return view('admin.sorteo_jugar',compact('sorteo'));
+    }
+
 }

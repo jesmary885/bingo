@@ -7,7 +7,7 @@
 
 
 
-    @livewire('admin.sorteo.iniciar-sorteo') 
+    @livewire('admin.sorteo.jugar-sorteo',['sorteo' => $sorteo]) 
 
    
 @stop
