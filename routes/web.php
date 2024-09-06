@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\cartones;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JugarController;
 use App\Http\Controllers\ShoppingCartController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -47,5 +48,7 @@ Route::middleware(['auth'])->group(function()
     Route::get('shopping-cart', [ShoppingCartController::class,'index'])->name('shopping-cart');
 
     Route::get('mis-cartones', [ShoppingCartController::class,'cartones'])->name('mis-cartones');
+
+    Route::get('jugar', [JugarController::class,'jugar'])->name('jugar');
 
 });

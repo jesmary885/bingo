@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->string('status'); //Aperturado, Finalizado
 
-            $table->string('premio')->nullable(); //Aperturado, Finalizado
+            $table->string('premio')->nullable(); //Aperturado, iniciado, Finalizado
 
 
         });

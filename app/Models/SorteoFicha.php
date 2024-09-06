@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\NewFichaSorteo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,4 +18,7 @@ class SorteoFicha extends Model
         return $this->belongsTo(Sorteo::class);
     }
     
+    protected $dispatchesEvents = [
+        'created' => NewFichaSorteo::class,
+    ];
 }

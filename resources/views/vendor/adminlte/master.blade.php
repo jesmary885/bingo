@@ -10,6 +10,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
+
+
     {{-- Custom Meta Tags --}}
     @yield('meta_tags')
 
@@ -120,7 +122,7 @@
     {{-- FlexSlider --}}
     <script src="{{ asset('vendor/FlexSlider/jquery.flexslider-min.js') }}"></script>
 
-    
+    <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 
 
 
