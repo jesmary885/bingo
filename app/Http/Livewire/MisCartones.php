@@ -19,7 +19,7 @@ class MisCartones extends Component
 
         $busqueda =  CartonSorteo::where('id', $serial_carton)->first()->status_pago;
 
-        if($busqueda == 'pago recibido') return 'bg-blue-500';
+        if($busqueda == 'Pago recibido') return 'bg-blue-500';
         else return 'bg-yellow-500'; 
     
 
@@ -29,7 +29,7 @@ class MisCartones extends Component
     {
 
         $mis_cartones = CartonSorteo::whereHas('sorteo',function(Builder $query){
-                $query->where('status','Aperturado');
+                $query->where('status','!=','Finalizado');
             })
             ->where('user_id', auth()->user()->id)
             ->get();

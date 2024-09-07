@@ -8,6 +8,7 @@ use Livewire\Component;
 class IniciarSorteo extends Component
 {
 
+
     public function sorteo_select($sorteo){
 
         return redirect()->route('admin.sorteo_jugar',$sorteo);

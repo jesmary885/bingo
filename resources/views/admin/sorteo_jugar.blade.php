@@ -5,11 +5,8 @@
 
 @section('content')
 
-
-
     @livewire('admin.sorteo.jugar-sorteo',['sorteo' => $sorteo]) 
 
-   
 @stop
 
 @section('css')

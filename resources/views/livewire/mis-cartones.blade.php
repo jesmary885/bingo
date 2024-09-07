@@ -60,7 +60,7 @@
 
                 <div class="p-2 text-grey-darker text-justify flex flex-row justify-end border-t">
 
-                    @if($carton->status_pago == 'pago recibido')
+                    @if($carton->status_pago == 'Pago recibido')
 
                         <div class="mt-2">
 

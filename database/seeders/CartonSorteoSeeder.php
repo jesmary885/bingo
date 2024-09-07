@@ -18,31 +18,31 @@ class CartonSorteoSeeder extends Seeder
         CartonSorteo::create([
             'sorteo_id' => '1',
             'carton_id' => '1',
-            'status_carton' => 'no disponible',
+            'status_carton' => 'Disponible',
         ]);
 
         CartonSorteo::create([
             'sorteo_id' => '1',
             'carton_id' => '2',
-            'status_carton' => 'disponible',
+            'status_carton' => 'Disponible',
         ]);
 
         CartonSorteo::create([
             'sorteo_id' => '1',
             'carton_id' => '3',
-            'status_carton' => 'disponible',
+            'status_carton' => 'Disponible',
         ]);
 
         CartonSorteo::create([
             'sorteo_id' => '1',
             'carton_id' => '4',
-            'status_carton' => 'disponible',
+            'status_carton' => 'Disponible',
         ]);
 
         CartonSorteo::create([
             'sorteo_id' => '1',
             'carton_id' => '5',
-            'status_carton' => 'reservado',
+            'status_carton' => 'Reservado',
         ]);
 
         ///sorteo 2
@@ -50,31 +50,31 @@ class CartonSorteoSeeder extends Seeder
         CartonSorteo::create([
             'sorteo_id' => '2',
             'carton_id' => '1',
-            'status_carton' => 'no disponible',
+            'status_carton' => 'No disponible',
         ]);
 
         CartonSorteo::create([
             'sorteo_id' => '1',
             'carton_id' => '2',
-            'status_carton' => 'disponible',
+            'status_carton' => 'Disponible',
         ]);
 
         CartonSorteo::create([
             'sorteo_id' => '2',
             'carton_id' => '3',
-            'status_carton' => 'disponible',
+            'status_carton' => 'Disponible',
         ]);
 
         CartonSorteo::create([
             'sorteo_id' => '2',
             'carton_id' => '4',
-            'status_carton' => 'disponible',
+            'status_carton' => 'Disponible',
         ]);
 
         CartonSorteo::create([
             'sorteo_id' => '2',
             'carton_id' => '5',
-            'status_carton' => 'reservado',
+            'status_carton' => 'Reservado',
         ]);
 
 
@@ -83,31 +83,31 @@ class CartonSorteoSeeder extends Seeder
         CartonSorteo::create([
             'sorteo_id' => '3',
             'carton_id' => '1',
-            'status_carton' => 'no disponible',
+            'status_carton' => 'No disponible',
         ]);
 
         CartonSorteo::create([
             'sorteo_id' => '3',
             'carton_id' => '2',
-            'status_carton' => 'disponible',
+            'status_carton' => 'Disponible',
         ]);
 
         CartonSorteo::create([
             'sorteo_id' => '3',
             'carton_id' => '3',
-            'status_carton' => 'disponible',
+            'status_carton' => 'Disponible',
         ]);
 
         CartonSorteo::create([
             'sorteo_id' => '3',
             'carton_id' => '4',
-            'status_carton' => 'disponible',
+            'status_carton' => 'Disponible',
         ]);
 
         CartonSorteo::create([
             'sorteo_id' => '3',
             'carton_id' => '5',
-            'status_carton' => 'disponible',
+            'status_carton' => 'Disponible',
         ]);
 
 

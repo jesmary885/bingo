@@ -36,8 +36,8 @@ class Cartones extends Component
     public function color($serial_carton){
         $busqueda =  CartonSorteo::where('id', $serial_carton)->first()->status_carton;
 
-        if($busqueda == 'disponible') return 'bg-blue-500';
-        elseif($busqueda == 'reservado') return 'bg-yellow-500'; 
+        if($busqueda == 'Disponible') return 'bg-blue-500';
+        elseif($busqueda == 'Reservado') return 'bg-yellow-500'; 
         else return 'bg-red-500';
 
     }
@@ -65,8 +65,8 @@ class Cartones extends Component
         
 
         $carton_sorteo_update->update([
-            'status_carton' => 'reservado',
-            'status_pago' => 'en espera de pago',
+            'status_carton' => 'Reservado',
+            'status_pago' => 'En espera de pago',
             'user_id' => auth()->user()->id
         ]);
 

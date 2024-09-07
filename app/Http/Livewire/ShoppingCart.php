@@ -38,7 +38,7 @@ class ShoppingCart extends Component
             ->where('carton_id',$carton)
             ->first()
             ->update([
-                'status_carton' => 'disponible'
+                'status_carton' => 'Disponible'
             ]);
 
         Cart::remove($rowIDm);
@@ -63,7 +63,7 @@ class ShoppingCart extends Component
             'metodo_pago' => $metodo,
             'monto' => Cart::subtotal(),
             'constancia' => $constancia,
-            'status' => 'pendiente',
+            'status' => 'Pendiente',
             'cantidad' => Cart::count(), 
         ]);
 
@@ -83,7 +83,7 @@ class ShoppingCart extends Component
                 ->where('carton_id',$item->options['carton'])
                 ->first()
                 ->update([
-                    'status_carton' => 'disponible'
+                    'status_carton' => 'Disponible'
                 ]);
         }
 

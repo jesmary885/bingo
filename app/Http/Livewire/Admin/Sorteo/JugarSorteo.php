@@ -2,13 +2,27 @@
 
 namespace App\Http\Livewire\Admin\Sorteo;
 
+use App\Models\CartonGanador;
+use App\Models\Sorteo;
 use App\Models\SorteoFicha;
 use Livewire\Component;
 
 class JugarSorteo extends Component
 {
 
-    public $letra_select = 0, $numero_select = 0, $sorteo;
+    public $letra_select = 0, $numero_select = 0, $sorteo, $iniciar=0, $ganador = 0;
+
+    protected $listeners = ['render' => 'render', 'echo:ganador,NewGanador' => 'render' ];
+
+    public function iniciar_sorteo(){
+        $this->iniciar = 1;
+
+        Sorteo::where('id',$this->sorteo)->first()->update([
+            'status' => 'Iniciado'
+        ]);
+    }
+
+    
 
     public function letra($letra_s){
 
@@ -44,6 +58,14 @@ class JugarSorteo extends Component
     {
 
         $fichas = SorteoFicha::where('sorteo_id',$this->sorteo)->get();
+
+        $ganadores_sorteo = CartonGanador::where('sorteo_id',$this->sorteo)->get();
+
+        if($ganadores_sorteo->isEmpty() == false){
+
+            $this->ganador = 1;
+
+        }
 
         return view('livewire.admin.sorteo.jugar-sorteo',compact('fichas'));
     }
