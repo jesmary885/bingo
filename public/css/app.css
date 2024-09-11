@@ -1297,6 +1297,9 @@ select {
 .m-2 {
   margin: 0.5rem;
 }
+.m-20 {
+  margin: 5rem;
+}
 .m-8 {
   margin: 2rem;
 }
