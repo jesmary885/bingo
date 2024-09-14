@@ -10,16 +10,18 @@ use App\Models\SorteoFicha;
 use DateTime;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
+use Flasher\Toastr\Prime\ToastrInterface;
 
 class JugarSorteo extends Component
 {
-    public $carton_ganador, $hoy, $sorteo, $type_1, $type_2, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
+    public $ganador_user_login, $carton_ganador, $hoy, $sorteo, $type_1, $type_2, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
 
    protected $listeners = ['render' => 'render','echo:sorteo_fichas,NewFichaSorteo' => 'render', 'echo:ganador,NewGanador' => 'render' ];
 
     public function mount(){
 
         $this->sorteo = Sorteo::where('status','Iniciado')->first();
+        $this->ganador_user_login = 0;
     
         if($this->sorteo){
 
@@ -55,6 +57,44 @@ class JugarSorteo extends Component
             }
 
         }
+    }
+
+    public function diagonal($carton){
+
+        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)->get();
+        $fichas_carton = Carton::where('id',$carton)->first();
+
+        $cont = 0;
+
+        foreach($fichas_sorteo as $ficha_sorteo ){
+
+            if(json_decode($fichas_carton->content_1,true)[0] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_2,true)[1] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_3,true)[2] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_4,true)[3] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_5,true)[4] == $ficha_sorteo->numero )$cont ++;
+
+            if($cont == 5){
+
+                $buscar = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                ->where('carton_id',$carton)
+                ->first();
+
+                if(!$buscar){
+                    CartonGanador::create([
+                        'sorteo_id' => $this->sorteo->id,
+                        'carton_id' => $carton,
+                        'user_id' => auth()->user()->id,
+                        'type' => 'Diagonal'
+                    ]);
+                }
+
+                $this->carton_ganador = $fichas_carton; 
+            }
+        }
+
+        
+
     }
 
     public function verifi_linea_horizontal($carton){
@@ -281,6 +321,10 @@ class JugarSorteo extends Component
 
                 $ganador = 0;
 
+                $fichas = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->get();
+
+                $ficha_ultima = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->first()->id;
+
                 $mis_cartones = CartonSorteo::whereHas('sorteo',function(Builder $query){
                     $query->where('id',$this->sorteo->id);
                 })
@@ -288,13 +332,36 @@ class JugarSorteo extends Component
                 ->where('status_pago', 'Pago recibido')
                 ->get(); 
 
-                
-
                 $sorteo_nro = $this->sorteo->id;
 
                     $ganadores_sorteo = CartonGanador::where('sorteo_id',$this->sorteo->id)->get();
     
                     if($ganadores_sorteo->isEmpty() == false){
+
+                        $gano_yo = 0;
+
+                        foreach($ganadores_sorteo as $ganador_yo){
+
+                            if($ganador_yo->user_id == auth()->user()->id){
+                                $gano_yo++;
+                            }
+
+                            if($gano_yo > 0){
+
+                                $this->ganador_user_login = 1;
+
+                                notyf()
+                                ->duration(0) // 2 seconds
+                                ->position('x', 'center')
+                                ->position('y', 'center')
+                                ->dismissible(true)
+                                ->addInfo('Felicidades su carton con serial Nro 452147855, ha ganado en el sorteo Nro 584');
+
+                                
+
+                            }  
+
+                        }
                         $ganador = 1;
                     }
 
@@ -313,6 +380,8 @@ class JugarSorteo extends Component
                 ->where('status_pago', 'Pago recibido')
                 ->first(); 
 
+                $fichas = [];
+
                 $sorteo_user_last = Sorteo::where('id',$cartones_user->sorteo_id)->first();
 
                 $proxima_fecha = strtotime($sorteo_user_last->fecha_ejecucion);
@@ -329,6 +398,8 @@ class JugarSorteo extends Component
                 //$sorteo_user_last = $cartones_user->id;
 
                 $sorteo_nro = $sorteo_user_last->id;
+
+                $ficha_ultima  = 0;
             }
         }
 
@@ -341,6 +412,8 @@ class JugarSorteo extends Component
             ->where('user_id', auth()->user()->id)
             ->where('status_pago', 'Pago recibido')
             ->first(); 
+
+            $fichas = [];
 
             if($cartones_user){
 
@@ -360,8 +433,12 @@ class JugarSorteo extends Component
                 //$sorteo_user_last = $cartones_user->id;
 
                 $sorteo_nro = $sorteo_user_last->id;
+
+                $ficha_ultima  = 0;
             }
             else{
+
+                $fichas = [];
 
                 $cartones_user = Sorteo::where('status','Aperturado')->first(); 
 
@@ -377,10 +454,12 @@ class JugarSorteo extends Component
 
                 $mis_cartones = [];
                 $ganador = 0; 
+
+                $ficha_ultima  = 0;
             }
         }
 
-        return view('livewire.jugar-sorteo',compact('sorteo_nro','mis_cartones','ganador','ano_restantes','minutos_restantes','mes_restantes','dias_restantes','horas_restantes'));
+        return view('livewire.jugar-sorteo',compact('ficha_ultima','fichas','sorteo_nro','mis_cartones','ganador','ano_restantes','minutos_restantes','mes_restantes','dias_restantes','horas_restantes'));
     }
 
    
