@@ -27,6 +27,7 @@ class AuthController extends Controller
                 'name' => $user->getName(),
                 'email' => $user->getEmail(),
                 'estado' => 'activo',
+                'saldo' => '0',
             ])->assignRole('Jugador');
 
             auth()->login($user);

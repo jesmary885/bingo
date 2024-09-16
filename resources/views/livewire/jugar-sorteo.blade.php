@@ -3,22 +3,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
 
-        
-     
-
-    @if($cartones_sorteo_iniciado == 1)  
 
 
-        
+
+    @if($cartones_sorteo_iniciado == 1)
+
+
+
 
             <div class="relative block p-4 overflow-hidden border bg-white border-slate-100 rounded-lg mb-2 mt-1 ">
 
                 @if($ganador == 0)
 
                     <div class=" text-lg font-extrabold text-center ">
-                        <span class="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300 bg-clip-text text-transparent"> FICHAS DEL SORTEO NRO {{$sorteo_nro}}</span>
+                        <span class="bg-gradient-to-r from-blue-500 via-blue-500 to-blue-500 bg-clip-text text-transparent"> FICHAS DEL SORTEO NRO {{$sorteo_nro}}</span>
                     </div>
-                
+
                     <span class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600" ></span>
 
                     <div class="mt-5 mb-10 flex mx-2 ">
@@ -48,13 +48,15 @@
 
                 <div class=" flex justify-center w-full mt-4 mb-4">
 
-                    @livewire('carton-ganador', ['sorteo' => $sorteo->id])
+                  
 
-                    @livewire('fichas-sorteo', ['sorteo' => $sorteo->id])
+                     @livewire('carton-ganador', ['sorteo' => $sorteo->id]) 
+
+                     @livewire('fichas-sorteo', ['sorteo' => $sorteo->id]) 
 
                 </div>
 
-            
+
 
 
 
@@ -66,7 +68,7 @@
 
                 @endif
             </div>
-     
+
 
         <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-2 ">
 
@@ -188,18 +190,18 @@
                         let duration = 15 * 5000;
                         let animationEnd = Date.now() + duration;
                         let defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-            
+
                         function randomInRange(min, max) {
                         return Math.random() * (max - min) + min;
                         }
-            
+
                         let interval = setInterval(function() {
                         let timeLeft = animationEnd - Date.now();
-            
+
                         if (timeLeft <= 0) {
                             return clearInterval(interval);
                         }
-            
+
                         let particleCount = 50 * (timeLeft / duration);
                         // since particles fall down, start a bit higher than random
                         confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
@@ -207,9 +209,11 @@
                         }, 250);
                 </script>
 
+            @else
+
             @endif
 
-    
+
 
             {{-- @livewire('carton-ganador', ['sorteo' => $sorteo->id]) --}}
 
@@ -217,15 +221,6 @@
 
 
             <link rel="stylesheet" href="{{ asset('vendor/css_contador/estilos.css') }}">
-
-
-
-    <script>
-        Echo.channel('ganador')
-        .listen('NewGanador', (e) => {
-            console.log(e);
-        });
-    </script>
 
 
     <script src="{{ asset('vendor/dist/simplyCountdown.min.js') }}"></script>

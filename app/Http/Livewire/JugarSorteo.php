@@ -334,7 +334,9 @@ class JugarSorteo extends Component
 
                 $sorteo_nro = $this->sorteo->id;
 
-                    $ganadores_sorteo = CartonGanador::where('sorteo_id',$this->sorteo->id)->get();
+                    $ganadores_sorteo = CartonGanador::with('carton')
+                        ->where('sorteo_id',$this->sorteo->id)
+                        ->get();
     
                     if($ganadores_sorteo->isEmpty() == false){
 
@@ -351,15 +353,21 @@ class JugarSorteo extends Component
                                 $this->ganador_user_login = 1;
 
                                 notyf()
+                                ->duration(0)
+                                ->position('x', 'center')
+                                ->position('y', 'center')
+                                ->dismissible(true)
+                                ->addInfo('Felicidades su carton con serial Nro ' . $ganador_yo->carton->serial . ', ha ganado en el sorteo Nro '. $ganador_yo->sorteo_id);
+
+                            }
+                            else{
+                                notyf()
                                 ->duration(0) // 2 seconds
                                 ->position('x', 'center')
                                 ->position('y', 'center')
                                 ->dismissible(true)
-                                ->addInfo('Felicidades su carton con serial Nro 452147855, ha ganado en el sorteo Nro 584');
-
-                                
-
-                            }  
+                                ->addInfo('Sorteo Nro ' . $ganador_yo->sorteo_id .'ha finalizado, ya puede consultar los cartones ganadores y fichas sorteadas');
+                            }
 
                         }
                         $ganador = 1;

@@ -32,6 +32,7 @@ class CreateNewUser implements CreatesNewUsers
             'name' => $input['name'],
             'email' => $input['email'],
             'estado' => 'activo',
+            'saldo' => '0',
             'password' => Hash::make($input['password']),
         ])->assignRole('Jugador');
         

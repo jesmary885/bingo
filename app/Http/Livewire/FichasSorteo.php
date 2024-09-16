@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\SorteoFicha;
 use Livewire\Component;
 
 class FichasSorteo extends Component
@@ -22,6 +23,11 @@ class FichasSorteo extends Component
     
     public function render()
     {
-        return view('livewire.fichas-sorteo');
+
+        $fichas = SorteoFicha::where('sorteo_id',$this->sorteo)
+            ->get();
+
+
+        return view('livewire.fichas-sorteo',compact('fichas'));
     }
 }

@@ -16,21 +16,31 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
       
 
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        {{-- <!-- Scripts -->
+        <script src="{{ mix('js/app.js') }}" defer></script>  --}}
+
         <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
+     {{-- <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">  --}}
+
+   
 
         
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
+
+        @livewireStyles
+        @livewireScripts
+        <script src="{{ asset('js/app.js') }}" defer></script>
 
         {{-- confetti --}}
 
         <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.0.1/tailwind.min.css" rel="stylesheet" />
 
-        <!-- Styles -->
-        @livewireStyles
+
     </head>
     <body class="font-sans antialiased">
         <x-banner />
@@ -55,30 +65,11 @@
 
         @stack('modals')
 
-        @livewireScripts
+        
 
-        <script>
-            livewire.on('alert', function(ms){
-                toastr.options={
-                    "closeButton": true,
-                    "debug": true,
-                    "newestOnTop": true,
-                    "progressBar": true,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": true,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
-                toastr.success(ms)
-            })
-        </script>
+        @stack('script')
+
+
 
     </body>
 </html>

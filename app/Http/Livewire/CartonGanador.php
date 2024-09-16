@@ -25,7 +25,11 @@ class CartonGanador extends Component
     public function render()
     {
 
+        $ganadores_sorteo = ModelsCartonGanador::with('carton')
+            ->where('sorteo_id',$this->sorteo)
+            ->get();
 
-        return view('livewire.carton-ganador');
+
+        return view('livewire.carton-ganador',compact('ganadores_sorteo'));
     }
 }
