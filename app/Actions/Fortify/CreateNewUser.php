@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use App\Models\UserSaldo;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -26,15 +27,18 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
-      
-
-        return User::create([
+        $user= User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'estado' => 'activo',
-            'saldo' => '0',
             'password' => Hash::make($input['password']),
         ])->assignRole('Jugador');
-        
+
+        UserSaldo::create([
+            'user_id' => $user->id,
+            'saldo' => '0',
+        ]);
+
+        return $user;        
     }
 }

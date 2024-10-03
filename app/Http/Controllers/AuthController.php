@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserSaldo;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,11 @@ class AuthController extends Controller
                 'estado' => 'activo',
                 'saldo' => '0',
             ])->assignRole('Jugador');
+
+            UserSaldo::create([
+                'user_id' => $user->id,
+                'saldo' => '0',
+            ]);
 
             auth()->login($user);
         }

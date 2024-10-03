@@ -2,22 +2,22 @@
 
 namespace App\Models;
 
-use App\Events\CambioEstadoSorteo;
+use App\Events\NewSaldoUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sorteo extends Model
+class UserSaldo extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id','created_at','updated_at'];
 
-    //Relacion muchos a muchos
-    public function cartones(){
-        return $this->belongsToMany(Carton::class);
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 
     protected $dispatchesEvents = [
-        'updated' => CambioEstadoSorteo::class,
+        'updated' => NewSaldoUser::class,
     ];
+    
 }

@@ -4362,6 +4362,11 @@ select {
     padding-top: 0.5rem;
   }
 
+  .lg\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
   .lg\:text-5xl {
     font-size: 3rem;
     line-height: 1;

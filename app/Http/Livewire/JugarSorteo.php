@@ -8,6 +8,7 @@ use App\Models\CartonSorteo;
 use App\Models\Sorteo;
 use App\Models\SorteoFicha;
 use App\Models\User;
+use App\Models\UserSaldo;
 use DateTime;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,7 +19,7 @@ class JugarSorteo extends Component
 {
     public $ganador,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador, $hoy, $sorteo, $type_1, $type_2, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
 
-   protected $listeners = ['render' => 'render','echo:sorteo_fichas,NewFichaSorteo' => 'render', 'echo:ganador,NewGanador' => 'ganador_fin' ];
+   protected $listeners = ['render' => 'render','echo:sorteo_fichas,NewFichaSorteo' => 'render', 'echo:ganador,NewGanador' => 'ganador_fin','echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' ];
 
     public function mount(){
 
@@ -385,60 +386,62 @@ class JugarSorteo extends Component
 
     public function ganador_fin(){
         $ganadores_sorteo = CartonGanador::with('carton')
-                            ->where('sorteo_id',$this->sorteo->id)
-                            ->get();
+            ->where('sorteo_id',$this->sorteo->id)
+            ->get();
         
-                       if($ganadores_sorteo->isEmpty() == false){
-                            $gano_yo = 0;
+        $cant_ganadores_sorteo = CartonGanador::where('sorteo_id',$this->sorteo->id)
+            ->count();
+        
+        if($ganadores_sorteo->isEmpty() == false){
+            $gano_yo = 0;
 
-                            $this->cont_ganador++;
+            $this->cont_ganador++;
     
-                            foreach($ganadores_sorteo as $ganador_yo){
-                                if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;
-                            }
+            foreach($ganadores_sorteo as $ganador_yo){
+                if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;
+            }
     
-                            if($gano_yo > 0){
+            if($gano_yo > 0){
     
-                                $this->ganador_user_login = 1;
+                $this->ganador_user_login = 1;
 
-                                if($this->cont_ganador == 1){
+                if($this->cont_ganador == 1){
 
-                                    notyf()
-                                    ->duration(0)
-                                    ->position('x', 'center')
-                                    ->position('y', 'center')
-                                    ->dismissible(true)
-                                    ->addInfo('Felicidades su carton con serial Nro ' . $this->carton_ganador->serial . ', ha ganado en el sorteo Nro '. $this->sorteo->id .' . Puede consultar los cartones ganadores y fichas sorteadas en la cabecera de la página '. '<img class="	far fa-hand-point-up" src="" alt="">');
+                    notyf()
+                    ->duration(0)
+                    ->position('x', 'center')
+                    ->position('y', 'center')
+                    ->dismissible(true)
+                    ->addInfo('Felicidades su carton con serial Nro ' . $this->carton_ganador->serial . ', ha ganado en el sorteo Nro '. $this->sorteo->id .' . Puede consultar los cartones ganadores y fichas sorteadas en la cabecera de la página '. '<img class="	far fa-hand-point-up" src="" alt="">');
 
-                                    $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
-                                    ->where('status_carton','No disponible')
-                                    ->count();
+                    $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
+                    ->where('status_carton','No disponible')
+                    ->count();
                         
-                                    $sorteo = Sorteo::where('id',$this->sorteo)->first();
+                    $sorteo = Sorteo::where('id',$this->sorteo)->first();
                         
-                                    $ganancia_dolares = $cant_cartones * ($sorteo->porcentaje_ganancia * 0.01);
+                    $ganancia_dolares = ($cant_cartones * ($this->sorteo->porcentaje_ganancia * 0.01)) / $cant_ganadores_sorteo;
 
-                                    $saldo=auth()->user()->saldo + $ganancia_dolares;
+                    $saldo= (UserSaldo::where('user_id',auth()->user()->id)->first()->saldo) + $ganancia_dolares;
 
-                                    User::where('id',auth()->user()->id)->first()
-                                        ->update([
-                                            'saldo' => $saldo,
-                                    ]);
-                                }                            
-                            }
-                            else{
+                    UserSaldo::where('user_id',auth()->user()->id)->first()->update([
+                        'saldo' => $saldo,
+                    ]);
+                }                            
+            }
+            else{
 
-                                if($this->cont_ganador == 1){
-                                    notyf()
-                                        ->duration(0) // 2 seconds
-                                        ->position('x', 'center')
-                                        ->position('y', 'center')
-                                        ->dismissible(true)
-                                        ->addInfo('Sorteo Nro ' . $this->sorteo->id .' ha finalizado, usted No se encuentra dentro de los ganadores. Puede consultar los cartones ganadores y fichas sorteadas en la cabecera de la página '. '<img class="	far fa-hand-point-up" src="" alt="">' );
-                                }
-                            }
-                            $this->ganador = 1;
-                        }
+                if($this->cont_ganador == 1){
+                     notyf()
+                        ->duration(0) // 2 seconds
+                        ->position('x', 'center')
+                        ->position('y', 'center')
+                        ->dismissible(true)
+                        ->addInfo('Sorteo Nro ' . $this->sorteo->id .' ha finalizado, usted No se encuentra dentro de los ganadores. Puede consultar los cartones ganadores y fichas sorteadas en la cabecera de la página '. '<img class="	far fa-hand-point-up" src="" alt="">' );
+                }
+            }
+            $this->ganador = 1;
+        }
     }
 
 

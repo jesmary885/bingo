@@ -3706,13 +3706,13 @@
                          <div>
                             <p class="font-sans font-semibold text-gray-800 text-xl ">
 
-                                {{auth()->user()->saldo}} $
+                                {{$user_saldo}} $
 
                             </p>
 
                             <p class="font-sans text-blue-700 text-xl ">
 
-                               (Bs. {{auth()->user()->saldo * $dolar_hoy}})
+                               (Bs. {{$user_saldo * $dolar_hoy}})
 
                             </p>
 

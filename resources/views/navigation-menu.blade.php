@@ -20,8 +20,11 @@
 
                 <a href="{{ route('billetera.index') }}">
 
-                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-4 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">Billetera: {{auth()->user()->saldo}} $</span>
-
+                    <div class="bg-green-100 text-green-800 text-xs font-medium mr-4 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400 flex  ">
+                        <p class="mr-1">Billetera:</p>  
+                        
+                        @livewire('saldo-usuario')
+                    </div>
                 </a>
 
                
