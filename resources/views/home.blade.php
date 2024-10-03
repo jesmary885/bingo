@@ -5432,7 +5432,7 @@
                                     @endif
                                     
                                     <div
-                                        class="absolute bottom-2 left-2 inline-flex items-center rounded-lg bg-blue-800 p-2 shadow-md">
+                                        class="absolute bottom-2 left-2 inline-flex items-center rounded-lg bg-blue-800 shadow-md px-2 ">
                                         
 
 
@@ -5459,7 +5459,19 @@
                                             </g>
                                         </svg>
 
-                                        <span class="ml-1 text-sm font-semibold text-white"> @livewire('cartones-disponibles-cant', ['sorteo' => $sorteo->id])</span>
+                                        <div>
+
+                                            <span class="ml-2 text-xs font-semibold text-white"> @livewire('cartones-disponibles-cant', ['sorteo' => $sorteo->id])</span>
+                                            <span  class=" text-xs font-semibold text-white ">
+
+                                                Precio por cartón: 1$ ({{$dolar_hoy * $sorteo->precio_carton_dolar}} Bs)
+
+                                            </span>
+
+
+                                        </div>
+
+                                        
         
                                     </div>
         
@@ -5476,25 +5488,27 @@
                                 <div class=" items-center w-full pb-4 ">
                                     <p class="text-lg font-bold ">Sorteo Nro. {{$sorteo->id}}</p>
                                     <p class="text-sm text-gray-500">Lanzamiento: {{\Carbon\Carbon::parse($sorteo->fecha_ejecucion)->format('d-m-Y h:i')}}</p>
+                                    <p class="text-sm text-gray-500">Ganancia actual:  @livewire('ganancia-sorteo', ['sorteo' => $sorteo->id])</p>
                                 </div>
-                                <h3 class="font-medium text-xl leading-8 text-blue-700">
+                                <h3 class="font-medium text-xl leading-8 text-blue-700 underline">
 
-                                    {{$sorteo->type_1}}
+                                     {{$sorteo->type_1}}
                                   
                                 </h3>
 
                                 @if($sorteo->type_2)
 
-                                <h3 class="font-medium text-xl leading-8 text-blue-700">
+                                    <h3 class="font-medium text-xl leading-8 text-blue-700">
 
-                                    {{$sorteo->type_2}}
-                                  
-                                </h3>
+                                        {{$sorteo->type_2}}
+                                    
+                                    </h3>
 
                                 @endif
 
                                
                                 <div>
+
                                 </div>
                             </article>
 

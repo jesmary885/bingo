@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('banco')->nullable(); //en el caso que sea pago movil
             $table->string('cedula')->nullable(); 
             $table->string('telefono')->nullable(); 
+            $table->string('identificativo')->nullable(); 
             $table->string('correo_id')->nullable(); //en el caso que sea binance
 
         });

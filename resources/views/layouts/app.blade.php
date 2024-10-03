@@ -10,13 +10,14 @@
 
         <link rel="stylesheet" href="{{ asset('vendor/FlexSlider/flexslider.css') }}">
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        {{-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> --}}
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.15.1/css/pro.min.css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
       
-
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
+
         {{-- <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>  --}}
 
@@ -33,8 +34,11 @@
 
         @livewireStyles
         @livewireScripts
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ mix('js/app.js') }}" defer></script> 
 
+
+
+      
         {{-- confetti --}}
 
         <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>

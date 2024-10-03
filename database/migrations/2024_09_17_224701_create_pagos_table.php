@@ -19,12 +19,16 @@ return new class extends Migration
 
             $table->foreignId('user_id')->constrained();
 
-            $table->string('metodo_pago');
+            $table->string('metodo_pago')->nullable();
 
             $table->string('monto');
-            $table->string('constancia');
+            $table->string('tipo'); //puede ser: recarga, pago de carton, retiro
+            $table->string('constancia')->nullable();
             $table->string('status');
-            $table->longText('cantidad');
+            $table->string('cantidad')->nullable();
+
+            $table->unsignedBigInteger('cuenta_id')->nullable();
+            $table->foreign('cuenta_id')->references('id')->on('cuentas_users');
         });
     }
 

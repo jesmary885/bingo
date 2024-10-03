@@ -12,8 +12,10 @@ class HomeController extends Controller
 
         $sorteos = Sorteo::where('status','Aperturado')
             ->get();
+
+        $dolar_hoy = valor_dolar_hoy();
  
-        return view('home',compact('sorteos'));
+        return view('home',compact('sorteos','dolar_hoy'));
  
      }
 }

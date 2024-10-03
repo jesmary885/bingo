@@ -24,6 +24,10 @@ return new class extends Migration
 
             $table->string('status'); //Aperturado, Finalizado, Iniciado
 
+            $table->string('precio_carton_dolar'); 
+
+            $table->string('porcentaje_ganancia'); //porcentaje de ganancia del jugador
+
             $table->string('premio')->nullable(); //Aperturado, iniciado, Finalizado
 
 

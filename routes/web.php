@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BilleteraController;
 use App\Http\Controllers\cartones;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JugarController;
@@ -50,5 +51,7 @@ Route::middleware(['auth'])->group(function()
     Route::get('mis-cartones', [ShoppingCartController::class,'cartones'])->name('mis-cartones');
 
     Route::get('jugar', [JugarController::class,'jugar'])->name('jugar');
+
+    Route::get('mi_billetera', [BilleteraController::class,'index'])->name('billetera.index');
 
 });

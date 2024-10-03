@@ -15,6 +15,11 @@ class Pago extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function cuenta(){
+        return $this->belongsTo(CuentasUser::class);
+    }
+
+
     public function metodo_pago(){
         return $this->belongsTo(MetodoPago::class);
     }
