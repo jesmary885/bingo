@@ -441,6 +441,10 @@ class JugarSorteo extends Component
                 }
             }
             $this->ganador = 1;
+
+            Sorteo::where('id',$this->sorteo->id)->first()->update([
+                'status' => 'Finalizado'
+            ]);
         }
     }
 
@@ -555,9 +559,9 @@ class JugarSorteo extends Component
                 $cartones_user = CartonSorteo::whereHas('sorteo',function(Builder $query){
                     $query->where('status','Aperturado');
                 })
-                ->where('user_id', auth()->user()->id)
-                ->where('status_pago', 'Pago recibido')
-                ->first(); 
+                    ->where('user_id', auth()->user()->id)
+                    ->where('status_pago', 'Pago recibido')
+                    ->first(); 
 
                 $fichas = [];
 
@@ -588,9 +592,9 @@ class JugarSorteo extends Component
             $cartones_user = CartonSorteo::whereHas('sorteo',function(Builder $query){
                 $query->where('status','Aperturado');
             })
-            ->where('user_id', auth()->user()->id)
-            ->where('status_pago', 'Pago recibido')
-            ->first(); 
+                ->where('user_id', auth()->user()->id)
+                ->where('status_pago', 'Pago recibido')
+                ->first(); 
 
             $fichas = [];
 

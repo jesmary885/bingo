@@ -1390,6 +1390,8 @@
                             </g>
                         </g>
                     </g>
+
+                    
                     <g id="Character_00000004518665564704334620000000786005141603728271_">
                         <g>
                             <g>
@@ -2106,7 +2108,12 @@
 
     <div class="bg-white rounded-lg shadow-lg mb-6">
         <div class="px-6 py-2 flex justify-between items-center">
-            <div class=" font-semibold text-sm md:text-lg text-gray-700 uppercase">MIS CARTONES DE SORTEOS VIGENTES</div>
+
+            <p class=" font-semibold text-xs md:text-sm text-gray-600 font-sans " >
+                MIS CARTONES DE SORTEOS VIGENTES
+            </p>
+
+    
    
         </div>
     </div>

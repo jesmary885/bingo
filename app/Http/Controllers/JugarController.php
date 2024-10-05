@@ -10,4 +10,9 @@ class JugarController extends Controller
 
         return view('jugar.index');
     }
+
+    public function resultados(){
+
+        return view('jugar.resultados');
+    }
 }

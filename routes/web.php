@@ -52,6 +52,10 @@ Route::middleware(['auth'])->group(function()
 
     Route::get('jugar', [JugarController::class,'jugar'])->name('jugar');
 
+    Route::get('resultados-sorteos', [JugarController::class,'resultados'])->name('resultados-sorteos');
+
     Route::get('mi_billetera', [BilleteraController::class,'index'])->name('billetera.index');
+
+    Route::get('mis_cuentas', [BilleteraController::class,'cuentas'])->name('billetera.cuentas');
 
 });

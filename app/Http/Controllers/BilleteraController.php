@@ -10,4 +10,9 @@ class BilleteraController extends Controller
 
         return view('billetera.index');
     }
+
+    public function cuentas(){
+
+        return view('billetera.mis_cuentas');
+    }
 }
