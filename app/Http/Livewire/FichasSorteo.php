@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class FichasSorteo extends Component
 {
-    public $open = false, $sorteo;
+    public $open = false, $sorteo, $tipo;
 
     public function mount($sorteo){
 

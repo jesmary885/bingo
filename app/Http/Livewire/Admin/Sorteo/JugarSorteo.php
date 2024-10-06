@@ -65,6 +65,13 @@ class JugarSorteo extends Component
 
             $this->ganador = 1;
 
+            notyf()
+                ->duration(0)
+                ->position('x', 'center')
+                ->position('y', 'center')
+                ->dismissible(true)
+                ->addInfo('El sorteo ha finalizado, ya existen ganadores');
+
         }
 
         return view('livewire.admin.sorteo.jugar-sorteo',compact('fichas'));

@@ -17,6 +17,10 @@ class Sorteo extends Model
         return $this->belongsToMany(Carton::class);
     }
 
+    public function carton_ganadores(){
+        return $this->hasMany(CartonGanador::class);
+    }
+
     protected $dispatchesEvents = [
         'updated' => CambioEstadoSorteo::class,
     ];

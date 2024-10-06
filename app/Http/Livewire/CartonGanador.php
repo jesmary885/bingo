@@ -8,7 +8,7 @@ use Livewire\Component;
 class CartonGanador extends Component
 {
 
-    public $open = false, $sorteo;
+    public $open = false, $sorteo, $tipo;
 
     public function mount($sorteo){
 

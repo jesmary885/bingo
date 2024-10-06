@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Carton;
 use App\Models\CartonGanador;
 use App\Models\CartonSorteo;
+use App\Models\EmpresaGanancias;
 use App\Models\Sorteo;
 use App\Models\SorteoFicha;
 use App\Models\User;
@@ -419,6 +420,14 @@ class JugarSorteo extends Component
                     ->count();
                         
                     $sorteo = Sorteo::where('id',$this->sorteo)->first();
+
+                    $porcentaje_empresa = 100 - $this->sorteo->porcentaje_ganancia;
+                    $ganancia_empresa = $cant_cartones * ($porcentaje_empresa * 0.01);
+
+                    EmpresaGanancias::create([
+                        'sorteo_id' => $this->sorteo->id,
+                        'ganancia' => $ganancia_empresa,
+                    ]);
                         
                     $ganancia_dolares = ($cant_cartones * ($this->sorteo->porcentaje_ganancia * 0.01)) / $cant_ganadores_sorteo;
 

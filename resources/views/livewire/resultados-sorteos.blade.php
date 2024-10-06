@@ -2132,7 +2132,7 @@
 
 
 
-        {{-- @if ($cuentas->count())
+        @if ($sorteos->count())
 
    
 
@@ -2141,94 +2141,72 @@
                <table class="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100">
                   <thead class="text-xs text-white uppercase bg-blue-500 border-b border-blue-400 dark:text-white">
                      <tr>
-                           <th scope="col" class="px-6 py-3">
-                              Tipo
-                           </th>
-                           <th scope="col" class="px-6 py-3">
-                              Cedula
-                           </th>
-                           <th scope="col" class="px-6 py-3">
-                              Telefono
-                           </th>
-                           <th scope="col" class="px-6 py-3">
-                              Banco
-                           </th>
-                           <th scope="col" class="px-6 py-3">
-                            Correo
+
+                            <th scope="col" class="text-center py-3">
+                                Nro
                             </th>
 
-                            <th scope="col" class="px-6 py-3"></th>
+                           <th scope="col" class="text-center py-3">
+                              Fecha del sorteo
+                           </th>
+                           
+                           <th scope="col" class="text-center py-3">
+                              Tipo de sorteo
+                           </th>
+                           <th scope="col" class="text-center py-3">
+                              Ganancia sorteada
+                           </th>
+
+                           <th scope="col" class="text-center py-3">
+                            Cartones ganadores
+                         </th>
+
+                         <th scope="col" class="text-center py-3">
+                            Fichas sorteadas
+                         </th>
                      </tr>
                   </thead>
                   <tbody>
-                     @foreach ($cuentas as $cuenta)
+                     @foreach ($sorteos as $sorteo)
                      <tr class="bg-blue-500 border-b border-blue-400 hover:bg-blue-400">
-                           <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+                           <th scope="row" class=" text-center  py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
 
                    
 
-                                {{$cuenta->metodo_pago}}
+                                {{$sorteo->id}}
 
 
                              
                            </th>
-                           <td class="px-6 py-4">
+                           <td class="text-center py-4">
+                                {{\Carbon\Carbon::parse($sorteo->fecha_ejecucion)->format('d-m-Y')}}
+                           </td>
+                           <td class="text-center py-4">
 
-                                @if($cuenta->metodo_pago == 'PAGO MOVIL')
+                                {{$sorteo->type_1}}
 
-                                    {{$cuenta->cedula}} 
-
-                                @else
-
-                                    <p>-</p>
-    
-                                @endif
+                          
                               
                            </td>
-                           <td class="px-6 py-4">
+                           <td class="text-center py-4">
 
-                                @if($cuenta->metodo_pago == 'PAGO MOVIL')
+                                {{$this->cant_ganancias($sorteo->id)}}
 
-                                 {{$cuenta->telefono}}
-
-                                @else
-
-                                    <p>-</p>
-
-                                @endif
                               
-                           </td>
-                           <td class="px-6 py-4">
-
-                                @if($cuenta->metodo_pago == 'PAGO MOVIL')
-
-                                    {{$cuenta->banco}}
-
-                                @else
-
-                                    <p>-</p>
-
-                                @endif
                               
                            </td>
 
                           
 
-                           <td class="px-6 py-4">
+                           <td class="text-center py-4">
 
-                                @if($cuenta->metodo_pago == 'PAGO MOVIL')
+                            @livewire('carton-ganador', ['tipo' => 'menu','sorteo'=> $sorteo->id],,key($sorteo->id)) 
 
-                                    <p>-</p>
-
-                                @else
-
-                                    {{$cuenta->correo_id}}
-
-                                @endif
+                             
                                 
                             </td>
-                            <td>
-                                @livewire('billetera.mis-cuentas-add', ['tipo' => 'editar','cuenta'=> $cuenta->id],,key($cuenta->id)) 
+                            <td class="text-center py-4">
+                                @livewire('fichas-sorteo', ['tipo' => 'menu','sorteo'=> $sorteo->id],,key($sorteo->id)) 
                             </td>
                      </tr>
 
@@ -2239,20 +2217,18 @@
             
             <div >
           
-              {{$cuentas->links()}}
+              {{$sorteos->links()}}
               
             </div>
         @else
             <div class="card-body">
 
                 <p class=" font-semibold text-xs md:text-sm text-gray-600 font-sans " >
-                    No tienes cuentas registradas
+                    No exiten sorteos finalizados
                 </p>
 
-
-                 
             </div>
-        @endif --}}
+        @endif
 
     </div>
 
