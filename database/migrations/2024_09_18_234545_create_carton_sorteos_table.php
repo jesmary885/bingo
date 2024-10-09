@@ -30,7 +30,7 @@ return new class extends Migration
             $table->foreign('pago_id')->references('id')->on('pagos');
 
             $table->string('status_carton'); //No disponible, Reservado, Disponible
-            $table->string('status_pago')->nullable(); //En espera de pago, Pago no recibido, Pago recibido
+            $table->string('status_pago')->nullable(); //Pendiente, Pago recibido,  Pago no recibido
         });
     }
 

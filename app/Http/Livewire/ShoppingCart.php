@@ -20,7 +20,7 @@ class ShoppingCart extends Component
     use WithFileUploads;
 
     protected $listeners = ['render'];
-    public $metodo_select = 0, $dolar_valor, $procesa = 0, $adjunta = 0, $constancia;
+    public $metodo_select = 0, $dolar_valor, $procesa = 0, $adjunta = 0, $constancia,$referencia;
 
     protected $rules = [
         'constancia' => 'required',
@@ -87,25 +87,30 @@ class ShoppingCart extends Component
 
         }
         else{
-            Pago::create([
+            $pago_proc = Pago::create([
                 'user_id' => auth()->user()->id,
                 'metodo_pago' => $metodo,
                 'monto' => Cart::subtotal(),
                 'constancia' => $constancia,
-                'tipo' => 'Pago de cartón',
+                'referencia' => $this->referencia,
+                'tipo' => 'Pago de carton',
                 'status' => 'Pendiente',
                 'cantidad' => Cart::count(), 
             ]);
 
+            foreach(Cart::content() as $item){
+                CartonSorteo::where('sorteo_id', $item->options['sorteo'])
+                    ->where('carton_id',$item->options['carton'])
+                    ->first()
+                    ->update([
+                        'pago_id' => $pago_proc->id,
+                        'user_id' => auth()->user()->id
+                ]);
+            }
+
         }
 
-        
-
         Cart::destroy();
-
-       
-
-        
 
         return redirect()->route('mis-cartones');
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\NewPago;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,4 +25,7 @@ class Pago extends Model
         return $this->belongsTo(MetodoPago::class);
     }
 
+    protected $dispatchesEvents = [
+        'created' => NewPago::class,
+    ];
 }

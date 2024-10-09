@@ -294,24 +294,73 @@ return [
     */
 
     'menu' => [
-        
-        ['header' => 'ADMINISTRACIÓN'],
+
         [
-            'text' => 'Usuarios',
-            'route'  => 'admin.users',
-            'icon'    => 'fas fa-users',
-            'icon_color' => 'black',
-            'can' => 'menu.admin'
+            'text'    => 'DASHBOARD',
+      
+            'can' => 'menu.admin',
+            'icon_color' => 'blue',
+            'route'  => 'home_admin',
         ],
 
-        ['header' => 'SORTEO'],
         [
-            'text' => 'Iniciar',
-            'route'  => 'admin.iniciar_sorteo',
-            'icon'    => 'fas fa-users',
-            'icon_color' => 'black',
-            'can' => 'menu.admin'
+            'text'    => 'ADMINISTRACIÓN',
+            'can' => 'menu.admin',
+            'icon_color' => 'blue',
+            'submenu' => [
+                [
+                    'text' => 'Usuarios',
+                    'route'  => 'admin.users',
+                    'icon'    => 'fas fa-angle-right',
+                    'icon_color' => 'blue',
+                    'can' => 'menu.admin'
+                ],
+        
+                [
+                    'text' => 'Pagos',
+                    'route'  => 'admin.pagos',
+                    'icon'    => 'fas fa-angle-right',
+                    'icon_color' => 'blue',
+                    'can' => 'menu.admin'
+                ],
+            ]
         ],
+
+        [
+            'text'    => 'SORTEOS',
+            'can' => 'menu.admin',
+            'icon_color' => 'blue',
+            'submenu' => [
+                [
+                    'text' => 'Crear',
+                    'route'  => 'admin.sorteo_crear',
+                    'icon'    => 'fas fa-angle-right',
+                    'icon_color' => 'blue',
+                    'can' => 'menu.admin'
+                ],
+        
+                [
+                    'text' => 'Jugar',
+                    'route'  => 'admin.iniciar_sorteo',
+                    'icon'    => 'fas fa-angle-right',
+                    'icon_color' => 'blue',
+                    'can' => 'menu.admin'
+                ],
+        
+                [
+                    'text' => 'Resultados',
+                    'route'  => 'admin.sorteo_resultados',
+                    'icon'    => 'fas fa-angle-right',
+                    'icon_color' => 'blue',
+                    'can' => 'menu.admin'
+                ],
+            ]
+        ],
+            
+
+        
+      
+
       
 
       

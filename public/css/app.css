@@ -2310,6 +2310,9 @@ select {
 .p-2 {
   padding: 0.5rem;
 }
+.p-2\.5 {
+  padding: 0.625rem;
+}
 .p-3 {
   padding: 0.75rem;
 }

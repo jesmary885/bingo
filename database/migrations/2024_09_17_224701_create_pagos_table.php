@@ -22,9 +22,10 @@ return new class extends Migration
             $table->string('metodo_pago')->nullable();
 
             $table->string('monto');
-            $table->string('tipo'); //puede ser: recarga, pago de carton, retiro
+            $table->string('tipo'); //puede ser: Recarga, Pago de carton, Retiro
             $table->string('constancia')->nullable();
-            $table->string('status');
+            $table->string('status'); //Pendiente, Pago recibido,  Pago no recibido
+            $table->string('referencia');
             $table->string('cantidad')->nullable();
 
             $table->unsignedBigInteger('cuenta_id')->nullable();

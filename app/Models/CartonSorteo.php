@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\CambioEstadoCartonSorteo;
+use App\Events\CambioEstadoSorteo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,4 +28,8 @@ class CartonSorteo extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    protected $dispatchesEvents = [
+        'updated' => CambioEstadoCartonSorteo::class,
+    ];
 }

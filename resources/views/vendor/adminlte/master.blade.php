@@ -227,75 +227,8 @@
         })
     </script>
 
-    <script>
-        livewire.on('descalific', () => {
-            Swal.fire({
-            title: 'Indique la localidad',
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: 'USA',
-            denyButtonText: 'UK',
-            }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-                livewire.emitTo('jumpers.ssidkr.ssidkr-index','descalificar',[$type='usa'])
-                Swal.fire('Espere mientras se procesa la solicitud', '', 'info')
-            } else if (result.isDenied) {
-                livewire.emitTo('jumpers.ssidkr.ssidkr-index','descalificar',[$type='uk'])
-                Swal.fire('Espere mientras se procesa la solicitud', '', 'info')
-            }
-            })
-        })
-    </script>
-
-    <script>
-        livewire.on('canjear', (ms,item1,item2,ms2) => {
-            Swal.fire({
-            title: ms,
-            text: "No podrá revertir esto",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, seguro'
-            }).then((result) => {
-            if (result.isConfirmed) {
-                        livewire.emitTo(item1,item2)
-                        Swal.fire(
-                        'Listo',
-                        ms2,
-                        'success'
-                        )
-                }
-            })
-        })
-    </script>
 
 
-    <script>
-        livewire.on('numerologia', (op,n1,n2) => {
-            Swal.fire({
-                title: op,
-                input: 'text',
-                inputAttributes: {
-                    autocapitalize: 'off',
-                    color:'#000000'
-                },
-                showCancelButton: true,
-                confirmButtonText: 'Enviar',
-                
-
-                allowOutsideClick: () => !Swal.isLoading()
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    console.log('hola')
-                    livewire.emitTo(n1,n2,[$result=result.value])
-                }
-            })
-        })
-    </script>
-
-    {{-- Custom Scripts --}}
     @yield('adminlte_js')
 </body>
 
