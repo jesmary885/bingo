@@ -170,11 +170,12 @@ class Index extends Component
 
         foreach($pagos_carton as $carton_modif){
 
-            CartonSorteo::where('id',$carton_modif->id)
-                ->update([
-                    'status_carton' => 'No disponible',
-                    'status_pago' => 'Pago recibido',
-                ]);
+            $carton_sorteo_update = CartonSorteo::where('id',$carton_modif->id)->first();
+            
+            $carton_sorteo_update->update([
+                'status_carton' => 'No disponible',
+                'status_pago' => 'Pago recibido',
+            ]);
         }
 
     }

@@ -9,7 +9,9 @@ use Livewire\Component;
 class GananciaSorteo extends Component
 {
 
-    public $sorteo;
+    public $sorteo, $ganancia_dolares_2do;
+
+    protected $listeners = ['render' => 'render','echo:cambio_cs,CambioEstadoCartonSorteo' => 'render'];
 
 
     public function render()
@@ -19,15 +21,17 @@ class GananciaSorteo extends Component
             ->where('status_carton','No disponible')
             ->count();
 
-        $sorteo = Sorteo::where('id',$this->sorteo)->first();
+        $sorteo_s = Sorteo::where('id',$this->sorteo)->first();
 
         
 
-        $ganancia_dolares = $cant_cartones * ($sorteo->porcentaje_ganancia * 0.01);
+        $ganancia_dolares = $cant_cartones * ($sorteo_s->porcentaje_ganancia * 0.01);
         $dolar_hoy = valor_dolar_hoy();
 
+        $this->ganancia_dolares_2do = $cant_cartones * ($sorteo_s->porcentaje_ganancia_2do_lugar * 0.01);
 
 
-        return view('livewire.ganancia-sorteo',compact('dolar_hoy','ganancia_dolares','dolar_hoy'));
+
+        return view('livewire.ganancia-sorteo',compact('dolar_hoy','ganancia_dolares','dolar_hoy','sorteo_s'));
     }
 }

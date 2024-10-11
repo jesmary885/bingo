@@ -79,10 +79,10 @@
             <table class="table text-sm table-bordered table-responsive-lg table-responsive-md table-responsive-sm">
                     <thead class="text-xs uppercase  text-gray-500">
                         <tr>
-                        
                             <th class="text-center py-3">
                                 Fecha
                             </th>
+                            
                             <th 
                                 class="text-center">
                                 Tipo
@@ -104,23 +104,22 @@
                             <th 
                             class="text-center">
                             Cant. cartones
-                        </th>
+                            </th>
 
-                        <th 
-                            class="text-center">
-                            Usuario
-                        </th>
+                            <th 
+                                class="text-center">
+                                Usuario
+                            </th>
           
-                        <th 
-                            class="text-center">
-                            Constancia
-                        </th>
+                            <th 
+                                class="text-center">
+                                Constancia
+                            </th>
 
-                        <th>
-                         
-                        </th>
-                        
-                    </tr>
+                            <th>
+                            
+                            </th>
+                        </tr>
                 </thead>
                 <tbody>
 

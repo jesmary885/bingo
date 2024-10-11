@@ -27,6 +27,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->string('type'); //el tipo de sorteo (campo lleno, esquinas etc)
+
+            $table->string('lugar')->nullable();
         });
     }
 

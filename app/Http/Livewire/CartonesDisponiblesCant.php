@@ -10,6 +10,8 @@ class CartonesDisponiblesCant extends Component
 
     public $sorteo;
 
+    protected $listeners = ['render' => 'render','echo:cambio_cs,CambioEstadoCartonSorteo' => 'render'];
+
     public function render()
     {
   

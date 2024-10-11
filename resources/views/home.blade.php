@@ -5487,24 +5487,40 @@
                                 </div>
                                 <div class=" items-center w-full pb-4 ">
                                     <p class="text-lg font-bold ">Sorteo Nro. {{$sorteo->id}}</p>
+
+                                    @if($sorteo->type_2 == null)
+                                    <p class="text-md font-semibold ">SORTEO (PREMIO ÚNICO)</p>
+                                    @else
+                                    <p class="text-md font-semibold "> SORTEO (1ER Y 2DO LUGAR)</p>
+                                    @endif
+
                                     <p class="text-sm text-gray-500">Lanzamiento: {{\Carbon\Carbon::parse($sorteo->fecha_ejecucion)->format('d-m-Y h:i')}}</p>
-                                    <p class="text-sm text-gray-500">Ganancia actual:  @livewire('ganancia-sorteo', ['sorteo' => $sorteo->id])</p>
+                                    
+                                    <p class="text-sm text-gray-500 mt-2">Ganancia actual:  @livewire('ganancia-sorteo', ['sorteo' => $sorteo->id])</p>
                                 </div>
-                                <h3 class="font-medium text-xl leading-8 text-blue-700 underline">
+                                @if($sorteo->type_2 == null)
+                                    <h3 class="font-medium text-lg leading-8 text-blue-700 underline">
 
-                                     {{$sorteo->type_1}}
-                                  
-                                </h3>
+                                        Sorteo {{$sorteo->type_1}}
+                                    
+                                    </h3>
+                                @else
 
-                                @if($sorteo->type_2)
+                                    <h3 class="font-semibold text-lg leading-8 text-blue-700 underline">
 
-                                    <h3 class="font-medium text-xl leading-8 text-blue-700">
+                                        1er lugar (Sorteo {{$sorteo->type_1}})
+                                    
+                                    </h3>
 
-                                        {{$sorteo->type_2}}
+                                    <h3 class="font-medium text-lg leading-8 text-blue-700 underline">
+
+                                        2do lugar (Sorteo  {{$sorteo->type_1}})
                                     
                                     </h3>
 
                                 @endif
+
+                             
 
                                
                                 <div>

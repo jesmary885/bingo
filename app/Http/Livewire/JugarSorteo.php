@@ -495,52 +495,6 @@ class JugarSorteo extends Component
 
                     }
                     
-    
-                       /* $ganadores_sorteo = CartonGanador::with('carton')
-                            ->where('sorteo_id',$this->sorteo->id)
-                            ->get();
-        
-                       if($ganadores_sorteo->isEmpty() == false){
-                            $gano_yo = 0;
-
-                            $this->cont_ganador++;
-    
-                            foreach($ganadores_sorteo as $ganador_yo){
-                                if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;
-                            }
-    
-                            if($gano_yo > 0){
-    
-                                $this->ganador_user_login = 1;
-
-                             
-
-                                    notyf()
-                                    ->duration(0)
-                                    ->position('x', 'center')
-                                    ->position('y', 'center')
-                                    ->dismissible(true)
-                                    ->addInfo('Felicidades su carton con serial Nro ' . '' . ', ha ganado en el sorteo Nro '. $this->sorteo->id);
-
-                          
-    
-                               
-                            
-                            }
-                            else{
-
-                                if($this->cont_ganador == 1){
-                                    notyf()
-                                        ->duration(0) // 2 seconds
-                                        ->position('x', 'center')
-                                        ->position('y', 'center')
-                                        ->dismissible(true)
-                                        ->addInfo('Sorteo Nro ' . $this->sorteo->id .'ha finalizado, ya puede consultar los cartones ganadores y fichas sorteadas');
-                                }
-                            }
-                            $ganador = 1;
-                        }*/
-    
                     $mes_restantes = 0;
                     $dias_restantes = 0;
                     $horas_restantes = 0;

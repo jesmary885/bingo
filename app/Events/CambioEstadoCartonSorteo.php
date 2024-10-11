@@ -15,11 +15,6 @@ class CambioEstadoCartonSorteo implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
 
      public $carton_sorteo;
     public function __construct(CartonSorteo $carton_sorteo)
