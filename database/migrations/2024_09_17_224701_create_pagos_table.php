@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('tipo'); //puede ser: Recarga, Pago de carton, Retiro
             $table->string('constancia')->nullable();
             $table->string('status'); //Pendiente, Pago recibido,  Pago no recibido
-            $table->string('referencia');
+            $table->string('referencia')->nullable();
             $table->string('cantidad')->nullable();
 
             $table->unsignedBigInteger('cuenta_id')->nullable();

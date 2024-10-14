@@ -28,7 +28,8 @@ return new class extends Migration
 
             $table->string('type'); //el tipo de sorteo (campo lleno, esquinas etc)
 
-            $table->string('lugar')->nullable();
+            $table->string('lugar')->nullable(); //Primero,Segundo,
+            
         });
     }
 

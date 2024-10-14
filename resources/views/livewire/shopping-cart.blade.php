@@ -1551,7 +1551,7 @@
            
                     <header class="border-b border-gray-200 px-5 py-4">
 
-                        <div class=" font-semibold text-sm md:text-lg text-gray-700 uppercase">Carro de compras</div>
+                        <div class=" font-semibold text-sm md:text-md lg:text-lg text-gray-700 uppercase">Carro de compras</div>
                     </header>
 
                     <div class="overflow-x-auto p-3">
@@ -1619,8 +1619,8 @@
  
 
                 <div class="bg-white dark:bg-gray-900">
-                    <div class=" px-6 py-2 mx-auto">
-                        <p class="font-semibold text-sm md:text-lg text-gray-700 uppercase text-center">
+                    <div class=" px-1 py-2 mx-auto">
+                        <p class="font-semibold text-sm md:text-md lg:text-lg text-gray-700 uppercase text-center">
                             Selecciona el método de pago
                         </p>
         
@@ -1641,7 +1641,7 @@
                                             </div>
                                         </div>
                                         
-                                        <h2 class="text-lg lg:text-2xl font-bold text-gray-500  dark:text-gray-300">$ {{floatval(Cart::subTotal())}}</h2>
+                                        <h2 class="text-sm md:text-md lg:text-lg font-bold text-gray-500  dark:text-gray-300">$ {{floatval(Cart::subTotal())}}</h2>
         
                                     
                                     </div>
@@ -1668,7 +1668,7 @@
                                         </div>
                                     </div>
                                     
-                                    <h2 class="text-lg lg:text-2xl font-bold text-gray-500  dark:text-gray-300">$ {{floatval(Cart::subTotal())}}</h2>
+                                    <h2 class="text-sm md:text-md lg:text-lg font-bold text-gray-500  dark:text-gray-300">$ {{floatval(Cart::subTotal())}}</h2>
     
                                 
                                 </div>
@@ -1692,7 +1692,7 @@
                                         </div>
                                     </div>
                                     
-                                    <h2 class="text-md lg:text-2xl font-bold text-gray-500  dark:text-gray-300">Bs. {{(floatval(Cart::subTotal()) * $dolar_valor)}}</h2>
+                                    <h2 class="text-sm md:text-md lg:text-lg  font-bold text-gray-500  dark:text-gray-300">Bs. {{(floatval(Cart::subTotal()) * $dolar_valor)}}</h2>
     
                                 
                                 </div>
@@ -1710,11 +1710,11 @@
 
                         <div class="mt-6 mb-2 text-center">
 
-                            <p class="font-semibold text-sm md:text-lg text-gray-700 uppercase text-center">
+                            <p class="font-semibold text-sm md:text-md lg:text-lg text-gray-700 uppercase text-center">
                                Ingrese el Nro de referencia
                             </p>
 
-                            <div class="w-full max-w-sm min-w-[200px] mt-2">
+                            <div class="w-full flex justify-center mt-2">
                                 <input name="referencia" wire:model="referencia" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"  />
                             </div>
             
@@ -1725,7 +1725,7 @@
 
 
 
-                            <p class="font-semibold text-sm md:text-lg text-gray-700 uppercase text-center">
+                            <p class="font-semibold text-sm md:text-md lg:text-lg text-gray-700 uppercase text-center">
                                 Adjunta la constancia de pago
                             </p>
             

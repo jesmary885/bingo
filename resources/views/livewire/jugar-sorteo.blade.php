@@ -7,21 +7,16 @@
 
 
     @if($cartones_sorteo_iniciado == 1)
-
-
-
-
             <div class="relative block p-4 overflow-hidden border bg-white border-slate-100 rounded-lg mb-2 mt-1 ">
+                @if($cant_lugares == 1)
+                    @if($ganador_1 == 0)
+                        <div class=" text-lg font-extrabold text-center ">
+                            <span class="bg-gradient-to-r from-blue-500 via-blue-500 to-blue-500 bg-clip-text text-transparent"> FICHAS DEL SORTEO NRO {{$sorteo_nro}}</span>
+                        </div>
 
-                @if($ganador == 0)
+                        <span class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600" ></span>
 
-                    <div class=" text-lg font-extrabold text-center ">
-                        <span class="bg-gradient-to-r from-blue-500 via-blue-500 to-blue-500 bg-clip-text text-transparent"> FICHAS DEL SORTEO NRO {{$sorteo_nro}}</span>
-                    </div>
-
-                    <span class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600" ></span>
-
-                    <div class="mt-5 mb-10 flex mx-2 ">
+                        <div class="mt-5 mb-10 flex mx-2 ">
                         <div class="w-full grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-8   ">
                             @foreach($fichas as $ficha)
                                 <div class="relative h-10 w-10 ">
@@ -39,33 +34,64 @@
                                 </div>
                             @endforeach
                         </div>
-                    </div>
+                        </div>
+                    @else
+                        <div class=" text-lg font-extrabold text-center ">
+                            <span class="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300 bg-clip-text text-transparent  "> RESULTADOS DEL SORTEO NRO {{$sorteo_nro}}</span>
+                        </div>
+
+                        <div class=" flex justify-center w-full mt-4 mb-4">
+
+                            @livewire('carton-ganador', ['sorteo' => $sorteo->id]) 
+                            @livewire('fichas-sorteo', ['sorteo' => $sorteo->id]) 
+
+                        </div>
+
+                        <span class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600" ></span>
+                    @endif
                 @else
+                    @if($ganador_1 == 0 || $ganador_2 == 0)
+                        <div class=" text-lg font-extrabold text-center ">
+                            <span class="bg-gradient-to-r from-blue-500 via-blue-500 to-blue-500 bg-clip-text text-transparent"> FICHAS DEL SORTEO NRO {{$sorteo_nro}}</span>
+                        </div>
 
-                <div class=" text-lg font-extrabold text-center ">
-                    <span class="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300 bg-clip-text text-transparent  "> RESULTADOS DEL SORTEO NRO {{$sorteo_nro}}</span>
-                </div>
+                        <span class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600" ></span>
 
-                <div class=" flex justify-center w-full mt-4 mb-4">
+                        <div class="mt-5 mb-10 flex mx-2 ">
+                        <div class="w-full grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-8   ">
+                            @foreach($fichas as $ficha)
+                                <div class="relative h-10 w-10 ">
+                                    @if($ficha_ultima == $ficha->id)
+                                        <div class="w-16 h-16 bg-red-500 rounded-full absolute  animate-ping"></div>
+                                    @endif
+                                    <div class="@if($ficha_ultima == $ficha->id) h-16 w-16 @else h-14 w-14 animate-pulse animate-fade-right @endif mx-auto my-auto  rounded-full  @if($ficha_ultima == $ficha->id) bg-red-700 @else bg-blue-700 @endif">
+                                        <p class="  text-center font-bold  text-white  mt-1">
+                                            {{$ficha->letra}}
+                                        </p>
+                                        <p class="  text-center font-bold  text-white ">
+                                            {{$ficha->numero}}
+                                        </p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        </div>
+                    @else
 
-                  
+                        <div class=" text-lg font-extrabold text-center ">
+                            <span class="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300 bg-clip-text text-transparent  "> RESULTADOS DEL SORTEO NRO {{$sorteo_nro}}</span>
+                        </div>
 
-                     @livewire('carton-ganador', ['sorteo' => $sorteo->id]) 
+                        <div class=" flex justify-center w-full mt-4 mb-4">
 
-                     @livewire('fichas-sorteo', ['sorteo' => $sorteo->id]) 
+                            @livewire('carton-ganador', ['sorteo' => $sorteo->id]) 
+                            @livewire('fichas-sorteo', ['sorteo' => $sorteo->id]) 
 
-                </div>
+                        </div>
 
+                        <span class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600" ></span>
 
-
-
-
-
-
-
-
-                <span class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600" ></span>
-
+                    @endif
                 @endif
             </div>
 
@@ -122,14 +148,45 @@
                     </div>
                 </div>
 
-                @if($type_1 == 'Tradicional')
-                    {{$this->verifi_linea_horizontal($carton->carton->id)}}
-                    {{$this->verifi_linea_vertical($carton->carton->id)}}
-                    {{$this->verifi_cuatro_esquinas($carton->carton->id)}}
-                    {{$this->diagonal_iz($carton->carton->id)}}
-                    {{$this->diagonal_dr($carton->carton->id)}}
+                @if($cant_lugares == 1)
+
+                    @if($type_1 == 'Tradicional')
+                        {{$this->verifi_linea_horizontal($carton->carton->id)}}
+                        {{$this->verifi_linea_vertical($carton->carton->id)}}
+                        {{$this->verifi_cuatro_esquinas($carton->carton->id)}}
+                        {{$this->diagonal_iz($carton->carton->id)}}
+                        {{$this->diagonal_dr($carton->carton->id)}}
+                    @else
+                        {{$this->verifi_carton_lleno($carton->carton->id)}}
+                    @endif
+                
                 @else
-                    {{$this->verifi_carton_lleno($carton->carton->id)}}
+
+                    @if($ganador_1 == 0)
+
+                        @if($type_1 == 'Tradicional')
+                            {{$this->verifi_linea_horizontal($carton->carton->id)}}
+                            {{$this->verifi_linea_vertical($carton->carton->id)}}
+                            {{$this->verifi_cuatro_esquinas($carton->carton->id)}}
+                            {{$this->diagonal_iz($carton->carton->id)}}
+                            {{$this->diagonal_dr($carton->carton->id)}}
+                        @else
+                            {{$this->verifi_carton_lleno($carton->carton->id)}}
+                        @endif
+                    @else
+
+                        @if($type_2 == 'Tradicional')
+                            {{$this->verifi_linea_horizontal($carton->carton->id)}}
+                            {{$this->verifi_linea_vertical($carton->carton->id)}}
+                            {{$this->verifi_cuatro_esquinas($carton->carton->id)}}
+                            {{$this->diagonal_iz($carton->carton->id)}}
+                            {{$this->diagonal_dr($carton->carton->id)}}
+                        @else
+                            {{$this->verifi_carton_lleno($carton->carton->id)}}
+                        @endif
+
+                    @endif
+
                 @endif
 
             @endforeach
@@ -1222,7 +1279,7 @@
 
 
 
-        @if($ganador == 1)
+        @if($ganador_1 == 1 || $ganador_2 == 1)
 
             @if($ganador_user_login==1)
 
@@ -1254,56 +1311,44 @@
 
             @endif
 
-
-
-            {{-- @livewire('carton-ganador', ['sorteo' => $sorteo->id]) --}}
-
         @endif
 
 
-            <link rel="stylesheet" href="{{ asset('vendor/css_contador/estilos.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/css_contador/estilos.css') }}">
 
 
-    <script src="{{ asset('vendor/dist/simplyCountdown.min.js') }}"></script>
+        <script src="{{ asset('vendor/dist/simplyCountdown.min.js') }}"></script>
 
 
-    <script>
-        simplyCountdown('#cuenta', {
-            year: <?php echo $ano_restantes?>, // required
-            month: <?php echo $mes_restantes?>, // required
-            day: <?php echo $dias_restantes?>, // required
-            hours: <?php echo $horas_restantes?>, // Default is 0 [0-23] integer
-            minutes: <?php echo $minutos_restantes?>, // Default is 0 [0-59] integer
-            seconds: 0, // Default is 0 [0-59] integer
-            words: { //words displayed into the countdown
-                days: { singular: 'Día', plural: 'Dias' },
-                hours: { singular: 'Hora', plural: 'Horas' },
-                minutes: { singular: 'Minuto', plural: 'Minutos' },
-                seconds: { singular: 'segundo', plural: 'segundos' }
-            },
-            plural: true, //use plurals
-            inline: false, //set to true to get an inline basic countdown like : 24 days, 4 hours, 2 minutes, 5 seconds
-            inlineClass: 'simply-countdown-inline', //inline css span class in case of inline = true
-            // in case of inline set to false
-            enableUtc: true, //Use UTC as default
-            onEnd: function() {
-                return;
-            }, //Callback on countdown end, put your own function here
-            refresh: 1000, // default refresh every 1s
-            sectionClass: 'simply-section', //section css class
-            amountClass: 'simply-amount', // amount css class
-            wordClass: 'simply-word', // word css class
-            zeroPad: false,
-            countUp: false
-        });
-    </script>
-
-    <script>
-       
-    </script>
-
-
-
-
+        <script>
+            simplyCountdown('#cuenta', {
+                year: <?php echo $ano_restantes?>, // required
+                month: <?php echo $mes_restantes?>, // required
+                day: <?php echo $dias_restantes?>, // required
+                hours: <?php echo $horas_restantes?>, // Default is 0 [0-23] integer
+                minutes: <?php echo $minutos_restantes?>, // Default is 0 [0-59] integer
+                seconds: 0, // Default is 0 [0-59] integer
+                words: { //words displayed into the countdown
+                    days: { singular: 'Día', plural: 'Dias' },
+                    hours: { singular: 'Hora', plural: 'Horas' },
+                    minutes: { singular: 'Minuto', plural: 'Minutos' },
+                    seconds: { singular: 'segundo', plural: 'segundos' }
+                },
+                plural: true, //use plurals
+                inline: false, //set to true to get an inline basic countdown like : 24 days, 4 hours, 2 minutes, 5 seconds
+                inlineClass: 'simply-countdown-inline', //inline css span class in case of inline = true
+                // in case of inline set to false
+                enableUtc: true, //Use UTC as default
+                onEnd: function() {
+                    return;
+                }, //Callback on countdown end, put your own function here
+                refresh: 1000, // default refresh every 1s
+                sectionClass: 'simply-section', //section css class
+                amountClass: 'simply-amount', // amount css class
+                wordClass: 'simply-word', // word css class
+                zeroPad: false,
+                countUp: false
+            });
+        </script>
 
 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\CartonGanador as ModelsCartonGanador;
+use App\Models\User;
 use Livewire\Component;
 
 class CartonGanador extends Component
@@ -19,6 +20,15 @@ class CartonGanador extends Component
     public function close(){
 
         $this->open = false;
+
+    }
+
+    public function imagen($gg){
+
+        $carton_s = ModelsCartonGanador::where('id',$gg)->first();
+        $us = User::where('id',$carton_s->user_id)->first()->profile_photo_path;
+
+        return $us;
 
     }
 

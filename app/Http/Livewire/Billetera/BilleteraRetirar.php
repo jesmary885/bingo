@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Billetera;
 
 use App\Models\CuentasUser;
 use App\Models\Pago;
+use App\Models\UserSaldo;
 use Livewire\Component;
 
 class BilleteraRetirar extends Component
@@ -63,8 +64,10 @@ class BilleteraRetirar extends Component
         }else{
             $rules = $this->rules;
             $this->validate($rules);
-            $monto = auth()->user()->saldo;
+
+            $monto = UserSaldo::where('user_id',auth()->user()->id)->first()->saldo;
         }
+
 
         Pago::create([
             'user_id' => auth()->user()->id,

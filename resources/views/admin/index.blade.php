@@ -8,7 +8,7 @@
 
 @section('content')
 
-<p>hola</p>
+@livewire('admin.index') 
 
 @stop
 

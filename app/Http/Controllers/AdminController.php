@@ -17,6 +17,11 @@ class AdminController extends Controller
         return view('admin.users');
     }
 
+    public function configuracion(){
+
+        return view('admin.configuracion');
+    }
+
     public function pagos(){
 
         return view('admin.pagos');

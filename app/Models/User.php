@@ -10,6 +10,9 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -48,6 +51,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function profilePhotoUrl(): Attribute
+    {
+        return Attribute::get(function () {
+            return $this->profile_photo_path
+                    ? Storage::disk($this->profilePhotoDisk())->url($this->profile_photo_path)
+                    : $this->defaultProfilePhotoUrl();
+        });
+    }
+
+
     /**
      * The accessors to append to the model's array form.
      *
@@ -55,5 +68,6 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        
     ];
 }

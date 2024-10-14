@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Admin\Sorteo;
 
+use App\Models\Carton;
+use App\Models\CartonSorteo;
 use App\Models\Sorteo;
 use Livewire\Component;
 
@@ -86,7 +88,7 @@ class CrearSorteo extends Component
         if($this->tipo == 'agregar'){
 
             if($this->premios == "Dos premios"){
-                Sorteo::create([
+                $sorteo_creado = Sorteo::create([
                     'fecha_ejecucion' => $this->fecha_inicio,
                     'type_1' => $this->type_1,
                     'type_2' => $this->type_2,
@@ -98,7 +100,7 @@ class CrearSorteo extends Component
                     $this->reset(['fecha_inicio','type_1','type_2','porcentaje_ganancia','porcentaje_ganancia_2','precio_carton_dolar']);
 
             }else{
-                Sorteo::create([
+                $sorteo_creado = Sorteo::create([
                     'fecha_ejecucion' => $this->fecha_inicio,
                     'type_1' => $this->type_1,
                     'porcentaje_ganancia' => $this->porcentaje_ganancia,
@@ -107,6 +109,18 @@ class CrearSorteo extends Component
 
                     $this->reset(['fecha_inicio','type_1','porcentaje_ganancia','precio_carton_dolar']);
             }
+
+            $cartones_salvados=Carton::all();
+
+            foreach($cartones_salvados as $cs){
+                CartonSorteo::create([
+                    'sorteo_id' => $sorteo_creado->id,
+                    'carton_id' => $cs->id,
+                    'status_carton' => 'Disponible',
+                    'status_juego' => 'Sin estado'
+                ]);
+            }
+
         }
         else{
 

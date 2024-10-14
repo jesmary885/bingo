@@ -317,8 +317,16 @@ return [
                 ],
         
                 [
-                    'text' => 'Pagos',
+                    'text' => 'Verificación de Pagos',
                     'route'  => 'admin.pagos',
+                    'icon'    => 'fas fa-angle-right',
+                    'icon_color' => 'blue',
+                    'can' => 'menu.admin'
+                ],
+
+                [
+                    'text' => 'Reportar pagos de ganadores',
+                    'route'  => 'admin.reporte_pago_ganadores',
                     'icon'    => 'fas fa-angle-right',
                     'icon_color' => 'blue',
                     'can' => 'menu.admin'
@@ -332,7 +340,7 @@ return [
             'icon_color' => 'blue',
             'submenu' => [
                 [
-                    'text' => 'Crear',
+                    'text' => 'Registro y creación',
                     'route'  => 'admin.sorteo_crear',
                     'icon'    => 'fas fa-angle-right',
                     'icon_color' => 'blue',
@@ -340,21 +348,20 @@ return [
                 ],
         
                 [
-                    'text' => 'Jugar',
+                    'text' => 'Iniciar Sorteo',
                     'route'  => 'admin.iniciar_sorteo',
                     'icon'    => 'fas fa-angle-right',
                     'icon_color' => 'blue',
                     'can' => 'menu.admin'
                 ],
         
-                [
-                    'text' => 'Resultados',
-                    'route'  => 'admin.sorteo_resultados',
-                    'icon'    => 'fas fa-angle-right',
-                    'icon_color' => 'blue',
-                    'can' => 'menu.admin'
-                ],
             ]
+        ],
+
+        [
+            'text'    => 'CONFIGURACIÓN',
+            'route'  => 'admin.configuracion',
+            'icon_color' => 'blue',
         ],
             
 

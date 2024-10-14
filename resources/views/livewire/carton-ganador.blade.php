@@ -80,10 +80,25 @@
                                     <div class=" bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>
                                 @endforeach
                             </div>
-    
+
+                            {{$this->imagen($carton->id)}}
+
                             <div class="bg-blue-600 m-1 text-center">
+                                <p class=" text-white font-semibold text-sm ">CARTON NRO. {{$carton->carton->id}}  </p>
                                 <p class=" text-white font-semibold text-sm ">SERIAL NRO. {{$carton->carton->serial}}  </p>
                                 <p class="text-white font-semibold text-sm " >Ganador categoria : {{$carton->type}} </p>
+                                <p class="text-white font-semibold text-sm " >Usuario ganador : {{ $carton->user->name }} </p>
+
+                                @if($carton->lugar == 'Primero')
+
+                                    <p class="text-white font-semibold text-sm " > PRIMER LUGAR </p>
+                                @else
+                                    <p class="text-white font-semibold text-sm " > SEGUNDO LUGAR </p>
+
+                                @endif
+
+                             
+       
                             </div>
     
                         </div>

@@ -861,15 +861,15 @@
         <div class="relative pt-2 lg:pt-2">
 
             <div class="bg-cover w-full flex justify-center items-center">
-                <div class="w-full bg-white p-5  bg-opacity-40 backdrop-filter backdrop-blur-lg">
-                    <div class="w-12/12 mx-auto rounded-2xl bg-white p-5 bg-opacity-40 backdrop-filter backdrop-blur-lg">
+                <div class="w-full bg-white md:p-5  bg-opacity-40 backdrop-filter backdrop-blur-lg">
+                    <div class="w-12/12 mx-auto rounded-2xl bg-white md:p-5 bg-opacity-40 backdrop-filter backdrop-blur-lg">
         
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
 
                             @foreach($sorteos as $sorteo)
           
                             <article
-                                class="bg-white  p-6 mb-6 shadow transition duration-300 group transform hover:-translate-y-2 hover:shadow-2xl rounded-2xl cursor-pointer border">
+                                class="bg-white w-full  md:p-6 md:mb-6 shadow transition duration-300 group transform hover:-translate-y-2 hover:shadow-2xl rounded-2xl cursor-pointer border">
                                 <a href="{{route('cartones.index',['sorteo' => $sorteo->id])}}"
                                     class="absolute opacity-0 top-0 right-0 left-0 bottom-0"></a>
                                 <div class="relative mb-4 rounded-2xl">

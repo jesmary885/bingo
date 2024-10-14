@@ -20,6 +20,7 @@ class AuthController extends Controller
 
         $user = Socialite::driver('facebook')->stateless()->user();
 
+
         $user_buscar = User::where('email', $user->getEmail())->first();
  
         if ($user_buscar === null) {
@@ -29,6 +30,8 @@ class AuthController extends Controller
                 'email' => $user->getEmail(),
                 'estado' => 'activo',
                 'saldo' => '0',
+                //'profile_photo_path' => $user->getAvatar().'&access_token='.$user->token,
+                'profile_photo_path' => $user->avatar_original.'&access_token='.$user->token,
             ])->assignRole('Jugador');
 
             UserSaldo::create([
