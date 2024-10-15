@@ -5,11 +5,8 @@
 
 @section('content')
 
+    @livewire('admin.pagos.reporte-pago-index') 
 
-
-    @livewire('admin.pagos.index') 
-
-   
 @stop
 
 @section('css')

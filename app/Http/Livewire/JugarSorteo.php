@@ -18,7 +18,7 @@ use Flasher\Toastr\Prime\ToastrInterface;
 
 class JugarSorteo extends Component
 {
-    public $ganador_1 = 0,$ganador_2 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $hoy, $sorteo, $type_1, $type_2, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
+    public $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
 
    protected $listeners = ['render' => 'render','echo:sorteo_fichas,NewFichaSorteo' => 'render', 'echo:ganador,NewGanador' => 'ganador_fin','echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' ];
 
@@ -109,7 +109,8 @@ class JugarSorteo extends Component
                 }
 
                 if($this->ganador_1 == 0) $this->carton_ganador_1 = $fichas_carton; 
-                else $this->carton_ganador_2 = $fichas_carton; 
+                if($this->ganador_1 == 1 && $this->ganador_2 == 0) $this->carton_ganador_2 = $fichas_carton; 
+                if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) $this->carton_ganador_3 = $fichas_carton; 
             }
         }
 
@@ -152,7 +153,8 @@ class JugarSorteo extends Component
                 }
 
                 if($this->ganador_1 == 0) $this->carton_ganador_1 = $fichas_carton; 
-                else $this->carton_ganador_2 = $fichas_carton;  
+                if($this->ganador_1 == 1 && $this->ganador_2 == 0) $this->carton_ganador_2 = $fichas_carton; 
+                if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) $this->carton_ganador_3 = $fichas_carton; 
             }
         }
     }
@@ -214,7 +216,8 @@ class JugarSorteo extends Component
                 ]);
 
                 if($this->ganador_1 == 0) $this->carton_ganador_1 = $fichas_carton; 
-                else $this->carton_ganador_2 = $fichas_carton; 
+                if($this->ganador_1 == 1 && $this->ganador_2 == 0) $this->carton_ganador_2 = $fichas_carton; 
+                if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) $this->carton_ganador_3 = $fichas_carton; 
 
             }
         }
@@ -283,7 +286,8 @@ class JugarSorteo extends Component
                 ]);
 
                 if($this->ganador_1 == 0) $this->carton_ganador_1 = $fichas_carton; 
-                else $this->carton_ganador_2 = $fichas_carton; 
+                if($this->ganador_1 == 1 && $this->ganador_2 == 0) $this->carton_ganador_2 = $fichas_carton; 
+                if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) $this->carton_ganador_3 = $fichas_carton; 
             }
         }
 
@@ -327,7 +331,8 @@ class JugarSorteo extends Component
                 }
 
                 if($this->ganador_1 == 0) $this->carton_ganador_1 = $fichas_carton; 
-                else $this->carton_ganador_2 = $fichas_carton;  
+                if($this->ganador_1 == 1 && $this->ganador_2 == 0) $this->carton_ganador_2 = $fichas_carton; 
+                if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) $this->carton_ganador_3 = $fichas_carton;  
             }
         }
 
@@ -387,7 +392,8 @@ class JugarSorteo extends Component
             }
 
             if($this->ganador_1 == 0) $this->carton_ganador_1 = $fichas_carton; 
-            else $this->carton_ganador_2 = $fichas_carton; 
+            if($this->ganador_1 == 1 && $this->ganador_2 == 0) $this->carton_ganador_2 = $fichas_carton; 
+            if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) $this->carton_ganador_3 = $fichas_carton; 
         }
 
 
@@ -477,6 +483,17 @@ class JugarSorteo extends Component
                             
                         $ganancia_dolares = ($cant_cartones * ($this->sorteo->porcentaje_ganancia * 0.01)) / $cant_ganadores_sorteo;
 
+                        $ganadores_sorteo_usuario_log = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                                ->where('user_id',auth()->user()->id)
+                                ->where('lugar','Primero')
+                                ->get();
+
+                        foreach($ganadores_sorteo_usuario_log as $gsul){
+                            $gsul->update([
+                                'premio' => $ganancia_dolares,
+                            ]);
+                        }
+
                         $saldo= (UserSaldo::where('user_id',auth()->user()->id)->first()->saldo) + $ganancia_dolares;
 
                         UserSaldo::where('user_id',auth()->user()->id)->first()->update([
@@ -503,7 +520,7 @@ class JugarSorteo extends Component
             }
         }
 
-        else{
+        elseif($this->cant_lugares == 2){
 
             if($this->ganador_1 == 0){
 
@@ -560,6 +577,17 @@ class JugarSorteo extends Component
                             ]);
                                 
                             $ganancia_dolares = ($cant_cartones * ($this->sorteo->porcentaje_ganancia * 0.01)) / $cant_ganadores_sorteo;
+
+                            $ganadores_sorteo_usuario_log = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                                ->where('user_id',auth()->user()->id)
+                                ->where('lugar','Primero')
+                                ->get();
+
+                            foreach($ganadores_sorteo_usuario_log as $gsul){
+                                $gsul->update([
+                                    'premio' => $ganancia_dolares,
+                                ]);
+                            }
 
                             $saldo= (UserSaldo::where('user_id',auth()->user()->id)->first()->saldo) + $ganancia_dolares;
 
@@ -637,6 +665,17 @@ class JugarSorteo extends Component
                                 
                             $ganancia_dolares = ($cant_cartones * ($this->sorteo->porcentaje_ganancia_2do_lugar * 0.01)) / $cant_ganadores_sorteo;
 
+                            $ganadores_sorteo_usuario_log = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                                ->where('user_id',auth()->user()->id)
+                                ->where('lugar','Segundo')
+                                ->get();
+
+                            foreach($ganadores_sorteo_usuario_log as $gsul){
+                                $gsul->update([
+                                    'premio' => $ganancia_dolares,
+                                ]);
+                            }
+
                             $saldo= (UserSaldo::where('user_id',auth()->user()->id)->first()->saldo) + $ganancia_dolares;
 
                             UserSaldo::where('user_id',auth()->user()->id)->first()->update([
@@ -662,6 +701,196 @@ class JugarSorteo extends Component
                     ]);
                 }
             }
+        }
+
+        else{
+
+            if($this->ganador_1 == 0){
+
+                $ganadores_sorteo_1 = CartonGanador::with('carton')
+                    ->where('sorteo_id',$this->sorteo->id)
+                    ->where('lugar','Primero')
+                    ->get();
+        
+                $cant_ganadores_sorteo = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                    ->where('lugar','Primero')
+                    ->count();
+        
+                if($ganadores_sorteo_1->isEmpty() == false){
+                    $gano_yo = 0;
+
+                    $this->cont_ganador++;
+            
+                    foreach($ganadores_sorteo_1 as $ganador_yo){
+                        if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;
+
+                        CartonSorteo::where('carton_id',$ganador_yo->carton_id)
+                            ->where('sorteo_id',$this->sorteo->id)
+                            ->first()
+                            ->update([
+                                'status_juego' => 'Gano'
+                            ]);
+                    }
+            
+                    if($gano_yo > 0){
+            
+                        $this->ganador_user_login = 1;
+
+                        if($this->cont_ganador == 1){
+
+                            notyf()
+                            ->duration(0)
+                            ->position('x', 'center')
+                            ->position('y', 'center')
+                            ->dismissible(true)
+                            ->addInfo('Felicidades su carton con serial Nro ' . $this->carton_ganador_1->serial . ', ha ganado el primer lugar en el sorteo Nro '. $this->sorteo->id );
+
+                            $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
+                            ->where('status_carton','No disponible')
+                            ->count();
+                                
+                            $sorteo = Sorteo::where('id',$this->sorteo)->first();
+
+                            $porcentaje_empresa = 100 - $this->sorteo->porcentaje_ganancia;
+                            $ganancia_empresa = $cant_cartones * ($porcentaje_empresa * 0.01);
+
+                            EmpresaGanancias::create([
+                                'sorteo_id' => $this->sorteo->id,
+                                'ganancia' => $ganancia_empresa,
+                            ]);
+                                
+                            $ganancia_dolares = ($cant_cartones * ($this->sorteo->porcentaje_ganancia * 0.01)) / $cant_ganadores_sorteo;
+
+                            $ganadores_sorteo_usuario_log = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                                ->where('user_id',auth()->user()->id)
+                                ->where('lugar','Primero')
+                                ->get();
+
+                            foreach($ganadores_sorteo_usuario_log as $gsul){
+                                $gsul->update([
+                                    'premio' => $ganancia_dolares,
+                                ]);
+                            }
+
+                            $saldo= (UserSaldo::where('user_id',auth()->user()->id)->first()->saldo) + $ganancia_dolares;
+
+                            UserSaldo::where('user_id',auth()->user()->id)->first()->update([
+                                'saldo' => $saldo,
+                            ]);
+                        }                            
+                    }
+                    else{
+
+                        if($this->cont_ganador == 1){
+                            notyf()
+                                ->duration(0) // 2 seconds
+                                ->position('x', 'center')
+                                ->position('y', 'center')
+                                ->dismissible(true)
+                                ->addInfo('Ya hay un ganador en el 1er lugar, y su(s) carton(es) NO se encuentra entre los ganadores, tienes oportunidad para el premio del 2do lugar, continuemos ' );
+                        }
+                    }
+                    $this->ganador_1 = 1;
+
+                    /*Sorteo::where('id',$this->sorteo->id)->first()->update([
+                        'status' => 'Finalizado'
+                    ]);*/
+                }
+
+            }
+
+            if($this->ganador_1 == 1 && $this->ganador_2 == 0){
+
+                $ganadores_sorteo_2 = CartonGanador::with('carton')
+                    ->where('sorteo_id',$this->sorteo->id)
+                    ->where('lugar','Segundo')
+                    ->get();
+        
+                $cant_ganadores_sorteo = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                    ->where('lugar','Segundo')
+                    ->count();
+        
+                if($ganadores_sorteo_2->isEmpty() == false){
+                    $gano_yo = 0;
+
+                    $this->cont_ganador++;
+            
+                    foreach($ganadores_sorteo_2 as $ganador_yo){
+                        if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;
+                    }
+            
+                    if($gano_yo > 0){
+            
+                        $this->ganador_user_login = 1;
+
+                        if($this->cont_ganador == 1){
+
+                            notyf()
+                            ->duration(0)
+                            ->position('x', 'center')
+                            ->position('y', 'center')
+                            ->dismissible(true)
+                            ->addInfo('Felicidades su carton con serial Nro ' . $this->carton_ganador_2->serial . ', ha ganado el segundo lugar en el sorteo Nro '. $this->sorteo->id);
+
+                            $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
+                            ->where('status_carton','No disponible')
+                            ->count();
+                                
+                            $sorteo = Sorteo::where('id',$this->sorteo)->first();
+
+                            $porcentaje_empresa = 100 - $this->sorteo->porcentaje_ganancia_2do_lugar;
+                            $ganancia_empresa = $cant_cartones * ($porcentaje_empresa * 0.01);
+
+                            EmpresaGanancias::create([
+                                'sorteo_id' => $this->sorteo->id,
+                                'ganancia' => $ganancia_empresa,
+                            ]);
+                                
+                            $ganancia_dolares = ($cant_cartones * ($this->sorteo->porcentaje_ganancia_2do_lugar * 0.01)) / $cant_ganadores_sorteo;
+
+                            $ganadores_sorteo_usuario_log = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                                ->where('user_id',auth()->user()->id)
+                                ->where('lugar','Segundo')
+                                ->get();
+
+                            foreach($ganadores_sorteo_usuario_log as $gsul){
+                                $gsul->update([
+                                    'premio' => $ganancia_dolares,
+                                ]);
+                            }
+
+                            $saldo= (UserSaldo::where('user_id',auth()->user()->id)->first()->saldo) + $ganancia_dolares;
+
+                            UserSaldo::where('user_id',auth()->user()->id)->first()->update([
+                                'saldo' => $saldo,
+                            ]);
+                        }                            
+                    }
+                    else{
+
+                        if($this->cont_ganador == 1){
+                            notyf()
+                                ->duration(0) // 2 seconds
+                                ->position('x', 'center')
+                                ->position('y', 'center')
+                                ->dismissible(true)
+                                ->addInfo('Ya hay un ganador en el 2do lugar, y su(s) carton(es) NO se encuentra entre los ganadores, tienes oportunidad para el premio del 3er lugar, continuemos ' );
+                        }
+                    }
+                    $this->ganador_2 = 1;
+
+                   /* Sorteo::where('id',$this->sorteo->id)->first()->update([
+                        'status' => 'Finalizado'
+                    ]);*/
+                }
+            }
+
+            if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0){
+
+            }
+
+
+
         }
     }
 

@@ -19,7 +19,6 @@ class BilleteraRetirar extends Component
     public function mount(){
 
         $this->saldo_actual = auth()->user()->saldo;
-
         $this->cuentas = CuentasUser::where('user_id',auth()->user()->id)->get();
     }
 

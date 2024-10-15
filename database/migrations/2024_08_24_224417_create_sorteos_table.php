@@ -21,6 +21,7 @@ return new class extends Migration
 
             $table->string('type_1'); //el tipo de sorteo (campo lleno, esquinas etc) primer lugar
             $table->string('type_2')->nullable();//2do lugar
+            $table->string('type_3')->nullable();//2do lugar
 
             $table->string('status'); //Aperturado, Finalizado, Iniciado
 
@@ -29,6 +30,8 @@ return new class extends Migration
             $table->string('porcentaje_ganancia'); //porcentaje de ganancia del jugador
 
             $table->string('porcentaje_ganancia_2do_lugar')->nullable(); //porcentaje de ganancia del jugador
+
+            $table->string('porcentaje_ganancia_3er_lugar')->nullable(); //porcentaje de ganancia del jugador
         });
     }
 

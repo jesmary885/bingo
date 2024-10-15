@@ -41,10 +41,12 @@ class CrearIndex extends Component
 
     public function cant_premios($sorteo){
 
-        $sorte= Sorteo::where('id',$sorteo)->first()->type_2;
+        $sorte_2= Sorteo::where('id',$sorteo)->first()->type_2;
+        $sorte_3= Sorteo::where('id',$sorteo)->first()->type_3;
 
-        if($sorte == null) return 'Un premio';
-        else return 'Dos premios';
+        if($sorte_3 == null && $sorte_2 == null) return 'Un premio';
+        if($sorte_3 == null && $sorte_2 != null) return 'Dos premios';
+        if($sorte_3 != null && $sorte_2 != null)  return 'Tres premios';
     }
 
     public function confirm_eliminar(){

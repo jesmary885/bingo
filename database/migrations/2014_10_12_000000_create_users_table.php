@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('estado');
+            $table->string('telefono_whatsapp')->nullable(); 
             $table->string('retiro_inmediato')->nullable(); //si o no
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();

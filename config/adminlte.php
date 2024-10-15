@@ -326,7 +326,7 @@ return [
 
                 [
                     'text' => 'Reportar pagos de ganadores',
-                    'route'  => 'admin.reporte_pago_ganadores',
+                    'route'  => 'admin.reporte_pagos_ganadores',
                     'icon'    => 'fas fa-angle-right',
                     'icon_color' => 'blue',
                     'can' => 'menu.admin'

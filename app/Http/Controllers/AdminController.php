@@ -27,6 +27,11 @@ class AdminController extends Controller
         return view('admin.pagos');
     }
 
+    public function reporte_pagos_ganadores(){
+
+        return view('admin.reporte_pago_ganadores');
+    }
+
     public function sorteo_crear(){
 
         return view('admin.sorteos_crear');

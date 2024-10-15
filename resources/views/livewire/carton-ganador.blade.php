@@ -88,6 +88,7 @@
                                 <p class=" text-white font-semibold text-sm ">SERIAL NRO. {{$carton->carton->serial}}  </p>
                                 <p class="text-white font-semibold text-sm " >Ganador categoria : {{$carton->type}} </p>
                                 <p class="text-white font-semibold text-sm " >Usuario ganador : {{ $carton->user->name }} </p>
+                                <p class="text-white font-semibold text-sm " >Premio : {{ $carton->premio }} $  (Bs. {{$carton->premio * $dolar_hoy}})</p>
 
                                 @if($carton->lugar == 'Primero')
 

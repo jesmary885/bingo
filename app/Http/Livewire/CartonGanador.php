@@ -39,7 +39,9 @@ class CartonGanador extends Component
             ->where('sorteo_id',$this->sorteo)
             ->get();
 
+            $dolar_hoy = valor_dolar_hoy();
 
-        return view('livewire.carton-ganador',compact('ganadores_sorteo'));
+
+        return view('livewire.carton-ganador',compact('ganadores_sorteo','dolar_hoy'));
     }
 }

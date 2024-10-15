@@ -77,7 +77,7 @@
             </div>
             
             <table class="table text-sm table-bordered table-responsive-lg table-responsive-md table-responsive-sm">
-                    <thead class="text-xs uppercase  text-gray-500">
+                    <thead class="text-xs uppercase bg-gray-700 text-gray-400">
                         <tr>
                             <th class="text-center py-3">
                                 Fecha
@@ -124,7 +124,7 @@
                 <tbody>
 
                     @foreach ($registros as $registro)
-                        <tr class=" border-blue-700 hover:bg-gray-200">
+                        <tr class="  border-gray-700 hover:bg-gray-300">
                             
                             <td class="py-3 text-center">
                             {{\Carbon\Carbon::parse($registro->created_at)->format('d-m-Y h:i')}}

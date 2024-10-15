@@ -36,6 +36,7 @@ class Index extends Component
                     $query->where('name','LIKE', '%' . $this->search . '%');
                 })
                 ->where('status','Pendiente')
+                ->where('tipo','!=','Retiro')
                 ->latest('id')
                 ->paginate(15);
 
@@ -43,6 +44,7 @@ class Index extends Component
                     $query->where('name','LIKE', '%' . $this->search . '%');
                 })
                 ->where('status','Pendiente')
+                ->where('tipo','!=','Retiro')
                 ->latest('id')
                 ->count();
 
@@ -51,11 +53,13 @@ class Index extends Component
             else{
                 $registros = Pago::where('referencia', 'LIKE', '%' . $this->search . '%')
                     ->where('status','Pendiente')
+                    ->where('tipo','!=','Retiro')
                     ->latest('id')
                     ->paginate(15);
 
                 $total_registros = Pago::where('referencia', 'LIKE', '%' . $this->search . '%')
                 ->where('status','Pendiente')
+                ->where('tipo','!=','Retiro')
                 ->latest('id')
                 ->count();
                 

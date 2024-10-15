@@ -11,7 +11,7 @@
             </div>
             
             <table class="table text-sm table-bordered table-responsive-lg table-responsive-md table-responsive-sm">
-                    <thead class="text-xs uppercase text-gray-800">
+                    <thead class="text-xs bg-gray-700 text-gray-400">
                         <tr>
                             <th class="text-center py-3">
                                 Nro
@@ -44,6 +44,16 @@
                             class="text-center">
                             Porcentaje de ganancia
                             </th>
+
+                            <th 
+                                class="text-center">
+                                Tipo (3er lugar)
+                            </th>
+
+                            <th 
+                            class="text-center">
+                            Porcentaje de ganancia
+                            </th>
                         
                             <th 
                                 class="text-center">
@@ -65,7 +75,7 @@
                 <tbody>
 
                     @foreach ($sorteos as $sorteo)
-                        <tr class=" border-gray-800 hover:bg-gray-200">
+                        <tr class=" border-gray-700 hover:bg-gray-300">
 
                             <td class="text-center text-gray-800">
                                 {{$sorteo->id}}
@@ -98,7 +108,7 @@
                                     -
                                 </td>
 
-                            @else
+                            @elseif($this->cant_premios($sorteo->id) == 'Dos premios')
 
                                 <td class="text-center">
                                     {{$sorteo->type_2}}
@@ -107,6 +117,17 @@
                                 <td class="text-center">
                                     {{$sorteo->porcentaje_ganancia_2do_lugar}} %
                                 </td>
+
+                            @else
+
+                            <td class="text-center">
+                                {{$sorteo->type_3}}
+                            </td>
+    
+                            <td class="text-center">
+                                {{$sorteo->porcentaje_ganancia_3er_lugar}} %
+                            </td>
+
 
                             @endif
 

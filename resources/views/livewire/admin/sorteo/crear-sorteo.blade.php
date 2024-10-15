@@ -72,6 +72,7 @@
                             <option value="" selected>Seleccione una opción</option>
                             <option value="Un premio">Un premio</option>
                             <option value="Dos premios">Dos premios</option>
+                            <option value="Dos premios">Tres premios</option>
                         </select>
                         <x-input-error for="premios" />
                     </div>
@@ -147,6 +148,77 @@
                                 <input type="number" wire:model="porcentaje_ganancia_2" id="porcentaje_ganancia_2" class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-2.5 py-1 ml-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
 
                                 <x-input-error for="porcentaje_ganancia_2" />
+                            </div>
+
+                        </div>
+
+                    @else
+
+                        <div class="w-full flex justify-between mt-4 ">
+
+                            <div class="w-1/2">
+                                <x-label value="Tipo de sorteo del primer lugar" />
+
+                                <select wire:model="type_1" id="type_1" class=" mt-2 block w-full bg-gray-50 border border-gray-200 text-gray-700 py-0.5 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <option value="" selected>Seleccione una opción</option>
+                                    <option value="Tradicional">Tradicional</option>
+                                    <option value="Carton lleno">Carton lleno</option>
+                                </select>
+                                <x-input-error for="type_1" />
+                            </div>
+
+                            <div class="w-1/2">
+
+                                <x-label value="Porcentaje de ganancia del 1er lugar" />
+                                <input type="number" wire:model="porcentaje_ganancia" id="porcentaje_ganancia" class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-2.5 py-1 ml-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+
+                                <x-input-error for="porcentaje_ganancia" />
+                            </div>
+
+                        </div>
+
+                        <div class="w-full flex justify-between mt-4 ">
+
+                            <div class="w-1/2">
+                                <x-label value="Tipo de sorteo del 2do lugar" />
+
+                                <select wire:model="type_2" id="type_2" class=" mt-2 block w-full bg-gray-50 border border-gray-200 text-gray-700 py-0.5 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <option value="" selected>Seleccione una opción</option>
+                                    <option value="Tradicional">Tradicional</option>
+                                    <option value="Carton lleno">Carton lleno</option>
+                                </select>
+                                <x-input-error for="type_2" />
+                            </div>
+
+                            <div class="w-1/2">
+
+                                <x-label value="Porcentaje de ganancia del 2do lugar" />
+                                <input type="number" wire:model="porcentaje_ganancia_2" id="porcentaje_ganancia_2" class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-2.5 py-1 ml-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+
+                                <x-input-error for="porcentaje_ganancia_2" />
+                            </div>
+
+                        </div>
+
+                        <div class="w-full flex justify-between mt-4 ">
+
+                            <div class="w-1/2">
+                                <x-label value="Tipo de sorteo del 3er lugar" />
+
+                                <select wire:model="type_3" id="type_3" class=" mt-2 block w-full bg-gray-50 border border-gray-200 text-gray-700 py-0.5 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <option value="" selected>Seleccione una opción</option>
+                                    <option value="Tradicional">Tradicional</option>
+                                    <option value="Carton lleno">Carton lleno</option>
+                                </select>
+                                <x-input-error for="type_3" />
+                            </div>
+
+                            <div class="w-1/2">
+
+                                <x-label value="Porcentaje de ganancia del 3er lugar" />
+                                <input type="number" wire:model="porcentaje_ganancia_3" id="porcentaje_ganancia_3" class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-2.5 py-1 ml-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+
+                                <x-input-error for="porcentaje_ganancia_3" />
                             </div>
 
                         </div>
