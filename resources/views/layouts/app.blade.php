@@ -73,6 +73,29 @@
 
         @stack('script')
 
+        <script>
+            livewire.on('confirm', (ms,item1,item2,ms2) => {
+                Swal.fire({
+                title: ms,
+                text: "",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                            livewire.emitTo(item1,item2)
+                            Swal.fire(
+                            '',
+                            ms2,
+                            'success'
+                            )
+                    }
+                })
+            })
+        </script>
+        
 
 
     </body>

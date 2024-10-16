@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\CartonSorteo;
+use App\Models\CuentasUser;
 use App\Models\MetodoPago;
 use App\Models\Pago;
 use App\Models\User;
@@ -20,10 +21,15 @@ class ShoppingCart extends Component
     use WithFileUploads;
 
     protected $listeners = ['render'];
-    public $metodo_select = 0, $dolar_valor, $procesa = 0, $adjunta = 0, $constancia,$referencia;
+    public $telefono,$pendiente, $r_i_o, $t_w, $c_u,$opcion_retiro_inmediato = 0, $metodo_select = 0, $dolar_valor, $procesa = 0, $adjunta = 0, $constancia,$referencia;
 
     protected $rules = [
         'constancia' => 'required',
+
+    ];
+
+    protected $rules_telefono = [
+        'telefono' => 'required',
 
     ];
 
@@ -33,6 +39,17 @@ class ShoppingCart extends Component
         elseif($metodo_seleccionado == 'pago_movil') $this->metodo_select = 2;
         else $this->metodo_select = 3;
         $this->adjunta = 1;
+    }
+
+    public function opcion_retiro($opcion_seleccionada){
+
+        if($opcion_seleccionada == 'si') $this->opcion_retiro_inmediato = 1;
+        else $this->opcion_retiro_inmediato = 2;
+
+        User::where('id',auth()->user()->id)->first()->update([
+            'retiro_inmediato' => $opcion_seleccionada,
+        ]);
+
     }
 
     public function delete($rowIDm,$sorteo,$carton){
@@ -51,68 +68,93 @@ class ShoppingCart extends Component
 
     public function procesar(){
 
-        if($this->metodo_select != 3){
-            $rules = $this->rules;
-            $this->validate($rules);
+        
 
-            $constancia = Storage::put('transacciones', $this->constancia);
+        if($this->t_w == 0){
+
+            $rules_telefono = $this->rules_telefono;
+            $this->validate($rules_telefono);
+
+            User::where('id',auth()->user()->id)->first()->update([
+                'telefono_whatsapp' => $this->telefono
+            ]);
+
+
 
         }
 
-        if($this->metodo_select == 1) $metodo= 'Binance';
-        if($this->metodo_select == 2) $metodo= 'Pago movil';
-        else $metodo= 'Saldo';
+        $retiro_i = User::where('id',auth()->user()->id)->first()->retiro_inmediato;
 
-        if($this->metodo_select == 3){
+        $cuentas_usuario_l = CuentasUser::where('user_id',auth()->user()->id)
+            ->get();
+        
+        if($cuentas_usuario_l->isEmpty() == false && $cuentas_usuario_l) $this->c_u = 1;
 
-            $user = User::where('id',auth()->user()->id)->first();
-
-            $saldo_nuevo = $user->saldo - Cart::subtotal();
-
-            $user->update([
-                'saldo' =>  $saldo_nuevo,
-            ]);
-
-            foreach(Cart::content() as $item){
-
-                CartonSorteo::where('sorteo_id', $item->options['sorteo'])
-                    ->where('carton_id',$item->options['carton'])
-                    ->first()
-                    ->update([
-                        'status_carton' => 'No disponible',
-                        'status_pago' => 'Pago recibido',
-                        'user_id' => auth()->user()->id
-                    ]);
+        if($this->c_u == 1){
+            if($this->metodo_select != 3){
+                $rules = $this->rules;
+                $this->validate($rules);
+    
+                $constancia = Storage::put('transacciones', $this->constancia);
+    
             }
-
-        }
-        else{
-            $pago_proc = Pago::create([
-                'user_id' => auth()->user()->id,
-                'metodo_pago' => $metodo,
-                'monto' => Cart::subtotal(),
-                'constancia' => $constancia,
-                'referencia' => $this->referencia,
-                'tipo' => 'Pago de carton',
-                'status' => 'Pendiente',
-                'cantidad' => Cart::count(), 
-            ]);
-
-            foreach(Cart::content() as $item){
-                CartonSorteo::where('sorteo_id', $item->options['sorteo'])
-                    ->where('carton_id',$item->options['carton'])
-                    ->first()
-                    ->update([
-                        'pago_id' => $pago_proc->id,
-                        'user_id' => auth()->user()->id
+    
+            if($this->metodo_select == 1) $metodo= 'Binance';
+            if($this->metodo_select == 2) $metodo= 'Pago movil';
+            else $metodo= 'Saldo';
+    
+            if($this->metodo_select == 3){
+    
+                $user = User::where('id',auth()->user()->id)->first();
+    
+                $saldo_nuevo = $user->saldo - Cart::subtotal();
+    
+                $user->update([
+                    'saldo' =>  $saldo_nuevo,
                 ]);
+    
+                foreach(Cart::content() as $item){
+    
+                    CartonSorteo::where('sorteo_id', $item->options['sorteo'])
+                        ->where('carton_id',$item->options['carton'])
+                        ->first()
+                        ->update([
+                            'status_carton' => 'No disponible',
+                            'status_pago' => 'Pago recibido',
+                            'user_id' => auth()->user()->id
+                        ]);
+                }
+    
             }
+            else{
+                $pago_proc = Pago::create([
+                    'user_id' => auth()->user()->id,
+                    'metodo_pago' => $metodo,
+                    'monto' => Cart::subtotal(),
+                    'constancia' => $constancia,
+                    'referencia' => $this->referencia,
+                    'tipo' => 'Pago de carton',
+                    'status' => 'Pendiente',
+                    'cantidad' => Cart::count(), 
+                ]);
+    
+                foreach(Cart::content() as $item){
+                    CartonSorteo::where('sorteo_id', $item->options['sorteo'])
+                        ->where('carton_id',$item->options['carton'])
+                        ->first()
+                        ->update([
+                            'pago_id' => $pago_proc->id,
+                            'user_id' => auth()->user()->id
+                    ]);
+                }
+    
+            }
+    
+            Cart::destroy();
+    
+            return redirect()->route('mis-cartones');
 
         }
-
-        Cart::destroy();
-
-        return redirect()->route('mis-cartones');
 
     }
 
@@ -137,6 +179,24 @@ class ShoppingCart extends Component
 
     public function mount(){
 
+        $retiro_inmediato_opcion = User::where('id',auth()->user()->id)
+            ->first();
+
+        if($retiro_inmediato_opcion->retiro_inmediato == null) $this->r_i_o = 0;
+        else $this->r_i_o = 1;
+
+        if($retiro_inmediato_opcion->telefono_whatsapp == null) $this->t_w = 0;
+        else $this->t_w = 1;
+
+        $cuentas_usuario = CuentasUser::where('user_id',auth()->user()->id)
+            ->get();
+
+        if($cuentas_usuario->isEmpty() == false) $this->c_u = 1;
+        else $this->c_u = 0;
+
+        if($this->r_i_o == 0 || $this->t_w == 0 || $this->c_u == 0) $this->pendiente = 1;
+        else $this->pendiente = 0;
+
 
 
     }
@@ -144,7 +204,9 @@ class ShoppingCart extends Component
     public function render()
     {
 
-        $this->dolar_valor = MetodoPago::where('id','1')->first()->valor;
+
+
+        $this->dolar_valor = valor_dolar_hoy();
         return view('livewire.shopping-cart');
     }
 

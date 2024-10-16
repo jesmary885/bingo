@@ -1615,28 +1615,184 @@
                 
             </div>
         <!-- Sub total -->
-            <div class="mt-2 h-full rounded-lg border bg-white p-1 shadow-md md:mt-0 md:w-1/3">
- 
 
-                <div class="bg-white dark:bg-gray-900">
-                    <div class=" px-1 py-2 mx-auto">
-                        <p class="font-semibold text-sm md:text-md lg:text-lg text-gray-700 uppercase text-center">
-                            Selecciona el método de pago
-                        </p>
+            <div >
+                @if($r_i_o == 0 || $t_w == 0 || $c_u == 0)
+                    <div class="m-auto h-52 w-full max-w-md bg-white shadow p-2 border-t-4 border-blue-600 rounded">
+                        
+                            <header class="p-2 border-b flex"> 
+                                <div class="flex flex-col">
+                                    <p class=" text-sm font-semibold text-gray-700 text-justify ">
+                                        Por ser la primera vez que juegas en BING+ necesitamos que completes la siguiente información antes de culminar el proceso de pago:
+                                    </p>
+                                </div>
+                            </header>
+                            <div class="flex flex-wrap p-2 w-full gap-4">
+                                @if($r_i_o == 0)
+                                <div class="bg-white dark:bg-gray-900">
+                                    <div class="px-1 py-2 mx-auto">
         
-                        <div class="mt-2 space-y-2 ">
+                                    
+        
+        
+                                        <div>
+                                            <div class="flex ">
+        
+                                            </div>
+                                            <p class="text-sm font-semibold text-gray-700  mt-2 text-justify ">
+                                                - ¿Deseas solicitar el retiro inmediato de tus ganancias una vez culmine el sorteo?. (Al seleccionar  "SI" no debe esperar a solicitar 
+                                                el pago de sus ganancias una vez culmine el sorteo en el que haya resultado ganador, es decir, su pago se efectuara inmediatamente luego de culminar el sorteo. Si seleccionas "NO" debe solicitar retirar el dinero en el menú Billetera->Retirar, esto le permitira mantener dinero
+                                                en la billetera de BING+ en caso de querer comprar más cartones para los próximos sorteos). Si tienes dudas sobre este proceso consulta con los administradores. <span class="font-bold underline text-blue-600"> Nota:</span> Puedes cambiar tu respuesta las veces que quieras en el menú de tu billetera
+                                            </p>
+        
+                                            <div class="flex justify-between mt-3">
+        
+                                                <button wire:click="opcion_retiro('si')" class=" w-1/3 px-4 py-4 mx-auto border @if($opcion_retiro_inmediato == 1) border-blue-600 @endif cursor-pointer rounded-xl">
+                                                    <div class="flex items-center justify-between ">
+                                                        <div class="flex items-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 @if($opcion_retiro_inmediato == 1) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                            </svg>
+                                
+                                                            <div class="flex flex-col items-center mx-5 space-y-1">
+                                                                <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">SI</h2>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </button>
+        
+                                                <button wire:click="opcion_retiro('no')" class=" w-1/3 px-4 py-4 mx-auto border @if($opcion_retiro_inmediato == 2) border-blue-600 @endif cursor-pointer rounded-xl">
+                                                    <div class="flex items-center justify-between ">
+                                                        <div class="flex items-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 @if($opcion_retiro_inmediato == 2) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                            </svg>
+                                
+                                                            <div class="flex flex-col items-center mx-5 space-y-1">
+                                                                <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">NO</h2>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </button>
+        
+        
+        
+                                            </div>
+                                                
+                                        </div>
+                                        
+        
+                                    </div>
+        
+                                </div>
+        
+                            @endif
+        
+                            @if($c_u == 0)
+        
+                                <p class="text-sm font-semibold text-gray-700 text-justify mt-2 ">
+                                    - Ingresa tu cuenta bancaria a donde deseas recibir tus ganancias:
+                                </p>
+        
+                                <div class=" flex justify-center mt-2 " >
+                                    @livewire('billetera.mis-cuentas-add', ['tipo' => 'agregar_carrito']) 
+        
+                                </div>
+        
+                            @endif
+        
+                            @if($t_w == 0)
+        
+                                <p class="text-sm font-semibold text-gray-700 text-justify mt-2 ">
+                                    - Ingresa tu número de teléfono para mantenernos en contacto por whatSapp cuando ganes en nuestros sorteos o aclarar tus dudas
+                                </p>
+        
+                                <div class="flex flex-col mt-2">
+                                
+                                    <div class="relative">
+                                        <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                                        <span>
+                                            <svg class="h-6 w-6" enable-background="new 0 0 32 32" height="32px" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Whatsapp"><path d="M16.004,1.5h-0.008v0l0,0C8.002,1.5,1.5,8.004,1.5,16c0,3.171,1.022,6.112,2.761,8.499l-1.807,5.388   l5.573-1.782c2.293,1.518,5.028,2.396,7.977,2.396C23.998,30.5,30.5,23.996,30.5,16S23.998,1.5,16.004,1.5z" fill="#FFFFFF"/><path d="M8.027,28.104c2.293,1.518,5.028,2.396,7.977,2.396C23.998,30.5,30.5,23.996,30.5,16   c0-1.334-0.196-2.621-0.535-3.849C27.832,6.798,22.608,3,16.504,3h-0.008v0l0,0C8.502,3,2,9.504,2,17.5   c0,0.409-0.087,0.824-0.229,1.241c0.407,2.117,1.267,4.077,2.49,5.757l-1.807,5.388L8.027,28.104z" fill="#65F0CD"/><path d="M16.004,31c-2.868,0-5.646-0.811-8.05-2.347l-5.348,1.709c-0.179,0.057-0.376,0.009-0.509-0.125   c-0.132-0.134-0.178-0.332-0.117-0.51l1.725-5.146C1.935,22.061,1,19.1,1,16c0-4.076,1.612-7.891,4.539-10.742   C5.736,5.066,6.053,5.07,6.246,5.267c0.192,0.198,0.188,0.515-0.01,0.707C3.505,8.636,2,12.196,2,16   c0,2.974,0.922,5.811,2.665,8.204c0.095,0.131,0.121,0.3,0.069,0.454l-1.492,4.452l4.633-1.481   c0.144-0.047,0.302-0.024,0.429,0.059C10.589,29.2,13.252,30,16.004,30C23.722,30,30,23.72,30,16c0-7.719-6.278-14-13.996-14   c-0.001,0-0.002,0-0.003,0c-2.167,0-4.238,0.481-6.164,1.429C9.589,3.55,9.29,3.449,9.168,3.202S9.147,2.654,9.396,2.532   C11.46,1.516,13.682,1,15.996,1C24.272,1,31,7.729,31,16S24.272,31,16.004,31z" fill="#455A64"/><g><path d="M23.717,19.344c-0.426-0.213-2.497-1.236-2.889-1.373c-0.384-0.145-0.75-0.093-1.039,0.316    c-0.41,0.571-0.81,1.151-1.134,1.5c-0.256,0.273-0.674,0.307-1.022,0.162c-0.469-0.196-1.781-0.657-3.4-2.097    c-1.253-1.116-2.105-2.506-2.353-2.923c-0.247-0.426-0.025-0.674,0.171-0.904c0.213-0.264,0.417-0.452,0.63-0.699    c0.214-0.248,0.333-0.375,0.47-0.665c0.145-0.281,0.042-0.571-0.061-0.785c-0.102-0.213-0.954-2.293-1.304-3.137    c-0.281-0.673-0.494-0.699-0.92-0.716c-0.146-0.008-0.307-0.017-0.486-0.017c-0.554,0-1.133,0.162-1.482,0.52    c-0.427,0.435-1.483,1.449-1.483,3.529s1.517,4.092,1.722,4.374c0.213,0.281,2.957,4.611,7.218,6.376    c3.332,1.381,4.321,1.253,5.079,1.091c1.108-0.239,2.497-1.058,2.847-2.046c0.35-0.989,0.35-1.833,0.247-2.012    C24.424,19.66,24.143,19.558,23.717,19.344z" fill="#FFFFFF"/><path d="M20.602,24.493L20.602,24.493c-1.011,0-2.422-0.39-4.439-1.226c-2.633-1.09-5.243-3.374-7.35-6.429    l-0.075-0.107c-0.696-0.951-1.823-2.773-1.823-4.675c0-2.229,1.115-3.36,1.592-3.843c0.449-0.461,1.12-0.706,1.874-0.706    c0.19,0,0.36,0.009,0.515,0.018c0.635,0.025,1.003,0.185,1.353,1.022l0.363,0.88c0.384,0.931,0.857,2.08,0.931,2.235    c0.082,0.169,0.331,0.688,0.054,1.228c-0.148,0.316-0.293,0.483-0.492,0.713c-0.14,0.161-0.233,0.261-0.328,0.361    c-0.11,0.118-0.222,0.234-0.334,0.375c-0.193,0.226-0.193,0.226-0.128,0.339c0.37,0.625,1.157,1.825,2.253,2.8    c1.422,1.265,2.571,1.73,3.123,1.954l0.137,0.056c0.145,0.06,0.328,0.103,0.465-0.042c0.248-0.267,0.562-0.706,0.894-1.171    l0.199-0.279c0.349-0.493,0.779-0.597,1.078-0.597c0.175,0,0.357,0.035,0.543,0.105c0.465,0.162,2.912,1.381,2.937,1.393    l0.235,0.115c0.35,0.168,0.626,0.301,0.784,0.579c0.229,0.398,0.139,1.442-0.209,2.427c-0.417,1.179-1.967,2.1-3.213,2.368    C21.293,24.438,20.998,24.493,20.602,24.493z M10.38,8.507c-0.472,0-0.902,0.142-1.124,0.369c-0.461,0.468-1.342,1.361-1.342,3.18    c0,1.181,0.585,2.658,1.605,4.051l0.116,0.165c1.998,2.898,4.452,5.055,6.909,6.072c1.893,0.785,3.182,1.15,4.057,1.15l0,0    c0.3,0,0.523-0.042,0.727-0.085c0.973-0.21,2.198-0.929,2.479-1.724c0.304-0.857,0.298-1.516,0.262-1.647    c-0.002,0.031-0.182-0.054-0.327-0.124l-0.249-0.122c-0.701-0.351-2.513-1.236-2.83-1.347c-0.084-0.032-0.148-0.045-0.202-0.045    c-0.045,0-0.138,0-0.264,0.178l-0.2,0.28c-0.351,0.492-0.682,0.956-0.976,1.272c-0.377,0.403-1.024,0.515-1.581,0.283    l-0.127-0.052c-0.557-0.225-1.862-0.753-3.413-2.133c-1.196-1.066-2.049-2.363-2.451-3.042c-0.423-0.729,0.006-1.231,0.212-1.472    c0.131-0.163,0.259-0.298,0.387-0.434c0.084-0.089,0.168-0.178,0.254-0.278c0.225-0.259,0.299-0.345,0.396-0.552    c0.029-0.057,0.045-0.138-0.059-0.354c-0.076-0.16-0.562-1.334-0.953-2.286l-0.362-0.877c-0.165-0.396-0.165-0.396-0.479-0.408    C10.701,8.515,10.549,8.507,10.38,8.507z" fill="#455A64"/></g><g><circle cx="7.5" cy="4" fill="#455A64" r="0.5"/></g></g></svg>
+                                        </span>
+                                        </div>
+                            
+                                        <input id="telefono" type="number" name="telefono" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Número de teléfono" />
+                                    </div>
+                                </div>
+        
+        
+        
+                            @endif
+                    
+                            </div>
+                    </div>
+                @endif
 
-                            @if(auth()->user()->saldo >= Cart::subtotal())
+                <div class="m-auto h-52 w-full max-w-md bg-white shadow p-2 border-t-4 border-blue-600 rounded mt-2 ">
 
-                                <button wire:click="metodo('saldo')" class=" w-full px-4 py-4 mx-auto border @if($metodo_select == 3) border-blue-600 @endif cursor-pointer rounded-xl">
+                    <header class="p-2 border-b flex"> 
+                        <div class="flex flex-col">
+                            <p class=" font-semibold text-sm md:text-md lg:text-lg text-gray-700 uppercase text-center ">
+                                REPORTA TU PAGO
+                            </p>
+                        </div>
+                    </header>
+
+                
+
+
+                    <div class="bg-white dark:bg-gray-900 ">
+                        <div class=" px-1 py-2 mx-auto">
+                            <p class="font-semibold text-sm md:text-md  text-gray-700 uppercase text-center mt-2">
+                                Selecciona el método de pago
+                            </p>
+            
+                            <div class="mt-2 space-y-2 ">
+    
+                                @if(auth()->user()->saldo >= Cart::subtotal())
+    
+    
+    
+                                    <button wire:click="metodo('saldo')" class=" w-full px-4 py-4 mx-auto border @if($metodo_select == 3) border-blue-600 @endif cursor-pointer rounded-xl">
+                                        <div class="flex items-center justify-between ">
+                                            <div class="flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 @if($metodo_select == 3) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                </svg>
+                    
+                                                <div class="flex flex-col items-center mx-5 space-y-1">
+                                                    <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">SALDO</h2>
+                                                    
+                                                </div>
+                                            </div>
+                                            
+                                            <h2 class="text-sm md:text-md lg:text-lg font-bold text-gray-500  dark:text-gray-300">$ {{floatval(Cart::subTotal())}}</h2>
+            
+                                        
+                                        </div>
+    
+                                        <div class="px-4 text-xs mt-1 text-blue-500 bg-gray-100 rounded-full text-center  ">
+                                            -
+                                        </div>
+    
+                                    </button>
+                                
+                                @endif
+                               
+    
+                                <button wire:click="metodo('binance')" class=" w-full px-4 py-4 mx-auto border @if($metodo_select == 1) border-blue-600 @endif cursor-pointer rounded-xl">
                                     <div class="flex items-center justify-between ">
                                         <div class="flex items-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 @if($metodo_select == 3) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 @if($metodo_select == 1) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                             </svg>
                 
                                             <div class="flex flex-col items-center mx-5 space-y-1">
-                                                <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">SALDO</h2>
+                                                <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">USDT BINANCE</h2>
                                                 
                                             </div>
                                         </div>
@@ -1645,131 +1801,112 @@
         
                                     
                                     </div>
-
+    
                                     <div class="px-4 text-xs mt-1 text-blue-500 bg-gray-100 rounded-full text-center  ">
-                                        -
+                                        queryset2023@gmail.com
                                     </div>
-
+    
                                 </button>
-                            
-                            @endif
-                           
-
-                            <button wire:click="metodo('binance')" class=" w-full px-4 py-4 mx-auto border @if($metodo_select == 1) border-blue-600 @endif cursor-pointer rounded-xl">
-                                <div class="flex items-center justify-between ">
-                                    <div class="flex items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 @if($metodo_select == 1) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                        </svg>
-            
-                                        <div class="flex flex-col items-center mx-5 space-y-1">
-                                            <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">USDT BINANCE</h2>
-                                            
-                                        </div>
-                                    </div>
-                                    
-                                    <h2 class="text-sm md:text-md lg:text-lg font-bold text-gray-500  dark:text-gray-300">$ {{floatval(Cart::subTotal())}}</h2>
-    
                                 
-                                </div>
-
-                                <div class="px-4 text-xs mt-1 text-blue-500 bg-gray-100 rounded-full text-center  ">
-                                    queryset2023@gmail.com
-                                </div>
-
-                            </button>
-                            
-                            <button wire:click="metodo('pago_movil')" class=" w-full px-4 py-4 mx-auto border @if($metodo_select == 2) border-blue-600 @endif cursor-pointer rounded-xl dark:border-gray-700">
-                                <div class="flex items-center justify-between ">
-                                    <div class="flex items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5  @if($metodo_select == 2) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                        </svg>
-            
-                                        <div class="flex flex-col items-center mx-5 space-y-1">
-                                            <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">PAGO MÓVIL</h2>
-                                            
-                                        </div>
-                                    </div>
-                                    
-                                    <h2 class="text-sm md:text-md lg:text-lg  font-bold text-gray-500  dark:text-gray-300">Bs. {{(floatval(Cart::subTotal()) * $dolar_valor)}}</h2>
-    
-                                
-                                </div>
-
-                                <div class="px-4 text-xs mt-1 text-blue-500 bg-gray-100 rounded-full text-center  dark:bg-gray-700 ">
-                                    (0134) (4.909.173) (04148264029)
-                                </div>
-
-                            </button>
-
-                        </div>
-
-
-                        @if($adjunta == 1 && $metodo_select != 3)
-
-                        <div class="mt-6 mb-2 text-center">
-
-                            <p class="font-semibold text-sm md:text-md lg:text-lg text-gray-700 uppercase text-center">
-                               Ingrese el Nro de referencia
-                            </p>
-
-                            <div class="w-full flex justify-center mt-2">
-                                <input name="referencia" wire:model="referencia" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"  />
-                            </div>
-            
-
-                        </div>
-
-                        <div class="mt-6 mb-2 text-center " >
-
-
-
-                            <p class="font-semibold text-sm md:text-md lg:text-lg text-gray-700 uppercase text-center">
-                                Adjunta la constancia de pago
-                            </p>
-            
-                            
-    
-    
-                            <div class="mt-2 flex-auto  ">
-                                 
-                                    <div class="flex ">
-                                        <label class="custom-file-upload flex w-full  bg-white rounded-md py-8 text-md font-medium text-gray-700 dark:text-gray-200 ">
-                                            <input type="file"  name="constancia" wire:model="constancia" class="image"/>
-                                            <svg class=" w-5 h-5 text-gray-400 mr-2 " viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m512 144v288c0 26.5-21.5 48-48 48h-416c-26.5 0-48-21.5-48-48v-288c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1l12.4 32.9h88c26.5 0 48 21.5 48 48zm-136 144c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z"/></svg>
-                                              Selecciona un archivo
-                                        </label>
-                      
-                                        @if($constancia) 
-                                            <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 h-8 mt-1 ml-1" viewBox="0 0 64 64">
-                                                <path fill="#4bd37b" d="M56 2L18.8 42.9 8 34.7H2L18.8 62 62 2z"/>
+                                <button wire:click="metodo('pago_movil')" class=" w-full px-4 py-4 mx-auto border @if($metodo_select == 2) border-blue-600 @endif cursor-pointer rounded-xl dark:border-gray-700">
+                                    <div class="flex items-center justify-between ">
+                                        <div class="flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5  @if($metodo_select == 2) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                             </svg>
-                                            
-                                        @endif
-                                    </div>
-                            </div>
-
-                        </div>
-
+                
+                                            <div class="flex flex-col items-center mx-5 space-y-1">
+                                                <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">PAGO MÓVIL</h2>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        <h2 class="text-sm md:text-md lg:text-lg  font-bold text-gray-500  dark:text-gray-300">Bs. {{(floatval(Cart::subTotal()) * $dolar_valor)}}</h2>
         
-
-
-                      
-                      
-
-                        @endif
+                                    
+                                    </div>
+    
+                                    <div class="px-4 text-xs mt-1 text-blue-500 bg-gray-100 rounded-full text-center  dark:bg-gray-700 ">
+                                        (0134) (4.909.173) (04148264029)
+                                    </div>
+    
+                                </button>
+    
+                            </div>
+    
+    
+                            @if($adjunta == 1 && $metodo_select != 3)
+    
+                            <div class="mt-6 mb-2 text-center">
+    
+                                <p class="font-semibold text-sm md:text-md text-gray-700 uppercase text-center">
+                                   Ingrese el Nro de referencia
+                                </p>
+    
+                                <div class="w-full flex justify-center mt-2">
+                                    <input name="referencia" wire:model="referencia" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"  />
+                                </div>
+                
+    
+                            </div>
+    
+                            <div class="mt-6 mb-2 text-center " >
+    
+    
+    
+                                <p class="font-semibold text-sm md:text-md text-gray-700 uppercase text-center">
+                                    Adjunta la constancia de pago
+                                </p>
+                
+                                
+        
+        
+                                <div class="mt-2 flex-auto  ">
+                                     
+                                        <div class="flex ">
+                                            <label class="custom-file-upload flex w-full  bg-white rounded-md py-8 text-md font-medium text-gray-700 dark:text-gray-200 ">
+                                                <input type="file"  name="constancia" wire:model="constancia" class="image"/>
+                                                <svg class=" w-5 h-5 text-gray-400 mr-2 " viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m512 144v288c0 26.5-21.5 48-48 48h-416c-26.5 0-48-21.5-48-48v-288c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1l12.4 32.9h88c26.5 0 48 21.5 48 48zm-136 144c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z"/></svg>
+                                                  Selecciona un archivo
+                                            </label>
+                          
+                                            @if($constancia) 
+                                                <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 h-8 mt-1 ml-1" viewBox="0 0 64 64">
+                                                    <path fill="#4bd37b" d="M56 2L18.8 42.9 8 34.7H2L18.8 62 62 2z"/>
+                                                </svg>
+                                                
+                                            @endif
+                                        </div>
+                                </div>
+    
+                            </div>
+    
+            
+    
+    
+                          
+                          
+    
+                            @endif
+                        </div>
                     </div>
+    
+                    @if($constancia)
+                    <button wire:click="procesar()" class="mt-4 px-2 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">PROCESAR PAGO</button>
+                    @endif
+    
+                    @if($metodo_select == 3)
+                    <button wire:click="procesar()" class="mt-4 px-2 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">PROCESAR PAGO</button>
+                    @endif
                 </div>
-
-                @if($constancia)
-                <button wire:click="procesar()" class="mt-4 px-2 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">PROCESAR PAGO</button>
-                @endif
-
-                @if($metodo_select == 3)
-                <button wire:click="procesar()" class="mt-4 px-2 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">PROCESAR PAGO</button>
-                @endif
+                
             </div>
+
+            
+
+
+            
+            
     </div>
 
     @else

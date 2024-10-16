@@ -70,7 +70,7 @@ class MisCuentasAdd extends Component
             $this->validate($rules);
         }
 
-        if($this->tipo == 'agregar'){
+        if($this->tipo == 'agregar' || $this->tipo == 'agregar_carrito' ){
 
             if($this->metodo == 'PAGO MOVIL'){
 
@@ -96,12 +96,23 @@ class MisCuentasAdd extends Component
                     $this->reset(['metodo','correo_codigo','open']);
             }
 
-            
-            $this->emitTo('billetera.mis-cuentas-index','render');
+            if($this->tipo != 'agregar_carrito'){
 
-            notyf()
-                ->duration(9000) // 2 seconds
-                ->addSuccess('Su solicitud ha sido procesada con éxito');
+                $this->emitTo('billetera.mis-cuentas-index','render');
+
+                notyf()
+                    ->duration(9000) // 2 seconds
+                    ->addSuccess('Su solicitud ha sido procesada con éxito');
+            }
+            else{
+                notyf()
+                    ->duration(9000) // 2 seconds
+                    ->addSuccess('Su cuenta ha sido registrada');
+
+            }
+
+            
+           
 
         }else{
 
@@ -128,11 +139,13 @@ class MisCuentasAdd extends Component
 
             $this->reset(['open']);
 
+
             $this->emitTo('billetera.mis-cuentas-index','render');
 
             notyf()
                 ->duration(9000) // 2 seconds
                 ->addSuccess('Su solicitud ha sido procesada con éxito');
+          
 
         }
 
