@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MetodopagoSeeder::class);
 
         $this->call(CuentaUserSeeder::class);
+        $this->call(ConfiguracionSeeder::class);
     }
 }

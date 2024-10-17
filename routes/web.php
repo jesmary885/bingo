@@ -42,7 +42,9 @@ Route::get('/auth/callback', [AuthController::class,'callback'])->name('auth.cal
 Route::middleware(['auth'])->group(function()
 {
 
-    Route::get('/home', HomeController::class)->name('home');
+    Route::get('/home', HomeController::class,'index')->name('home');
+
+    Route::get('/cuentanos', HomeController::class)->name('cuentanos');
 
     Route::get('cartones/{sorteo}', [cartones::class,'index'])->name('cartones.index');
 

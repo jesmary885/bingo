@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function __invoke()
+    public function index()
     {
 
         $sorteos = Sorteo::where('status','Aperturado')
@@ -18,4 +18,16 @@ class HomeController extends Controller
         return view('home',compact('sorteos','dolar_hoy'));
  
      }
+
+     public function cuentanos()
+     {
+ 
+         $sorteos = Sorteo::where('status','Aperturado')
+             ->get();
+ 
+         $dolar_hoy = valor_dolar_hoy();
+  
+         return view('home',compact('sorteos','dolar_hoy'));
+  
+      }
 }

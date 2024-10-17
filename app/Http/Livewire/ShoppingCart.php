@@ -39,6 +39,8 @@ class ShoppingCart extends Component
         elseif($metodo_seleccionado == 'pago_movil') $this->metodo_select = 2;
         else $this->metodo_select = 3;
         $this->adjunta = 1;
+
+        $this->emit('scrollIntoView');
     }
 
     public function opcion_retiro($opcion_seleccionada){
@@ -49,6 +51,8 @@ class ShoppingCart extends Component
         User::where('id',auth()->user()->id)->first()->update([
             'retiro_inmediato' => $opcion_seleccionada,
         ]);
+
+        $this->emit('scrollIntoView');
 
     }
 
@@ -68,11 +72,10 @@ class ShoppingCart extends Component
 
     public function procesar(){
 
-        
 
         if($this->t_w == 0){
 
-            $rules_telefono = $this->rules_telefono;
+           $rules_telefono = $this->rules_telefono;
             $this->validate($rules_telefono);
 
             User::where('id',auth()->user()->id)->first()->update([
@@ -201,12 +204,14 @@ class ShoppingCart extends Component
 
     }
 
+
     public function render()
     {
 
-
-
         $this->dolar_valor = valor_dolar_hoy();
+
+        $this->emit('scrollIntoView');
+
         return view('livewire.shopping-cart');
     }
 

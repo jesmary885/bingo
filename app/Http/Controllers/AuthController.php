@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\configuracion;
 use App\Models\User;
 use App\Models\UserSaldo;
 use Laravel\Socialite\Facades\Socialite;
@@ -39,13 +40,19 @@ class AuthController extends Controller
                 'saldo' => '0',
             ]);
 
+            $user->update([
+                'codigo_referido' => 'b-'.$user->id
+            ]);
+
             auth()->login($user);
         }
 
         else auth()->login($user_buscar);
 
-        
+        $configuracion= configuracion::first()->referidos;
 
-        return redirect()->to('/home');
+        if($configuracion == 'si') return redirect()->to('/cuentanos');
+        else return redirect()->to('/home');
+
     }
 }

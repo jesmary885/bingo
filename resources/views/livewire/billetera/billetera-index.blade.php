@@ -3656,7 +3656,7 @@
 
     <div class="px-4  ">
 
-        <div class="bg-white rounded-lg shadow-lg mb-6">
+        <div class="bg-white rounded-lg shadow-lg mb-2">
             <div class="px-6 py-2 flex justify-between items-center">
     
                 <div class=" flex justify-center mt-1 ">
@@ -3668,6 +3668,54 @@
     
             </div>
         </div>
+
+        <div class="w-full flex justify-end ">
+            <div class=" w-full max-w-xs bg-white shadow p-1  rounded " >
+                <header class="p-2 flex"> 
+                <p class=" font-semibold text-xs  text-gray-600 font-sans mb-1 " >
+                    RETIRO INMEDIATO DE TUS GANANCIAS UNA VEZ CULMINE EL SORTEO
+                </p>
+                </header>
+                <div class="flex justify-center " >
+
+                    <button wire:click="opcion_retiro('si')" class=" w-1/3 px-4 py-4 mx-auto border @if($retiro_inmediato == 1) border-blue-600 @endif cursor-pointer rounded-xl">
+                        <div class="flex items-center justify-between ">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 @if($retiro_inmediato == 1) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+    
+                                <div class="flex flex-col items-center mx-5 space-y-1">
+                                    <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">SI</h2>
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </button>
+    
+                    <button wire:click="opcion_retiro('no')" class=" w-1/3 px-4 py-4 mx-auto border @if($retiro_inmediato == 2) border-blue-600 @endif cursor-pointer rounded-xl">
+                        <div class="flex items-center justify-between ">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 @if($retiro_inmediato == 2) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+    
+                                <div class="flex flex-col items-center mx-5 space-y-1">
+                                    <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">NO</h2>
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        
+
+
 
         <div>
 

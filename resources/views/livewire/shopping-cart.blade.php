@@ -1720,7 +1720,7 @@
                                         </span>
                                         </div>
                             
-                                        <input id="telefono" type="number" name="telefono" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Número de teléfono" />
+                                        <input id="telefono" wire:model.defer="telefono" type="number" name="telefono" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Número de teléfono" />
                                     </div>
                                 </div>
         
@@ -1844,7 +1844,7 @@
                                 </p>
     
                                 <div class="w-full flex justify-center mt-2">
-                                    <input name="referencia" wire:model="referencia" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"  />
+                                    <input type="numer" name="referencia" wire:model="referencia" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"  />
                                 </div>
                 
     
@@ -1871,9 +1871,13 @@
                                             </label>
                           
                                             @if($constancia) 
+
+                                           
                                                 <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 h-8 mt-1 ml-1" viewBox="0 0 64 64">
                                                     <path fill="#4bd37b" d="M56 2L18.8 42.9 8 34.7H2L18.8 62 62 2z"/>
                                                 </svg>
+
+                                            
                                                 
                                             @endif
                                         </div>
@@ -1902,6 +1906,8 @@
                 
             </div>
 
+            <span id="final"></span>
+
             
 
 
@@ -1923,6 +1929,17 @@
 
     
 </div>
+
+    <script>
+
+        Livewire.on('scrollIntoView', function(){
+
+        document.getElementById('final').scrollIntoView(true);        
+
+        })
+
+    </script>
+
 
 
 </div>

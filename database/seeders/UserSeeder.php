@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             'email' => 'jesmary8855@gmail.com',
             'password' => bcrypt('12345678'),
             'estado' => 'activo',
+            'codigo_referido' => 'b-1',
         ])->assignRole('Administrador');
 
         UserSaldo::create([
@@ -33,6 +34,7 @@ class UserSeeder extends Seeder
             'email' => 'jesmary885@hotmail.com',
             'password' => bcrypt('12345678'),
             'estado' => 'activo',
+            'codigo_referido' => 'b-2',
         ])->assignRole('Jugador');
 
         UserSaldo::create([
@@ -45,6 +47,7 @@ class UserSeeder extends Seeder
             'email' => 'jesmaryc885@hotmail.com',
             'password' => bcrypt('12345678'),
             'estado' => 'activo',
+            'codigo_referido' => 'b-3',
         ])->assignRole('Jugador');
 
         UserSaldo::create([
@@ -57,6 +60,7 @@ class UserSeeder extends Seeder
             'email' => 'jesmarycc885@hotmail.com',
             'password' => bcrypt('12345678'),
             'estado' => 'activo',
+            'codigo_referido' => 'b-4',
         ])->assignRole('Jugador');
 
         UserSaldo::create([
