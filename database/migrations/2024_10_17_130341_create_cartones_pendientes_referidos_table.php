@@ -13,18 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('referidos', function (Blueprint $table) {
+        Schema::create('cartones_pendientes_referidos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
-            //Yo en tabla usuarios
-            $table->foreignId('user_id')->constrained();
-
-            //usuario que me refirio
-            $table->unsignedBigInteger('refer_id');
-            $table->foreign('refer_id')->references('id')->on('users');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->string('status'); //pendiente o procesado 
+
 
         });
     }
@@ -36,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('referidos');
+        Schema::dropIfExists('cartones_pendientes_referidos');
     }
 };

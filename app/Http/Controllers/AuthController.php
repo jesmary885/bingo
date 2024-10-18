@@ -32,7 +32,7 @@ class AuthController extends Controller
                 'estado' => 'activo',
                 'saldo' => '0',
                 //'profile_photo_path' => $user->getAvatar().'&access_token='.$user->token,
-                'profile_photo_path' => $user->avatar_original.'&access_token='.$user->token,
+               // 'profile_photo_path' => $user->avatar_original.'&access_token='.$user->token,
             ])->assignRole('Jugador');
 
             UserSaldo::create([
@@ -44,15 +44,25 @@ class AuthController extends Controller
                 'codigo_referido' => 'b-'.$user->id
             ]);
 
+            
+
             auth()->login($user);
+
+            $configuracion= configuracion::first()->referidos;
+
+            if($configuracion == 'si') return redirect()->to('/cuentanos');
+            else return redirect()->to('/home');
+
         }
 
-        else auth()->login($user_buscar);
+        else{
 
-        $configuracion= configuracion::first()->referidos;
+            auth()->login($user_buscar);
 
-        if($configuracion == 'si') return redirect()->to('/cuentanos');
-        else return redirect()->to('/home');
+            redirect()->to('/home');
+        }
+
+        
 
     }
 }

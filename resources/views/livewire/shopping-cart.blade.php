@@ -1938,6 +1938,16 @@
 
         })
 
+
+
+    </script>
+
+    <script>
+     
+        Livewire.on('volver', function(){
+            window.history.back();      
+        })
+ 
     </script>
 
 

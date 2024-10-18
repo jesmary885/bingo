@@ -14,6 +14,9 @@ Route::middleware(['auth','IsAdmin'])->group(function(){
     Route::get('sorteos_resultados',[AdminController::class,'sorteo_resultados'])->name('admin.sorteo_resultados')->middleware('permission:menu.admin');
     Route::get('Configuracion',[AdminController::class,'configuracion'])->name('admin.configuracion')->middleware('permission:menu.admin');
 
+    Route::get('Usuarios_referidos',[AdminController::class,'usuarios_referidos'])->name('admin.usuarios_referidos')->middleware('permission:menu.admin');
+    Route::get('Premiar',[AdminController::class,'premiar'])->name('admin.premiar')->middleware('permission:menu.admin');
+
     Route::get('sorteos_crear',[AdminController::class,'sorteo_crear'])->name('admin.sorteo_crear')->middleware('permission:menu.admin');
     Route::get('iniciar_sorteo/{sorteo}',[AdminController::class,'sorteo_jugar'])->name('admin.sorteo_jugar')->middleware('permission:menu.admin');
 

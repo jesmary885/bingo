@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('referidos');
+            $table->string('cant_referidos');
 
             $table->timestamps();
         });

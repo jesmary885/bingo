@@ -363,6 +363,30 @@ return [
             'route'  => 'admin.configuracion',
             'icon_color' => 'blue',
         ],
+
+        [
+            'text'    => 'REFERIDOS',
+            'can' => 'menu.admin',
+            'icon_color' => 'blue',
+            'submenu' => [
+                [
+                    'text' => 'Usuarios y referidos',
+                    'route'  => 'admin.sorteo_crear',
+                    'icon'    => 'fas fa-angle-right',
+                    'icon_color' => 'blue',
+                    'can' => 'menu.admin'
+                ],
+        
+                [
+                    'text' => 'Premiar',
+                    'route'  => 'admin.iniciar_sorteo',
+                    'icon'    => 'fas fa-angle-right',
+                    'icon_color' => 'blue',
+                    'can' => 'menu.admin'
+                ],
+        
+            ]
+        ],
             
 
         

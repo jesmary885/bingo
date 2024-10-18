@@ -17,6 +17,7 @@ class ConfiguracionSeeder extends Seeder
     {
         configuracion::create([
             'referidos' => 'si',
+            'cant_referidos' => '2',
         ]);
 
     }

@@ -502,6 +502,38 @@
                                 <input  id="password_confirmation" type="password" name="password_confirmation" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Contraseña" />
                             </div>
                             </div>
+
+                            <div class="flex flex-col mb-6">
+                                <label for="password" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Confirma la contraseña:</label>
+                                <div class="relative">
+                                    <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                                    <span>
+                                        <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                        </svg>
+                                    </span>
+                                    </div>
+                        
+                                    <input  id="password_confirmation" type="password" name="password_confirmation" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Contraseña" />
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="flex flex-col mb-6">
+                                <label for="password" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Código de referido:</label>
+                                <div class="relative">
+                                    <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                                    <span>
+                                        <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                        </svg>
+                                    </span>
+                                    </div>
+                        
+                                    <input  id="password_confirmation" type="password" name="password_confirmation" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Contraseña" />
+                                </div>
+                            </div>
                     
                             <div class="flex items-center mb-6 -mt-4">
                             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())

@@ -22,6 +22,16 @@ class AdminController extends Controller
         return view('admin.configuracion');
     }
 
+    public function usuarios_referidos(){
+
+        return view('admin.usuarios_referidos');
+    }
+
+    public function premiar(){
+
+        return view('admin.premiar');
+    }
+
     public function pagos(){
 
         return view('admin.pagos');

@@ -21,13 +21,8 @@ class HomeController extends Controller
 
      public function cuentanos()
      {
- 
-         $sorteos = Sorteo::where('status','Aperturado')
-             ->get();
- 
-         $dolar_hoy = valor_dolar_hoy();
-  
-         return view('home',compact('sorteos','dolar_hoy'));
+   
+         return view('cuentanos');
   
       }
 }
