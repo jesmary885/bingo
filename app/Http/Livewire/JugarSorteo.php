@@ -5,7 +5,9 @@ namespace App\Http\Livewire;
 use App\Models\Carton;
 use App\Models\CartonGanador;
 use App\Models\CartonSorteo;
+use App\Models\CuentasUser;
 use App\Models\EmpresaGanancias;
+use App\Models\Pago;
 use App\Models\Sorteo;
 use App\Models\SorteoFicha;
 use App\Models\User;
@@ -496,9 +498,22 @@ class JugarSorteo extends Component
 
                         $saldo= (UserSaldo::where('user_id',auth()->user()->id)->first()->saldo) + $ganancia_dolares;
 
-                        UserSaldo::where('user_id',auth()->user()->id)->first()->update([
-                            'saldo' => $saldo,
-                        ]);
+                        if(auth()->user()->retiro_inmediato == 'Si'){
+
+                            $cuenta = CuentasUser::where('user_id',auth()->user()->id)
+                                ->first();
+
+                            Pago::create([
+                                'user_id' => auth()->user()->id,
+                                'monto' => $this->fecha_inicio,
+                                'tipo' => 'Retiro',
+                                'cuenta_id' => $cuenta->id]);
+                        }
+                        else{
+                            UserSaldo::where('user_id',auth()->user()->id)->first()->update([
+                                'saldo' => $saldo,
+                            ]);
+                        }
                     }                            
                 }
                 else{
@@ -591,9 +606,22 @@ class JugarSorteo extends Component
 
                             $saldo= (UserSaldo::where('user_id',auth()->user()->id)->first()->saldo) + $ganancia_dolares;
 
-                            UserSaldo::where('user_id',auth()->user()->id)->first()->update([
-                                'saldo' => $saldo,
-                            ]);
+                            if(auth()->user()->retiro_inmediato == 'Si'){
+
+                                $cuenta = CuentasUser::where('user_id',auth()->user()->id)
+                                    ->first();
+    
+                                Pago::create([
+                                    'user_id' => auth()->user()->id,
+                                    'monto' => $this->fecha_inicio,
+                                    'tipo' => 'Retiro',
+                                    'cuenta_id' => $cuenta->id]);
+                            }
+                            else{
+                                UserSaldo::where('user_id',auth()->user()->id)->first()->update([
+                                    'saldo' => $saldo,
+                                ]);
+                            }
                         }                            
                     }
                     else{
@@ -678,9 +706,22 @@ class JugarSorteo extends Component
 
                             $saldo= (UserSaldo::where('user_id',auth()->user()->id)->first()->saldo) + $ganancia_dolares;
 
-                            UserSaldo::where('user_id',auth()->user()->id)->first()->update([
-                                'saldo' => $saldo,
-                            ]);
+                            if(auth()->user()->retiro_inmediato == 'Si'){
+
+                                $cuenta = CuentasUser::where('user_id',auth()->user()->id)
+                                    ->first();
+    
+                                Pago::create([
+                                    'user_id' => auth()->user()->id,
+                                    'monto' => $this->fecha_inicio,
+                                    'tipo' => 'Retiro',
+                                    'cuenta_id' => $cuenta->id]);
+                            }
+                            else{
+                                UserSaldo::where('user_id',auth()->user()->id)->first()->update([
+                                    'saldo' => $saldo,
+                                ]);
+                            }
                         }                            
                     }
                     else{
@@ -774,9 +815,22 @@ class JugarSorteo extends Component
 
                             $saldo= (UserSaldo::where('user_id',auth()->user()->id)->first()->saldo) + $ganancia_dolares;
 
-                            UserSaldo::where('user_id',auth()->user()->id)->first()->update([
-                                'saldo' => $saldo,
-                            ]);
+                            if(auth()->user()->retiro_inmediato == 'Si'){
+
+                                $cuenta = CuentasUser::where('user_id',auth()->user()->id)
+                                    ->first();
+    
+                                Pago::create([
+                                    'user_id' => auth()->user()->id,
+                                    'monto' => $this->fecha_inicio,
+                                    'tipo' => 'Retiro',
+                                    'cuenta_id' => $cuenta->id]);
+                            }
+                            else{
+                                UserSaldo::where('user_id',auth()->user()->id)->first()->update([
+                                    'saldo' => $saldo,
+                                ]);
+                            }
                         }                            
                     }
                     else{
@@ -861,9 +915,22 @@ class JugarSorteo extends Component
 
                             $saldo= (UserSaldo::where('user_id',auth()->user()->id)->first()->saldo) + $ganancia_dolares;
 
-                            UserSaldo::where('user_id',auth()->user()->id)->first()->update([
-                                'saldo' => $saldo,
-                            ]);
+                            if(auth()->user()->retiro_inmediato == 'Si'){
+
+                                $cuenta = CuentasUser::where('user_id',auth()->user()->id)
+                                    ->first();
+    
+                                Pago::create([
+                                    'user_id' => auth()->user()->id,
+                                    'monto' => $this->fecha_inicio,
+                                    'tipo' => 'Retiro',
+                                    'cuenta_id' => $cuenta->id]);
+                            }
+                            else{
+                                UserSaldo::where('user_id',auth()->user()->id)->first()->update([
+                                    'saldo' => $saldo,
+                                ]);
+                            }
                         }                            
                     }
                     else{
@@ -947,9 +1014,22 @@ class JugarSorteo extends Component
 
                             $saldo= (UserSaldo::where('user_id',auth()->user()->id)->first()->saldo) + $ganancia_dolares;
 
-                            UserSaldo::where('user_id',auth()->user()->id)->first()->update([
-                                'saldo' => $saldo,
-                            ]);
+                            if(auth()->user()->retiro_inmediato == 'Si'){
+
+                                $cuenta = CuentasUser::where('user_id',auth()->user()->id)
+                                    ->first();
+    
+                                Pago::create([
+                                    'user_id' => auth()->user()->id,
+                                    'monto' => $this->fecha_inicio,
+                                    'tipo' => 'Retiro',
+                                    'cuenta_id' => $cuenta->id]);
+                            }
+                            else{
+                                UserSaldo::where('user_id',auth()->user()->id)->first()->update([
+                                    'saldo' => $saldo,
+                                ]);
+                            }
                         }                            
                     }
                     else{

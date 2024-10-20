@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Carton;
 use App\Models\CartonSorteo;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,14 +16,19 @@ class CartonSorteoSeeder extends Seeder
      */
     public function run()
     {
-        CartonSorteo::create([
-            'sorteo_id' => '1',
-            'carton_id' => '1',
-            'status_carton' => 'Disponible',
-            'status_juego' => 'Sin estado'
-        ]);
+        $cartones = Carton::all();
+        
+        foreach($cartones as $carton){
 
-        CartonSorteo::create([
+            CartonSorteo::create([
+                'sorteo_id' => '1',
+                'carton_id' => $carton->id,
+                'status_carton' => 'Disponible',
+                'status_juego' => 'Sin estado'
+            ]);
+        }
+
+       /* CartonSorteo::create([
             'sorteo_id' => '1',
             'carton_id' => '2',
             'status_carton' => 'Disponible',
@@ -123,7 +129,7 @@ class CartonSorteoSeeder extends Seeder
             'carton_id' => '5',
             'status_carton' => 'Disponible',
             'status_juego' => 'Sin estado'
-        ]);
+        ]);*/
 
 
     }

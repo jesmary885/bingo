@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Carton;
 use App\Models\CartonSorteo;
+use DateTime;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -13,7 +14,7 @@ class Cartones extends Component
 
     protected $listeners = ['render' => 'render','echo:cambio_cs,CambioEstadoCartonSorteo' => 'render'];
 
-    public $sorteo, $status_carton='1', $tipo_cartones, $cartones, $search, $ver_todos_act = 0;
+    public $sorteo, $status_carton='1', $tipo_cartones, $search, $ver_todos_act = 0;
 
     protected $rules = [
         'search' => 'required',
@@ -79,10 +80,12 @@ class Cartones extends Component
     public function render()
     {
 
+
+ 
         if($this->ver_todos_act == 0){
-            $this->cartones = CartonSorteo::where('sorteo_id', $this->sorteo)
+            $cartones = CartonSorteo::where('sorteo_id', $this->sorteo)
                 ->with('carton')
-                ->get();
+                ->Paginate(20);
         }
 
         else{
@@ -90,16 +93,16 @@ class Cartones extends Component
             $rules = $this->rules;
             $this->validate($rules);
 
-            $carton_select = Carton::where('serial',$this->search)->first();
+            $carton_select = Carton::where('id',$this->search)->first();
 
             if($carton_select){
-                $this->cartones = CartonSorteo::where('sorteo_id', $this->sorteo)
+                $cartones = CartonSorteo::where('sorteo_id', $this->sorteo)
                 ->where('carton_id',$carton_select->id)
                 ->with('carton')
-                ->get();
+                ->Paginate(20);
             }
         }
 
-        return view('livewire.cartones');
+        return view('livewire.cartones',compact('cartones'));
     }
 }

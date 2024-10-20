@@ -21,6 +21,9 @@ class AuthController extends Controller
 
         $user = Socialite::driver('facebook')->stateless()->user();
 
+       //$user = Socialite::driver('facebook')->user();
+
+
 
         $user_buscar = User::where('email', $user->getEmail())->first();
  
@@ -34,6 +37,7 @@ class AuthController extends Controller
                 //'profile_photo_path' => $user->getAvatar().'&access_token='.$user->token,
                // 'profile_photo_path' => $user->avatar_original.'&access_token='.$user->token,
             ])->assignRole('Jugador');
+       // }
 
             UserSaldo::create([
                 'user_id' => $user->id,
@@ -50,7 +54,7 @@ class AuthController extends Controller
 
             $configuracion= configuracion::first()->referidos;
 
-            if($configuracion == 'si') return redirect()->to('/cuentanos');
+            if($configuracion == 'Si') return redirect()->to('/cuentanos');
             else return redirect()->to('/home');
 
         }
@@ -59,7 +63,7 @@ class AuthController extends Controller
 
             auth()->login($user_buscar);
 
-            redirect()->to('/home');
+            return redirect()->to('/home');
         }
 
         

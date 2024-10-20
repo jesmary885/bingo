@@ -5,6 +5,7 @@ use App\Http\Controllers\BilleteraController;
 use App\Http\Controllers\cartones;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JugarController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ShoppingCartController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -38,6 +39,9 @@ Route::middleware([
 Route::get('/auth/redirect', [AuthController::class,'redirect'])->name('auth.redirect');
  
 Route::get('/auth/callback', [AuthController::class,'callback'])->name('auth.callback');
+
+Route::get('/registro', [RegisterController::class, 'index'])->name('Registro');
+Route::post('/registro', [RegisterController::class, 'create'])->name('Registro_create');
 
 Route::middleware(['auth'])->group(function()
 {

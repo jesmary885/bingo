@@ -371,7 +371,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Usuarios y referidos',
-                    'route'  => 'admin.sorteo_crear',
+                    'route'  => 'admin.usuarios_referidos',
                     'icon'    => 'fas fa-angle-right',
                     'icon_color' => 'blue',
                     'can' => 'menu.admin'
@@ -379,7 +379,7 @@ return [
         
                 [
                     'text' => 'Premiar',
-                    'route'  => 'admin.iniciar_sorteo',
+                    'route'  => 'admin.premiar',
                     'icon'    => 'fas fa-angle-right',
                     'icon_color' => 'blue',
                     'can' => 'menu.admin'

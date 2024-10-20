@@ -13,9 +13,15 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
+
+     protected $commands = [
+        'App\Console\Commands\ReferidosCommand',
+
+    ];
+
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('referidos:pendientes')->everyMinute(); 
     }
 
     /**

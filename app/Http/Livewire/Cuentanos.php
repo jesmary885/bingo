@@ -30,15 +30,18 @@ class Cuentanos extends Component
 
         $busqueda_codigo = User::where('codigo_referido',$this->codigo)->first();
 
-        if( $busqueda_codigo){
+        if($busqueda_codigo){
 
             $rules = $this->rules;
             $this->validate($rules);
 
             referidos::create([
                 'user_id' => auth()->user()->id,
-                'refer_id' => $busqueda_codigo->id
+                'refer_id' => $busqueda_codigo->id,
+                'status' => 'Pendiente'
             ]);
+
+            return redirect(route('home'));
 
         }
         else{

@@ -45,7 +45,7 @@ class ShoppingCart extends Component
 
     public function opcion_retiro($opcion_seleccionada){
 
-        if($opcion_seleccionada == 'si') $this->opcion_retiro_inmediato = 1;
+        if($opcion_seleccionada == 'Si') $this->opcion_retiro_inmediato = 1;
         else $this->opcion_retiro_inmediato = 2;
 
         User::where('id',auth()->user()->id)->first()->update([

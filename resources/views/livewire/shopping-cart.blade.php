@@ -1647,7 +1647,7 @@
         
                                             <div class="flex justify-between mt-3">
         
-                                                <button wire:click="opcion_retiro('si')" class=" w-1/3 px-4 py-4 mx-auto border @if($opcion_retiro_inmediato == 1) border-blue-600 @endif cursor-pointer rounded-xl">
+                                                <button wire:click="opcion_retiro('Si')" class=" w-1/3 px-4 py-4 mx-auto border @if($opcion_retiro_inmediato == 1) border-blue-600 @endif cursor-pointer rounded-xl">
                                                     <div class="flex items-center justify-between ">
                                                         <div class="flex items-center">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 @if($opcion_retiro_inmediato == 1) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
@@ -1663,7 +1663,7 @@
                                                     </div>
                                                 </button>
         
-                                                <button wire:click="opcion_retiro('no')" class=" w-1/3 px-4 py-4 mx-auto border @if($opcion_retiro_inmediato == 2) border-blue-600 @endif cursor-pointer rounded-xl">
+                                                <button wire:click="opcion_retiro('No')" class=" w-1/3 px-4 py-4 mx-auto border @if($opcion_retiro_inmediato == 2) border-blue-600 @endif cursor-pointer rounded-xl">
                                                     <div class="flex items-center justify-between ">
                                                         <div class="flex items-center">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 @if($opcion_retiro_inmediato == 2) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">

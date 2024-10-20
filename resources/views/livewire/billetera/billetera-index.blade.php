@@ -4105,7 +4105,7 @@
                             </tbody>
                          </table>
                       </div>
-                      <div >
+                      <div>
                     
                         {{$movimientos->links()}}
                         

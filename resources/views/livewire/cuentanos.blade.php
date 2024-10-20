@@ -872,12 +872,12 @@
                     </span>
                     </div>
         
-                    <input id="codigo" wire.model="codigo" type="codigo" name="codigo" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Código de referido" />
+                    <input id="codigo" wire:model="codigo" type="text" name="codigo" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Código de referido" />
                 </div>
 
             </div>
 
-            <div class="space-x-4 bg-blue-100  text-center flex justify-end " > 
+            <div class="space-x-4 bg-gray-50  text-center flex justify-end " > 
 
                 <div class="m-3" >
                     <button type="button" wire:click="save" wire:loading.attr="disabled" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
