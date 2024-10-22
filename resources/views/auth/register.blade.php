@@ -1,3 +1,4 @@
+<x-guest-layout>
 <style>
     footer {
         min-height: 70px;
@@ -13,7 +14,9 @@
 
 
 
-    <div class="flex relative h-screen">
+
+
+    <div class="flex relative h-screen font-Arima ">
 
 
         <div class="relative w-full overflow-hidden md:flex bg-gradient-to-tr from-blue-300 to-purple-200 justify-around items-center hidden">
@@ -431,8 +434,13 @@
       
           <!-- Login banner -->
         <div class="md:flex md:items-center md:justify-center  w-full  p-8 md:p-2 lg:p-4  bg-white">
-                <div class="flex flex-col bg-white justify-center   px-8   w-full  ">
-                    <div class="font-medium self-center text-xl sm:text-4xl uppercase text-gray-800 mb-6">BING+</div>
+                <div class="flex flex-col bg-white justify-center px-8 w-full ">
+                    <a class=" flex justify-center w-full " href="{{ route('welcome') }}">
+                        <div class="font-medium self-center text-xl sm:text-4xl uppercase text-gray-800 mb-8">
+                            <img src="{{Storage::url('img/logo4.png') }}" alt="" class="block h-16 w-36 ">
+                        </div>
+                    </a>
+                    
 
 
                         <a href="{{ route('auth.redirect') }}" class="block group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
@@ -444,7 +452,7 @@
         
                         <div class="relative mt-10 h-px bg-gray-300">
                         <div class="absolute left-0 top-0 flex justify-center w-full -mt-2">
-                            <span class="bg-white px-4 text-xs text-gray-500 uppercase">O inicia sesión con tu correo electrónico</span>
+                            <span class="bg-white px-4 text-xs text-gray-500 uppercase font-Arima ">O registrate e inicia sesión con tu correo electrónico</span>
                         </div>
                         </div>
                         <div class="mt-10">
@@ -646,6 +654,7 @@
         </footer>
 
     </div>
+</x-guest-layout>
 
    
 

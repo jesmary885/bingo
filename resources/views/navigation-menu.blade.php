@@ -6,15 +6,13 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('home') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                        <img src="{{Storage::url('img/logo4.png') }}" alt="" class="block h-16 w-36 ">
+               
                     </a>
                 </div>
 
             </div>
 
-            
-
-            
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
 

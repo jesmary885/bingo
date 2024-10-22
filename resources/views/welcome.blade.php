@@ -1,5 +1,7 @@
 <x-guest-layout>
 
+    @livewire('navigation')
+
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700,900&display=swap" rel="stylesheet">
     
@@ -854,7 +856,7 @@
                       </p>
 
                       <p class="  mt-10  font-Arima mx-8 text-center text-lg">
-                        Si te apasionan los juegos de azar y quieres poner a prueba tu suerte, has llegado a la web indicada, te invitamos a participar en todos los sorteos que tenemos para ti, ¡es muy sencillo!. Solo registrate o inicia de manera rápida y fácil a través de Facebook, y nos vemos adentro para comenzar a ganar.
+                        Si te apasionan los juegos de azar y quieres poner a prueba tu suerte, ¡has llegado a la web indicada!. Te invitamos a participar en todos los sorteos que tenemos para ti, ¡es muy sencillo!. Solo registrate o inicia sesión de manera rápida a través de Facebook, y nos vemos adentro para comenzar a ganar.
                       </p>
                     </div>
                   </div>
@@ -2716,7 +2718,7 @@
         
                           </div>
                             <div class="col-start-2 col-end-11 pl-8 border-l-2 border-solid border-gray">
-                                <h3 class="text-gray-500 leading-relaxed font-medium">Inicio de sesión</h3>
+                                <h3 class="text-gray-500 leading-relaxed font-bold">Inicio de sesión</h3>
                                 <p class="mt-1 text-gray-500 leading-relaxed text-justify">
               
                                     Registrate e inicia sesión en Bing+.</p>
@@ -2736,7 +2738,7 @@
         
                             </div>
                             <div class="col-start-2 col-end-11 pl-8 border-l-2 border-solid border-gray">
-                                <h3 class="text-gray-500 leading-relaxed font-medium">Selecciona tu o tus cartones </h3>
+                                <h3 class="text-gray-500 leading-relaxed font-bold">Selecciona tu(s) carton(es) </h3>
                                 <p class="mt-1 text-gray-500 leading-relaxed text-justify">
             
                                     Selecciona el sorteo en donde quieras particiar y haz click en comprar sobre los cartones que desees.  </p>
@@ -2757,7 +2759,7 @@
         
                             </div>
                             <div class="col-start-2 col-end-11 pl-8 border-l-2 border-solid border-gray">
-                                <h3 class="text-gray-500 leading-relaxed font-medium">Paga tus cartones</h3>
+                                <h3 class="text-gray-500 leading-relaxed font-bold">Paga tus cartones</h3>
                                 <p class="mt-1 text-gray-500 leading-relaxed text-justify">
             
                                     Dirigete al carrito de compra de Bing+, ahí encontraras nuestros datos para realizar y reportar tu pago.  </p>
@@ -2778,7 +2780,7 @@
         
                             </div>
                             <div class="col-start-2 col-end-11 pl-8 border-l-2 border-solid border-gray">
-                                <h3 class="text-gray-500 leading-relaxed font-medium">Espera la hora del sorteo y juega</h3>
+                                <h3 class="text-gray-500 leading-relaxed font-bold">Espera la hora del sorteo y juega</h3>
                                 <p class="mt-1 text-gray-500 leading-relaxed text-justify">
 
                                     Al llegar la fecha y hora del sorteo, te diriges al menú de Jugar, donde podras ver las fichas que se van sorteando y chequear como se van llenando tus cartones en tiempo real. Si no tienes tiempo de jugar en la hora establecida tus cartones serán llenados por BING+ y si resultas ganador nos cuminaremos contigo.
