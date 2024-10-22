@@ -27,10 +27,12 @@ module.exports = {
             },
 
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-                header: ['Josefin', 'Josefin Sans'],
-                subtitulo: ['Dancing','Dancing Script'],
-                general : ['Tinos','Tinos']
+                'Opena': ['Open Sans', 'sans-serif'],
+                'Arima': [ 'Arima', 'system-ui'],
+                'Edu': [ 'Edu AU VIC WA NT Dots', 'serif'],
+                'Allerta' : ['Allerta Stencil', 'serif']
+
+        
             },
 
             height: {
