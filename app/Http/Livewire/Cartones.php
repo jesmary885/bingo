@@ -55,6 +55,7 @@ class Cartones extends Component
             ->first()
             ->serial;
 
+
         Cart::add([ 'id' => $carton_comprar, 
             'name' => 'name', 
             'qty' => '1', 

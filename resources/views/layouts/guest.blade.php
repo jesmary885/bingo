@@ -13,6 +13,8 @@
 
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -23,16 +25,30 @@
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.15.1/css/pro.min.css" />
 
+        <script src="glider.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="glider.css">
+
+         {{-- Glider --}}
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/glider-js/1.7.7/glider.min.css" integrity="sha512-YM6sLXVMZqkCspZoZeIPGXrhD9wxlxEF7MzniuvegURqrTGV2xTfqq1v9FJnczH+5OGFl5V78RgHZGaK34ylVg==" crossorigin="anonymous" />
+
+
 
         @livewireStyles
 
 
 
         <!-- Scripts -->
+
+        {{-- Glider --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/glider-js/1.7.7/glider.min.js" integrity="sha512-tHimK/KZS+o34ZpPNOvb/bTHZb6ocWFXCtdGqAlWYUcz+BGHbNbHMKvEHUyFxgJhQcEO87yg5YqaJvyQgAEEtA==" crossorigin="anonymous"></script>
         <script src="{{ mix('js/app.js') }}" defer></script>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+        <script src="{{ asset('vendor/FlexSlider/jquery.flexslider-min.js') }}"></script>
+
+        {{-- FlexSlider --}}
         <script src="{{ asset('vendor/FlexSlider/jquery.flexslider-min.js') }}"></script>
 
     </head>
@@ -45,6 +61,8 @@
         </div>
 
         @stack('modals')
+
+        @stack('script')
 
         @livewireScripts
     </body>

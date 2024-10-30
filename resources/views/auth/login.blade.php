@@ -407,9 +407,7 @@
                     <div class="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
             </div>
         
-    
-        
-            <!-- Login banner -->
+
             <div class="md:flex md:items-center md:justify-center  w-full  p-8 md:p-2 lg:p-4  bg-white">
                     <div class="flex flex-col bg-white justify-center   px-8   w-full  ">
                         <a class=" flex justify-center w-full " href="{{ route('welcome') }}">
@@ -514,7 +512,7 @@
                     </div>
             </div>
 
-            <footer class="bg-white rounded-lg shadow  ">
+            <section class="bg-white  ">
                 <div class="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
                     <nav class="flex flex-wrap justify-center -mx-5 -my-2">
                         <div class="px-5 py-2">
@@ -584,7 +582,7 @@
                         © 2021 SomeCompany, Inc. All rights reserved.
                     </p>
                 </div>
-            </footer>
+            </section>
 
         </div>
 </x-guest-layout>

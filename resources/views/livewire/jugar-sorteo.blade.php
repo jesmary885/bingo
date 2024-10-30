@@ -3,11 +3,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
 
-
-
-
     @if($cartones_sorteo_iniciado == 1)
-            <div class="relative block p-4 overflow-hidden border bg-white border-slate-100 rounded-lg mb-2 mt-1 ">
+
+            <div class="relative block p-4 overflow-hidden border bg-white border-slate-100 rounded-lg mb-2 mt-1 font-Arima ">
                 @if($cant_lugares == 1)
                     @if($ganador_1 == 0)
                         <div class=" text-lg font-extrabold text-center ">
@@ -49,8 +47,51 @@
 
                         <span class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600" ></span>
                     @endif
-                @else
+                @elseif($cant_lugares == 2)
                     @if($ganador_1 == 0 || $ganador_2 == 0)
+                        <div class=" text-lg font-extrabold text-center ">
+                            <span class="bg-gradient-to-r from-blue-500 via-blue-500 to-blue-500 bg-clip-text text-transparent"> FICHAS DEL SORTEO NRO {{$sorteo_nro}}</span>
+                        </div>
+
+                        <span class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600" ></span>
+
+                        <div class="mt-5 mb-10 flex mx-2 ">
+                        <div class="w-full grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-8   ">
+                            @foreach($fichas as $ficha)
+                                <div class="relative h-10 w-10 ">
+                                    @if($ficha_ultima == $ficha->id)
+                                        <div class="w-16 h-16 bg-red-500 rounded-full absolute  animate-ping"></div>
+                                    @endif
+                                    <div class="@if($ficha_ultima == $ficha->id) h-16 w-16 @else h-14 w-14 animate-pulse animate-fade-right @endif mx-auto my-auto  rounded-full  @if($ficha_ultima == $ficha->id) bg-red-700 @else bg-blue-700 @endif">
+                                        <p class="  text-center font-bold  text-white  mt-1">
+                                            {{$ficha->letra}}
+                                        </p>
+                                        <p class="  text-center font-bold  text-white ">
+                                            {{$ficha->numero}}
+                                        </p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        </div>
+                    @else
+
+                        <div class=" text-lg font-extrabold text-center ">
+                            <span class="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300 bg-clip-text text-transparent  "> RESULTADOS DEL SORTEO</span>
+                        </div>
+
+                        <div class=" flex justify-center w-full mt-4 mb-4">
+
+                            @livewire('carton-ganador', ['sorteo' => $sorteo->id]) 
+                            @livewire('fichas-sorteo', ['sorteo' => $sorteo->id]) 
+
+                        </div>
+
+                        <span class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600" ></span>
+
+                    @endif
+                @else
+                    @if($ganador_1 == 0 || $ganador_2 == 0 || $ganador_3 == 0)
                         <div class=" text-lg font-extrabold text-center ">
                             <span class="bg-gradient-to-r from-blue-500 via-blue-500 to-blue-500 bg-clip-text text-transparent"> FICHAS DEL SORTEO NRO {{$sorteo_nro}}</span>
                         </div>
@@ -96,7 +137,7 @@
             </div>
 
 
-        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-2 container ">
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-2 container font-Arima ">
 
             @foreach ($mis_cartones as $carton)
 
@@ -142,7 +183,7 @@
                         </div>
 
                         <div class="bg-blue-600 m-1 text-center">
-                            <p class=" text-white font-semibold text-sm ">SERIAL NRO. {{$carton->carton->serial}}  </p>
+                            <p class=" text-white font-semibold text-sm ">CARTÓN NRO. {{$carton->carton->id}}  </p>
                         </div>
 
                     </div>
@@ -198,10 +239,10 @@
         <div class=" flex justify-between relative" >
 
             <div class="w-full flex flex-col justify-center " >
-                <h3 class="font-bold text-2xl md:text-5xl text-blue-500 text-center mt-4 mb-2 font-sans  ">JUGAR SORTEO</h3>
+                <h3 class=" font-Allerta font-bold text-2xl md:text-5xl text-blue-500 text-center mt-4 mb-2   ">JUGAR SORTEO</h3>
             </div>
 
-            <div class="w-full">
+            <div class="w-full font-Arima ">
 
                 <div class=" w-3/4 items-center"  >
 
@@ -1221,7 +1262,7 @@
 
         </div>
 
-        <div class=" ">
+        <div class=" font-Arima ">
 
             <div class="bg-white  shadow-lg">
                 <div class=" py-1 flex justify-center ">
@@ -1230,7 +1271,7 @@
         
               
 
-                        <p class="font-semibold text-md md:text-md text-gray-600 font-sans text-center justify-center mx-4  ">En estos momentos no se esta efectuando ningún sorteo en el que te encuestres participando</p>
+                        <p class="font-semibold text-md md:text-md text-gray-600 text-center justify-center mx-4  ">En estos momentos no se esta efectuando ningún sorteo en el que te encuestres participando</p>
                      
         
         
@@ -1279,7 +1320,7 @@
 
 
 
-        @if($ganador_1 == 1 || $ganador_2 == 1)
+        @if($ganador_1 == 1 || $ganador_2 == 1 || $ganador_3 == 1)
 
             @if($ganador_user_login==1)
 

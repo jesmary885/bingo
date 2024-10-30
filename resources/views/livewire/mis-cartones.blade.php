@@ -3,7 +3,7 @@
     <div class=" flex justify-between relative" >
 
         <div class="w-full flex flex-col justify-center " >
-            <h3 class="font-bold text-2xl md:text-4xl text-blue-500 text-center mt-4 mb-2 font-sans  ">MIS CARTONES</h3>
+            <h3 class="font-bold text-2xl md:text-4xl text-blue-500 text-center mt-4 mb-2 font-Allerta ">MIS CARTONES</h3>
         </div>
 
         <div class=" w-full ">
@@ -2106,7 +2106,7 @@
 
     </div>
 
-    <div class="bg-white rounded-lg shadow-lg mb-6">
+    <div class="bg-white rounded-lg shadow-lg mb-6 font-Arima ">
         <div class="px-6 py-2 flex justify-between items-center">
 
             <p class=" font-semibold text-xs md:text-sm text-gray-600 font-sans " >
@@ -2118,7 +2118,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 container">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 container font-Arima ">
     
 
         @foreach ($mis_cartones as $carton)
@@ -2165,7 +2165,7 @@
                     </div> 
 
                     <div class="{{$this->color($carton->id)}} m-1 text-center  ">
-                        <p class=" text-white font-semibold text-sm ">SERIAL NRO. {{$carton->carton->serial}}  </p>
+                        <p class=" text-white font-semibold text-sm ">CARTÓN NRO. {{$carton->carton->id}}  </p>
                     </div>
 
                 </div> 

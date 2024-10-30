@@ -75,123 +75,127 @@
             <div class=" mt-8 mb-2">
                 <h3 class="my-2 mx-4 text-gray-500 font-bold text-lg">Registro de pagos</h3>
             </div>
+
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             
-            <table class="table text-sm table-bordered table-responsive-lg table-responsive-md table-responsive-sm">
-                    <thead class="text-xs uppercase bg-gray-700 text-gray-400">
-                        <tr>
-                            <th class="text-center py-3">
-                                Fecha
-                            </th>
+                <table class="table text-sm table-bordered table-responsive-lg table-responsive-md table-responsive-sm">
+                        <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+                            <tr>
+                                <th class="text-center py-3">
+                                    Fecha
+                                </th>
+                                
+                                <th 
+                                    class="text-center">
+                                    Tipo
+                                </th>
                             
-                            <th 
-                                class="text-center">
-                                Tipo
-                            </th>
-                        
-                            <th 
-                                class="text-center">
-                                Método
-                            </th>
-                            <th 
-                                class="text-center">
-                                Referencia
-                            </th>
-                            <th 
-                                class="text-center">
-                                Monto
-                            </th>
+                                <th 
+                                    class="text-center">
+                                    Método
+                                </th>
+                                <th 
+                                    class="text-center">
+                                    Referencia
+                                </th>
+                                <th 
+                                    class="text-center">
+                                    Monto
+                                </th>
 
-                            <th 
-                            class="text-center">
-                            Cant. cartones
-                            </th>
-
-                            <th 
+                                <th 
                                 class="text-center">
-                                Usuario
-                            </th>
-          
-                            <th 
-                                class="text-center">
-                                Constancia
-                            </th>
+                                Cant. cartones
+                                </th>
 
-                            <th>
-                            
-                            </th>
-                        </tr>
-                </thead>
-                <tbody>
+                                <th 
+                                    class="text-center">
+                                    Usuario
+                                </th>
+            
+                                <th 
+                                    class="text-center">
+                                    Constancia
+                                </th>
 
-                    @foreach ($registros as $registro)
-                        <tr class="  border-gray-700 hover:bg-gray-300">
-                            
-                            <td class="py-3 text-center">
-                            {{\Carbon\Carbon::parse($registro->created_at)->format('d-m-Y h:i')}}
-                            </td>
-                            <td class="text-center">
-                            {{$registro->tipo}}
-                            </td>
-                           
-                            <td class="text-center">
-                            {{$registro->metodo_pago}}
-                            </td>
-                            <td class="text-center">
-                            {{$registro->referencia}}
-                            </td>
-                            <td class="text-center">
-                            {{$registro->monto}} $
-                            </td>
+                                <th>
+                                
+                                </th>
+                            </tr>
+                    </thead>
+                    <tbody>
 
-                            @if ($registro->tipo == 'Pago de carton')
-
+                        @foreach ($registros as $registro)
+                            <tr class="  border-gray-700 hover:bg-gray-300">
+                                
+                                <td class="py-3 text-center">
+                                {{\Carbon\Carbon::parse($registro->created_at)->format('d-m-Y h:i')}}
+                                </td>
                                 <td class="text-center">
-                                    {{$registro->cantidad}}
+                                {{$registro->tipo}}
+                                </td>
+                            
+                                <td class="text-center">
+                                {{$registro->metodo_pago}}
+                                </td>
+                                <td class="text-center">
+                                {{$registro->referencia}}
+                                </td>
+                                <td class="text-center">
+                                {{$registro->monto}} $
                                 </td>
 
-                            @else
+                                @if ($registro->tipo == 'Pago de carton')
+
+                                    <td class="text-center">
+                                        {{$registro->cantidad}}
+                                    </td>
+
+                                @else
+
+                                    <td class="text-center">
+                                        N/A
+                                    </td>
+
+                                @endif
 
                                 <td class="text-center">
-                                    N/A
+                                {{$registro->user->name}}
                                 </td>
 
-                            @endif
+                                @if($registro->constancia)
+                                <td class="text-center">
+                                    <button class="text-green-600 text-lg hover:text-green-900"
+                                        
+                                        wire:click="download('{{$registro->constancia}}')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </td>
+                                @endif
 
-                            <td class="text-center">
-                            {{$registro->user->name}}
-                            </td>
+            
 
-                            @if($registro->constancia)
-                            <td class="text-center">
-                                <button class="text-green-600 text-lg hover:text-green-900"
-                                    
-                                    wire:click="download('{{$registro->constancia}}')">
-                                    <i class="fas fa-download"></i>
+                                <td class="text-center">
+                                    <button class="text-green-600 text-lg hover:text-green-900"
+                                        
+                                    wire:click="Pago_recibido('{{$registro->id}}')">
+                                    <i class="	fas fa-check-circle"></i>
                                 </button>
-                            </td>
-                            @endif
+                                </td>
 
-           
+                                <td class="text-center">
+                                    <button class="text-red-600 text-lg hover:text-green-900"
+                                        
+                                    wire:click="Pago_no_recibido('{{$registro->id}}')">
+                                    <i class="	fa fa-times-circle"></i>
+                                </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
 
-                            <td class="text-center">
-                                <button class="text-green-600 text-lg hover:text-green-900"
-                                    
-                                wire:click="Pago_recibido('{{$registro->id}}')">
-                                <i class="	fas fa-check-circle"></i>
-                            </button>
-                            </td>
-
-                            <td class="text-center">
-                                <button class="text-red-600 text-lg hover:text-green-900"
-                                    
-                                wire:click="Pago_no_recibido('{{$registro->id}}')">
-                                <i class="	fa fa-times-circle"></i>
-                            </button>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            </div>
 
         @else
             <div class="px-6 py-4">

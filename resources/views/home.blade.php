@@ -2,12 +2,12 @@
 
 
     <section class="bg-blue-100">
-        <div class="items-center px-8 mx-auto lg:px-16 md:px-12 mb-4">
+        <div class="items-center px-8 mx-auto lg:px-16 md:px-12">
           <div class="justify-center w-full text-center pt-6 max-auto">
             <div class="justify-center w-full mx-auto">
 
                 <div class="flex flex-col items-center justify-center max-w-xl gap-3 mx-auto lg:flex-row">
-                    <div class=" w-48  h-48 rounded-full border border-[#E8E3F4] bg-white shadow-md shadow-black/5 saturate-200">
+                    <div class=" w-48  h-48 rounded-full border border-[#E8E3F4] bg-white">
     
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
                             <g id="Background_Complete">
@@ -547,13 +547,11 @@
                             </g>
                             </g>
                             </g>
-                            
                             <g id="Bingo_1">
+                                <g>
                                 
-                            <g>
-                            
-                                <rect x="108.552" y="128.036" transform="matrix(0.9815 -0.1917 0.1917 0.9815 -42.182 42.0768)" style="fill:#407BFF;" width="175.648" height="222.026"/>
-                            <g>
+                                    <rect x="108.552" y="128.036" transform="matrix(0.9815 -0.1917 0.1917 0.9815 -42.182 42.0768)" style="fill:#407BFF;" width="175.648" height="222.026"/>
+                                <g>
                                 
                                     <rect x="185" y="246.794" transform="matrix(0.9815 -0.1917 0.1917 0.9815 -46.6512 43.4074)" style="fill:#FFFFFF;" width="32.035" height="32.035"/>
                                 
@@ -842,25 +840,43 @@
                     </div>
                 </div>
 
-              <p class=" mt-2 text-[#10172A] text-4xl md:text-6xl font-bold tracking-tighter">
+            
+
+
+              <p class=" mb-4 mt-2 text-[#10172A] text-4xl md:text-6xl font-bold  font-Allerta ">
                Juega y gana con <span class="underline mt-6 block leading-8 underline-offset-8	decoration-8 decoration-blue-600">BING+</span>
               </p>
 
-              <p class=" mt-6  text-[#10172A]  text-lg font-normal mb-4 pt-8 pb-20">
-             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, neque dolorum reprehenderit incidunt quidem sint, quas id iusto velit impedit magnam amet esse ipsum molestiae deleniti labore ad, recusandae totam.
+              <p class="  mt-10  font-Arima mx-8 text-center text-lg">
+                Te invitamos a participar en todos los sorteos que tenemos para ti, ¡es muy sencillo!. Selecciona el sorteo en donde quieras particiar y haz click en comprar sobre los cartones que desees, luego dirígete al carrito de compra ubicado en el menú superior, ahí encontraras nuestros datos para realizar y reportar tu pago. Por último corre al menú de Jugar (lo encontrarás haciendo click sobre tu nombre), ahí verás las fichas que se van sorteando y chequear como se van llenando tus cartones en tiempo real.
               </p>
             </div>
           </div>
       
         </div>
+
+        <div class="flex justify-center pt-6 pb-20 " >
+
+
+            
+
+        </div>
+
+        
+     
+   
+
+
+        
+
     </section>
 
     <div class="bg-white py-14 card  p-8 m-8 -mt-12 rounded-xl border border-white  shadow-md shadow-black/5 saturate-200 ">
        
-        <h2 class="text-4xl lg:text-5xl text-blue-900 mb-4 text-center  font-black">Sorteos más proximos en BING+ </h2>
+        <h2 class="text-blue-800 text-4xl md:text-5xl font-bold tracking-tighter font-Allerta text-center ">Sorteos más próximos </h2>
    
 
-        <div class="relative pt-2 lg:pt-2">
+        <div class="relative font-Arima  pt-2 lg:pt-2">
 
             <div class="bg-cover w-full flex justify-center items-center">
                 <div class="w-full bg-white md:p-5  bg-opacity-40 backdrop-filter backdrop-blur-lg">
@@ -5490,23 +5506,26 @@
                                 <div class=" items-center w-full pb-4 ">
                                     <p class="text-lg font-bold ">Sorteo Nro. {{$sorteo->id}}</p>
 
-                                    @if($sorteo->type_2 == null)
+                                    @if($sorteo->type_2 == null && $sorteo->type_3 == null)
                                     <p class="text-md font-semibold ">SORTEO (PREMIO ÚNICO)</p>
-                                    @else
+                                    @elseif($sorteo->type_2 != null && $sorteo->type_3 == null)
                                     <p class="text-md font-semibold "> SORTEO (1ER Y 2DO LUGAR)</p>
+                                    @elseif($sorteo->type_2 != null && $sorteo->type_3 != null)
+                                    <p class="text-md font-semibold "> SORTEO (1ER, 2DO Y 3ER LUGAR)</p>
+
                                     @endif
 
                                     <p class="text-sm text-gray-500">Lanzamiento: {{\Carbon\Carbon::parse($sorteo->fecha_ejecucion)->format('d-m-Y h:i')}}</p>
                                     
                                     <p class="text-sm text-gray-500 mt-2">Ganancia actual:  @livewire('ganancia-sorteo', ['sorteo' => $sorteo->id])</p>
                                 </div>
-                                @if($sorteo->type_2 == null)
+                                @if($sorteo->type_2 == null && $sorteo->type_3 == null)
                                     <h3 class="font-medium text-lg leading-8 text-blue-700 underline">
 
                                         Sorteo {{$sorteo->type_1}}
                                     
                                     </h3>
-                                @else
+                                @elseif($sorteo->type_2 != null && $sorteo->type_3 == null)
 
                                     <h3 class="font-semibold text-lg leading-8 text-blue-700 underline">
 
@@ -5514,12 +5533,30 @@
                                     
                                     </h3>
 
-                                    <h3 class="font-medium text-lg leading-8 text-blue-700 underline">
+                                    <h3 class="font-semibold text-lg leading-8 text-blue-700 underline">
+
+                                        2do lugar (Sorteo  {{$sorteo->type_2}})
+                                    
+                                    </h3>
+
+                                @elseif($sorteo->type_2 != null && $sorteo->type_3 != null)
+                                    <h3 class="font-semibold text-lg leading-8 text-blue-700 underline">
+
+                                        1er lugar (Sorteo {{$sorteo->type_1}})
+                                    
+                                    </h3>
+
+                                    <h3 class="font-semibold text-lg leading-8 text-blue-700 underline">
 
                                         2do lugar (Sorteo  {{$sorteo->type_1}})
                                     
                                     </h3>
 
+                                    <h3 class="font-semibold text-lg leading-8 text-blue-700 underline">
+
+                                        3er lugar (Sorteo  {{$sorteo->type_3}})
+                                    
+                                    </h3>
                                 @endif
 
                              

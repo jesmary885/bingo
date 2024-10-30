@@ -56,7 +56,7 @@ class ShoppingCart extends Component
 
     }
 
-    public function delete($rowIDm,$sorteo,$carton){
+    public function delete($rowIDm,$carton,$sorteo){
 
         CartonSorteo::where('sorteo_id', $sorteo)
             ->where('carton_id',$carton)

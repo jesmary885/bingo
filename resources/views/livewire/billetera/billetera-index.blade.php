@@ -7,7 +7,7 @@
     <div class=" flex justify-between relative" >
 
         <div class="w-full flex flex-col justify-center " >
-            <h3 class="font-bold text-2xl md:text-5xl text-blue-500 text-center mt-4 mb-2 font-sans  ">MI BILLETERA</h3>
+            <h3 class="font-bold text-2xl md:text-5xl text-blue-500 text-center mt-4 mb-2 font-Allerta   ">MI BILLETERA</h3>
         </div>
 
         <div class=" w-full ">
@@ -3659,7 +3659,7 @@
         <div class="bg-white rounded-lg shadow-lg mb-2">
             <div class="px-6 py-2 flex justify-between items-center">
     
-                <div class=" flex justify-center mt-1 ">
+                <div class=" flex justify-center mt-1 font-Arima ">
                     <p class=" font-semibold text-xs md:text-sm text-gray-600 font-sans " >
                         RESUMEN DE MOVIMIENTOS Y SOLICITUD DE RETIROS Y RECARGAS
                     </p>
@@ -3669,7 +3669,7 @@
             </div>
         </div>
 
-        <div class="w-full flex justify-end ">
+        <div class="w-full flex justify-end font-Arima ">
             <div class=" w-full max-w-xs bg-white shadow p-1  rounded " >
                 <header class="p-2 flex"> 
                 <p class=" font-semibold text-xs  text-gray-600 font-sans mb-1 " >
@@ -3717,7 +3717,7 @@
 
 
 
-        <div>
+        <div class=" font-Arima " >
 
             <div class="container">
                 <div class="flex flex-wrap -mx-4">

@@ -9,13 +9,13 @@ function valor_dolar_hoy(){
             'base_uri' => 'http://pydolarve.org',
         ]);
 
-        $resultado = $client->request('GET', '/api/v1/dollar?monitor=enparalelovzla');
+        $resultado = $client->request('GET', '/api/v1/dollar?page=bcv');
 
         if($resultado->getStatusCode() == 200){
 
             $precio_dolar = json_decode($resultado->getBody(),true);
 
-            return $precio_dolar['price'];
+            return $precio_dolar['monitors']['usd']['price'];
         }
 
     }

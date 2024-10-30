@@ -852,7 +852,7 @@
         </div>
     </section>
 
-    <div class="bg-white py-14 card  p-8 m-8  rounded-xl border border-white -mt-16  shadow-md shadow-black/5 saturate-200  ">
+    <div class="bg-white py-14 card  p-8 m-8  rounded-xl border border-white -mt-16  shadow-md shadow-black/5 saturate-200 font-Arima   ">
 
         <h2 class="text-lg  text-gray-700 mb-4 text-center"> Si algún amigo te ha invitado a unirte a nuestra comunidad deja su código de referido, de lo contrario presiona el botón ignorar</h2>
     

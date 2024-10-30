@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 font-Arima ">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,6 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('home') }}">
+           
                         <img src="{{Storage::url('img/logo4.png') }}" alt="" class="block h-16 w-36 ">
                
                     </a>
@@ -16,12 +17,7 @@
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
 
-                <div class="bg-blue-100 text-green-800 text-xs font-medium mr-4 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 flex  ">
-                    <p class="mr-1">Tu código:</p>  
-
-                    {{Auth::user()->codigo_referido}}
-                    
-                </div>
+               
 
                 <a href="{{ route('billetera.index') }}">
 
@@ -110,6 +106,13 @@
                         </x-slot>
 
                         <x-slot name="content">
+
+                            <div class="bg-blue-100 w-full  text-green-800 text-xs font-medium mr-4 px-2.5 py-1  dark:bg-gray-700 dark:text-blue-400 border border-blue-400 flex justify-center  ">
+                                <p >Tu código:</p>  
+            
+                                {{Auth::user()->codigo_referido}}
+                                
+                            </div>
 
                             @if(auth()->user()->roles->first()->id == 1)
 
@@ -250,6 +253,13 @@
            
 
             <div >
+
+                <div class="bg-blue-100 text-green-800 text-xs font-medium mr-4 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 flex  ">
+                    <p class="mr-1">Tu código:</p>  
+
+                    {{Auth::user()->codigo_referido}}
+                    
+                </div>
 
                 @if(auth()->user()->roles->first()->id == 1)
 

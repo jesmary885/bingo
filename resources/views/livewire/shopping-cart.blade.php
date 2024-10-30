@@ -32,10 +32,10 @@
     <div class=" flex justify-between relative" >
 
         <div class="w-full flex flex-col justify-center " >
-            <h3 class="font-bold text-2xl md:text-4xl text-blue-500 text-center mt-4 mb-2 font-sans  ">CARRITO DE COMPRAS</h3>
+            <h3 class="font-Allerta  font-bold text-2xl md:text-4xl text-blue-500 text-center mt-4 mb-2   ">CARRITO DE COMPRAS</h3>
         </div>
 
-        <div class=" w-full ">
+        <div class=" w-full font-Arima ">
 
             <div class=" w-3/4 items-center  "  >
 
@@ -1545,7 +1545,7 @@
     @if (Cart::count())
     
 
-    <div class=" justify-center px-2 md:flex md:space-x-2 md:-mt-10 ">
+    <div class=" justify-center px-2 md:flex md:space-x-2 md:-mt-10 font-Arima  ">
             <div class="rounded-lg border bg-white p-6 shadow-md flex-1  md:w-2/3">
 
            
@@ -1563,7 +1563,7 @@
                                         <div class="text-center font-semibold">CARTÓN</div>
                                     </th>
                                     <th class="p-2">
-                                        <div class="text-center font-semibold">SERIAL</div>
+                                        <div class="text-center font-semibold">CARTÓN NRO</div>
                                     </th>
 
                                     <th class="p-2">
@@ -1586,7 +1586,7 @@
                                             
                                         </td>
                                         <td class="p-2 text-center ">
-                                            <div class="font-medium text-gray-800">{{$item->options['serial']}}</div>
+                                            <div class="font-medium text-gray-800">{{$item->options['carton']}}</div>
                                         </td>
 
                                         <td class="p-2 text-center ">
@@ -1618,7 +1618,7 @@
 
             <div >
                 @if($r_i_o == 0 || $t_w == 0 || $c_u == 0)
-                    <div class="m-auto h-52 w-full max-w-md bg-white shadow p-2 border-t-4 border-blue-600 rounded">
+                    <div class="m-auto w-full max-w-md bg-white shadow p-2 border-t-4 border-blue-600 rounded">
                         
                             <header class="p-2 border-b flex"> 
                                 <div class="flex flex-col">
@@ -1732,7 +1732,7 @@
                     </div>
                 @endif
 
-                <div class="m-auto h-52 w-full max-w-md bg-white shadow p-2 border-t-4 border-blue-600 rounded mt-2 ">
+                <div class="m-auto  w-full max-w-md bg-white shadow p-2 border-t-4 border-blue-600 rounded mt-2 ">
 
                     <header class="p-2 border-b flex"> 
                         <div class="flex flex-col">

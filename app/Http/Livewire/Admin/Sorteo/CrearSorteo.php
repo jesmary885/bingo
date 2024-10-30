@@ -10,7 +10,7 @@ use Livewire\Component;
 class CrearSorteo extends Component
 {
 
-    public $porcentaje_ganancia, $porcentaje_ganancia_2, $porcentaje_ganancia_3, $premios = 'null',$sorteo,$type_1, $type_2, $type_3, $fecha_inicio,$tipo, $tipo_sorteo, $estado, $precio_carton_dolar ;
+    public $porcentaje_ganancia, $porcentaje_ganancia_2, $porcentaje_ganancia_3, $premios = 'null',$sorteo,$type_1, $type_2, $type_3, $fecha_inicio,$tipo, $tipo_sorteo, $estado = 'Aperturado', $precio_carton_dolar ;
 
     public $isopen = false;
 
@@ -46,6 +46,7 @@ class CrearSorteo extends Component
                 $this->porcentaje_ganancia_3 = $sorteo_editar->porcentaje_ganancia_3er_lugar;
             }
 
+            $this->estado = $sorteo_editar->status;
 
             $this->precio_carton_dolar = $sorteo_editar->precio_carton_dolar;
         }
@@ -58,7 +59,8 @@ class CrearSorteo extends Component
         'premios' => 'required',
         'type_1' => 'required',
         'porcentaje_ganancia' => 'required',
-        'precio_carton_dolar' => 'required'
+        'precio_carton_dolar' => 'required',
+        'estado' => 'required',
     ];
 
     protected $rules_dos_premios = [
@@ -68,7 +70,8 @@ class CrearSorteo extends Component
         'porcentaje_ganancia' => 'required',
         'type_2' => 'required',
         'porcentaje_ganancia_2' => 'required',
-        'precio_carton_dolar' => 'required'
+        'precio_carton_dolar' => 'required',
+        'estado' => 'required',
     ];
 
     protected $rules_tres_premios = [
@@ -81,6 +84,7 @@ class CrearSorteo extends Component
         'precio_carton_dolar' => 'required',
         'type_3' => 'required',
         'porcentaje_ganancia_3' => 'required',
+        'estado' => 'required',
     ];
 
     public function open()
@@ -102,6 +106,11 @@ class CrearSorteo extends Component
         if($this->premios == "Dos premios"){
 
             $rules = $this->rules_dos_premios;
+            $this->validate($rules);
+        }
+        elseif($this->premios == "Tres premios"){
+
+            $rules = $this->rules_tres_premios;
             $this->validate($rules);
         }
         else{
@@ -151,8 +160,6 @@ class CrearSorteo extends Component
                     'status' => 'Aperturado']);
 
                     $this->reset(['fecha_inicio','type_1','type_2','type_3','porcentaje_ganancia','porcentaje_ganancia_2','porcentaje_ganancia_3','precio_carton_dolar']);
-
-                
             }
 
             $cartones_salvados=Carton::all();
@@ -178,7 +185,11 @@ class CrearSorteo extends Component
                     'type_1' => $this->type_1,
                     'porcentaje_ganancia' => $this->porcentaje_ganancia,
                     'precio_carton_dolar' => $this->precio_carton_dolar,
-                    'status' => 'Aperturado']);
+                    'type_2' => null,
+                    'type_3' => null,
+                    'porcentaje_ganancia_2do_lugar' => null,
+                    'porcentaje_ganancia_3er_lugar' => null,
+                    'status' => $this->estado]);
             }
 
             elseif($this->premios == "Dos premios"){
@@ -187,10 +198,12 @@ class CrearSorteo extends Component
                     'fecha_ejecucion' => $this->fecha_inicio,
                     'type_1' => $this->type_1,
                     'type_2' => $this->type_2,
+                    'type_3' => null,
                     'porcentaje_ganancia' => $this->porcentaje_ganancia,
                     'porcentaje_ganancia_2do_lugar' => $this->porcentaje_ganancia_2,
-                    'precio_carton_dolar' => $this->precio_carton_dolar,
-                    'status' => 'Aperturado']);
+                    'porcentaje_ganancia_3er_lugar' => null,
+                    'status' => $this->estado,
+                    'precio_carton_dolar' => $this->precio_carton_dolar]);
             }else{
 
                 $sorteo_modf->update([
@@ -202,7 +215,7 @@ class CrearSorteo extends Component
                     'porcentaje_ganancia_2do_lugar' => $this->porcentaje_ganancia_2,
                     'porcentaje_ganancia_3er_lugar' => $this->porcentaje_ganancia_3,
                     'precio_carton_dolar' => $this->precio_carton_dolar,
-                    'status' => 'Aperturado']);
+                    'status' => $this->estado]);
                 
             }
         }

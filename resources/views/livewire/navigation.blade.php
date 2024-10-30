@@ -1,6 +1,5 @@
-  
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-<div class="w-full text-gray-700 bg-blue-100 dark-mode:text-gray-200 dark-mode:bg-gray-800 font-Allerta">
+
+<div class="w-full text-gray-700 bg-blue-100 dark-mode:text-gray-200 dark-mode:bg-gray-800 font-Arima">
   <div x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
     <div class="p-4 flex flex-row items-center justify-between">
 
@@ -20,8 +19,8 @@
       </button>
     </div>
     <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
-      <a class="bg-blue-500 font-Allerta hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2" href="{{route('Registro')}}">Registrarse</a>
-      <a class="bg-blue-500 font-Allerta hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" href="{{route('login')}}">Iniciar sesión</a>
+      <a class="bg-blue-500 font-Allerta text-center  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2" href="{{route('Registro')}}">Registrarse</a>
+      <a class="bg-blue-500 font-Allerta text-center hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2 mt-2 md:mt-0 " href="{{route('login')}}">Iniciar sesión</a>
 
       <div @click.away="open = false" class="relative" x-data="{ open: false }">
        

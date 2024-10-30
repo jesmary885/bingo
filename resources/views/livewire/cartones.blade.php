@@ -4,7 +4,7 @@
     <div class=" flex justify-between relative" >
 
         <div class="w-full flex flex-col justify-center " >
-            <h3 class="font-bold text-2xl md:text-4xl text-blue-500 text-center mt-4 mb-2 font-sans  ">COMPRA DE CARTONES</h3>
+            <h3 class="font-Allerta text-2xl md:text-4xl text-blue-500 text-center mt-4 mb-2 font-bold  ">COMPRA DE CARTONES</h3>
         </div>
 
         <div class=" w-full ">
@@ -1514,7 +1514,7 @@
 
     </div>
 
-    <div class=" bg-white pt-2 pb-4 shadow-lg mb-1 mx-4 rounded-lg md:-mt-10 ">
+    <div class=" bg-white pt-2 pb-4 shadow-lg mb-1 mx-4 rounded-lg md:-mt-10 font-Arima ">
 
         <div class="max-w-2xl mx-auto">
             <label for="default-search" class=" text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
@@ -1543,7 +1543,7 @@
     </div>
 
 
-    <div class="px-4  ">
+    <div class="px-4  font-Arima  ">
         <div class="bg-white rounded-lg shadow-lg mb-6">
             <div class="px-6 py-2 flex justify-between items-center">
                 <h1 class="font-semibold text-sm md:text-lg text-gray-700 uppercase">CARTONES {{$tipo_cartones}}</h1>

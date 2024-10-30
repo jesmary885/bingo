@@ -1,4 +1,4 @@
-<div>
+<div class=" font-Arima " >
 
     @if($tipo == 'agregar')
 

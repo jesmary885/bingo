@@ -9,7 +9,7 @@ use Livewire\Component;
 class GananciaSorteo extends Component
 {
 
-    public $sorteo, $ganancia_dolares_2do;
+    public $sorteo, $ganancia_dolares_2do, $ganancia_dolares_3er;
 
     protected $listeners = ['render' => 'render','echo:cambio_cs,CambioEstadoCartonSorteo' => 'render'];
 
@@ -29,6 +29,8 @@ class GananciaSorteo extends Component
         $dolar_hoy = valor_dolar_hoy();
 
         $this->ganancia_dolares_2do = $cant_cartones * ($sorteo_s->porcentaje_ganancia_2do_lugar * 0.01);
+
+        $this->ganancia_dolares_3er = $cant_cartones * ($sorteo_s->porcentaje_ganancia_3er_lugar * 0.01);
 
 
 

@@ -340,7 +340,7 @@ return [
             'icon_color' => 'blue',
             'submenu' => [
                 [
-                    'text' => 'Registro y creación',
+                    'text' => 'Registro',
                     'route'  => 'admin.sorteo_crear',
                     'icon'    => 'fas fa-angle-right',
                     'icon_color' => 'blue',

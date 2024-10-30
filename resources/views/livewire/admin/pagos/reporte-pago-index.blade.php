@@ -67,85 +67,87 @@
             <div class=" mt-8 mb-2">
                 <h3 class="my-2 mx-4 text-gray-500 font-bold text-lg">Registro de solicitudes de pagos</h3>
             </div>
-            
-            <table class="table text-sm table-bordered table-responsive-lg table-responsive-md table-responsive-sm">
-                    <thead class="text-xs uppercase bg-gray-700 text-gray-400">
-                        <tr>
-                            <th class="text-center py-3">
-                                Fecha
-                            </th>
+
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="table text-sm table-bordered table-responsive-lg table-responsive-md table-responsive-sm">
+                        <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+                            <tr>
+                                <th class="text-center py-3">
+                                    Fecha
+                                </th>
+                                
+                                <th 
+                                    class="text-center">
+                                    Monto
+                                </th>
                             
-                            <th 
-                                class="text-center">
-                                Monto
-                            </th>
+                                <th 
+                                    class="text-center">
+                                    Usuario
+                                </th>
+                                <th 
+                                    class="text-center">
+                                    Cuenta de retiro
+                                </th>
+                                <th 
+                                    class="text-center">
+                                    Constancia
+                                </th>
+
+                                <th>
+                                
+                                </th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($registros as $registro)
+                            <tr class="  border-gray-700 hover:bg-gray-300">
+                                
+                                <td class="py-3 text-center">
+                                {{\Carbon\Carbon::parse($registro->created_at)->format('d-m-Y h:i')}}
+                                </td>
+                                <td class="text-center">
+                                    {{ $registro->monto }} $  (Bs. {{$registro->monto * $dolar_hoy}})
+                                </td>
+                            
+                                <td class="text-center">
+                                    {{$registro->user->name}}
+                                </td>
+
+
+                                <td class="text-center">
+                                    @livewire('admin.usuarios.cuenta-usuario', ['registro' => $registro->user->id],key($registro->id))
+                                </td>
+
+                                @if($registro->referencia)
+                                    <td class="text-center">
+                                        {{$registro->referencia}}
+                                    </td>
+                                @else
+                                    <td class="text-center">
+                                        -
+                                    </td>
+                                @endif
+                                @if($registro->constancia)
+                                    <td class="text-center">
+                                        <button class="text-green-600 text-lg hover:text-green-900"
+                                            
+                                            wire:click="download('{{$registro->constancia}}')">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </td>
+                                @endif
+
+                                <td class="text-center">
+                                    @livewire('admin.pagos.reporte-pago-reportar', ['registro' => $registro->id],key($registro->id))
+                                </td>
+                            </tr>
+
+                        @endforeach
                         
-                            <th 
-                                class="text-center">
-                                Usuario
-                            </th>
-                            <th 
-                                class="text-center">
-                                Cuenta de retiro
-                            </th>
-                            <th 
-                                class="text-center">
-                                Constancia
-                            </th>
-
-                            <th>
-                            
-                            </th>
-                        </tr>
-                </thead>
-                <tbody>
-                    @foreach ($registros as $registro)
-                        <tr class="  border-gray-700 hover:bg-gray-300">
-                            
-                            <td class="py-3 text-center">
-                            {{\Carbon\Carbon::parse($registro->created_at)->format('d-m-Y h:i')}}
-                            </td>
-                            <td class="text-center">
-                                {{ $registro->monto }} $  (Bs. {{$registro->monto * $dolar_hoy}})
-                            </td>
-                           
-                            <td class="text-center">
-                                {{$registro->user->name}}
-                            </td>
-
-
-                            <td class="text-center">
-                                @livewire('admin.usuarios.cuenta-usuario', ['registro' => $registro->user->id],key($registro->id))
-                            </td>
-
-                            @if($registro->referencia)
-                                <td class="text-center">
-                                    {{$registro->referencia}}
-                                </td>
-                            @else
-                                <td class="text-center">
-                                    -
-                                </td>
-                            @endif
-                            @if($registro->constancia)
-                                <td class="text-center">
-                                    <button class="text-green-600 text-lg hover:text-green-900"
-                                        
-                                        wire:click="download('{{$registro->constancia}}')">
-                                        <i class="fas fa-download"></i>
-                                    </button>
-                                </td>
-                            @endif
-
-                            <td class="text-center">
-                                @livewire('admin.pagos.reporte-pago-reportar', ['registro' => $registro->id],key($registro->id))
-                            </td>
-                        </tr>
-
-                    @endforeach
-                    
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
 
         @else
             <div class="px-6 py-4">

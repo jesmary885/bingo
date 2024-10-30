@@ -65,17 +65,35 @@
                         </div>
                     </div>
 
-                    <div class="w-1/2 mt-4">
-                        <x-label value="Cantidad de premios" />
+                    <div class="flex justify-between" >
 
-                        <select wire:model="premios" id="premios" class=" mt-2 block w-full bg-gray-50 border border-gray-200 text-gray-700 py-1 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                            <option value="" selected>Seleccione una opción</option>
-                            <option value="Un premio">Un premio</option>
-                            <option value="Dos premios">Dos premios</option>
-                            <option value="Dos premios">Tres premios</option>
-                        </select>
-                        <x-input-error for="premios" />
+                        <div class="w-1/2 mt-4">
+                            <x-label value="Cantidad de premios" />
+    
+                            <select wire:model="premios" id="premios" class=" mt-2 block w-full bg-gray-50 border border-gray-200 text-gray-700 py-1 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                <option value="" selected>Seleccione una opción</option>
+                                <option value="Un premio">Un premio</option>
+                                <option value="Dos premios">Dos premios</option>
+                                <option value="Tres premios">Tres premios</option>
+                            </select>
+                            <x-input-error for="premios" />
+                        </div>
+
+                        <div class="w-1/2 mt-4 ml-2">
+                            <x-label value="Estado" />
+    
+                            <select wire:model="estado" id="estado" class=" mt-2 block w-full bg-gray-50 border border-gray-200 text-gray-700 py-1 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                <option value="" selected>Seleccione una opción</option>
+                                <option value="Aperturado">Aperturado</option>
+                                <option value="Iniciado">Iniciado</option>
+                                <option value="Finalizado">Finalizado</option>
+                            </select>
+                            <x-input-error for="estado" />
+                        </div>
+
                     </div>
+
+                    
 
                     
 
