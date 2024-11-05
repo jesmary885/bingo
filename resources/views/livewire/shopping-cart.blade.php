@@ -27,12 +27,12 @@
     </style>
 
 
-<div class=" bg-gray-100 pt-4">
+<div class=" bg-white pt-4">
 
     <div class=" flex justify-between relative" >
 
         <div class="w-full flex flex-col justify-center " >
-            <h3 class="font-Allerta  font-bold text-2xl md:text-4xl text-blue-500 text-center mt-4 mb-2   ">CARRITO DE COMPRAS</h3>
+            <h3 class="font-Allerta  font-bold text-xl md:text-4xl text-blue-500 text-center mt-4 mb-2   ">CARRITO DE COMPRAS</h3>
         </div>
 
         <div class=" w-full font-Arima ">
@@ -1545,33 +1545,37 @@
     @if (Cart::count())
     
 
-    <div class=" justify-center px-2 md:flex md:space-x-2 md:-mt-10 font-Arima  ">
-            <div class="rounded-lg border bg-white p-6 shadow-md flex-1  md:w-2/3">
+    <div class=" px-2 md:flex md:justify-between w-full md:-mt-10 font-Arima  ">
 
-           
-                    <header class="border-b border-gray-200 px-5 py-4">
 
-                        <div class=" font-semibold text-sm md:text-md lg:text-lg text-gray-700 uppercase">Carro de compras</div>
-                    </header>
+            <div class=" bg-white shadow-md p-2 border w-full  rounded-lg  ">
 
-                    <div class="overflow-x-auto p-3">
-                        <table class="w-full table-auto">
-                            <thead class="bg-gray-200 text-xs font-semibold uppercase text-gray-800">
+                <header class="p-2 border-b flex"> 
+                    <div class="flex flex-col">
+                        <p class=" font-semibold text-sm md:text-md lg:text-lg text-gray-700 uppercase text-center ">
+                            CARRO DE COMPRAS
+                        </p>
+                    </div>
+                </header>
+
+                    <div class="relative overflow-x-auto">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                 
-                                    <th class="p-2">
-                                        <div class="text-center font-semibold">CARTÓN</div>
+                                    <th class="p-2" >
+                                        <div class="text-center text-xs md:text-md font-semibold">CARTÓN</div>
                                     </th>
                                     <th class="p-2">
-                                        <div class="text-center font-semibold">CARTÓN NRO</div>
+                                        <div class="text-center text-xs md:text-md font-semibold">CARTÓN NRO</div>
                                     </th>
 
                                     <th class="p-2">
-                                        <div class="text-center font-semibold">SORTEO</div>
+                                        <div class="text-center text-xs md:text-md font-semibold">SORTEO</div>
                                     </th>
                 
                                     <th class="p-2">
-                                        <div class="text-center font-semibold">ELIMINAR</div>
+                                        <div class="text-center text-xs md:text-md font-semibold">ELIMINAR</div>
                                     </th>
                                 </tr>
                             </thead>
@@ -1580,7 +1584,7 @@
                                 @forelse (Cart::content() as $item)
                                 <!-- record 1 -->
                                     <tr>
-                                        <td class="p-2">
+                                        <td >
 
                                             @livewire('cartonview',['carton'=> $item->options['carton'],key($item->id)])
                                             
@@ -1609,16 +1613,12 @@
                         </table>
                     </div>
 
-                
-
-
-                
             </div>
         <!-- Sub total -->
 
-            <div >
+            <div class="w-full md:ml-2 " >
                 @if($r_i_o == 0 || $t_w == 0 || $c_u == 0)
-                    <div class="m-auto w-full max-w-md bg-white shadow p-2 border-t-4 border-blue-600 rounded">
+                    <div class="m-auto w-full bg-white shadow-md p-2 border mb-2 mt-2 md:mt-0  rounded-lg">
                         
                             <header class="p-2 border-b flex"> 
                                 <div class="flex flex-col">
@@ -1732,7 +1732,7 @@
                     </div>
                 @endif
 
-                <div class="m-auto  w-full max-w-md bg-white shadow p-2 border-t-4 border-blue-600 rounded mt-2 ">
+                <div class="m-auto   bg-white shadow-md p-2 border  rounded-lg mt-2 md:mt-0  ">
 
                     <header class="p-2 border-b flex"> 
                         <div class="flex flex-col">
@@ -1908,10 +1908,6 @@
 
             <span id="final"></span>
 
-            
-
-
-            
             
     </div>
 

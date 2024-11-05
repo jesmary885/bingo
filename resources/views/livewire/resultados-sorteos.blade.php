@@ -1,9 +1,9 @@
-<div>
+<div class="bg-white" >
 
     <div class=" flex justify-between relative" >
 
         <div class="w-full flex flex-col justify-center " >
-            <h3 class=" font-Allerta font-bold text-2xl md:text-4xl text-blue-500 text-center mt-4 mb-2   ">RESULTADO DE SORTEOS</h3>
+            <h3 class=" font-Allerta font-bold text-xl md:text-4xl text-blue-500 text-center mt-4 mb-2   ">RESULTADO DE SORTEOS</h3>
         </div>
 
         <div class=" w-full ">
@@ -2121,13 +2121,13 @@
 
         <div class="px-6 py-2 flex justify-between items-center font-Arima ">
             <p class=" font-semibold text-xs md:text-sm text-gray-600 font-sans " >
-                RESULTADOS DE SORTEOS
+                RESULTADO DE SORTEOS
             </p>
    
         </div>
     </div>
 
-    <div class=" container mx-auto px-4 font-Arima ">
+    <div class=" container mx-auto px-4 font-Arima bg-white ">
 
 
 
@@ -2221,9 +2221,9 @@
               
             </div>
         @else
-            <div class="card-body">
+            <div class="card-body bg-white ">
 
-                <p class=" font-semibold text-xs md:text-sm text-gray-600 font-sans " >
+                <p class=" font-semibold text-xs md:text-sm text-gray-600 font-Arima " >
                     No exiten sorteos finalizados
                 </p>
 

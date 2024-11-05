@@ -1,9 +1,9 @@
-<div>
+<div class="bg-white" >
 
-    <div class=" flex justify-between relative" >
+    <div class=" flex justify-between relative container" >
 
         <div class="w-full flex flex-col justify-center " >
-            <h3 class="font-bold text-2xl md:text-4xl text-blue-500 text-center mt-4 mb-2 font-Allerta ">MIS CARTONES</h3>
+            <h3 class="font-bold text-xl md:text-4xl text-blue-500 text-center mt-4 mb-2 font-Allerta ">MIS CARTONES</h3>
         </div>
 
         <div class=" w-full ">
@@ -2109,7 +2109,7 @@
     <div class="bg-white rounded-lg shadow-lg mb-6 font-Arima ">
         <div class="px-6 py-2 flex justify-between items-center">
 
-            <p class=" font-semibold text-xs md:text-sm text-gray-600 font-sans " >
+            <p class=" font-semibold text-xs md:text-sm text-gray-600 font-Arima  " >
                 MIS CARTONES DE SORTEOS VIGENTES
             </p>
 
@@ -2118,7 +2118,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 container font-Arima ">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 container font-Arima bg-white ">
     
 
         @foreach ($mis_cartones as $carton)

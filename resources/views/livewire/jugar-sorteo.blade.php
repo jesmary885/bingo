@@ -1,4 +1,4 @@
-<div  >
+<div  class="bg-white" >
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
@@ -239,7 +239,7 @@
         <div class=" flex justify-between relative" >
 
             <div class="w-full flex flex-col justify-center " >
-                <h3 class=" font-Allerta font-bold text-2xl md:text-5xl text-blue-500 text-center mt-4 mb-2   ">JUGAR SORTEO</h3>
+                <h3 class=" font-Allerta font-bold text-xl md:text-5xl text-blue-500 text-center mt-4 mb-2   ">JUGAR SORTEO</h3>
             </div>
 
             <div class="w-full font-Arima ">
@@ -1282,7 +1282,7 @@
 
                 <div class=" flex flex-col space-y-2  justify-center text-center  pt-2 ">
                     <div class="flex flex-col  justify-center items-center  "> 
-                        <h1 class="font-bold  text-2xl text-indigo-500 mt-4 text-center ">
+                        <h1 class="font-bold  text-xl md:text-2xl text-indigo-500 mt-4 text-center ">
                             Tiempo restante para iniciar el sorteo Nro. {{$sorteo_nro}}
                         </h1>
                         <p class="text-xl text-gray-500 mt-3 "> </p>
@@ -1291,7 +1291,7 @@
     
                         <p class="text-gray-500 dark:text-gray-300">
     
-                            <div class=" mt-2 " >
+                            <div class=" mt-1 px-2 " >
     
                                 <div  id="cuenta">
     

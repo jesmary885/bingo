@@ -58,7 +58,7 @@
 
                 <div class="bg-white dark:bg-gray-900">
                     <div class=" px-6 py-2 mx-auto">
-                        <p class="text-xl text-center text-gray-700 dark:text-gray-300">
+                        <p class=" text-md md:text-xl text-center text-gray-700 dark:text-gray-300">
                             Selecciona el método de pago
                         </p>
         
@@ -114,7 +114,7 @@
 
                         <div class="mt-6 mb-2" >
 
-                            <p class="text-xl text-center text-gray-700 dark:text-gray-300">
+                            <p class="text-md md:text-xl text-center text-gray-700 dark:text-gray-300">
                                 Adjunta la constancia de pago
                             </p>
             
@@ -123,7 +123,7 @@
                             <div class="mt-2 flex-auto  ">
                                  
                                     <div class="flex w-full justify-center ">
-                                        <label class="custom-file-upload flex w-1/2  bg-white rounded-md py-8 text-md font-medium text-gray-700 dark:text-gray-200 ">
+                                        <label class="custom-file-upload flex w-full  bg-white rounded-md py-8 text-md font-medium text-gray-700 dark:text-gray-200 ">
                                             <input type="file"  name="constancia" wire:model="constancia" class="image"/>
                                             <svg class=" w-5 h-5 text-gray-400 mr-2 " viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m512 144v288c0 26.5-21.5 48-48 48h-416c-26.5 0-48-21.5-48-48v-288c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1l12.4 32.9h88c26.5 0 48 21.5 48 48zm-136 144c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z"/></svg>
                                               Selecciona un archivo
@@ -142,13 +142,13 @@
 
                             <div class="mt-6 mb-2" >
 
-                                <p class="text-xl text-center text-gray-700 dark:text-gray-300">
+                                <p class="text-md md:text-xl text-center text-gray-700 dark:text-gray-300">
                                     Ingrese el monto en dólares
                                 </p>
 
                                 <div class="relative mb-2 mt-2 w-full flex justify-center ">
 
-                                    <input wire:model="monto" type="number" min="1" max="500" class="inputNumber text-center w-1/2 text-sm appearance-none block text-gray-700 border border-gray-600 rounded px-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <input wire:model="monto" type="number" min="1" max="500" class="inputNumber text-center w-full text-sm appearance-none block text-gray-700 border border-gray-600 rounded px-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                 
                                 </div>
 
