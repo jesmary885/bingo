@@ -158,6 +158,13 @@ class ShoppingCart extends Component
             return redirect()->route('mis-cartones');
 
         }
+        else{
+
+            notyf()
+                    ->duration(9000) // 2 seconds
+                    ->addSuccess('Debes completar la informacion');
+
+        }
 
     }
 

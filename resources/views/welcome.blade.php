@@ -18,7 +18,7 @@
             <section class="bg-blue-100">
                 <div class="items-center px-8 mx-auto lg:px-16 md:px-12">
                   <div class="justify-center w-full text-center pt-6 max-auto">
-                    <div class="justify-center w-full mx-auto">
+                    <div class="justify-center w-full mx-auto container">
 
                         <div class="flex flex-col items-center justify-center max-w-xl gap-3 mx-auto lg:flex-row">
                             <div class=" w-48  h-48 rounded-full border border-[#E8E3F4] bg-white">
@@ -857,13 +857,20 @@
                     
 
 
-                      <p class=" mb-4 mt-2 text-[#10172A] text-4xl md:text-6xl font-bold tracking-tighter font-Allerta ">
+                      <h1 class=" mt-2 text-[#10172A] text-4xl md:text-6xl lg:text-7xl  font-bold tracking-tighter font-Allerta ">
                        Juega y gana con <span class="underline mt-6 block leading-8 underline-offset-8	decoration-8 decoration-blue-600">BING+</span>
-                      </p>
+                      </h1>
 
-                      <p class="  mt-10  font-Arima mx-8 text-center text-lg">
-                        Si te apasionan los juegos de azar y quieres poner a prueba tu suerte, ¡has llegado a la web indicada!. Te invitamos a participar en todos los sorteos que tenemos para ti, ¡es muy sencillo!. Solo registrate o inicia sesión de manera rápida a través de Facebook, y nos vemos adentro para comenzar a ganar.
-                      </p>
+                 
+
+                      <h3 class="  mt-2 md:mt-8  font-Arima  text-center text-lg md:text-xl lg:text-2xl pt-8">
+
+                        
+                      
+                        Si te apasionan los <span class="underline leading-8 underline-offset-6	decoration-8 decoration-blue-600 font-bold  ">Juegos de Azar</span> y quieres poner a prueba tu suerte, <span class=" font-bold text-blue-600 " >¡has llegado a la web indicada!.</span>  Te invitamos a participar en todos los sorteos que tenemos para ti, ¡es muy sencillo!. Solo registrate o inicia sesión de manera rápida a través de <span class="font-bold text-blue-600 uppercase " >Facebook</span>, y nos vemos adentro para comenzar a <span class="underline leading-8 underline-offset-6	decoration-8 decoration-blue-600 font-bold" >GANAR</span> .
+                      </h3>
+
+        
                     </div>
                   </div>
               
@@ -872,7 +879,7 @@
                 <div class="flex justify-center pt-6 pb-20 " >
 
 
-                    <a href="{{ route('auth.redirect') }}" class="bg-blue-500 font-Allerta hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                    <a href="{{ route('auth.redirect') }}" class="bg-blue-500 font-Allerta text-md md:text-xl hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                         Inicia sesión con Facebook
                       </a>
 
@@ -891,9 +898,10 @@
 
             <div class=" card  p-8 m-8   -mt-8  border border-gray-200 rounded-lg shadow-lg bg-white  saturate-200 ">
 
+                 
                 <div>
 
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl text-blue-900 mb-4 text-center font-Allerta  font-black">¿Cómo Jugar en BING+?</strong></h2>
+                    <h2 class="text-3xl md:text-5xl lg:text-6xl  text-blue-900 mb-4 text-center font-Allerta  font-black">¿Cómo Jugar en  BING+?</h2>
 
                     <p class="text-lg text-gray-500 leading-relaxed font-Arima  text-center mb-3 ">Participar en nuestros sorteos es muy fácil, te resumimos el proceso en solo 4 pasos:</p>
     
@@ -1966,24 +1974,30 @@
                 <div class=" flex justify-center items-center">
                     <div class="">
                         <div class="text-center font-semibold px-4">
-                            <h1 class="text-3xl md:text-4xl ">
-                                <span class="text-blue-700 tracking-wide font-Allerta saturate-200  ">Modalidades  </span>
-                                <span class=" font-Allerta saturate-200   "   >de juego</span>
-                            </h1>
+
+                            <div class=" flex justify-center " >
+
+                       
+
+                            </div>
+                            <h2 class="text-3xl md:text-5xl lg:text-6xl ">
+                                <span class="text-blue-700 tracking-wide font-Allerta saturate-200  ">Modalidades de </span>
+                                <span class=" font-Allerta saturate-200 underline   leading-8 underline-offset-8	decoration-8 decoration-blue-600 uppercase  "   > juego</span>
+                            </h2>
                             <p class="text-lg text-gray-500 leading-relaxed font-Arima text-center mb-3 mt-5 saturate-200">
                                 Nuestros sorteos serán variables en su modalidad, la cual sera especificada en la descripción del sorteo. 
                             </p>
                         </div>
                         <div class=" pt-6  md:flex md:justify-between mx-8 ">
-                            <!-- Basic Card -->
-                            <div class=" card w-full p-8 bg-white text-center  border border-gray-100 rounded-lg shadow-lg  md:mr-2">
+             
+                            <div class=" card w-full container p-8 bg-white text-center  border border-gray-100 rounded-lg shadow-lg  md:mr-2">
                                 <h4 class="text-gray-500 leading-relaxed font-bold">TRADICIONAL</h4>
 
                                 <p class="mt-1 text-gray-500 text-center font-Arima text-lg  ">
                                     Jugaremos con 5 patrones (Línea horizontal, Línea vertical, Cuatro esquinas, Diagonal de derecha a izquierda y Diagonal de izquierda a derecha)
                                 </p>
 
-                                <div class="flexslider w-full pt-8">
+                                <div class="flexslider w-full px-8 pt-8">
                                     <ul class="slides">
 
                                         <li class="bg-white rounded-lg shadow-lg">
@@ -2076,10 +2090,8 @@
                                
                         
                             </div>
-                            <!-- StartUp Card -->
-                            
-                            <!-- Enterprise Card -->
-                            <div class="w-full p-8 bg-white text-center   mt-4 md:mt-0 border border-gray-100 rounded-lg shadow-lg md:ml-2">
+                
+                            <div class="w-full md:w-1/2 py-8 bg-white text-center   mt-4 md:mt-0 border border-gray-100 rounded-lg shadow-lg md:ml-2">
                                 <h4 class="text-gray-500 leading-relaxed font-bold">CARTÓN LLENO</h4>
                               
 
@@ -2087,17 +2099,12 @@
                                     El cartón debe estar marcado completamente para ganar en esta modalidad
                                 </p>
                               
-                                <div class="pt-4 md:mt-8 ">
-
-                                    <article class=" p-8 mx-2 md:mx-8 " >
+                                <div class="pt-8">
+                                    <article class=" py-6 mx-20  md:mx-8  " >
                                         <figure>
-                                            <img class=" h-80  w-full object-fill  rounded-lg " src="{{Storage::url('img/carton_lleno.png') }}"alt="">
+                                            <img class=" h-80  w-full object-fill   rounded-lg " src="{{Storage::url('img/carton_lleno.png') }}"alt="">
                                         </figure>
-                        
                                     </article>
-                                   
-            
-                              
                                 </div>
                             </div>
                         </div>
@@ -2111,9 +2118,16 @@
     
             <div class=" card  p-8 m-8  border border-gray-100 rounded-lg shadow-lg saturate-200 mb-8    ">
                 <div >
-                    <h3 class="text-3xl md:text-4xl text-blue-900 mb-4 text-center font-Allerta  font-black">Tráiler de nuestro proceso de pago y juego</h3>
+                    <h3 class="text-3xl md:text-5xl lg:text-6xl text-blue-900 mb-4 text-center font-Allerta  font-black">Tráiler de nuestro proceso de pago y juego</h3>
                   
-                    <p class="text-center  text-gray-500 font-Arima text-lg  ">Para que te familiarices rápidamente con nuestra página web, te presentamos un corto videotutorial donde verás los 4 pasos para jugar en BING+</p>
+                    <h4 class="  mt-2 md:mt-4  font-Arima  text-center text-lg md:text-xl lg:text-2xl pt-8">
+
+                        
+                      
+                         Para que te familiarices rápidamente con nuestra página web,  te presentamos un corto videotutorial donde verás los 4 pasos para jugar en <span class=" font-bold text-blue-600 " >BING+.</span>  
+                      </h4>
+
+                   
     
                     <div class="flex justify-center mt-4">
     

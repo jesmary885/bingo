@@ -221,10 +221,10 @@
                             <div class="border-t border-gray-200"></div>
 
                             <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}" x-data>
+                            <form method="POST" action="{{ route('logout_out') }}" x-data>
                                 @csrf
 
-                                <x-dropdown-link class="flex" href="{{ route('logout') }}"
+                                <x-dropdown-link class="flex" href="{{ route('logout_out') }}"
                                          @click.prevent="$root.submit();">
 
                                          <svg height="18" class=" mr-3"  width="18" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#d8e1ef;}.cls-2{fill:#0593ff;}</style></defs><title/><g id="out"><rect class="cls-1" height="26" rx="4" ry="4" width="20" x="2" y="3"/><path class="cls-2" d="M29.71,15.29l-4-4a1,1,0,0,0-1.42,1.42L26.59,15H12a1,1,0,0,0,0,2H26.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4A1,1,0,0,0,29.71,15.29Z"/></g></svg>
@@ -371,10 +371,10 @@
                 <div class="border-t border-gray-200"></div>
 
                 <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}" x-data>
+                <form method="POST" action="{{ route('logout_out') }}" x-data>
                     @csrf
 
-                    <x-responsive-nav-link class="flex" href="{{ route('logout') }}"
+                    <x-responsive-nav-link class="flex" href="{{ route('logout_out') }}"
                                    @click.prevent="$root.submit();">
 
                     <svg height="18" class=" mr-3"  width="18" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#d8e1ef;}.cls-2{fill:#0593ff;}</style></defs><title/><g id="out"><rect class="cls-1" height="26" rx="4" ry="4" width="20" x="2" y="3"/><path class="cls-2" d="M29.71,15.29l-4-4a1,1,0,0,0-1.42,1.42L26.59,15H12a1,1,0,0,0,0,2H26.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4A1,1,0,0,0,29.71,15.29Z"/></g></svg>

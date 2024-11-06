@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserSaldo;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -14,6 +15,23 @@ class AuthController extends Controller
 
 
         return Socialite::driver('facebook')->redirect();
+
+    }
+
+    public function logout(Request $request){
+
+        Auth::logout();
+
+        $cart = collect(session()->get('cart'));
+
+        if (!config('cart.destroy_on_logout')) {
+            $cart->each(function($rows, $identifier) {
+                session()->put('cart.' . $identifier, $rows);
+            });
+        }
+
+
+        return redirect('/');
 
     }
 

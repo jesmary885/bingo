@@ -37,6 +37,10 @@ Route::middleware([
 
 
 Route::get('/auth/redirect', [AuthController::class,'redirect'])->name('auth.redirect');
+
+Route::post('logout_out', [AuthController::class,'logout'])->name('logout_out');
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
  
 Route::get('/auth/callback', [AuthController::class,'callback'])->name('auth.callback');
 

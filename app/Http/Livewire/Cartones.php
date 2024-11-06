@@ -12,9 +12,9 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 class Cartones extends Component
 {
 
-    protected $listeners = ['render' => 'render','echo:cambio_cs,CambioEstadoCartonSorteo' => 'render'];
+    protected $listeners = ['render' => 'render','echo:cambio_cs,CambioEstadoCartonSorteo' => 'refrescar_pag'];
 
-    public $sorteo, $status_carton='1', $tipo_cartones, $search, $ver_todos_act = 0;
+    public $sorteo, $status_carton='1', $tipo_cartones, $search, $ver_todos_act = 0, $cambiando = 0;
 
     protected $rules = [
         'search' => 'required',
@@ -32,6 +32,10 @@ class Cartones extends Component
 
     public function ver_todos(){
         $this->ver_todos_act = 0;
+    }
+
+    public function refrescar_pag(){
+         $this->emit('refrescar');
     }
 
     public function color($serial_carton){
@@ -74,13 +78,16 @@ class Cartones extends Component
 
 
         $this->emitTo('dropdown-cart', 'render');
-        $this->emitTo('cartones', 'render');
+        $this->cambiando =1;
 
     }
 
     public function render()
     {
 
+        if($this->cambiando == 1) {
+            $this->skipRender();
+        } 
 
  
         if($this->ver_todos_act == 0){
@@ -103,6 +110,7 @@ class Cartones extends Component
                 ->Paginate(20);
             }
         }
+
 
         return view('livewire.cartones',compact('cartones'));
     }
