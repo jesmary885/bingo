@@ -863,12 +863,12 @@
 
                  
 
-                      <h3 class="  mt-2 md:mt-8  font-Arima  text-center text-lg md:text-xl lg:text-2xl pt-8">
+                      <h2 class="  mt-2 md:mt-8  font-Arima  text-center text-lg md:text-xl lg:text-2xl pt-8">
 
                         
                       
                         Si te apasionan los <span class="underline leading-8 underline-offset-6	decoration-8 decoration-blue-600 font-bold  ">Juegos de Azar</span> y quieres poner a prueba tu suerte, <span class=" font-bold text-blue-600 " >¡has llegado a la web indicada!.</span>  Te invitamos a participar en todos los sorteos que tenemos para ti, ¡es muy sencillo!. Solo registrate o inicia sesión de manera rápida a través de <span class="font-bold text-blue-600 uppercase " >Facebook</span>, y nos vemos adentro para comenzar a <span class="underline leading-8 underline-offset-6	decoration-8 decoration-blue-600 font-bold" >GANAR</span> .
-                      </h3>
+                      </h2>
 
         
                     </div>

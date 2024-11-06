@@ -1554,21 +1554,21 @@
                     class=" btn-sm middle font-Arima  none center mr-1 rounded-lg bg-blue-500 py-1 px-2 text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     data-ripple-light="true"
                   >
-                    Disponibles
+                    Disponibles ({{$cant_cartones_disponibles}})
                   </button>
     
                   <button
                     class="middle none center font-Arima  mr-1 rounded-lg bg-red-500 py-1 px-2 text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     data-ripple-light="true"
                     >
-                    No disponibles
+                    No disponibles ({{$cant_cartones_no_disponibles}})
                     </button>
     
                     <button
                     class="middle none font-Arima  center rounded-lg bg-yellow-500 py-1 px-2 text-xs font-bold uppercase text-white shadow-md shadow-yellow-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     data-ripple-light="true"
                     >
-                    Reservados
+                    Reservados ({{$cant_cartones_reservados}})
                     </button>
     
     

@@ -4,7 +4,7 @@
     <section class="bg-blue-100">
         <div class="items-center px-8 mx-auto lg:px-16 md:px-12">
           <div class="justify-center w-full text-center pt-6 max-auto">
-            <div class="justify-center w-full mx-auto">
+            <div class="justify-center w-full mx-auto container">
 
                 <div class="flex flex-col items-center justify-center max-w-xl gap-3 mx-auto lg:flex-row">
                     <div class=" w-48  h-48 rounded-full border border-[#E8E3F4] bg-white">
@@ -843,13 +843,19 @@
             
 
 
-              <p class=" mb-4 mt-2 text-[#10172A] text-4xl md:text-6xl font-bold  font-Allerta ">
-               Juega y gana con <span class="underline mt-6 block leading-8 underline-offset-8	decoration-8 decoration-blue-600">BING+</span>
-              </p>
+                <h1 class=" mt-2 text-[#10172A] text-4xl md:text-6xl lg:text-7xl  font-bold tracking-tighter font-Allerta ">
+                    Juega y gana con <span class="underline mt-6 block leading-8 underline-offset-8	decoration-8 decoration-blue-600">BING+</span>
+                </h1>
 
-              <p class="  mt-10  font-Arima mx-8 text-center text-lg">
-                Te invitamos a participar en todos los sorteos que tenemos para ti, ¡es muy sencillo!. Selecciona el sorteo en donde quieras particiar y haz click en comprar sobre los cartones que desees, luego dirígete al carrito de compra ubicado en el menú superior, ahí encontraras nuestros datos para realizar y reportar tu pago. Por último corre al menú de Jugar (lo encontrarás haciendo click sobre tu nombre), ahí verás las fichas que se van sorteando y chequear como se van llenando tus cartones en tiempo real.
-              </p>
+
+
+              <h2 class="  mt-2 md:mt-8  font-Arima  text-center text-lg md:text-xl lg:text-2xl pt-8">
+
+                        
+                      
+                Te invitamos a participar en todos los sorteos que tenemos para ti, <span class="underline leading-8 underline-offset-6	decoration-8 decoration-blue-600 font-bold  ">¡es muy sencillo!.</span> Selecciona el sorteo en donde quieras particiar, y haz <span class="underline leading-8 underline-offset-6	decoration-8 decoration-blue-600 font-bold  ">click</span> en <span class=" font-bold text-blue-600 " >'COMPRAR'</span> sobre los cartones que desees, luego dirígete al carrito de compra ubicado en el menú superior, ahí encontraras nuestros datos para realizar y reportar tu pago.  Por último corre al menú de <span class=" font-bold text-blue-600 " >JUGAR</span> (lo encontrarás haciendo click sobre tu nombre), ahí verás las  <span class=" font-bold text-blue-600 underline " >Fichas</span> que se van sorteando y <span class=" font-bold text-blue-600 underline " >Chequear</span> como se van llenando tus cartones en tiempo <span class=" font-bold  " >REAL</span>.
+              </h2>
+
             </div>
           </div>
       
@@ -871,9 +877,9 @@
 
     </section>
 
-    <div class="bg-white py-14 card p-2 md:p-4 m-8 md:-mt-20  rounded-xl border border-white  shadow-md shadow-black/5 saturate-200 ">
+    <div class=" bg-white py-14 card p-2 md:p-4 m-8 md:-mt-20  rounded-xl border border-white  shadow-md shadow-black/5 saturate-200 ">
        
-        <h2 class="text-blue-800 text-3xl md:text-4xl font-bold tracking-tighter font-Allerta text-center mb-4 ">Sorteos más próximos </h2>
+        <h2 class="text-blue-800 text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter font-Allerta text-center mb-4 pt-4">Sorteos más próximos </h2>
    
 
         <div class="relative font-Arima  pt-2 lg:pt-2">
@@ -5578,8 +5584,5 @@
        
     </div>
 
-
-
-    
 
 </x-app-layout>

@@ -18,6 +18,7 @@ class CartonesDisponiblesCant extends Component
         $total_cartones = DB::select('SELECT COUNT(*) as cantidad from carton_sorteos cs
             where cs.sorteo_id = :sorteo_id AND cs.status_carton = "Disponible"',array('sorteo_id' => $this->sorteo));
 
+
         $json = json_encode($total_cartones);
         $cantidad = json_decode($json);
         $cantidad_total= $cantidad[0]->cantidad;
