@@ -5,6 +5,7 @@ use App\Http\Controllers\BilleteraController;
 use App\Http\Controllers\cartones;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JugarController;
+use App\Http\Controllers\LegalidadesController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ShoppingCartController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,11 @@ Route::get('/auth/callback', [AuthController::class,'callback'])->name('auth.cal
 
 Route::get('/registro', [RegisterController::class, 'index'])->name('Registro');
 Route::post('/registro', [RegisterController::class, 'create'])->name('Registro_create');
+
+Route::get('/politica-de-privacidad', [LegalidadesController::class,'privacidad'])->name('politica_privacidad');
+
+Route::get('/condiciones-de-servicio', [LegalidadesController::class,'condiciones'])->name('condiciones_servicio');
+
 
 Route::middleware(['auth'])->group(function()
 {

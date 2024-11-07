@@ -82,7 +82,7 @@
                 <nav class=" items-center flex flex-wrap justify-center -mx-5 -my-2">
                     
                     <div class="px-2 py-2 flex justify-center">
-                        <a href="#" class="font-Arima text-xs md:text-base  hover:text-gray-300">
+                        <a href="{{route('politica_privacidad')}}" class="font-Arima text-xs md:text-base  hover:text-gray-300">
                             Política de Privacidad
                         </a>
                     </div>
@@ -90,7 +90,7 @@
                    
 
                     <div class="px-2 py-2 flex justify-center">
-                        <a href="#" class="font-Arima text-xs  md:text-base   hover:text-gray-300">
+                        <a href="{{route('condiciones_servicio')}}" class="font-Arima text-xs  md:text-base   hover:text-gray-300">
                             Condiciones de Servicio
                         </a>
                     </div>

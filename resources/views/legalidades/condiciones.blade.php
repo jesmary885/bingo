@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
- 
+
         <style>
             body{
                 position: relative;
@@ -18,12 +18,13 @@
             }
         </style>
 
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'BING+') }}</title>
 
         <link rel="stylesheet" href="{{ asset('vendor/FlexSlider/flexslider.css') }}">
 
@@ -38,17 +39,6 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
       
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
-
-        {{-- <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>  --}}
-
-        <!-- Scripts -->
-     {{-- <script src="{{ asset('js/app.js') }}" defer></script>
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">  --}}
-
-   
 
         
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -72,21 +62,16 @@
         <x-banner />
 
         <div class="bg-white" >
-            @livewire('navigation-menu')
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+            <div class="container" >
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+                <h1 class="font-bold p-8 text-3xl " >
+                    Condiciones de servicio
+                </h1>
+
+            </div>
+   
+
 
             <!-- Foooter -->
             <footer class="bg-black text-white bottom-0 " id="footer">
@@ -107,6 +92,7 @@
                             </a>
                         </div>
 
+                        
                         <div class="px-2 py-2 flex justify-center">
                             <a href="#" class="font-Arima text-xs  md:text-base   hover:text-gray-300">
                                 Contacto
@@ -148,28 +134,7 @@
 
         @stack('script')
 
-        <script>
-            livewire.on('confirm', (ms,item1,item2,ms2) => {
-                Swal.fire({
-                title: ms,
-                text: "",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Si'
-                }).then((result) => {
-                if (result.isConfirmed) {
-                            livewire.emitTo(item1,item2)
-                            Swal.fire(
-                            '',
-                            ms2,
-                            'success'
-                            )
-                    }
-                })
-            })
-        </script>
+       
         
 
 
