@@ -45,7 +45,7 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
  
 Route::get('/auth/callback', [AuthController::class,'callback'])->name('auth.callback');
 
-Route::get('/registro', [RegisterController::class, 'index'])->name('Registro');
+Route::get('/registro', [RegisterController::class, 'registro'])->name('Registro');
 Route::post('/registro', [RegisterController::class, 'create'])->name('Registro_create');
 
 Route::get('/politica-de-privacidad', [LegalidadesController::class,'privacidad'])->name('politica_privacidad');

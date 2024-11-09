@@ -404,19 +404,20 @@
                         </a>
 
 
-                            <a href="{{ route('auth.redirect') }}" class="block group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
+                            {{-- <a href="{{ route('auth.redirect') }}" class="block group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
                                 <div class="relative flex items-center space-x-4 justify-center">
                                         <img src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg" class="absolute mt-4 left-0 w-6 mr-2" alt="Facebook logo">
                                     <span class="mt-4 text-xs sm:text-sm tracking-wide text-gray-600 font-semibold ">Inicia sesión con Facebook</span>
                                 </div>
                             </a>
+                            --}}
             
-                            <div class="relative mt-10 h-px bg-gray-300">
-                            <div class="absolute left-0 top-0 flex justify-center w-full -mt-2">
-                                <span class="bg-white px-4 text-xs text-gray-500 uppercase">O Inicia sesión con tu Email</span>
-                            </div>
-                            </div>
-                            <div class="mt-10">
+                            {{-- <div class="relative h-px bg-gray-300">
+                                <div class="absolute left-0 top-0 flex justify-center w-full -mt-2">
+                                    <span class="bg-white px-4 text-xs text-gray-500 uppercase">Inicia sesión con tu Email</span>
+                                </div>
+                            </div>  --}}
+                            <div class="mt-10" >
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="flex flex-col mb-6">

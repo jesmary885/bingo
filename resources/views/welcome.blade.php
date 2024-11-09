@@ -867,7 +867,7 @@
 
                         
                       
-                        Si te apasionan los <span class="underline leading-8 underline-offset-6	decoration-8 decoration-blue-600 font-bold  ">Juegos de Azar</span> y quieres poner a prueba tu suerte, <span class=" font-bold text-blue-600 " >¡has llegado a la web indicada!.</span>  Te invitamos a participar en todos los sorteos que tenemos para ti, ¡es muy sencillo!. Solo registrate o inicia sesión de manera rápida a través de <span class="font-bold text-blue-600 uppercase " >Facebook</span>, y nos vemos adentro para comenzar a <span class="underline leading-8 underline-offset-6	decoration-8 decoration-blue-600 font-bold" >GANAR</span> .
+                        Si te apasionan los <span class="underline leading-8 underline-offset-6	decoration-8 decoration-blue-600 font-bold  ">Juegos de Azar</span> y quieres poner a prueba tu suerte, <span class=" font-bold text-blue-600 " >¡has llegado a la web indicada!.</span>  Te invitamos a participar en todos los sorteos que tenemos para ti, ¡es muy sencillo!. Solo registrate e  <span class=" font-bold text-blue-600 " >inicia sesión</span>, y nos vemos adentro para comenzar a <span class="underline leading-8 underline-offset-6	decoration-8 decoration-blue-600 font-bold" >GANAR</span> .
                       </h2>
 
         
@@ -879,8 +879,8 @@
                 <div class="flex justify-center pt-6 pb-20 " >
 
 
-                    <a href="{{ route('auth.redirect') }}" class="bg-blue-500 font-Allerta text-md md:text-xl hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                        Inicia sesión con Facebook
+                    <a href="{{ route('login') }}" class="bg-blue-500 font-Allerta text-md md:text-xl hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                        Inicia sesión en BING+
                       </a>
 
                 </div>

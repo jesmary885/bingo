@@ -16,13 +16,19 @@ class RegisterController extends Controller
     
     use PasswordValidationRules;
 
-    protected $guard;
+    /*protected $guard;
 
     public function __construct(StatefulGuard $guard)
     {
         $this->guard = $guard;
        
+    }*/
+
+    public function registro(){
+         return view('registro');
     }
+
+
 
     public function index(){
 
@@ -39,6 +45,8 @@ class RegisterController extends Controller
 
 
         $request->validate([
+            'terminos_condiciones' => ['required'],
+            'confirmar_edad' => ['required'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
@@ -75,6 +83,8 @@ class RegisterController extends Controller
             }
 
         }
+
+        auth()->login($user);
 
         $this->guard->login($user);
         return redirect(route("home"));

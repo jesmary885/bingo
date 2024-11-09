@@ -1,5 +1,4 @@
-<x-guest-layout>
-
+<div>
     <div class="flex relative md:h-screen font-Arima  ">
 
 
@@ -413,9 +412,9 @@
                 <div class="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
                 <div class="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
 	    </div>
+
     
- 
-      
+
           <!-- Login banner -->
         <div class="md:flex md:items-center md:justify-center block  w-full  p-8 md:p-2 lg:p-4  bg-white">
                 <div class="flex flex-col bg-white justify-center px-4 w-full ">
@@ -443,39 +442,38 @@
                         --}}
                         
                         <div class="mt-1">
-                        <form method="POST" action="{{ route('Registro_create') }}">
-                            @csrf
+            
                             <div class="flex flex-col mb-6">
                                 <label for="name" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Nombre:</label>
                                 <div class="relative">
-                                    <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                                    <div class="inline-flex items-center justify-center absolute left-0 top-0 mt-2 w-10 text-gray-400">
                                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:serif="http://www.serif.com/" width="100%" height="100%" viewBox="0 0 512 512" version="1.1" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g transform="matrix(1,0,0,1,0,-562)"><g id="Icons"><path d="M226.352,663.964L207.949,663.964C195.12,663.964 184.704,674.379 184.704,687.208L184.704,700.452L138.272,700.452C118.8,700.452 102.991,716.26 102.991,735.732C102.991,735.732 102.991,1027.72 102.991,1027.72C102.991,1047.19 118.8,1063 138.272,1063C138.272,1063 373.728,1063 373.728,1063C393.2,1063 409.009,1047.19 409.009,1027.72C409.009,1027.72 409.009,735.732 409.009,735.732C409.009,716.26 393.2,700.452 373.728,700.452L327.296,700.452L327.296,687.208C327.296,674.379 316.88,663.964 304.051,663.964L285.648,663.964C292.659,645.738 296.974,624.502 296.974,613.974C296.974,591.36 278.614,573 256,573C233.386,573 215.026,591.36 215.026,613.974C215.026,624.502 219.341,645.738 226.352,663.964ZM399.009,735.732L399.009,1027.72C399.009,1041.67 387.681,1053 373.728,1053L138.272,1053C124.319,1053 112.991,1041.67 112.991,1027.72L112.991,735.732C112.991,721.78 124.319,710.452 138.272,710.452L373.728,710.452C387.681,710.452 399.009,721.78 399.009,735.732ZM187.25,1018.08L324.75,1018.08C327.51,1018.08 329.75,1015.83 329.75,1013.08C329.75,1010.32 327.51,1008.08 324.75,1008.08L187.25,1008.08C184.49,1008.08 182.25,1010.32 182.25,1013.08C182.25,1015.83 184.49,1018.08 187.25,1018.08ZM187.25,988.089L324.75,988.089C327.51,988.089 329.75,985.848 329.75,983.089C329.75,980.329 327.51,978.089 324.75,978.089L187.25,978.089C184.49,978.089 182.25,980.329 182.25,983.089C182.25,985.848 184.49,988.089 187.25,988.089ZM187.25,959.075L324.75,959.075C327.51,959.075 329.75,956.834 329.75,954.075C329.75,951.315 327.51,949.075 324.75,949.075L187.25,949.075C184.49,949.075 182.25,951.315 182.25,954.075C182.25,956.834 184.49,959.075 187.25,959.075ZM324.768,857.346C324.768,841.594 311.979,828.805 296.227,828.805L215.773,828.805C200.021,828.805 187.232,841.594 187.232,857.346L187.232,913.075C187.232,915.836 189.47,918.075 192.232,918.075L319.768,918.075C322.53,918.075 324.768,915.836 324.768,913.075L324.768,857.346ZM296.018,908.075L314.768,908.075L314.768,857.346C314.768,847.113 306.46,838.805 296.227,838.805C296.227,838.805 215.773,838.805 215.773,838.805C205.54,838.805 197.232,847.113 197.232,857.346C197.232,857.346 197.232,908.075 197.232,908.075L215.982,908.075L215.982,888.339C215.982,885.58 218.222,883.339 220.982,883.339C223.741,883.339 225.982,885.58 225.982,888.339L225.982,908.075L286.018,908.075L286.018,888.339C286.018,885.58 288.259,883.339 291.018,883.339C293.778,883.339 296.018,885.58 296.018,888.339L296.018,908.075ZM256,733.925C230.891,733.925 210.506,754.31 210.506,779.419C210.506,804.528 230.891,824.913 256,824.913C281.109,824.913 301.494,804.528 301.494,779.419C301.494,754.31 281.109,733.925 256,733.925ZM256,743.925C275.59,743.925 291.494,759.829 291.494,779.419C291.494,799.009 275.59,814.913 256,814.913C236.41,814.913 220.506,799.009 220.506,779.419C220.506,759.829 236.41,743.925 256,743.925ZM278.24,673.964C278.187,673.964 278.133,673.964 278.08,673.964L233.92,673.964C233.867,673.964 233.813,673.964 233.76,673.964L207.949,673.964C200.639,673.964 194.704,679.898 194.704,687.208L194.704,700.452L317.296,700.452L317.296,687.208C317.296,679.898 311.361,673.964 304.051,673.964L278.24,673.964ZM274.879,663.964C282.248,646.32 286.974,624.453 286.974,613.974C286.974,596.879 273.095,583 256,583C238.905,583 225.026,596.879 225.026,613.974C225.026,624.453 229.752,646.32 237.121,663.964L274.879,663.964ZM256,592.529C244.164,592.529 234.555,602.138 234.555,613.974C234.555,625.81 244.164,635.42 256,635.42C267.836,635.42 277.445,625.81 277.445,613.974C277.445,602.138 267.836,592.529 256,592.529ZM256,602.529C262.317,602.529 267.445,607.657 267.445,613.974C267.445,620.291 262.317,625.42 256,625.42C249.683,625.42 244.555,620.291 244.555,613.974C244.555,607.657 249.683,602.529 256,602.529Z"/></g></g></svg>
                                        
                                     </div>
-                                    <input id="name" type="text" name="name" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Nombre y apellido" />
+                                    <input id="name" wire:model="name" type="text" name="name" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Nombre y apellido" />
 
-                                    <x-input-error class="mt-1" for="name" />
+                                    <x-input-error for="name" />
                                 </div>
                             </div>
 
                             <div class="flex flex-col mb-6">
                                 <label for="email" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Correo electrónico:</label>
                                 <div class="relative">
-                                    <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                                    <div class="inline-flex items-center justify-center absolute left-0 top-0 mt-2 w-10 text-gray-400">
                                         <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                             <path d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                                         </svg>
                                     </div>
                     
-                                    <input id="email" type="email" name="email" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Correo electrónico" />
-                                    <x-input-error class="mt-1" for="email" />
+                                    <input id="email" type="email" wire:model="email" name="email" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Correo electrónico" />
+                                    <x-input-error for="email" />
                                 </div>
                             </div>
 
                             <div class="flex flex-col mb-6">
                                 <label for="password" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Contraseña:</label>
                                 <div class="relative">
-                                    <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                                    <div class="inline-flex items-center justify-center absolute left-0 top-0 mt-2 w-10 text-gray-400">
                                     <span>
                                         <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                         <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -483,15 +481,15 @@
                                     </span>
                                     </div>
                         
-                                    <input id="password" type="password" name="password" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Contraseña" />
-                                    <x-input-error class="mt-1" for="password" />
+                                    <input id="password" type="password" wire:model="password" name="password" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Contraseña" />
+                                    <x-input-error for="password" />
                                 </div>
                             </div>
         
                             <div class="flex flex-col mb-6">
                             <label for="password" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Confirma la contraseña:</label>
                             <div class="relative">
-                                <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                                <div class="inline-flex items-center justify-center absolute left-0 top-0 mt-2 w-10 text-gray-400">
                                 <span>
                                     <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                     <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -499,8 +497,8 @@
                                 </span>
                                 </div>
                     
-                                <input  id="password_confirmation" type="password" name="password_confirmation" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Contraseña" />
-                                <x-input-error class="mt-1" for="password_confirmation" />
+                                <input  id="password_confirmation" type="password"  wire:model="password_confirmation" name="password_confirmation" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Contraseña" />
+                                <x-input-error for="password_confirmation" />
                             </div>
                             </div>
 
@@ -528,20 +526,16 @@
                             <div class="mb-8" >
 
                                 <div class="flex items-center mt-2">
-                                    <input id="terminos_condiciones" name="terminos_condiciones" type="checkbox" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <input id="terminos_condiciones" name="terminos_condiciones" type="checkbox" wire:model="terminos_condiciones" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                     <label for="link-checkbox" class=" text-xs sm:text-sm tracking-wide text-gray-600 mt-1 ml-2">Estoy de acuerdo con la <a href="{{route('politica_privacidad')}}" class="text-blue-600 dark:text-blue-500 hover:underline">Politica de privacidad</a> y <a href="{{route('condiciones_servicio')}}" class="text-blue-600 dark:text-blue-500 hover:underline">Condiciones de servicio</a></label>
                                     
                                 </div>
 
-                                <x-input-error class="mt-1" for="terminos_condiciones" />
-
                                 <div class="flex items-center">
-                                    <input  id="confirmar_edad" name="confirmar_edad" type="checkbox" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <input  id="confirmar_edad" name="confirmar_edad" type="checkbox" value="1" wire:model="confirmar_edad" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                     <label for="link-checkbox" class=" text-xs sm:text-sm tracking-wide text-gray-600 mt-1 ml-2">Confirmo que tengo al menos 18 años y juego por mi cuenta</label>
                                     
                                 </div>
-
-                                <x-input-error class="mt-1" for="confirmar_edad" />
 
                             </div>
                     
@@ -555,7 +549,7 @@
   
                     
                             <div class="flex w-full">
-                            <button type="submit" class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
+                            <button type="submit" wire:click="procesar" class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
                                 <span class="mr-2 uppercase">Registrar</span>
                                 <span>
                                 <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -575,18 +569,11 @@
                                 <span class="ml-2">Ya estas registrado?, haz click aquí</span>
                             </a>
                             </div>
-                        </form>
+                  
                         </div>
                     </div>
                 </div>
         </div>
 
     </div>
-</x-guest-layout>
-
-   
-
-
-
-
-
+</div>
