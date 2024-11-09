@@ -1578,104 +1578,108 @@
             </div>
         </div>
 
-        <div>
+        @if($cartones)
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    
+            <div>
 
-                @foreach ($cartones as $carton)
-    
-                    <div class=" bg-white rounded-md shadow-md overflow-hidden">
-    
-                        <div class=" {{$this->color($carton->id)}} rounded-t-md shadow-md overflow-hidden md:max-w-xl ">
-    
                 
-    
-                            <div class="grid grid-cols-5 gap-0.5 justify-center mb-1 mt-1">  
-    
-                                <div class="{{$this->color($carton->id)}} text-white justify-center text-2xl text-center  py-2  font-bold">B</div>  
-                                <div class="{{$this->color($carton->id)}} text-white justify-center text-2xl text-center  py-2 font-bold">I</div>  
-                                <div class="{{$this->color($carton->id)}} text-white justify-center text-2xl text-center  py-2 font-bold">N</div>  
-                                <div class="{{$this->color($carton->id)}} text-white justify-center text-2xl text-center  py-2 font-bold">G</div>  
-                                <div class="{{$this->color($carton->id)}} text-white justify-center text-2xl text-center py-2 font-bold">O</div>  
-                            </div>  
-    
-                            <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1 ">  
-                                @foreach (json_decode($carton->carton->content_1) as $item)
-                                    <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
-                                @endforeach
-                            </div>  
-    
-                            <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
-                                @foreach (json_decode($carton->carton->content_2) as $item)
-                                    <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
-                                @endforeach
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+                    @foreach ($cartones as $carton)
+        
+                        <div class=" bg-white rounded-md shadow-md overflow-hidden">
+        
+                            <div class=" {{$this->color($carton->id)}} rounded-t-md shadow-md overflow-hidden md:max-w-xl ">
+        
+                    
+        
+                                <div class="grid grid-cols-5 gap-0.5 justify-center mb-1 mt-1">  
+        
+                                    <div class="{{$this->color($carton->id)}} text-white justify-center text-2xl text-center  py-2  font-bold">B</div>  
+                                    <div class="{{$this->color($carton->id)}} text-white justify-center text-2xl text-center  py-2 font-bold">I</div>  
+                                    <div class="{{$this->color($carton->id)}} text-white justify-center text-2xl text-center  py-2 font-bold">N</div>  
+                                    <div class="{{$this->color($carton->id)}} text-white justify-center text-2xl text-center  py-2 font-bold">G</div>  
+                                    <div class="{{$this->color($carton->id)}} text-white justify-center text-2xl text-center py-2 font-bold">O</div>  
+                                </div>  
+        
+                                <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1 ">  
+                                    @foreach (json_decode($carton->carton->content_1) as $item)
+                                        <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
+                                    @endforeach
+                                </div>  
+        
+                                <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
+                                    @foreach (json_decode($carton->carton->content_2) as $item)
+                                        <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
+                                    @endforeach
+                                </div> 
+        
+                                <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
+                                    @foreach (json_decode($carton->carton->content_3) as $item)
+                                        <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
+                                    @endforeach
+                                </div> 
+        
+                                <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
+                                    @foreach (json_decode($carton->carton->content_4) as $item)
+                                        <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
+                                    @endforeach
+                                </div> 
+        
+                                <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
+                                    @foreach (json_decode($carton->carton->content_5) as $item)
+                                        <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
+                                    @endforeach
+                                </div> 
+        
+                                <div class="{{$this->color($carton->id)}} m-1 text-end  ">
+                                    <p class=" text-white font-semibold text-sm ">CARTON NRO. {{$carton->carton->id}}  </p>
+                                </div>
+        
                             </div> 
-    
-                            <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
-                                @foreach (json_decode($carton->carton->content_3) as $item)
-                                    <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
-                                @endforeach
-                            </div> 
-    
-                            <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
-                                @foreach (json_decode($carton->carton->content_4) as $item)
-                                    <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
-                                @endforeach
-                            </div> 
-    
-                            <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
-                                @foreach (json_decode($carton->carton->content_5) as $item)
-                                    <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
-                                @endforeach
-                            </div> 
-    
-                            <div class="{{$this->color($carton->id)}} m-1 text-end  ">
-                                <p class=" text-white font-semibold text-sm ">CARTON NRO. {{$carton->carton->id}}  </p>
+        
+                            <div class="p-2 text-grey-darker text-justify flex flex-row justify-end border-t">
+        
+                                @if($carton->status_carton == 'Disponible')
+        
+                                    <button wire:click="add_cart('{{$carton->carton->id}}')"  class="text-white  bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                        <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
+                                        <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
+                                        </svg>
+                                        Comprar
+                                    </button>
+        
+                                @elseif($carton->status_carton == 'Reservado')
+        
+                                    <div class="mt-2">
+                                        
+                                        <p class=" text-yellow-500 font-bold text-center text-lg " > Cartón reservado </p>
+            
+                                    </div>
+        
+                                @else
+        
+                                    <div class="mt-2">
+            
+                                        <p class=" text-red-500 font-bold text-center text-lg " > Cartón no disponible </p>
+            
+                                    </div>
+        
+        
+                                @endif
+                            
                             </div>
-    
-                        </div> 
-    
-                        <div class="p-2 text-grey-darker text-justify flex flex-row justify-end border-t">
-    
-                            @if($carton->status_carton == 'Disponible')
-    
-                                <button wire:click="add_cart('{{$carton->carton->id}}')"  class="text-white  bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                    <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
-                                    <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
-                                    </svg>
-                                    Comprar
-                                </button>
-    
-                            @elseif($carton->status_carton == 'Reservado')
-    
-                                <div class="mt-2">
-                                    
-                                    <p class=" text-yellow-500 font-bold text-center text-lg " > Cartón reservado </p>
-        
-                                </div>
-    
-                            @else
-    
-                                <div class="mt-2">
-        
-                                    <p class=" text-red-500 font-bold text-center text-lg " > Cartón no disponible </p>
-        
-                                </div>
-    
-    
-                            @endif
-                        
                         </div>
-                    </div>
-                @endforeach
-            </div>
+                    @endforeach
+                </div>
 
-            <div class="p-4">
-                {{$cartones->links()}}
-            </div>
+                <div class="p-4">
+                    {{$cartones->links()}}
+                </div>
 
-        </div>
+            </div>
+        @endif
 
         
 
@@ -1685,8 +1689,6 @@
     <script>
 
         Livewire.on('refrescar', function(){
-
-            console.log('jj')
 
 
             window.location.reload();

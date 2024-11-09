@@ -155,6 +155,15 @@ class Cartones extends Component
                 ->with('carton')
                 ->Paginate(20);
             }
+
+            else{
+                $cartones = [];
+
+                notyf()
+                ->duration(9000) // 2 seconds
+                ->addError('El número de cartón ingresado no existe');
+            }
+
         }
 
 
