@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\CartonGanador as ModelsCartonGanador;
+use App\Models\SorteoFicha;
 use App\Models\User;
 use Livewire\Component;
 
@@ -21,6 +22,19 @@ class CartonGanador extends Component
 
         $this->open = false;
 
+    }
+
+    public function background($item){
+        $ficha_nueva = SorteoFicha::where('sorteo_id',$this->sorteo)->get();
+
+
+        foreach ($ficha_nueva as $ficha){
+
+            if($ficha->numero == $item) {
+                return 'bg-green-500';
+            }
+
+        }
     }
 
     public function imagen($gg){

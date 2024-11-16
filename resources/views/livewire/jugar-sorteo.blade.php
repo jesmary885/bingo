@@ -35,7 +35,7 @@
                         </div>
                     @else
                         <div class=" text-lg font-extrabold text-center ">
-                            <span class="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300 bg-clip-text text-transparent  "> RESULTADOS DEL SORTEO NRO {{$sorteo_nro}}</span>
+                            <span class="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300 bg-clip-text text-transparent  "> RESULTADOS DEL SORTEO</span>
                         </div>
 
                         <div class=" flex justify-center w-full mt-4 mb-4">
@@ -120,7 +120,7 @@
                     @else
 
                         <div class=" text-lg font-extrabold text-center ">
-                            <span class="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300 bg-clip-text text-transparent  "> RESULTADOS DEL SORTEO NRO {{$sorteo_nro}}</span>
+                            <span class="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300 bg-clip-text text-transparent  "> RESULTADOS DEL SORTEO</span>
                         </div>
 
                         <div class=" flex justify-center w-full mt-4 mb-4">
@@ -236,7 +236,7 @@
 
     @else
 
-        <div class=" flex justify-between relative" >
+        <div class=" flex justify-between relative container " >
 
             <div class="w-full flex flex-col justify-center " >
                 <h3 class=" font-Allerta font-bold text-xl md:text-5xl text-blue-500 text-center mt-4 mb-2   ">JUGAR SORTEO</h3>

@@ -15,4 +15,9 @@ class BilleteraController extends Controller
 
         return view('billetera.mis_cuentas');
     }
+
+    public function afiliados(){
+
+        return view('afiliados.mis_afiliados');
+    }
 }

@@ -1,9 +1,13 @@
-<div class=" font-Arima " >
+<div  x-data="{pendiente: @entangle('pendiente')}" class=" font-Arima " >
 
 
-    <button type="button" wire:click="$set('open',true)" type="button" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+    <button type="button" wire:click="$set('open',true)"
+     type="button"
+    x-bind:disabled="$wire.pendiente == 1"
+     class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
 
       RETIRAR
+ 
     </button>
 
     <x-dialog-modal wire:model="open">

@@ -53,31 +53,31 @@
     
                             <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1 ">
                                 @foreach (json_decode($carton->carton->content_1) as $item)
-                                    <div class=" bg-gray-100 text-lg justify-center text-center py-2 font-bold">  {{$item}}  </div>
+                                    <div class=" {{$this->background($item)}} bg-gray-100 font-bold text-lg justify-center text-center py-2 text-black ">  {{$item}}  </div>
                                 @endforeach
                             </div>
     
                             <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">
                                 @foreach (json_decode($carton->carton->content_2) as $item)
-                                    <div class=" bg-gray-100  text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
+                                    <div class=" {{$this->background($item)}} bg-gray-100  text-lg justify-center text-center py-2 font-bold text-black">{{$item}} </div>
                                 @endforeach
                             </div>
     
                             <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">
                                 @foreach (json_decode($carton->carton->content_3) as $item)
-                                    <div class=" bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
+                                    <div class=" {{$this->background($item)}} bg-gray-100  text-lg justify-center text-center py-2 font-bold text-black">{{$item}} </div>
                                 @endforeach
                             </div>
     
                             <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">
                                 @foreach (json_decode($carton->carton->content_4) as $item)
-                                    <div class=" bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
+                                    <div class=" {{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold text-black">{{$item}} </div>
                                 @endforeach
                             </div>
     
                             <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">
                                 @foreach (json_decode($carton->carton->content_5) as $item)
-                                    <div class=" bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>
+                                    <div class=" {{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold text-black">{{$item}}</div>
                                 @endforeach
                             </div>
 
@@ -85,7 +85,6 @@
 
                             <div class="bg-blue-600 m-1 text-center">
                                 <p class=" text-white font-semibold text-sm ">CARTON NRO. {{$carton->carton->id}}  </p>
-                                <p class=" text-white font-semibold text-sm ">SERIAL NRO. {{$carton->carton->serial}}  </p>
                                 <p class="text-white font-semibold text-sm " >Ganador categoria : {{$carton->type}} </p>
                                 <p class="text-white font-semibold text-sm " >Usuario ganador : {{ $carton->user->name }} </p>
                                 <p class="text-white font-semibold text-sm " >Premio : {{ $carton->premio }} $  (Bs. {{$carton->premio * $dolar_hoy}})</p>

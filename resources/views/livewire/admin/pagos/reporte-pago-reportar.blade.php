@@ -29,10 +29,10 @@
                 <div class="container">
 
 
-                    <div class="w-1/2 mt-4">
-                        <x-label value="Cuenta destinataria" />
+                    <div class="w-1/2 mt-4 ml-2">
+                        <x-label value="Cuenta destino" />
 
-                        <select wire:model="metodo_id" class="form-control w-full">
+                        <select wire:model="cuenta_id" class="form-control w-full">
                             <option value="" selected>Seleccione_opcion</option>
                                 @foreach ($cuentas as $cuenta)
                                     <option value="{{$cuenta->id}}">{{$cuenta->identificativo}}</option>
@@ -41,7 +41,7 @@
                         <x-input-error for="cuentas" />
                     </div>
 
-                    <div class="w-full">
+                    <div class="w-full mt-2">
 
                         <div class="col">
                             <div class="form-group">

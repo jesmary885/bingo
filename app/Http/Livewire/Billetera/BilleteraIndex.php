@@ -25,7 +25,7 @@ class BilleteraIndex extends Component
         $user = User::where('id',Auth::id())->first();
 
         if($user->retiro_inmediato != null){
-            if($user->retiro_inmediato == 'si') $this->retiro_inmediato = 1;
+            if($user->retiro_inmediato == 'Si') $this->retiro_inmediato = 1;
             else $this->retiro_inmediato = 2;
         }
 
@@ -36,7 +36,7 @@ class BilleteraIndex extends Component
     }
 
     public function opcion_retiro($opcion_seleccionada){
-        if($opcion_seleccionada == 'si') $this->retiro_inmediato = 1;
+        if($opcion_seleccionada == 'Si') $this->retiro_inmediato = 1;
         else $this->retiro_inmediato = 2;
 
         User::where('id',auth()->user()->id)->first()->update([

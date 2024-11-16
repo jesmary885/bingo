@@ -74,4 +74,6 @@ Route::middleware(['auth'])->group(function()
 
     Route::get('mis_cuentas', [BilleteraController::class,'cuentas'])->name('billetera.cuentas');
 
+    Route::get('mis_referidos', [BilleteraController::class,'afiliados'])->name('billetera.afiliados');
+
 });

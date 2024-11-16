@@ -6,9 +6,12 @@ use App\Models\CuentasUser;
 use App\Models\Pago;
 use App\Models\UserSaldo;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class ReportePagoReportar extends Component
 {
+    use WithFileUploads;
+
     public $registro,$file,$cuenta_id;
 
     public $isopen = false;
@@ -38,25 +41,33 @@ class ReportePagoReportar extends Component
         return view('livewire.admin.pagos.reporte-pago-reportar',compact('cuentas'));
     }
 
-    public function guardar(){
+    public function procesar(){
 
         $rules = $this->rules;
         $this->validate($rules);
+
+        $pago_select = Pago::where('id',$this->registro)->first();
 
         $pago = Pago::where('id',$this->registro)
             ->first()
             ->update([
                 'constancia' => $this->file,
-                'status' => 'Pago recibido'
+                'status' => 'Pago recibido',
+                'cuenta_id' => $this->cuenta_id
             ]);
 
-        $saldo = UserSaldo::where('user_id',$pago->user_id)->first()->saldo;
+        $saldo = UserSaldo::where('user_id',$pago_select->user_id)->first()->saldo;
 
-        UserSaldo::where('user_id',$pago->user_id)
+        UserSaldo::where('user_id',$pago_select->user_id)
             ->first()
             ->update([
-                'saldo' => $saldo - $pago->monto
+                'saldo' => $saldo - $pago_select->monto
             ]);
+
+        $this->emit('alert','Datos registrados correctamente');
+        
+        $this->emitTo('pagos.reporte-pago-index','render');
+        $this->isopen = false;  
 
     }
 }

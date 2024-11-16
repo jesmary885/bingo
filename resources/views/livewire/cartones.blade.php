@@ -5,6 +5,20 @@
 
         <div class="w-full flex flex-col justify-center " >
             <h3 class="font-Allerta text-xl md:text-4xl text-blue-500 text-center mt-4 mb-2 font-bold  ">COMPRA DE CARTONES</h3>
+        
+            <div class="md:flex container justify-center mt-1 md:mt-4 " >
+
+                <div class=" flex justify-center " >
+                    @livewire('sorteo.info-sorteo',['sorteo_select' => $sorteo]) 
+                </div>
+
+                <div class="flex justify-center" >
+                    @livewire('sorteo.info-modalidades',['sorteo_select' => $sorteo]) 
+                </div>
+                
+                
+            </div>
+        
         </div>
 
         <div class=" w-full ">
