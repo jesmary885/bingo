@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Pagos;
 
 use App\Models\CartonSorteo;
 use App\Models\Pago;
+use App\Models\referidos;
 use Livewire\Component;
 Use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
@@ -168,6 +169,17 @@ class Index extends Component
             ->update([
                 'status' => 'Pago recibido'
             ]);
+
+
+        $busqueda_refer = referidos::where('user_id',auth()->user()->id)
+            ->where('compra','No')
+            ->first();
+
+        if($busqueda_refer){
+            $busqueda_refer->update([
+                'compra' => 'Si'
+            ]);
+        }
 
         $pagos_carton = CartonSorteo::where('pago_id',$this->registro_select)
             ->get();

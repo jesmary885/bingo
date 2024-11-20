@@ -23,7 +23,7 @@ class Afiliados extends Component
 
     public function render()
     {
-        $afiliados = referidos::where('user_id',auth()->user()->id)
+        $afiliados = referidos::where('refer_id',auth()->user()->id)
             ->where('compra','Si')
             ->paginate(15);
 
