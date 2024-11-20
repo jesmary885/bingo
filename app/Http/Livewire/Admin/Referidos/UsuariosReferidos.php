@@ -22,7 +22,8 @@ class UsuariosReferidos extends Component
     public function render()
     {
 
-        $usuarios = referidos::paginate(15);
+        $usuarios = referidos::where('compra','Si')
+            ->paginate(15);
 
         return view('livewire.admin.referidos.usuarios-referidos',compact('usuarios'));
     }

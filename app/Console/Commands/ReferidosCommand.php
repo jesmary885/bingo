@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Http\Livewire\Admin\Configuracion;
 use App\Models\cartones_pendientes_referidos;
 use App\Models\configuracion as ModelsConfiguracion;
+use App\Models\Pago;
 use App\Models\referidos;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -40,7 +41,10 @@ class ReferidosCommand extends Command
 
             $referido = referidos::where('status','Pendiente')
                 ->where('refer_id',$user->id)
+                ->where('compra','Si')
                 ->count();
+
+            
 
             if($referido >= $configuracion){
 
@@ -51,6 +55,7 @@ class ReferidosCommand extends Command
                 ->get();
 
                 foreach ($referido_modificar as $r){
+
 
                     referidos::where('id',$r->id)->first()
                         ->update([

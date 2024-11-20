@@ -73,11 +73,9 @@ class ReportePagoIndex extends Component
                 ->where('tipo','Retiro')
                 ->latest('id')
                 ->count();
-
             }
 
         }
-
 
         return view('livewire.admin.pagos.reporte-pago-index',compact('dolar_hoy','total_registros','registros'));
     }

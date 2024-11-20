@@ -30,6 +30,8 @@ class InfoModalidades extends Component
 
         $this->open = false;
 
+
+
     }
 
     public function render()

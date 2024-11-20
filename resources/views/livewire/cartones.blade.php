@@ -1605,6 +1605,14 @@
                         <div class=" bg-white rounded-md shadow-md overflow-hidden">
         
                             <div class=" {{$this->color($carton->id)}} rounded-t-md shadow-md overflow-hidden md:max-w-xl ">
+
+                                <div class="flex justify-center ">
+
+                                    <img src="{{Storage::url('img/logo4.png') }}" alt="" class="block h-16 w-36 ">
+
+                                    
+                                    
+                                </div>
         
                     
         

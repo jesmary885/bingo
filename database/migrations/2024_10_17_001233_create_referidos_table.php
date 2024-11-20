@@ -26,6 +26,8 @@ return new class extends Migration
 
             $table->string('status'); //pendiente o procesado 
 
+            $table->string('compra'); //Si o No
+
         });
     }
 

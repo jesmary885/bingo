@@ -1363,23 +1363,50 @@ class JugarSorteo extends Component
                     ->where('status_pago', 'Pago recibido')
                     ->first(); 
 
-                $fichas = [];
+                if($cartones_user){
 
-                $sorteo_user_last = Sorteo::where('id',$cartones_user->sorteo_id)->first();
+                    $fichas = [];
 
-                $proxima_fecha = strtotime($sorteo_user_last->fecha_ejecucion);
+                    $sorteo_user_last = Sorteo::where('id',$cartones_user->sorteo_id)->first();
 
-                $mes_restantes = date("m",$proxima_fecha);
-                $dias_restantes = date("d",$proxima_fecha);
-                $horas_restantes = date("H",$proxima_fecha);
-                $minutos_restantes = date("I",$proxima_fecha);
-                $ano_restantes = date("Y",$proxima_fecha);
+                    $proxima_fecha = strtotime($sorteo_user_last->fecha_ejecucion);
 
-                $mis_cartones = [];
+                    $mes_restantes = date("m",$proxima_fecha);
+                    $dias_restantes = date("d",$proxima_fecha);
+                    $horas_restantes = date("H",$proxima_fecha);
+                    $minutos_restantes = date("I",$proxima_fecha);
+                    $ano_restantes = date("Y",$proxima_fecha);
 
-                $sorteo_nro = $sorteo_user_last->id;
+                    $mis_cartones = [];
 
-                $ficha_ultima  = 0;
+                    $sorteo_nro = $sorteo_user_last->id;
+
+                    $ficha_ultima  = 0;
+
+                }
+
+                else{
+                    $fichas = [];
+
+                    $cartones_user = Sorteo::where('status','Aperturado')->first(); 
+
+                    $proxima_fecha = strtotime($cartones_user->fecha_ejecucion);
+
+                    $mes_restantes = date("m",$proxima_fecha);
+                    $dias_restantes = date("d",$proxima_fecha);
+                    $horas_restantes = date("H",$proxima_fecha);
+                    $minutos_restantes = date("I",$proxima_fecha);
+                    $ano_restantes = date("Y",$proxima_fecha);
+
+                    $sorteo_nro = $cartones_user->id;
+
+                    $mis_cartones = [];
+                    $ganador = 0; 
+
+                    $ficha_ultima  = 0;
+                }
+
+                
             }
         }
 

@@ -1,6 +1,6 @@
 <div class=" font-Arima " >
 
-    <button type="button" wire:click="$set('open',true)" type="button" class=" ml-0 md:ml-2 mt-1 md:mt-0 middle none center font-Arima  mr-1 rounded-lg bg-red-500 py-1 px-2 text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+    <button type="button" wire:click="$set('open',true)" type="button" class=" ml-0 md:ml-2 mt-1 md:mt-0 middle none focus:outline-none  center font-Arima  mr-1 rounded-lg bg-red-500 py-1 px-2 text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
         INFORMACIÓN DE MODALIDADES
 
         
@@ -13,7 +13,7 @@
 
                 <p>INFORMACIÓN DE MODALIDADES</p>
 
-                <button type="button" wire:click="close" wire:loading.attr="disabled"  class="py-2.5 px-3 me-2 mb-2 text-sm font-bold text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                <button type="button" wire:click="close"  wire:loading.attr="disabled"  class="py-2.5 px-3 me-2 mb-2 text-sm font-bold text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                     X
                 </button>
 

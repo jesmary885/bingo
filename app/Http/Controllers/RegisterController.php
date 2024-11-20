@@ -76,6 +76,7 @@ class RegisterController extends Controller
 
                 referidos::create([
                     'user_id' => $user->id,
+                    'compra' => 'No',
                     'refer_id' => $busqueda_codigo->id,
                     'status' => 'Pendiente'
                 ]);

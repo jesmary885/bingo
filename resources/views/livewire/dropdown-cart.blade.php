@@ -22,6 +22,8 @@
                     <li class=" p-2 border-b border-gray-200">
                         <div class="w-full" >
                             @livewire('cartonview',['carton'=> $item->options['carton'],key($item->id)])
+
+                            <p class=" text-center mt-1 text-xs text-gray-700 font-bold " >Carton Nro. {{$item->options['carton']}}</p>
                         </div>
 
                         <div class="flex" >

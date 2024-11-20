@@ -12,7 +12,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 class Cartones extends Component
 {
 
-    protected $listeners = ['render' => 'render','echo:cambio_cs,CambioEstadoCartonSorteo' => 'refrescar_pag'];
+    protected $listeners = ['render' => 'render','echo:cambio_cs,CambioEstadoCartonSorteo' => 'refrescar_pag','refrescar_pag' => 'refrescar_pag'];
 
     public $sorteo, $status_carton='1', $tipo_cartones, $search, $ver_todos_act = 0, $cambiando = 0, $cant_cartones_disponibles, $cant_cartones_no_disponibles, $cant_cartones_reservados;
 

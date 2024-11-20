@@ -38,7 +38,8 @@ class Cuentanos extends Component
             referidos::create([
                 'user_id' => auth()->user()->id,
                 'refer_id' => $busqueda_codigo->id,
-                'status' => 'Pendiente'
+                'status' => 'Pendiente',
+                'compra' => 'No'
             ]);
 
             return redirect(route('home'));

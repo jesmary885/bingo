@@ -42,6 +42,15 @@
     
                     <div class=" bg-white rounded-md shadow-md overflow-hidden">
                         <div class=" bg-blue-500 rounded-t-md shadow-md overflow-hidden md:max-w-xl ">
+
+                            <div class="flex justify-center ">
+
+                                <img src="{{Storage::url('img/logo4.png') }}" alt="" class="block h-16 w-36 ">
+
+                                
+                                
+                            </div>
+                            
                             <div class="grid grid-cols-5 gap-0.5 justify-center mb-1 mt-1">
     
                                 <div class="bg-blue-600 text-white justify-center text-2xl text-center  py-2  font-bold">B</div>
