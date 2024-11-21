@@ -172,7 +172,7 @@
 
                     @endif
 
-                    @if($carton_lleno == 0)
+                    @if($carton_lleno == 1)
 
                     <div class=" card w-full container p-8 bg-white text-center  border border-gray-100 rounded-lg shadow-lg  md:mr-2">
                         <h4 class="text-blue-500 leading-relaxed font-bold">CARTÓN LLENO</h4>

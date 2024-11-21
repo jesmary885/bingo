@@ -29,7 +29,7 @@ class BilleteraRetirar extends Component
             ->where('status','Pendiente')
             ->first();
 
-        if($cuenta_pendiente) $this->pendiente = 1;
+        if($cuenta_pendiente || $this->saldo_actual == 0) $this->pendiente = 1;
         else $this->pendiente = 0;
 
 

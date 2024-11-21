@@ -3,6 +3,21 @@
 
     <section class="bg-blue-100">
         <div class="items-center px-8 mx-auto lg:px-16 md:px-12">
+
+                 
+        @if(Session::has('mensaje'))
+
+        <div class="justify-center w-full text-center pt-6 max-auto">
+          <div>
+              <div class="max-w-sm bg-green-500 text-sm text-white rounded-md shadow-lg mb-3 ml-3" role="alert">
+                <div class="flex p-4">
+                  {{Session::get('mensaje')}}
+            
+                </div>
+              </div>
+          </div>
+
+      @endif
           <div class="justify-center w-full text-center pt-6 max-auto">
             <div class="justify-center w-full mx-auto container">
 

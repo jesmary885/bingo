@@ -274,13 +274,32 @@ class JugarSorteo extends Component
 
     public function numero($numero_n){
 
-        SorteoFicha::create([
-            'sorteo_id' => $this->sorteo,
-            'letra' => $this->letra_select,
-            'numero' => $numero_n,
-        ]);
+        $busqueda = SorteoFicha::where('sorteo_id',$this->sorteo)
+            ->where('letra',$this->letra_select)
+            ->where('numero',$numero_n)
+            ->first();
 
-        $this->letra_select = 0;
+        if($busqueda){
+
+            notyf()
+                ->duration(0)
+                ->position('x', 'center')
+                ->position('y', 'center')
+                ->dismissible(true)
+                ->addError('¡Ya ha ingresado esa ficha!, ingrese otra');
+
+        }else{
+            SorteoFicha::create([
+                'sorteo_id' => $this->sorteo,
+                'letra' => $this->letra_select,
+                'numero' => $numero_n,
+            ]);
+    
+            $this->letra_select = 0;
+
+        }
+
+        
 
     }
 
