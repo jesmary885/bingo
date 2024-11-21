@@ -3657,15 +3657,15 @@
     <div class="px-4  ">
 
         <div class="bg-white rounded-lg shadow-lg mb-2">
-            <div class="px-6 py-2 flex justify-between items-center">
+            <div class="px-6 py-2 flex justify-between items-center container">
     
-                <div class=" flex justify-center mt-1 font-Arima ">
+        
                     <p class=" font-semibold text-xs md:text-sm text-gray-600 font-Arima  " >
                         RESUMEN DE MOVIMIENTOS Y SOLICITUD DE RETIROS Y RECARGAS
                     </p>
     
-                </div>
-    
+          
+
             </div>
         </div>
 

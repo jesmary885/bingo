@@ -413,7 +413,7 @@
 
         
 
-        <div class="px-6 py-2 flex justify-between items-center">
+        <div class="px-6 py-2 flex justify-between items-center container ">
             <p class=" font-semibold text-xs md:text-sm text-gray-600 font-Arima  " >
                 MIS CUENTAS PARA RETIRAR DINERO DESDE BING+
             </p>
@@ -543,8 +543,8 @@
         @else
             <div class="card-body">
 
-                <p class=" font-semibold text-xs md:text-sm text-gray-600 font-sans " >
-                    No tienes cuentas registradas
+                <p class=" font-semibold text-xs md:text-sm text-gray-600 font-sans text-center " >
+                   - No tienes cuentas registradas -
                 </p>
 
 

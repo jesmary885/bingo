@@ -2107,7 +2107,7 @@
     </div>
 
     <div class="bg-white rounded-lg shadow-lg mb-6 font-Arima ">
-        <div class="px-6 py-2 flex justify-between items-center">
+        <div class="px-6 py-2 flex justify-between items-center container ">
 
             <p class=" font-semibold text-xs md:text-sm text-gray-600 font-Arima  " >
                 MIS CARTONES DE SORTEOS VIGENTES

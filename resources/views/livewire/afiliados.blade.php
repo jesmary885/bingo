@@ -617,7 +617,7 @@
 
         
 
-        <div class="px-6 py-2 flex justify-between items-center">
+        <div class="px-6 py-2 flex justify-between items-center container">
             <p class=" font-semibold text-xs md:text-sm text-gray-600 font-Arima  " >
                 MIS REFERIDOS
             </p>
@@ -682,8 +682,8 @@
         @else
             <div class="card-body container">
 
-                <p class=" font-semibold text-xs md:text-sm text-gray-600 font-sans " >
-                    Aún no tienes usuarios afiliados
+                <p class=" font-semibold text-xs md:text-sm text-gray-600 font-sans text-center " >
+                    - Aún no tienes usuarios afiliados -
                 </p>
 
 

@@ -2119,7 +2119,7 @@
 
         
 
-        <div class="px-6 py-2 flex justify-between items-center font-Arima ">
+        <div class="px-6 py-2 flex justify-between items-center font-Arima container ">
             <p class=" font-semibold text-xs md:text-sm text-gray-600 font-sans " >
                 RESULTADO DE SORTEOS
             </p>
@@ -2223,8 +2223,8 @@
         @else
             <div class="card-body bg-white ">
 
-                <p class=" font-semibold text-xs md:text-sm text-gray-600 font-Arima " >
-                    No exiten sorteos finalizados
+                <p class=" font-semibold text-xs md:text-sm text-center text-gray-600 font-Arima " >
+                   - No exiten sorteos finalizados -
                 </p>
 
             </div>
