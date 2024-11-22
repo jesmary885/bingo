@@ -159,6 +159,34 @@
                                 </div>
                             </div>
 
+                            <div class="bg-white shadow-md border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700">
+                         
+                                <img class="  object-fill rounded-t-lg " src="{{Storage::url('img/cruz_grande.jpg') }}"alt="">
+                             
+                               
+                                <div class="p-5">
+                                  
+                                        <h5 class="text-green-500 font-bold text-md tracking-tight mb-2 dark:text-white">CRUZ GRANDE</h5>
+    
+                                        <p class="font-normal text-gray-700 text-sm dark:text-gray-400">Deben estar marcadas los extremos de la coumna N y los dos extremos de la fila 3</p>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="bg-white shadow-md border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700">
+                         
+                                <img class="  object-fill rounded-t-lg " src="{{Storage::url('img/cruz_pequeña.jpg') }}"alt="">
+                             
+                               
+                                <div class="p-5">
+                                  
+                                        <h5 class="text-green-500 font-bold text-md tracking-tight mb-2 dark:text-white">CRUZ PEQUEÑA</h5>
+    
+                                        <p class="font-normal text-gray-700 text-sm dark:text-gray-400">En contraposición de la cruz grande, debe estar marcada la casilla central y las 4 alrededor de ella </p>
+                                    
+                                </div>
+                            </div>
+
                         </div>
 
                         

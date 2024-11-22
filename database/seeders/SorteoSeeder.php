@@ -23,21 +23,7 @@ class SorteoSeeder extends Seeder
             'porcentaje_ganancia' => '70'
         ]);
 
-        Sorteo::create([
-            'fecha_ejecucion' => '2024-08-25 14:00:00',
-            'type_1' => 'Tradicional',
-            'status' => 'Aperturado',
-            'precio_carton_dolar' => '1',
-             'porcentaje_ganancia' => '70'
-        ]);
-
-        Sorteo::create([
-            'fecha_ejecucion' => '2024-08-25 21:00:00',
-            'type_1' => 'Carton lleno',
-            'status' => 'Aperturado',
-            'precio_carton_dolar' => '1',
-            'porcentaje_ganancia' => '70'
-        ]);
+       
 
 
     }

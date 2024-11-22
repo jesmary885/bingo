@@ -879,7 +879,7 @@
                 <div class="flex justify-center pt-6 pb-20 " >
 
 
-                    <a href="{{ route('login') }}" class="bg-blue-500 font-Allerta text-md md:text-xl hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                    <a href="{{ route('Login') }}" class="bg-blue-500 font-Allerta text-md md:text-xl hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                         Inicia sesión en BING+
                       </a>
 
@@ -1994,7 +1994,7 @@
                                 <h4 class="text-gray-500 leading-relaxed font-bold">TRADICIONAL</h4>
 
                                 <p class="mt-1 text-gray-500 text-center font-Arima text-lg  ">
-                                    Jugaremos con 5 patrones (Línea horizontal, Línea vertical, Cuatro esquinas, Diagonal de derecha a izquierda y Diagonal de izquierda a derecha)
+                                    Jugaremos con 7 patrones (Línea horizontal, Línea vertical, Cuatro esquinas, Diagonal de derecha a izquierda, Diagonal de izquierda a derecha, Cruz grande y Cruz pequeña)
                                 </p>
 
                                 <div class="flexslider w-full px-8 pt-8">
@@ -2069,6 +2069,36 @@
                                                 <div class="">
                                                     <p class="  font-Arima  text-xs font-semibold  text-gray-700 group-hover:text-white">
                                                         DIAGONAL - IZQUIERDA A DERECHA
+                                                    </p>
+                                                 
+                                                </div>
+                                            </article>
+                                        </li>
+
+                                        <li class="bg-white rounded-lg shadow-lg">
+                                            <article>
+                                                <figure>
+                                                    <img class="  object-fill " src="{{Storage::url('img/cruz_grande.jpg') }}"alt="">
+                                                </figure>
+                                                        
+                                                <div class="">
+                                                    <p class="  font-Arima  text-xs font-semibold  text-gray-700 group-hover:text-white">
+                                                        CRUZ GRANDE
+                                                    </p>
+                                                 
+                                                </div>
+                                            </article>
+                                        </li>
+
+                                        <li class="bg-white rounded-lg shadow-lg">
+                                            <article>
+                                                <figure>
+                                                    <img class="  object-fill " src="{{Storage::url('img/cruz_pequeña.jpg') }}"alt="">
+                                                </figure>
+                                                        
+                                                <div class="">
+                                                    <p class="  font-Arima  text-xs font-semibold  text-gray-700 group-hover:text-white">
+                                                        CRUZ PEQUEÑA
                                                     </p>
                                                  
                                                 </div>

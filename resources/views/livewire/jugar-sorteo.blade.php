@@ -204,6 +204,8 @@
                         {{$this->verifi_cuatro_esquinas($carton->carton->id)}}
                         {{$this->diagonal_iz($carton->carton->id)}}
                         {{$this->diagonal_dr($carton->carton->id)}}
+                        {{$this->cruz_pequeña($carton->carton->id)}}
+                        {{$this->cruz_grande($carton->carton->id)}}
                     @else
                         {{$this->verifi_carton_lleno($carton->carton->id)}}
                     @endif
