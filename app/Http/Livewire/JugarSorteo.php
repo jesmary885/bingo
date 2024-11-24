@@ -54,6 +54,22 @@ class JugarSorteo extends Component
             $this->type_2 = $this->sorteo->type_2;
             $this->type_3 = $this->sorteo->type_3;
 
+            $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                ->where('lugar','Primero')
+                ->first();
+
+            $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                ->where('lugar','Segundo')
+                ->first();
+
+            $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                ->where('lugar','Tercero')
+                ->first();
+
+            if($ganadores_actuales_primer) $this->ganador_1 = 1;
+            if($ganadores_actuales_segundo) $this->ganador_2 = 1;
+            if($ganadores_actuales_tercer) $this->ganador_3 = 1; 
+
         } 
         else{
             $this->sorteo_iniciado = 0;
@@ -315,6 +331,8 @@ class JugarSorteo extends Component
 
             if(!$buscar){
 
+                
+
                 if($this->ganador_1 == 0){
                     $this->carton_ganador_1 = $fichas_carton; 
                     $lugar = 'Primero'; 
@@ -327,6 +345,8 @@ class JugarSorteo extends Component
                     $this->carton_ganador_3 = $fichas_carton; 
                     $lugar = 'Tercero';
                 }
+
+          
 
                 CartonGanador::create([
                     'sorteo_id' => $this->sorteo->id,
@@ -1401,21 +1421,7 @@ class JugarSorteo extends Component
                 ->where('status_juego', 'Sin estado')
                 ->get(); 
 
-                $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                ->where('lugar','Primero')
-                ->first();
-    
-                $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                    ->where('lugar','Segundo')
-                    ->first();
-        
-                $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                    ->where('lugar','Tercero')
-                    ->first();
-        
-                if($ganadores_actuales_primer) $this->ganador_1 = 1;
-                if($ganadores_actuales_segundo) $this->ganador_2 = 1;
-                if($ganadores_actuales_tercer) $this->ganador_3 = 1;
+                
 
                
                if($fichas->isEmpty() == false){
