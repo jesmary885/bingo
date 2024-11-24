@@ -3,11 +3,11 @@
     <div class="flex justify-center ">
 
         <p class="mr-1" > 
-            {{$saldo}} $
+            {{round($saldo,2)}} $
         </p>
     
         <p  > 
-            (Bs. {{($saldo * $dolar_hoy) }})
+            (Bs. {{round(($saldo * $dolar_hoy),2) }})
         </p>
 
     </div>

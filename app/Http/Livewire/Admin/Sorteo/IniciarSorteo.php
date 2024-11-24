@@ -18,7 +18,7 @@ class IniciarSorteo extends Component
     public function render()
     {
 
-        $sorteos = Sorteo::where('status','Aperturado')->get();
+        $sorteos = Sorteo::where('status','!=','Finalizado')->get();
 
         return view('livewire.admin.sorteo.iniciar-sorteo',compact('sorteos'));
     }

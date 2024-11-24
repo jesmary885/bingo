@@ -70,4 +70,9 @@ class User extends Authenticatable
         'profile_photo_url',
         
     ];
+
+    public function cartons_ganador(){
+        return $this->hasMany(CartonGanador::class);
+    }
+
 }

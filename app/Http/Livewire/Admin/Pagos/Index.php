@@ -24,7 +24,9 @@ class Index extends Component
     }
 
     public function pendientes_verificar(){
-        return Pago::where('status','Pendiente')->count();
+        return Pago::where('status','Pendiente')
+            ->where('tipo','!=','Retiro')
+            ->count();
     }
 
     public function render()

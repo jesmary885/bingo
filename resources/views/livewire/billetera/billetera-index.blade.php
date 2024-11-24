@@ -3736,13 +3736,13 @@
                             <div>
                                 <p class=" font-Arima font-semibold text-gray-800 text-xl ">
 
-                                    {{$user_saldo}} $
+                                    {{round($user_saldo,2)}} $
 
                                 </p>
 
                                 <p class=" font-Arima text-blue-700 text-xl ">
 
-                                (Bs. {{$user_saldo * $dolar_hoy}})
+                                (Bs. {{round($user_saldo * $dolar_hoy,2)}})
 
                                 </p>
 
@@ -4061,7 +4061,7 @@
                                                 {{$movimiento->created_at}}
                                                 </th>
                                                 <td class="px-6 py-4">
-                                                    {{$movimiento->monto}} $
+                                                    {{round($movimiento->monto,2)}} $
                                                 </td>
                                                 <td class="px-6 py-4">
                                                     {{$movimiento->tipo}}

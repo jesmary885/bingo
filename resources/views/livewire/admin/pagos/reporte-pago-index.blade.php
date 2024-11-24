@@ -107,7 +107,7 @@
                                 {{\Carbon\Carbon::parse($registro->created_at)->format('d-m-Y h:i')}}
                                 </td>
                                 <td class="text-center">
-                                    {{ $registro->monto }} $  (Bs. {{$registro->monto * $dolar_hoy}})
+                                    {{ round($registro->monto,2) }} $  (Bs. {{round($registro->monto * $dolar_hoy,2)}})
                                 </td>
                             
                                 <td class="text-center">
@@ -139,7 +139,7 @@
                                 @endif
 
                                 <td class="text-center">
-                                    @livewire('admin.pagos.reporte-pago-reportar', ['registro' => $registro->id],key($registro->id))
+                                    @livewire('admin.pagos.reporte-pago-reportar', ['registro' => $registro->id],key('001'.$registro->id))
                                 </td>
                             </tr>
 

@@ -6,7 +6,9 @@ use App\Models\CartonGanador;
 use App\Models\Notification_Sorteo;
 use App\Models\Sorteo;
 use App\Models\SorteoFicha;
+use App\Models\User;
 use Livewire\Component;
+use Illuminate\Database\Eloquent\Builder;
 
 class JugarSorteo extends Component
 {
@@ -48,6 +50,9 @@ class JugarSorteo extends Component
 
     public function ganad(){
 
+        
+
+
 
  
         if($this->lugares == 1){
@@ -68,6 +73,44 @@ class JugarSorteo extends Component
                         'nro' => '1'
                     ]);
 
+                    $users_cant_ganador = User::whereHas('cartons_ganador',function(Builder $query){
+                        $query->where('sorteo_id', $this->sorteo)
+                                ->where('lugar', 'Primero');
+                    })->get();
+
+                    foreach($users_cant_ganador as $user){
+                        $cont_s = 0;
+
+                        foreach($ganadores_sorteo as $ganas){
+                            if($ganas->user_id == $user->id) $cont_s++;
+                        }
+
+                        if($cont_s > 1){
+                            $suma_premio =  CartonGanador::where('sorteo_id',$this->sorteo)
+                            ->where('user_id',$user->id)
+                            ->where('lugar', 'Primero')
+                            ->sum('premio');
+
+                            $eliminars= CartonGanador::where('sorteo_id',$this->sorteo)
+                            ->where('user_id',$user->id)
+                            ->take($cont_s - 1)
+                            ->where('lugar', 'Primero')
+                            ->get();
+
+                            foreach ($eliminars as $eliminar){
+                                $eliminar->delete();
+                            }
+
+                            CartonGanador::where('sorteo_id',$this->sorteo)
+                                ->where('user_id',$user->id)
+                                ->where('lugar', 'Primero')
+                                ->first()
+                                ->update([
+                                    'premio' => $suma_premio
+                                ]);
+                        }
+                    }
+
                     $this->ganador_1 = 1;
 
                     notyf()
@@ -80,19 +123,6 @@ class JugarSorteo extends Component
             }
         }
         elseif($this->lugares == 2){
-
-            /*$cant_ganadores_sorteo_1 = CartonGanador::where('sorteo_id',$this->sorteo)
-                ->where('lugar','Primero')->count();
-
-            $cant_ganadores_sorteo_2 = CartonGanador::where('sorteo_id',$this->sorteo)
-                ->where('lugar','Segundo')->count();
-
-            if($cant_ganadores_sorteo_1 > 0)  $this->ganador_1 = 1;
-            else $this->ganador_1 = 0;
-
-            if($cant_ganadores_sorteo_2 > 0)  $this->ganador_2 = 1;
-            else $this->ganador_2 = 0;*/
-
 
             if($this->ganador_1 == 0){
 
@@ -115,6 +145,44 @@ class JugarSorteo extends Component
                                 'sorteo_id' => $this->sorteo,
                                 'nro' => '1'
                             ]);
+
+                            $users_cant_ganador = User::whereHas('cartons_ganador',function(Builder $query){
+                                $query->where('sorteo_id', $this->sorteo)
+                                        ->where('lugar', 'Primero');
+                            })->get();
+        
+                            foreach($users_cant_ganador as $user){
+                                $cont_s = 0;
+        
+                                foreach($ganadores_sorteo_1 as $ganas){
+                                    if($ganas->user_id == $user->id) $cont_s++;
+                                }
+        
+                                if($cont_s > 1){
+                                    $suma_premio =  CartonGanador::where('sorteo_id',$this->sorteo)
+                                    ->where('user_id',$user->id)
+                                    ->where('lugar', 'Primero')
+                                    ->sum('premio');
+        
+                                    $eliminars= CartonGanador::where('sorteo_id',$this->sorteo)
+                                    ->where('user_id',$user->id)
+                                    ->where('lugar', 'Primero')
+                                    ->take($cont_s - 1)
+                                    ->get();
+        
+                                    foreach ($eliminars as $eliminar){
+                                        $eliminar->delete();
+                                    }
+        
+                                    CartonGanador::where('sorteo_id',$this->sorteo)
+                                        ->where('user_id',$user->id)
+                                        ->where('lugar', 'Primero')
+                                        ->first()
+                                        ->update([
+                                            'premio' => $suma_premio
+                                        ]);
+                                }
+                            }
         
                         notyf()
                             ->duration(0)
@@ -145,6 +213,44 @@ class JugarSorteo extends Component
                                 'sorteo_id' => $this->sorteo,
                                 'nro' => '2'
                             ]);
+
+                            $users_cant_ganador = User::whereHas('cartons_ganador',function(Builder $query){
+                                $query->where('sorteo_id', $this->sorteo)
+                                        ->where('lugar', 'Segundo');
+                            })->get();
+        
+                            foreach($users_cant_ganador as $user){
+                                $cont_s = 0;
+        
+                                foreach($ganadores_sorteo_1 as $ganas){
+                                    if($ganas->user_id == $user->id) $cont_s++;
+                                }
+        
+                                if($cont_s > 1){
+                                    $suma_premio =  CartonGanador::where('sorteo_id',$this->sorteo)
+                                    ->where('user_id',$user->id)
+                                    ->where('lugar','Segundo')
+                                    ->sum('premio');
+        
+                                    $eliminars= CartonGanador::where('sorteo_id',$this->sorteo)
+                                    ->where('user_id',$user->id)
+                                    ->where('lugar','Segundo')
+                                    ->take($cont_s - 1)
+                                    ->get();
+        
+                                    foreach ($eliminars as $eliminar){
+                                        $eliminar->delete();
+                                    }
+        
+                                    CartonGanador::where('sorteo_id',$this->sorteo)
+                                        ->where('user_id',$user->id)
+                                        ->where('lugar','Segundo')
+                                        ->first()
+                                        ->update([
+                                            'premio' => $suma_premio
+                                        ]);
+                                }
+                            }
         
                         notyf()
                             ->duration(0)
@@ -157,24 +263,6 @@ class JugarSorteo extends Component
             }
         }
         else{
-
-            /*$cant_ganadores_sorteo_1 = CartonGanador::where('sorteo_id',$this->sorteo)
-            ->where('lugar','Primero')->count();
-
-            $cant_ganadores_sorteo_2 = CartonGanador::where('sorteo_id',$this->sorteo)
-                ->where('lugar','Segundo')->count();
-
-            $cant_ganadores_sorteo_3 = CartonGanador::where('sorteo_id',$this->sorteo)
-                ->where('lugar','Tercero')->count();
-
-            if($cant_ganadores_sorteo_1 > 0)  $this->ganador_1 = 1;
-            else $this->ganador_1 = 0;
-
-            if($cant_ganadores_sorteo_2 > 0)  $this->ganador_2 = 1;
-            else $this->ganador_2 = 0;
-
-            if($cant_ganadores_sorteo_3 > 0)  $this->ganador_3 = 1;
-            else $this->ganador_3 = 0;*/
 
             if($this->ganador_1 == 0){
 
@@ -195,6 +283,44 @@ class JugarSorteo extends Component
                                 'sorteo_id' => $this->sorteo,
                                 'nro' => '1'
                             ]);
+
+                            $users_cant_ganador = User::whereHas('cartons_ganador',function(Builder $query){
+                                $query->where('sorteo_id', $this->sorteo)
+                                        ->where('lugar', 'Primero');
+                            })->get();
+        
+                            foreach($users_cant_ganador as $user){
+                                $cont_s = 0;
+        
+                                foreach($ganadores_sorteo_1 as $ganas){
+                                    if($ganas->user_id == $user->id) $cont_s++;
+                                }
+        
+                                if($cont_s > 1){
+                                    $suma_premio =  CartonGanador::where('sorteo_id',$this->sorteo)
+                                    ->where('user_id',$user->id)
+                                    ->where('lugar', 'Primero')
+                                    ->sum('premio');
+        
+                                    $eliminars= CartonGanador::where('sorteo_id',$this->sorteo)
+                                    ->where('user_id',$user->id)
+                                    ->where('lugar', 'Primero')
+                                    ->take($cont_s - 1)
+                                    ->get();
+        
+                                    foreach ($eliminars as $eliminar){
+                                        $eliminar->delete();
+                                    }
+        
+                                    CartonGanador::where('sorteo_id',$this->sorteo)
+                                        ->where('user_id',$user->id)
+                                        ->where('lugar', 'Primero')
+                                        ->first()
+                                        ->update([
+                                            'premio' => $suma_premio
+                                        ]);
+                                }
+                            }
 
                             $this->ganador_1 = 1;
                 
@@ -227,6 +353,44 @@ class JugarSorteo extends Component
                                 'nro' => '2'
                             ]);
 
+                            $users_cant_ganador = User::whereHas('cartons_ganador',function(Builder $query){
+                                $query->where('sorteo_id', $this->sorteo)
+                                        ->where('lugar', 'Segundo');
+                            })->get();
+        
+                            foreach($users_cant_ganador as $user){
+                                $cont_s = 0;
+        
+                                foreach($ganadores_sorteo_2 as $ganas){
+                                    if($ganas->user_id == $user->id) $cont_s++;
+                                }
+        
+                                if($cont_s > 1){
+                                    $suma_premio =  CartonGanador::where('sorteo_id',$this->sorteo)
+                                    ->where('user_id',$user->id)
+                                    ->where('lugar', 'Segundo')
+                                    ->sum('premio');
+        
+                                    $eliminars= CartonGanador::where('sorteo_id',$this->sorteo)
+                                    ->where('user_id',$user->id)
+                                    ->where('lugar', 'Segundo')
+                                    ->take($cont_s - 1)
+                                    ->get();
+        
+                                    foreach ($eliminars as $eliminar){
+                                        $eliminar->delete();
+                                    }
+        
+                                    CartonGanador::where('sorteo_id',$this->sorteo)
+                                        ->where('user_id',$user->id)
+                                        ->where('lugar', 'Segundo')
+                                        ->first()
+                                        ->update([
+                                            'premio' => $suma_premio
+                                        ]);
+                                }
+                            }
+
                             $this->ganador_2 = 1;
             
                             notyf()
@@ -257,6 +421,46 @@ class JugarSorteo extends Component
                             'sorteo_id' => $this->sorteo,
                             'nro' => '3'
                         ]);
+
+                        $users_cant_ganador = User::whereHas('cartons_ganador',function(Builder $query){
+                            $query->where('sorteo_id', $this->sorteo)
+                                    ->where('lugar', 'Tercero');
+                        })->get();
+
+
+    
+                        foreach($users_cant_ganador as $user){
+                            $cont_s = 0;
+    
+                            foreach($ganadores_sorteo_3 as $ganas){
+                                if($ganas->user_id == $user->id) $cont_s++;
+                            }
+    
+                            if($cont_s > 1){
+                                $suma_premio =  CartonGanador::where('sorteo_id',$this->sorteo)
+                                ->where('user_id',$user->id)
+                                ->where('lugar', 'Tercero')
+                                ->sum('premio');
+    
+                                $eliminars= CartonGanador::where('sorteo_id',$this->sorteo)
+                                ->where('user_id',$user->id)
+                                ->where('lugar', 'Tercero')
+                                ->take($cont_s - 1)
+                                ->get();
+    
+                                foreach ($eliminars as $eliminar){
+                                    $eliminar->delete();
+                                }
+    
+                                CartonGanador::where('sorteo_id',$this->sorteo)
+                                    ->where('user_id',$user->id)
+                                    ->where('lugar', 'Tercero')
+                                    ->first()
+                                    ->update([
+                                        'premio' => $suma_premio
+                                    ]);
+                            }
+                        }
 
                         $this->ganador_3 = 1;
                 
@@ -314,7 +518,24 @@ class JugarSorteo extends Component
     public function render()
     {
 
-       
+
+        $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo)
+            ->where('lugar','Primero')
+            ->first();
+
+        $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo)
+            ->where('lugar','Segundo')
+            ->first();
+
+        $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo)
+            ->where('lugar','Tercero')
+            ->first();
+
+        if($ganadores_actuales_primer) $this->ganador_1 = 1;
+        if($ganadores_actuales_segundo) $this->ganador_2 = 1;
+        if($ganadores_actuales_tercer) $this->ganador_3 = 1;       
+
+
 
         $fichas = SorteoFicha::where('sorteo_id',$this->sorteo)->get();
 

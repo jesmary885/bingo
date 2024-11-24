@@ -243,6 +243,9 @@
 
         </div>
 
+
+        
+
     @else
 
         <div class=" flex justify-between relative container " >
@@ -1360,6 +1363,91 @@
             @else
 
             @endif
+
+        @endif
+
+        @if($sorteo_finalizado == 1)
+
+        <div class=" flex w-full mt-5  justify-center px-5 pt-0  lg:px-6 xl:pl-0 "> 
+            <div class="mb-9 mt-7">
+                <div class="flex justify-center">
+                    <div
+                        class="relative flex flex-col items-center rounded-lg border border-zinc-200 px-3 py-4 dark:border-white/10">
+                        <img width="54" height="30" class="w-[54px]"
+                            src="https://horizon-ui.com/shadcn-nextjs-boilerplate/_next/static/media/SidebarBadge.d6d6c919.png"
+                            alt="">
+                        <div class="mb-3 flex w-full flex-col pt-4">
+                            <p class="mb-2.5 text-center text-lg font-bold text-blue-600 font-Arima">
+                                GANADORES DEL SORTEO</p>
+
+                                <div class="flex flex-col items-center gap-4 mb-1 font-Arima ">
+                                    <div class="flex gap-4">
+                                        <!-- Card 1 -->
+                                        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col items-center">
+                                            <h3 class="text-gray-800 font-bold text-lg">PRIMER LUGAR</h3>
+
+                                            @if($ganadores_primer_lugar)
+
+                                                @foreach($ganadores_primer_lugar as $ganador_primer)
+                                                    <div class="ml-2 mt-1 font-semibold text-gray-600 text-md">
+                                                        {{$ganador_primer->user->name}}
+                                                    </div>
+                                                @endforeach
+
+                                            @else
+                                                <p class="font-semibold text-gray-600 text-md text-center ">
+                                                    -No hay ganadores en Primer Lugar-
+                                                </p>
+                                            @endif
+                          
+                                        </div>
+                            
+                                        <!-- Card 2 -->
+                                        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col items-center">
+                                            <h3 class="text-gray-800 font-bold text-lg">SEGUNDO LUGAR</h3>
+                                            @if($ganadores_segundo_lugar)
+
+                                                @foreach($ganadores_segundo_lugar as $ganador_segundo)
+                                                    <div class="ml-2 mt-1 font-semibold text-gray-600 text-md">
+                                                        {{$ganador_segundo->user->name}}
+                                                    </div>
+                                                @endforeach
+
+                                            @else
+                                                <p class="font-semibold text-gray-600 text-md text-center ">
+                                                    -No hay ganadores en Segundo Lugar-
+                                                </p>
+                                            @endif
+                                     
+                                        </div>
+                            
+                                        <!-- Card 3 -->
+                                        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col items-center">
+                                            <h3 class="text-gray-800 font-bold text-lg">TERCER LUGAR</h3>
+                                            @if($ganadores_tercer_lugar)
+
+                                                @foreach($ganadores_tercer_lugar as $ganador_tercer)
+                                                    <div class="ml-2 mt-1 font-semibold text-gray-600 text-md">
+                                                        {{$ganador_tercer->user->name}}
+                                                    </div>
+                                                @endforeach
+
+                                            @else
+                                                <p class="font-semibold text-gray-600 text-md text-center ">
+                                                    -No hay ganadores en Segundo Lugar-
+                                                </p>
+                                            @endif
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                        </div> 
+                    </div>
+                </div>
+             
+            </div>
+        </div>
 
         @endif
 
