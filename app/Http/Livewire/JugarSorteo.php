@@ -21,7 +21,7 @@ use Flasher\Toastr\Prime\ToastrInterface;
 
 class JugarSorteo extends Component
 {
-    public $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
+    public $no_hay_sorteos = 0, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
 
    protected $listeners = ['render' => 'render','echo:sorteo_fichas,NewFichaSorteo' => 'render', 'echo:ganador,NewGanador' => 'ganador_fin','echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' ];
 
@@ -1541,17 +1541,32 @@ class JugarSorteo extends Component
 
                 $fichas = [];
 
-                $cartones_user = Sorteo::where('status','Aperturado')->first(); 
+                $sorteo_user = Sorteo::where('status','Aperturado')->first(); 
 
-                $proxima_fecha = strtotime($cartones_user->fecha_ejecucion);
+                if($sorteo_user) {
+                    $proxima_fecha = strtotime($sorteo_user->fecha_ejecucion);
 
-                $mes_restantes = date("m",$proxima_fecha);
-                $dias_restantes = date("d",$proxima_fecha);
-                $horas_restantes = date("H",$proxima_fecha);
-                $minutos_restantes = date("I",$proxima_fecha);
-                $ano_restantes = date("Y",$proxima_fecha);
+                    $mes_restantes = date("m",$proxima_fecha);
+                    $dias_restantes = date("d",$proxima_fecha);
+                    $horas_restantes = date("H",$proxima_fecha);
+                    $minutos_restantes = date("I",$proxima_fecha);
+                    $ano_restantes = date("Y",$proxima_fecha);
 
-                $sorteo_nro = $cartones_user->id;
+                    $sorteo_nro = $sorteo_user->id;
+                }else{
+
+                    $this->no_hay_sorteos = 1;
+
+                    $mes_restantes = 0;
+                    $dias_restantes = 0;
+                    $horas_restantes = 0;
+                    $minutos_restantes = 0;
+                    $ano_restantes = 0;
+
+                    $sorteo_nro = 0;
+                }
+
+
 
                 $mis_cartones = [];
                 $ganador = 0; 

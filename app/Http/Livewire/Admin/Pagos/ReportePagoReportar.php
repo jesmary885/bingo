@@ -66,7 +66,7 @@ class ReportePagoReportar extends Component
 
         $this->emit('alert','Datos registrados correctamente');
         
-        $this->emitTo('pagos.reporte-pago-index','render');
+        $this->emitTo('admin.pagos.reporte-pago-index','render');
         $this->isopen = false;  
 
     }

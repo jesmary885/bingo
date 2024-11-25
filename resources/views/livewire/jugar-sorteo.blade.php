@@ -1292,6 +1292,8 @@
 
             <section class="container  ">
 
+                @if($no_hay_sorteos == 0)
+
                 <div class=" flex flex-col space-y-2  justify-center text-center  pt-2 ">
                     <div class="flex flex-col  justify-center items-center  "> 
                         <h1 class="font-bold  text-xl md:text-2xl text-indigo-500 mt-4 text-center ">
@@ -1316,6 +1318,12 @@
     
                     </div>
                 </div>
+
+                @else
+
+                    
+
+                @endif
     
     
             </section>
