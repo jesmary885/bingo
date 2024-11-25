@@ -305,7 +305,7 @@ return [
 
         [
             'text'    => 'ADMINISTRACIÓN',
-            'can' => 'menu.admin',
+            'can' => 'menu.adminAll',
             'icon_color' => 'blue',
             'submenu' => [
                 [

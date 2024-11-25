@@ -17,17 +17,31 @@ class UserSeeder extends Seeder
     public function run()
     {
         $user1 = User::create([
-            'name' => 'Admin',
-            'email' => 'jesmary8855@gmail.com',
-            'password' => bcrypt('12345678'),
+            'name' => 'Super Admin',
+            'email' => 'superadmin@admin.com',
+            'password' => bcrypt('**SuperAdminBing2025**'),
             'estado' => 'activo',
             'codigo_referido' => 'b-1',
-        ])->assignRole('Administrador');
+        ])->assignRole('Administrador-All');
 
         UserSaldo::create([
             'saldo' => '0',
             'user_id' => $user1->id
         ]);
+
+        $user1 = User::create([
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('**BingoAdmin2025**'),
+            'estado' => 'activo',
+            'codigo_referido' => 'b-1',
+        ])->assignRole('Administrador-All');
+
+        UserSaldo::create([
+            'saldo' => '0',
+            'user_id' => $user1->id
+        ]);
+
 
         $user2 = User::create([
             'name' => 'Jesmary',
