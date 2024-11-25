@@ -878,10 +878,20 @@
 
                 <div class="flex justify-center pt-6 pb-20 " >
 
+                    @auth
 
-                    <a href="{{ route('Login') }}" class="bg-blue-500 font-Allerta text-md md:text-xl hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                        Inicia sesión en BING+
-                      </a>
+                        <a href="{{ route('home') }}" class="bg-blue-500 font-Allerta text-md md:text-xl hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                            Ir al home
+                        </a>
+
+                    @else
+
+
+                        <a href="{{ route('Login') }}" class="bg-blue-500 font-Allerta text-md md:text-xl hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                            Inicia sesión en BING+
+                        </a>
+
+                    @endauth
 
                 </div>
 

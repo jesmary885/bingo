@@ -331,8 +331,6 @@ class JugarSorteo extends Component
 
             if(!$buscar){
 
-                
-
                 if($this->ganador_1 == 0){
                     $this->carton_ganador_1 = $fichas_carton; 
                     $lugar = 'Primero'; 
@@ -345,8 +343,6 @@ class JugarSorteo extends Component
                     $this->carton_ganador_3 = $fichas_carton; 
                     $lugar = 'Tercero';
                 }
-
-          
 
                 CartonGanador::create([
                     'sorteo_id' => $this->sorteo->id,
