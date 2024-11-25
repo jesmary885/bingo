@@ -22,28 +22,28 @@ class UserSeeder extends Seeder
             'password' => bcrypt('**SuperAdminBing2025**'),
             'estado' => 'activo',
             'codigo_referido' => 'b-1',
-        ])->assignRole('Administrador-All');
+        ])->assignRole(['Administrador-All','Administrador','Jugador']);
 
         UserSaldo::create([
             'saldo' => '0',
             'user_id' => $user1->id
         ]);
 
-        $user1 = User::create([
+        $user2 = User::create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('**BingoAdmin2025**'),
             'estado' => 'activo',
             'codigo_referido' => 'b-1',
-        ])->assignRole('Administrador-All');
+        ])->assignRole(['Administrador','Jugador']);
 
         UserSaldo::create([
             'saldo' => '0',
-            'user_id' => $user1->id
+            'user_id' => $user2->id
         ]);
 
 
-        $user2 = User::create([
+        $user5 = User::create([
             'name' => 'Jesmary',
             'email' => 'jesmary885@hotmail.com',
             'password' => bcrypt('12345678'),
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
 
         UserSaldo::create([
             'saldo' => '0',
-            'user_id' => $user2->id
+            'user_id' => $user5->id
         ]);
 
         $user3 = User::create([

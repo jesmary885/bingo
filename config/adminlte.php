@@ -313,7 +313,7 @@ return [
                     'route'  => 'admin.users',
                     'icon'    => 'fas fa-angle-right',
                     'icon_color' => 'blue',
-                    'can' => 'menu.admin'
+                    'can' => 'menu.adminAll'
                 ],
         
                 [
@@ -321,7 +321,7 @@ return [
                     'route'  => 'admin.pagos',
                     'icon'    => 'fas fa-angle-right',
                     'icon_color' => 'blue',
-                    'can' => 'menu.admin'
+                    'can' => 'menu.adminAll'
                 ],
 
                 [
@@ -329,7 +329,7 @@ return [
                     'route'  => 'admin.reporte_pagos_ganadores',
                     'icon'    => 'fas fa-angle-right',
                     'icon_color' => 'blue',
-                    'can' => 'menu.admin'
+                    'can' => 'menu.adminAll'
                 ],
             ]
         ],

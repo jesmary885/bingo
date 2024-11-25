@@ -118,7 +118,7 @@
                                 
                             </div>
 
-                            @if(auth()->user()->roles->first()->id == 3)
+                            @if(auth()->user()->roles->first()->id == 1)
 
                                 <x-dropdown-link class="flex" href="{{ route('home_admin') }}" :active="request()->routeIs('profile.show')">
 

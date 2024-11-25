@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth','IsAdmin'])->group(function(){
 
     Route::get('/', [AdminController::class, 'index'])->name('home_admin')->middleware('permission:menu.admin');
-    Route::get('Users',[AdminController::class,'users'])->name('admin.users')->middleware('permission:Administrador-All');
-    Route::get('Pagos',[AdminController::class,'pagos'])->name('admin.pagos')->middleware('permission:Administrador-All');
-    Route::get('Reporte_pagos_ganadores',[AdminController::class,'reporte_pagos_ganadores'])->name('admin.reporte_pagos_ganadores')->middleware('permission:Administrador-All');
+    Route::get('Users',[AdminController::class,'users'])->name('admin.users')->middleware('permission:menu.adminAll');
+    Route::get('Pagos',[AdminController::class,'pagos'])->name('admin.pagos')->middleware('permission:menu.adminAll');
+    Route::get('Reporte_pagos_ganadores',[AdminController::class,'reporte_pagos_ganadores'])->name('admin.reporte_pagos_ganadores')->middleware('permission:menu.adminAll');
     Route::get('sorteos_index',[AdminController::class,'iniciar_sorteo'])->name('admin.iniciar_sorteo')->middleware('permission:menu.admin');
     Route::get('sorteos_resultados',[AdminController::class,'sorteo_resultados'])->name('admin.sorteo_resultados')->middleware('permission:menu.admin');
     Route::get('Configuracion',[AdminController::class,'configuracion'])->name('admin.configuracion')->middleware('permission:menu.admin');

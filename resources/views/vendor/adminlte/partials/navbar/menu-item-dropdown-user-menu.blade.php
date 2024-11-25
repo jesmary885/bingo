@@ -34,16 +34,15 @@
 
         <li class="user-footer">
 
-            <a href="{{ route('profile.show') }}" class="btn btn-default btn-flat btn-block">
-                    <i class="fa fa-fw fa-user text-red"></i>
-                    {{ __('adminlte::menu.profile') }}
-            </a>
 
-
-            {{-- <a href="{{ route('logout.perform') }}" class="btn btn-default btn-flat float-right  btn-block">
+            <a href="{{ route('logout_out') }}" class="btn btn-default btn-flat float-right  btn-block">
                     <i class="fa fa-fw fa-power-off text-red"></i>
                     {{ __('adminlte::adminlte.log_out') }}
-            </a> --}}
+            </a>
+
+            <a href="{{ route('home') }}" class="btn btn-default btn-flat float-right  btn-block">
+                Ir a Página web
+            </a>
         </li>
 
     </ul>
