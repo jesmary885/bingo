@@ -14,6 +14,8 @@ class Cartones extends Component
 
     protected $listeners = ['render' => 'render','echo:cambio_cs,CambioEstadoCartonSorteo' => 'refrescar_pag','refrescar_pag' => 'refrescar_pag'];
 
+    //protected $listeners = ['render' => 'render','echo:cambio_cs,CambioEstadoCartonSorteo' => 'render'];
+
     public $sorteo, $status_carton='1', $tipo_cartones, $search, $ver_todos_act = 0, $cambiando = 0, $cant_cartones_disponibles, $cant_cartones_no_disponibles, $cant_cartones_reservados;
 
     protected $rules = [
@@ -75,34 +77,50 @@ class Cartones extends Component
 
         $carton_sorteo_update = CartonSorteo::where('sorteo_id', $this->sorteo)
             ->where('carton_id',$carton_comprar)
+            ->where('status_carton','Disponible')
             ->first();
 
-        $this->options['carton'] = $carton_comprar;
-        $this->options['sorteo'] = $this->sorteo;
-        $this->options['serial'] = Carton::where('id',$carton_comprar)
-            ->first()
-            ->serial;
+        if($carton_sorteo_update){
+
+            $this->options['carton'] = $carton_comprar;
+            $this->options['sorteo'] = $this->sorteo;
+            $this->options['serial'] = Carton::where('id',$carton_comprar)
+                ->first()
+                ->serial;
 
 
-        Cart::add([ 'id' => $carton_comprar, 
-            'name' => 'name', 
-            'qty' => '1', 
-            'price' => '1', 
-            'weight' => 550,
-            'options' => $this->options
-        ]);
+            Cart::add([ 'id' => $carton_comprar, 
+                'name' => 'name', 
+                'qty' => '1', 
+                'price' => '1', 
+                'weight' => 550,
+                'options' => $this->options
+            ]);
+
+            
+
+            $carton_sorteo_update->update([
+                'status_carton' => 'Reservado',
+                'status_pago' => 'En espera de pago',
+                'user_id' => auth()->user()->id
+            ]);
+
+
+            $this->emitTo('dropdown-cart', 'render');
+            $this->cambiando =1;
+
+        }
+        else{
+
+            notyf()
+            ->duration(0)
+            ->position('x', 'center')
+            ->position('y', 'center')
+            ->dismissible(true)
+            ->addError('El cartón seleccionado acaba de ser reservado por otro usuario');
+        }
 
         
-
-        $carton_sorteo_update->update([
-            'status_carton' => 'Reservado',
-            'status_pago' => 'En espera de pago',
-            'user_id' => auth()->user()->id
-        ]);
-
-
-        $this->emitTo('dropdown-cart', 'render');
-        $this->cambiando =1;
 
     }
 
