@@ -32,6 +32,11 @@ return new class extends Migration
             $table->string('status_carton'); //No disponible, Reservado, Disponible
             $table->string('status_pago')->nullable(); //Pendiente, Pago recibido,  Pago no recibido
             $table->string('status_juego')->nullable(); //Gano, Sin estado
+
+            $table->string('duplicado_1er')->nullable();//al inicio no, si hay duplicidad si
+            $table->string('duplicado_2do')->nullable();//al inicio no, si hay duplicidad si
+            $table->string('duplicado_3er')->nullable();//al inicio no, si hay duplicidad si
+
         });
     }
 

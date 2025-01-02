@@ -15,6 +15,8 @@
 
             <div class="card card-primary card-outline w-full mr-1 ">
 
+              
+
                 <h2 class="font-bold text-blue-600 text-center p-4" >Seleccione el valor de la ficha </h2>
 
                 <div class="border-t border-gray-200 mb-2"></div>
@@ -144,6 +146,7 @@
 
             <div class=" card card-primary card-outline w-full ml-1 ">
                 <h2 class="font-bold text-blue-600 text-center p-4 ">Fichas resultantes </h2>
+
                 <div class="border-t border-gray-200 mb-6"></div>
                 <div class="grid grid-cols-3 lg:grid-cols-4 gap-4">
                     @forelse($fichas as $ficha)

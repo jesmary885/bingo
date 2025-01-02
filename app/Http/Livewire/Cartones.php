@@ -8,11 +8,12 @@ use DateTime;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Livewire\WithPagination;
 
 class Cartones extends Component
 {
 
-    protected $listeners = ['render' => 'render','echo:cambio_cs,CambioEstadoCartonSorteo' => 'refrescar_pag','refrescar_pag' => 'refrescar_pag'];
+    protected $listeners = ['render' => 'render','echo:cambio_cs,CambioEstadoCartonSorteo' => 'render','refrescar_pag' => 'refrescar_pag'];
 
     //protected $listeners = ['render' => 'render','echo:cambio_cs,CambioEstadoCartonSorteo' => 'render'];
 
@@ -28,7 +29,7 @@ class Cartones extends Component
         'serial' => null,
     ];
 
-    public function search_(){
+    public function search_busqueda(){
         $this->ver_todos_act = 1;
     }
 
@@ -60,8 +61,10 @@ class Cartones extends Component
         $cantidad_3 = json_decode($json_3);
         $this->cant_cartones_reservados= $cantidad_3[0]->cantidad;
 
+        $this->emitTo('dropdown-cart', 'render');
 
-         $this->emit('refrescar');
+
+         //$this->emit('refrescar');
     }
 
     public function color($serial_carton){
@@ -74,6 +77,8 @@ class Cartones extends Component
     }
 
     public function add_cart($carton_comprar){
+
+        //dd($carton_comprar);
 
         $carton_sorteo_update = CartonSorteo::where('sorteo_id', $this->sorteo)
             ->where('carton_id',$carton_comprar)
@@ -105,14 +110,17 @@ class Cartones extends Component
                 'user_id' => auth()->user()->id
             ]);
 
+            $this->cambiando =1;
 
             $this->emitTo('dropdown-cart', 'render');
-            $this->cambiando =1;
+          // $this->emitTo('admin.pagos.reporte-pago-index','render');
+            
+            
 
         }
         else{
 
-            notyf()
+           notyf()
             ->duration(0)
             ->position('x', 'center')
             ->position('y', 'center')
@@ -157,7 +165,7 @@ class Cartones extends Component
         if($this->ver_todos_act == 0){
             $cartones = CartonSorteo::where('sorteo_id', $this->sorteo)
                 ->with('carton')
-                ->Paginate(20);
+                ->get();
         }
 
         else{
@@ -171,7 +179,7 @@ class Cartones extends Component
                 $cartones = CartonSorteo::where('sorteo_id', $this->sorteo)
                 ->where('carton_id',$carton_select->id)
                 ->with('carton')
-                ->Paginate(20);
+                ->get();
             }
 
             else{
@@ -183,6 +191,8 @@ class Cartones extends Component
             }
 
         }
+
+        $this->cambiando = 0;
 
 
         return view('livewire.cartones',compact('cartones'));

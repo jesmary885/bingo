@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         $user1 = User::create([
             'name' => 'Super Admin',
             'email' => 'superadmin@admin.com',
-            'password' => bcrypt('**SuperAdminBing2025**'),
+            'password' => bcrypt('**BingoSuperAdmin2025**'),
             'estado' => 'activo',
             'codigo_referido' => 'b-1',
         ])->assignRole(['Administrador-All','Administrador','Jugador']);

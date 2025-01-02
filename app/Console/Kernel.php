@@ -16,13 +16,14 @@ class Kernel extends ConsoleKernel
 
      protected $commands = [
         'App\Console\Commands\ReferidosCommand',
+        'App\Console\Commands\CartonesReservados',
 
     ];
 
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('referidos:pendientes')->everyMinute(); 
-        $schedule->command('verif:cartones')->hourly();
+        $schedule->command('verif:cartones')->everyFiveMinutes();
     }
 
     /**

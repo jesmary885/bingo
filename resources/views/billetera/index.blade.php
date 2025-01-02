@@ -1,5 +1,11 @@
+
 <x-app-layout>
 
-    @livewire('billetera.billetera-index')
+    <div>
+
+        @livewire('billetera.billetera-index')
+
+    </div>
+
 
 </x-app-layout>

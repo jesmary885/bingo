@@ -113,14 +113,14 @@
 
                             <x-label value="Teléfono" />
                             <input type="number" wire:model="telefono" id="telefono" class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
-
+                            <x-input-error for="telefono" />
                         </div>
 
                         <div class="w-1/2">
 
                             <x-label value="Cedula" />
                             <input type="number" wire:model="cedula" id="cedula" class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
-
+                            <x-input-error for="cedula" />
                         </div>
 
                     </div>

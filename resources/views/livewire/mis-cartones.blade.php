@@ -2134,31 +2134,31 @@
                         <div class="{{$this->color($carton->id)}} text-white justify-center text-2xl text-center py-2 font-bold">O</div>  
                     </div>  
 
-                    <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1 ">  
+                    <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5 ">  
                         @foreach (json_decode($carton->carton->content_1) as $item)
                             <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
                         @endforeach
                     </div>  
 
-                    <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
+                    <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">  
                         @foreach (json_decode($carton->carton->content_2) as $item)
                             <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
                         @endforeach
                     </div> 
 
-                    <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
+                    <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">  
                         @foreach (json_decode($carton->carton->content_3) as $item)
                             <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
                         @endforeach
                     </div> 
 
-                    <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
+                    <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">  
                         @foreach (json_decode($carton->carton->content_4) as $item)
                             <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
                         @endforeach
                     </div> 
 
-                    <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-1">  
+                    <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">  
                         @foreach (json_decode($carton->carton->content_5) as $item)
                             <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
                         @endforeach
@@ -2170,14 +2170,14 @@
 
                 </div> 
 
-                <div class="p-2 text-grey-darker text-justify flex flex-row justify-end border-t">
+                <div class="p-2 text-grey-darker text-justify flex flex-row border-t">
 
                     @if($carton->status_pago == 'Pago recibido')
 
                         <div class="mt-2">
 
-                            <p class=" text-gray-600 font-bold text-left text-lg " > Sorteo Nro. {{$carton->sorteo->id}} </p>
-                            <p class=" text-green-500 font-bold text-left text-lg " > Cartón ajuditado a usted</p>
+                            <p class=" text-gray-600 font-bold text-left text-lg " > - Sorteo Nro. {{$carton->sorteo->id}} -</p>
+                            <p class=" text-green-500 font-bold text-left text-md" > Cartón ajuditado a usted</p>
                             
 
                         </div>
@@ -2186,10 +2186,11 @@
 
                         <div class="mt-2">
 
-                            <p class=" text-gray-600 font-bold text-left text-lg " > Sorteo Nro. {{$carton->sorteo->id}} </p>
-                            <p class=" text-yellow-500 font-bold text-left text-sm " > Su pago esta siendo verificado para adjudicarle el cartón</p>
+                            <p class=" text-gray-600 font-bold text-left text-lg " > - Sorteo Nro. {{$carton->sorteo->id}} -</p>
+
+                            <p class=" text-yellow-500 font-bold text-left text-md " > Su pago esta siendo verificado para adjudicarle el cartón</p>
                             
-                            <p class=" text-yellow-500 font-bold text-center text-lg " > Cartón reservado a usted </p>
+                            
                             
 
                         </div>

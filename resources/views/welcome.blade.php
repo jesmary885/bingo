@@ -1998,14 +1998,26 @@
                                 Nuestros sorteos serán variables en su modalidad, la cual sera especificada en la descripción del sorteo. 
                             </p>
                         </div>
-                        <div class=" pt-6  md:flex md:justify-between mx-8 ">
+                        <div class=" pt-6  md:flex md:justify-between mx-8 font-Arima ">
              
                             <div class=" card w-full container p-8 bg-white text-center  border border-gray-100 rounded-lg shadow-lg  md:mr-2">
-                                <h4 class="text-gray-500 leading-relaxed font-bold">TRADICIONAL</h4>
+                                
+                                <div class="  " >
 
-                                <p class="mt-1 text-gray-500 text-center font-Arima text-lg  ">
-                                    Jugaremos con 7 patrones (Línea horizontal, Línea vertical, Cuatro esquinas, Diagonal de derecha a izquierda, Diagonal de izquierda a derecha, Cruz grande y Cruz pequeña)
-                                </p>
+                                    <p class="mt-1 text-gray-500 text-center font-Arima text-lg  ">
+                                        <span class=" underline  font-semibold">MODALIDAD TRADICIONAL:</span> En esta modalidad jugaremos con 7 patrones (Línea horizontal, Línea vertical, Cuatro esquinas, Diagonal de derecha a izquierda, Diagonal de izquierda a derecha, Cruz grande y Cruz pequeña)
+                                     </p>
+     
+                                     
+                                     <p class="mt-2 text-gray-500 text-center font-Arima text-lg  ">
+                                         <span class=" underline  font-semibold">MODALIDAD CARTÓN LLENO:</span> El cartón debe estar marcado completamente para ganar en esta modalidad
+                                      </p>
+
+
+                                </div>
+                             
+
+                               
 
                                 <div class="flexslider w-full px-8 pt-8">
                                     <ul class="slides">
@@ -2018,7 +2030,7 @@
                                                         
                                                 <div class="">
                                                     <p class="  font-Arima  text-xs font-semibold  text-gray-700 group-hover:text-white">
-                                                        LÍNEA HORIZONTAL
+                                                        TRADICIONAL (LÍNEA HORIZONTAL)
                                                     </p>
                                                  
                                                 </div>
@@ -2033,7 +2045,7 @@
                                                         
                                                 <div class="">
                                                     <p class="  font-Arima  text-xs font-semibold  text-gray-700 group-hover:text-white">
-                                                        LÍNEA VERTICAL
+                                                        TRADICIONAL (LÍNEA VERTICAL)
                                                     </p>
                                                  
                                                 </div>
@@ -2048,7 +2060,7 @@
                                                         
                                                 <div class="">
                                                     <p class=" font-Arima  text-xs font-semibold  text-gray-700 group-hover:text-white">
-                                                        CUATRO ESQUINAS 
+                                                        TRADICIONAL (CUATRO ESQUINAS)
                                                     </p>
                                                 
                                                 </div>
@@ -2063,7 +2075,7 @@
                                                         
                                                 <div class="">
                                                     <p class="  font-Arima  text-xs font-semibold  text-gray-700 group-hover:text-white">
-                                                        DIAGONAL - DERECHA A IZQUIERDA
+                                                        TRADICIONAL (DIAGONAL - DERECHA A IZQUIERDA)
                                                     </p>
                                                  
                                                 </div>
@@ -2078,7 +2090,7 @@
                                                         
                                                 <div class="">
                                                     <p class="  font-Arima  text-xs font-semibold  text-gray-700 group-hover:text-white">
-                                                        DIAGONAL - IZQUIERDA A DERECHA
+                                                        TRADICIONAL (DIAGONAL - IZQUIERDA A DERECHA)
                                                     </p>
                                                  
                                                 </div>
@@ -2093,7 +2105,7 @@
                                                         
                                                 <div class="">
                                                     <p class="  font-Arima  text-xs font-semibold  text-gray-700 group-hover:text-white">
-                                                        CRUZ GRANDE
+                                                        TRADICIONAL (CRUZ GRANDE)
                                                     </p>
                                                  
                                                 </div>
@@ -2108,7 +2120,22 @@
                                                         
                                                 <div class="">
                                                     <p class="  font-Arima  text-xs font-semibold  text-gray-700 group-hover:text-white">
-                                                        CRUZ PEQUEÑA
+                                                        TRADICIONAL (CRUZ PEQUEÑA)
+                                                    </p>
+                                                 
+                                                </div>
+                                            </article>
+                                        </li>
+
+                                        <li class="bg-white rounded-lg shadow-lg">
+                                            <article>
+                                                <figure>
+                                                    <img class="  object-fill " src="{{Storage::url('img/carton_lleno.png') }}"alt="">
+                                                </figure>
+                                                        
+                                                <div class="">
+                                                    <p class="  font-Arima  text-xs font-semibold  text-gray-700 group-hover:text-white">
+                                                        CARTÓN LLENO
                                                     </p>
                                                  
                                                 </div>
@@ -2131,22 +2158,7 @@
                         
                             </div>
                 
-                            <div class="w-full md:w-1/2 py-8 bg-white text-center   mt-4 md:mt-0 border border-gray-100 rounded-lg shadow-lg md:ml-2">
-                                <h4 class="text-gray-500 leading-relaxed font-bold">CARTÓN LLENO</h4>
-                              
-
-                                <p class="mt-1 text-gray-500 text-center  font-Arima   ">
-                                    El cartón debe estar marcado completamente para ganar en esta modalidad
-                                </p>
-                              
-                                <div class="pt-8">
-                                    <article class=" py-6 mx-20  md:mx-8  " >
-                                        <figure>
-                                            <img class=" h-80  w-full object-fill   rounded-lg " src="{{Storage::url('img/carton_lleno.png') }}"alt="">
-                                        </figure>
-                                    </article>
-                                </div>
-                            </div>
+                   
                         </div>
                     </div>
                 </div>

@@ -57,7 +57,7 @@
 
                         <h3 class="text-sm text-red-500 font-bold">
 
-                            2do lugar (Sorteo  {{$sorteo->type_1}})
+                            2do lugar (Sorteo  {{$sorteo->type_2}})
                         
                         </h3>
 

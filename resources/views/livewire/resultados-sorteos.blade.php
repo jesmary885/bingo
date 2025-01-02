@@ -2200,13 +2200,13 @@
 
                            <td class="text-center py-4">
 
-                            @livewire('carton-ganador', ['tipo' => 'menu','sorteo'=> $sorteo->id],,key($sorteo->id)) 
+                            @livewire('carton-ganador', ['tipo' => 'menu','sorteo'=> $sorteo->id],key($sorteo->id)) 
 
                              
                                 
                             </td>
                             <td class="text-center py-4">
-                                @livewire('fichas-sorteo', ['tipo' => 'menu','sorteo'=> $sorteo->id],,key($sorteo->id)) 
+                                @livewire('fichas-sorteo', ['tipo' => 'menu','sorteo'=> $sorteo->id],key($sorteo->id)) 
                             </td>
                      </tr>
 

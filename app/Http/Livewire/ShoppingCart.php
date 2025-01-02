@@ -62,7 +62,9 @@ class ShoppingCart extends Component
             ->where('carton_id',$carton)
             ->first()
             ->update([
-                'status_carton' => 'Disponible'
+                'status_carton' => 'Disponible',
+                'user_id' => null,
+                'status_pago' => null
             ]);
 
         Cart::remove($rowIDm);

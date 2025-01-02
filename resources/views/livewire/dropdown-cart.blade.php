@@ -1,14 +1,14 @@
 <div>
     <x-dropdown width="152">
         <x-slot name="trigger">
-            <span class="relative  inline-block cursor-pointer   ">
+            <span class="relative  inline-block cursor-pointer">
                 <x-cart color="gray" size="30" />
 
                 @if (Cart::count())
                     <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">{{ Cart::count() }}</span>
                 @else
-                <span class="absolute top-0 right-0 inline-block w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full"></span></span>    
-                 @endif 
+                    <span class="absolute top-0 right-0 inline-block w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full"></span>
+                @endif 
 
                 
                 
@@ -21,7 +21,7 @@
                 @forelse (Cart::content() as $item)
                     <li class=" p-2 border-b border-gray-200">
                         <div class="w-full" >
-                            @livewire('cartonview',['carton'=> $item->options['carton'],key($item->id)])
+                            @livewire('cartonview',['carton'=> $item->options['carton'],key( '001'.$item->options['carton'])])
 
                             <p class=" text-center mt-1 text-xs text-gray-700 font-bold " >Carton Nro. {{$item->options['carton']}}</p>
                         </div>

@@ -35,6 +35,7 @@ class MisCartones extends Component
             ->where('user_id', auth()->user()->id)
             ->get();
 
+
         return view('livewire.mis-cartones',compact('mis_cartones'));
     }
 }
