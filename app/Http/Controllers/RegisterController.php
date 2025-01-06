@@ -68,7 +68,11 @@ class RegisterController extends Controller
             'codigo_referido' => 'b-'.$user->id
         ]);
 
+
+
         if($request['codigo']){
+
+
 
             $busqueda_codigo = User::where('codigo_referido',$request['codigo'])->first();
 

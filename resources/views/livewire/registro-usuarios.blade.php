@@ -572,7 +572,7 @@
                                         </span>
                                         </div>
                             
-                                        <input  id="codigo" type="text" name="codigo" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Código de referido" />
+                                        <input wire:model="codigo" id="codigo" type="text" name="codigo" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Código de referido" />
                                     </div>
                                 </div>
 

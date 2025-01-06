@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Pagos;
 
 use App\Models\CuentasUser;
 use App\Models\Pago;
+use App\Models\referidos;
 use App\Models\UserSaldo;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -64,6 +65,7 @@ class ReportePagoReportar extends Component
                 'saldo' => $saldo - $pago_select->monto
             ]);
 
+        
         $this->emit('alert','Datos registrados correctamente');
         
         $this->emitTo('admin.pagos.reporte-pago-index','render');

@@ -172,8 +172,9 @@ class Index extends Component
                 'status' => 'Pago recibido'
             ]);
 
+        $registro_pago_user = Pago::where('id',$this->registro_select)->first()->user_id;
 
-        $busqueda_refer = referidos::where('user_id',auth()->user()->id)
+        $busqueda_refer = referidos::where('user_id',$registro_pago_user)
             ->where('compra','No')
             ->first();
 

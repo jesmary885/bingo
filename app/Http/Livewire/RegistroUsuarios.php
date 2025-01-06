@@ -87,7 +87,8 @@ class RegistroUsuarios extends Component
                             referidos::create([
                                 'user_id' => $user->id,
                                 'refer_id' => $busqueda_codigo->id,
-                                'status' => 'Pendiente'
+                                'status' => 'Pendiente',
+                                'compra' => 'No'
                             ]);
             
                         }
