@@ -1900,6 +1900,9 @@ class JugarSorteo extends Component
                     $cartones_ganadores = CartonGanador::where('sorteo_id',$this->sorteo->id)
                         ->get(); 
 
+
+
+
                
 
                     $ficha_ultima = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->first()->id;
@@ -1916,6 +1919,8 @@ class JugarSorteo extends Component
                 }
 
                 else{
+
+         
 
             
             
@@ -1949,6 +1954,8 @@ class JugarSorteo extends Component
 
                     //$ganador=0;
                     $sorteo_nro = $this->sorteo->id;
+
+          
                 }
 
                 
@@ -2040,17 +2047,17 @@ class JugarSorteo extends Component
                 
             }
 
-            $ultimo_sorteo = CartonGanador::latest('id')->first();
+           /* $ultimo_sorteo = CartonGanador::latest('id')->first();
 
             
 
-
+            //error aqui
             if($ultimo_sorteo){
 
                 $cartones_ganadores = CartonGanador::where('sorteo_id',$ultimo_sorteo->sorteo_id)
                 ->get(); 
 
-            }
+            }*/
         }
 
         else{
@@ -2177,6 +2184,7 @@ class JugarSorteo extends Component
             }
         }
 
+    
         return view('livewire.jugar-sorteo',compact('cartones_ganadores','cartones_todos','ficha_ultima','fichas','sorteo_nro','mis_cartones','ano_restantes','minutos_restantes','mes_restantes','dias_restantes','horas_restantes'));
     }
 

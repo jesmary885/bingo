@@ -234,7 +234,10 @@
                                 <p class=" font-Arima text-blue-600 font-bold text-center text-sm md:text-base "  >GANADORES</p>
 
                                 <div class="mt-4">
+                                   
+                                    
                                     @foreach($cartones_ganadores as $cg)
+
                                         <div class="py-1 md:py-2 md:px-12 ">
                                                 <div class=" bg-blue-500 rounded-md shadow-md overflow-hidden md:max-w-xl ">
                                                     <div class="grid grid-cols-5 gap-0.5 justify-center  mb-0.5 mt-1">  
