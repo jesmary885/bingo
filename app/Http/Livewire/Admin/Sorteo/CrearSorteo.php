@@ -173,54 +173,83 @@ class CrearSorteo extends Component
                 ]);
             }
 
+            $this->emit('alert','Datos registrados correctamente');
+            $this->emitTo('admin.sorteo.crear-index','render');
+            $this->isopen = false;  
+
         }
         else{
 
+         
+
             $sorteo_modf = Sorteo::where('id',$this->sorteo)->first();
 
-            if($this->premios == "Un premio"){
+            if($this->estado == 'Iniciado'){
+                $sorteos_iniciados = Sorteo::where('status','Iniciado')->first();
 
-                $sorteo_modf->update([
-                    'fecha_ejecucion' => $this->fecha_inicio,
-                    'type_1' => $this->type_1,
-                    'porcentaje_ganancia' => $this->porcentaje_ganancia,
-                    'precio_carton_dolar' => $this->precio_carton_dolar,
-                    'type_2' => null,
-                    'type_3' => null,
-                    'porcentaje_ganancia_2do_lugar' => null,
-                    'porcentaje_ganancia_3er_lugar' => null,
-                    'status' => $this->estado]);
+                if($sorteos_iniciados){
+
+                    $sorteo_iniciado = 1;
+
+                    $this->emit('alert','Hay otro sorteo iniciado, debes finalizarlo para iniciar este');
+
+                }
+                else $sorteo_iniciado = 0;
             }
 
-            elseif($this->premios == "Dos premios"){
+            else $sorteo_iniciado = 0;
 
-                $sorteo_modf->update([
-                    'fecha_ejecucion' => $this->fecha_inicio,
-                    'type_1' => $this->type_1,
-                    'type_2' => $this->type_2,
-                    'type_3' => null,
-                    'porcentaje_ganancia' => $this->porcentaje_ganancia,
-                    'porcentaje_ganancia_2do_lugar' => $this->porcentaje_ganancia_2,
-                    'porcentaje_ganancia_3er_lugar' => null,
-                    'status' => $this->estado,
-                    'precio_carton_dolar' => $this->precio_carton_dolar]);
-            }else{
+            if($sorteo_iniciado == 0){
 
-                $sorteo_modf->update([
-                    'fecha_ejecucion' => $this->fecha_inicio,
-                    'type_1' => $this->type_1,
-                    'type_2' => $this->type_2,
-                    'type_3' => $this->type_3,
-                    'porcentaje_ganancia' => $this->porcentaje_ganancia,
-                    'porcentaje_ganancia_2do_lugar' => $this->porcentaje_ganancia_2,
-                    'porcentaje_ganancia_3er_lugar' => $this->porcentaje_ganancia_3,
-                    'precio_carton_dolar' => $this->precio_carton_dolar,
-                    'status' => $this->estado]);
-                
+                if($this->premios == "Un premio"){
+
+                    $sorteo_modf->update([
+                        'fecha_ejecucion' => $this->fecha_inicio,
+                        'type_1' => $this->type_1,
+                        'porcentaje_ganancia' => $this->porcentaje_ganancia,
+                        'precio_carton_dolar' => $this->precio_carton_dolar,
+                        'type_2' => null,
+                        'type_3' => null,
+                        'porcentaje_ganancia_2do_lugar' => null,
+                        'porcentaje_ganancia_3er_lugar' => null,
+                        'status' => $this->estado]);
+                }
+    
+                elseif($this->premios == "Dos premios"){
+    
+                    $sorteo_modf->update([
+                        'fecha_ejecucion' => $this->fecha_inicio,
+                        'type_1' => $this->type_1,
+                        'type_2' => $this->type_2,
+                        'type_3' => null,
+                        'porcentaje_ganancia' => $this->porcentaje_ganancia,
+                        'porcentaje_ganancia_2do_lugar' => $this->porcentaje_ganancia_2,
+                        'porcentaje_ganancia_3er_lugar' => null,
+                        'status' => $this->estado,
+                        'precio_carton_dolar' => $this->precio_carton_dolar]);
+                }else{
+    
+                    $sorteo_modf->update([
+                        'fecha_ejecucion' => $this->fecha_inicio,
+                        'type_1' => $this->type_1,
+                        'type_2' => $this->type_2,
+                        'type_3' => $this->type_3,
+                        'porcentaje_ganancia' => $this->porcentaje_ganancia,
+                        'porcentaje_ganancia_2do_lugar' => $this->porcentaje_ganancia_2,
+                        'porcentaje_ganancia_3er_lugar' => $this->porcentaje_ganancia_3,
+                        'precio_carton_dolar' => $this->precio_carton_dolar,
+                        'status' => $this->estado]);
+                    
+                }
+
+                $this->emit('alert','Datos modificados correctamente');
+                $this->emitTo('admin.sorteo.crear-index','render');
+                $this->isopen = false;  
+
             }
+
+            
         }
-        $this->emit('alert','Datos registrados correctamente');
-        $this->emitTo('admin.sorteo.crear-index','render');
-        $this->isopen = false;  
+        
     }
 }

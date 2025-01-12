@@ -659,7 +659,7 @@
 
              
 
-                                {{$afiliado->user->name}}
+                                {{$afiliado->refer->name}}
 
 
              

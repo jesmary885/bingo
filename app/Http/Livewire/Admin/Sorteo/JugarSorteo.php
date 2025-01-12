@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 class JugarSorteo extends Component
 {
 
-    public $letra_select = 0, $numero_select = 0, $sorteo, $iniciar=0, $ganador_1 = 0, $lugares, $ganador_2 = 0, $ganador_3 = 0;
+    public $letra_select = 0, $numero_select = 0, $sorteo, $iniciar, $ganador_1 = 0, $lugares, $ganador_2 = 0, $ganador_3 = 0;
 
     protected $listeners = ['render' => 'render', 'echo:ganador,NewGanador' => 'ganad' ];
 
@@ -27,29 +27,40 @@ class JugarSorteo extends Component
     }
 
     public function mount(){
+
   
 
         $sorteo_inicio = Sorteo::where('id',$this->sorteo)->first();
 
-        if($sorteo_inicio->type_2 == null) $this->lugares = 1;
-        if($sorteo_inicio->type_2 != null && $sorteo_inicio->type_3 == null) $this->lugares = 2;
-        if($sorteo_inicio->type_2 != null && $sorteo_inicio->type_3 != null) $this->lugares = 3; 
+        if($sorteo_inicio){
 
-        $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo)
-                ->where('lugar','Primero')
-                ->first();
+            $this->iniciar = 1;
 
-            $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo)
-                ->where('lugar','Segundo')
-                ->first();
+            if($sorteo_inicio->type_2 == null) $this->lugares = 1;
+            if($sorteo_inicio->type_2 != null && $sorteo_inicio->type_3 == null) $this->lugares = 2;
+            if($sorteo_inicio->type_2 != null && $sorteo_inicio->type_3 != null) $this->lugares = 3; 
 
-            $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo)
-                ->where('lugar','Tercero')
-                ->first();
+            $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo)
+                    ->where('lugar','Primero')
+                    ->first();
 
-            if($ganadores_actuales_primer) $this->ganador_3 = 1;
-            if($ganadores_actuales_segundo) $this->ganador_2 = 1;
-            if($ganadores_actuales_tercer) $this->ganador_1 = 1; 
+                $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo)
+                    ->where('lugar','Segundo')
+                    ->first();
+
+                $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo)
+                    ->where('lugar','Tercero')
+                    ->first();
+
+                if($ganadores_actuales_primer) $this->ganador_3 = 1;
+                if($ganadores_actuales_segundo) $this->ganador_2 = 1;
+                if($ganadores_actuales_tercer) $this->ganador_1 = 1; 
+
+        }
+
+        else $this->iniciar = 0;
+
+        
 
     }
 

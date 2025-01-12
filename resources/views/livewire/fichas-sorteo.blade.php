@@ -32,17 +32,24 @@
 
             <div class="w-full grid grid-cols-6 sm:grid-cols-8 gap-8 container  ">
                 @foreach($fichas as $ficha)
-                    <div class="relative h-10 w-10 ">
-                        <div class=" h-16 w-16  mx-auto my-auto rounded-full bg-blue-500">
-                            <p class="  text-center font-bold  text-white  mt-2">
-                                {{$ficha->letra}}
-                            </p>
-                            <p class="  text-center font-bold  text-white ">
-                                {{$ficha->numero}}
-                            </p>
-                        </div>
-                    </div>
-                @endforeach
+
+
+            <div class="bg-blue-500 w-16 h-16  rounded-full shadow-2xl shadow-blue-500 border-white  border-dashed border-2  flex justify-center items-center ">
+                <div>
+                    <p class="  text-center font-bold  text-white  mt-2">
+                        {{$ficha->letra}}
+                    </p>
+                    <p class="  text-center font-bold  text-white ">
+                        {{$ficha->numero}}
+                    </p>
+                </div>
+            </div>
+
+
+
+
+         
+                @endforeach 
             </div>
 
         </x-slot>

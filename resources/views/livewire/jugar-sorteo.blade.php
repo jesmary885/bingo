@@ -235,7 +235,7 @@
 
                                 <div class="mt-4">
                                    
-                                    
+
                                     @foreach($cartones_ganadores as $cg)
 
                                         <div class="py-1 md:py-2 md:px-12 ">
@@ -2389,14 +2389,16 @@
                                             <div class="relative mr-2 md:mr-0 md:w-full  mt-7">
                                                 @if($ficha_ultima == $ficha->id)
                                                     <div class="w-full flex justify-center " >
-                                                        <div class=" w-16 h-16  bg-red-500 rounded-full absolute  animate-ping"></div>
+
+                                                        <div class=" bg-red-500 w-16 h-16 absolute  rounded-full shadow-2xl shadow-red-500 animate-ping border-white  border-dashed border-2  flex justify-center items-center "></div>
+                                                        {{-- <div class=" w-16 h-16  bg-red-500 rounded-full absolute  animate-ping"></div> --}}
 
                                                     </div>
                                                 
                                                 @endif
                                                 <div class="w-full flex justify-center " >
 
-                                                    <div class="@if($ficha_ultima == $ficha->id) h-14 w-14 lg:h-16 lg:w-16 @else h-14 w-14 animate-pulse animate-fade-right @endif mx-auto my-auto  rounded-full  @if($ficha_ultima == $ficha->id) bg-red-700 @else bg-blue-700 @endif">
+                                                    <div class="@if($ficha_ultima == $ficha->id) h-14 w-14 lg:h-16 lg:w-16 @else h-14 w-14 animate-pulse animate-fade-right @endif mx-auto my-auto border-white  border-dashed border-2  shadow-2xl  rounded-full  @if($ficha_ultima == $ficha->id) bg-red-700 @else bg-blue-700 @endif">
                                                         <p class="  text-center font-bold  text-white  mt-1">
                                                             {{$ficha->letra}}
                                                         </p>

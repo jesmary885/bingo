@@ -11,7 +11,29 @@ class IniciarSorteo extends Component
 
     public function sorteo_select($sorteo){
 
-        return redirect()->route('admin.sorteo_jugar',$sorteo);
+        $sorteo_select = Sorteo::where('status','Iniciado')->first();
+
+
+        if($sorteo_select){
+
+            if($sorteo != $sorteo_select->id){
+                notyf()
+                    ->duration(0)
+                    ->position('x', 'center')
+                    ->position('y', 'center')
+                    ->dismissible(true)
+                    ->addError('El Sorteo Nro '.  $sorteo_select->id. ' esta en proceso, debes finanlizarlo para poder inciar otro sorteo');
+
+            }
+            else return redirect()->route('admin.sorteo_jugar',$sorteo);
+
+        }
+
+        else{
+
+            return redirect()->route('admin.sorteo_jugar',$sorteo);
+
+        }
 
     }
 

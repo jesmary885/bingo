@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\CartonGanador as ModelsCartonGanador;
+
 use App\Models\SorteoFicha;
 use App\Models\User;
+use App\Models\Carton;
+use App\Models\CartonGanador as ModelsCartonGanador;
 use Livewire\Component;
 
 class CartonGanador extends Component
@@ -21,6 +23,37 @@ class CartonGanador extends Component
     public function close(){
 
         $this->open = false;
+
+    }
+
+    public function premio($carton){
+
+        $ultimo_sorteo = ModelsCartonGanador::latest('id')->first();
+
+        $premio = ModelsCartonGanador::where('sorteo_id',$ultimo_sorteo->sorteo_id )
+            ->where('carton_id',$carton)
+            ->first()->premio;
+
+        return $premio;
+
+
+    }
+
+    public function posicion($item,$content,$carton){
+
+        $carton = Carton::where('id',$carton)->first();
+
+        if($content == 1) $content = 'content_1';
+        elseif($content == 2) $content = 'content_2';
+        elseif($content == 3) $content = 'content_3';
+        elseif($content == 4) $content = 'content_4';
+        else $content = 'content_5';
+
+        if(json_decode($carton->$content,true)[0] == $item ) return '0';
+        elseif(json_decode($carton->$content,true)[1] == $item ) return '1';
+        elseif(json_decode($carton->$content,true)[2] == $item ) return '2';
+        elseif(json_decode($carton->$content,true)[3] == $item ) return '3';
+        elseif(json_decode($carton->$content,true)[4] == $item ) return '4';
 
     }
 
