@@ -42,6 +42,8 @@ class IniciarSorteo extends Component
 
         $sorteos = Sorteo::where('status','!=','Finalizado')->get();
 
+
+        
         return view('livewire.admin.sorteo.iniciar-sorteo',compact('sorteos'));
     }
 }
