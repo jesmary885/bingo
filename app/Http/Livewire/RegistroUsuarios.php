@@ -34,7 +34,7 @@ class RegistroUsuarios extends Component
     protected $rules = [
         'name' => ['required', 'string', 'max:255'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        'password' => ['required', 'min:6', 'max:12'],
+        'password' => ['required', 'min:6', 'max:30' ,'confirmed' ],
     ];
 
     protected $rul_password_confirm = [
@@ -57,9 +57,12 @@ class RegistroUsuarios extends Component
         $rules = $this->rules;
         $this->validate($rules);
 
+
+
         if($this->terminos_condiciones == 1){
             if($this->confirmar_edad == 1){
 
+      
                 if($this->password == $this->password_confirmation)
                 {
                     $user= User::create([
@@ -101,8 +104,9 @@ class RegistroUsuarios extends Component
                 }
 
                 else{
-                    $rul_password_conf = $this->rul_password_confirm;
-                    $this->validate($rul_password_conf);
+                    notyf()
+                    ->duration(9000) // 2 seconds
+                    ->addError('Las contraseñas no coinciden');
 
                 }
                 

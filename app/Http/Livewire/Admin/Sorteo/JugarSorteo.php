@@ -77,6 +77,8 @@ class JugarSorteo extends Component
     }
 
     public function ganad(){
+
+        
  
         if($this->lugares == 1){
             $ganadores_sorteo = CartonGanador::where('sorteo_id',$this->sorteo)->get();
