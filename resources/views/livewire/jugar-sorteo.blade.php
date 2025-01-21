@@ -75,7 +75,7 @@
                                                         </div>
             
                                                         <div class="bg-blue-500 m-1 text-center w-20 xl:w-auto">
-                                                            <p class=" text-white text-xs "> {{Str::limit($todo_c->user->name, 15)}}</p>
+                                                            <p class=" text-white text-xs "> {{$this->nombre($todo_c->user->name)}}</p>
                                                         </div>
             
             
@@ -639,7 +639,7 @@
                                                     </div>
             
                                                     <div class="bg-blue-500 m-1 text-center">
-                                                        <p class=" text-white text-xs "> {{Str::limit($cg->user->name, 15)}}</p>
+                                                        <p class=" text-white text-xs "> {{$this->nombre($cg->user->name)}}</p>
                                                     </div>
 
                                                     <div class="bg-blue-500 m-1 text-center">
@@ -1196,7 +1196,7 @@
                                                         </div>
             
                                                         <div class="bg-blue-500 m-1 text-center w-20">
-                                                            <p class=" text-white text-xs "> {{Str::limit($todo_c->user->name, 15)}}</p>
+                                                            <p class=" text-white text-xs "> {{$this->nombre($todo_c->user->name)}}</p>
                                                         </div>
             
             
@@ -1758,7 +1758,7 @@
                                                     </div>
             
                                                     <div class="bg-blue-500 m-1 text-center">
-                                                        <p class=" text-white text-xs "> {{Str::limit($cg->user->name, 15)}}</p>
+                                                        <p class=" text-white text-xs "> {{$this->nombre($cg->user->name)}}</p>
                                                     </div>
 
                                                     <div class="bg-blue-500 m-1 text-center">
@@ -2315,7 +2315,7 @@
                                                         </div>
             
                                                         <div class="bg-blue-500 m-1 text-center w-20 ">
-                                                            <p class=" text-white text-xs "> {{Str::limit($todo_c->user->name, 15)}}</p>
+                                                            <p class=" text-white text-xs "> {{$this->nombre($todo_c->user->name)}}</p>
                                                         </div>
             
             
@@ -2896,7 +2896,7 @@
                                                     </div>
             
                                                     <div class="bg-blue-500 m-1 text-center">
-                                                        <p class=" text-white text-xs "> {{Str::limit($cg->user->name, 15)}}</p>
+                                                        <p class=" text-white text-xs "> {{$this->nombre($cg->user->name)}}</p>
                                                     </div>
 
                                                     <div class="bg-blue-500 m-1 text-center">
@@ -3358,7 +3358,7 @@
                                                     </div>
             
                                                     <div class="bg-blue-500 m-1 text-center">
-                                                        <p class=" text-white text-xs "> {{Str::limit($cg->user->name, 15)}}</p>
+                                                        <p class=" text-white text-xs "> {{$this->nombre($cg->user->name)}}</p>
                                                     </div>
 
                                                     <div class="bg-blue-500 m-1 text-center">

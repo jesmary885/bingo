@@ -455,7 +455,7 @@
                             </div>
 
                             <div class="bg-blue-500 m-1 text-center">
-                                <p class=" text-white text-xs "> {{Str::limit($carton->user->name, 15)}}</p>
+                                <p class=" text-white text-xs "> {{$this->nombre($carton->user->name)}}</p>
                             </div>
 
                             <div class="bg-blue-500 m-1 text-center">

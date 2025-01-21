@@ -26,6 +26,12 @@ class CartonGanador extends Component
 
     }
 
+    public function nombre($nombre){
+
+        return substr($nombre, 0, 15).''.'...';
+
+    }
+
     public function premio($carton){
 
         $ultimo_sorteo = ModelsCartonGanador::latest('id')->first();

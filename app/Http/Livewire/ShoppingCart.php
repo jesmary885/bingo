@@ -110,7 +110,7 @@ class ShoppingCart extends Component
                  }
          
                  if($this->metodo_select == 1) $metodo= 'Binance';
-                 if($this->metodo_select == 2) $metodo= 'Pago movil';
+                 elseif($this->metodo_select == 2) $metodo= 'Pago movil';
                  else $metodo= 'Saldo';
          
                  if($this->metodo_select == 3){

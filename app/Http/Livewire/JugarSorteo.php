@@ -946,6 +946,12 @@ class JugarSorteo extends Component
 
     }
 
+    public function nombre($nombre){
+
+        return substr($nombre, 0, 15).''.'...';
+
+    }
+
 
     public function ganador_fin(){
 
