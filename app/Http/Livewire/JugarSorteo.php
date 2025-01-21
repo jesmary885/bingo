@@ -1882,8 +1882,12 @@ class JugarSorteo extends Component
     public function render()
     {
 
+
         if($this->sorteo_iniciado == 1){
+      
             if($this->cartones_sorteo_iniciado == 1){
+
+       
 
         
 

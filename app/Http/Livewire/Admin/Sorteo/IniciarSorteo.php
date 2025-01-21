@@ -11,6 +11,8 @@ class IniciarSorteo extends Component
 
     public function sorteo_select($sorteo){
 
+
+
         $sorteo_select = Sorteo::where('status','Iniciado')->first();
 
 
@@ -30,6 +32,12 @@ class IniciarSorteo extends Component
         }
 
         else{
+
+
+            Sorteo::where('id',$sorteo)->first()
+                ->update([
+                'status'=>'Iniciado'
+            ]);
 
             return redirect()->route('admin.sorteo_jugar',$sorteo);
 
