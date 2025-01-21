@@ -2038,6 +2038,9 @@ class JugarSorteo extends Component
                     $ano_restantes = date("Y",$proxima_fecha);
 
                     $sorteo_nro = $cartones_user->id;
+
+                    $cartones_ganadores = [];
+                    $cartones_todos = [];
                     }
                     else{
                         $mes_restantes = 0;
