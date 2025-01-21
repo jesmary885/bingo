@@ -948,7 +948,7 @@ class JugarSorteo extends Component
 
     public function nombre($nombre){
 
-        return substr($nombre, 0, 15).''.'...';
+        return substr($nombre, 0, 20).''.'...';
 
     }
 
