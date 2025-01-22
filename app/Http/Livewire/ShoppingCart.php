@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Carton;
 use App\Models\CartonSorteo;
 use App\Models\CuentasUser;
 use App\Models\MetodoPago;
