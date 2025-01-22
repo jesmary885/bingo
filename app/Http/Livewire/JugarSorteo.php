@@ -1101,6 +1101,23 @@ class JugarSorteo extends Component
                     Sorteo::where('id',$this->sorteo->id)->first()->update([
                         'status' => 'Finalizado'
                     ]);
+
+                    $busqueda_sorteo_carton = CartonSorteo::where('sorte_id',$this->sorteo->id)
+                        ->where('status_carton','reservado')
+                        ->where('status_pago','En espera_pago')
+                        ->get();
+
+                    if($busqueda_sorteo_carton){
+                        foreach($busqueda_sorteo_carton as $busqueda_s_c){
+                            CartonSorteo::where('id',$busqueda_s_c->id)->update(
+                                [
+                                    'status_carton' => 'Disponible',
+                                    'user_id' => null,
+                                    'status_pago' => null
+                                ]
+                            );
+                        }
+                    }
     
                     $this->sorteo_finalizado = 1;
     
@@ -1408,6 +1425,23 @@ class JugarSorteo extends Component
                         Sorteo::where('id',$this->sorteo->id)->first()->update([
                             'status' => 'Finalizado'
                         ]);
+
+                        $busqueda_sorteo_carton = CartonSorteo::where('sorte_id',$this->sorteo->id)
+                        ->where('status_carton','reservado')
+                        ->where('status_pago','En espera_pago')
+                        ->get();
+
+                        if($busqueda_sorteo_carton){
+                            foreach($busqueda_sorteo_carton as $busqueda_s_c){
+                                CartonSorteo::where('id',$busqueda_s_c->id)->update(
+                                    [
+                                        'status_carton' => 'Disponible',
+                                        'user_id' => null,
+                                        'status_pago' => null
+                                    ]
+                                );
+                            }
+                        }
     
                         $this->sorteo_finalizado = 1;
     
@@ -1855,6 +1889,23 @@ class JugarSorteo extends Component
                         Sorteo::where('id',$this->sorteo->id)->first()->update([
                             'status' => 'Finalizado'
                         ]);
+
+                        $busqueda_sorteo_carton = CartonSorteo::where('sorte_id',$this->sorteo->id)
+                        ->where('status_carton','reservado')
+                        ->where('status_pago','En espera_pago')
+                        ->get();
+
+                        if($busqueda_sorteo_carton){
+                            foreach($busqueda_sorteo_carton as $busqueda_s_c){
+                                CartonSorteo::where('id',$busqueda_s_c->id)->update(
+                                    [
+                                        'status_carton' => 'Disponible',
+                                        'user_id' => null,
+                                        'status_pago' => null
+                                    ]
+                                );
+                            }
+                        }
     
                         $this->sorteo_finalizado = 1;
     

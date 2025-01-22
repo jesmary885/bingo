@@ -224,6 +224,46 @@ class ShoppingCart extends Component
         else $this->pendiente = 0;
 
 
+        $buscar = CartonSorteo::where('user_id',auth()->user()->id)
+            ->where('status_carton','Reservado')
+            ->where('status_pago','En espera de pago')
+            ->get();
+
+        foreach(Cart::content() as $item){
+            $encontrado = 0;
+            foreach($buscar as $busca){
+                if($busca->id == $item->options['id_registro']) $encontrado = 1;
+            }
+
+        }
+
+        foreach($buscar as $busca){
+            $encontrado = 0;
+
+            foreach(Cart::content() as $item){
+
+                if($item->options['id_registro'] == $busca->id) $encontrado = 1;
+
+            }
+
+            if($encontrado == 0 ){
+
+                $this->options['carton'] = $busca->carton_id;
+                $this->options['id_registro'] = $busca->id;
+                $this->options['sorteo'] = $busca->sorteo_id;
+                $this->options['serial'] = Carton::where('id',$busca->carton_id)
+                    ->first()
+                    ->serial;
+
+                Cart::add([ 'id' => $busca->carton_id, 
+                    'name' => 'name', 
+                    'qty' => '1', 
+                    'price' => '1', 
+                    'weight' => 550,
+                    'options' => $this->options
+                ]);
+            }
+        }
 
     }
 

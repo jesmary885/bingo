@@ -88,6 +88,7 @@ class Cartones extends Component
         if($carton_sorteo_update){
 
             $this->options['carton'] = $carton_comprar;
+            $this->options['id_registro'] = $carton_sorteo_update->id;
             $this->options['sorteo'] = $this->sorteo;
             $this->options['serial'] = Carton::where('id',$carton_comprar)
                 ->first()
