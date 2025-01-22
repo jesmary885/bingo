@@ -33,6 +33,12 @@ class ShoppingCart extends Component
 
     ];
 
+    public $options = [
+        'carton' => null,
+        'sorteo' => null,
+        'serial' => null,
+    ];
+
 
     public function metodo($metodo_seleccionado){
         if($metodo_seleccionado == 'binance') $this->metodo_select = 1;
