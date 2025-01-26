@@ -2,16 +2,16 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Cart;
 use App\Models\Carton;
 use App\Models\CartonSorteo;
 use App\Models\CuentasUser;
 use App\Models\MetodoPago;
 use App\Models\Pago;
+use App\Models\Sorteo;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Session as FacadesSession;
 use Illuminate\Support\Facades\Storage;
@@ -22,7 +22,7 @@ class ShoppingCart extends Component
     use WithFileUploads;
 
     protected $listeners = ['render'];
-    public $telefono,$pendiente, $r_i_o, $t_w, $c_u,$opcion_retiro_inmediato = 0, $metodo_select = 0, $dolar_valor, $procesa = 0, $adjunta = 0, $constancia,$referencia;
+    public $subtotal,$telefono,$pendiente, $r_i_o, $t_w, $c_u,$opcion_retiro_inmediato = 0, $metodo_select = 0, $dolar_valor, $procesa = 0, $adjunta = 0, $constancia,$referencia;
 
     protected $rules = [
         'constancia' => 'required',
@@ -63,10 +63,12 @@ class ShoppingCart extends Component
 
     }
 
-    public function delete($rowIDm,$carton,$sorteo){
+    public function delete($registro){
 
-        CartonSorteo::where('sorteo_id', $sorteo)
-            ->where('carton_id',$carton)
+        $delete = Cart::where('id',$registro)->first();
+
+        CartonSorteo::where('sorteo_id',  $delete->sorteo_id)
+            ->where('carton_id',$delete->carton_id)
             ->first()
             ->update([
                 'status_carton' => 'Disponible',
@@ -74,7 +76,9 @@ class ShoppingCart extends Component
                 'status_pago' => null
             ]);
 
-        Cart::remove($rowIDm);
+        $delete->delete();
+
+    
         $this->emitTo('dropdown-cart', 'render');
     }
 
@@ -119,6 +123,18 @@ class ShoppingCart extends Component
                  if($this->metodo_select == 1) $metodo= 'Binance';
                  elseif($this->metodo_select == 2) $metodo= 'Pago movil';
                  else $metodo= 'Saldo';
+
+                 $registro_carro = Cart::where('user_id',auth()->user()->id)
+                    ->where('status','no_pagado')
+                    ->get();
+
+                    $subtotal = Cart::where('user_id',auth()->user()->id)
+                        ->where('status','no_pagado')
+                        ->sum('precio');
+
+                    $cantidad = Cart::where('user_id',auth()->user()->id)
+                        ->where('status','no_pagado')
+                        ->count();
          
                  if($this->metodo_select == 3){
          
@@ -129,48 +145,60 @@ class ShoppingCart extends Component
                      $user->update([
                          'saldo' =>  $saldo_nuevo,
                      ]);
+
          
-                     foreach(Cart::content() as $item){
+                     foreach($registro_carro as $item){
          
-                         CartonSorteo::where('sorteo_id', $item->options['sorteo'])
-                             ->where('carton_id',$item->options['carton'])
+                         CartonSorteo::where('sorteo_id', $item->sorteo_id)
+                             ->where('carton_id',$item->carton_id)
                              ->first()
                              ->update([
                                  'status_carton' => 'No disponible',
                                  'status_pago' => 'Pago recibido',
                                  'user_id' => auth()->user()->id
                              ]);
+
+                            $item->update([
+                                'status' => 'pagado'
+                            ]);
                      }
+
          
                  }
                  else{
                      $pago_proc = Pago::create([
                          'user_id' => auth()->user()->id,
                          'metodo_pago' => $metodo,
-                         'monto' => Cart::subtotal(),
+                         'monto' => $subtotal,
                          'constancia' => $constancia,
                          'referencia' => $this->referencia,
                          'tipo' => 'Pago de carton',
                          'status' => 'Pendiente',
-                         'cantidad' => Cart::count(), 
+                         'cantidad' => $cantidad, 
                      ]);
+
+                   
          
-                     foreach(Cart::content() as $item){
-                         CartonSorteo::where('sorteo_id', $item->options['sorteo'])
-                             ->where('carton_id',$item->options['carton'])
+                     foreach($registro_carro as $item){
+                         CartonSorteo::where('sorteo_id', $item->sorteo_id)
+                             ->where('carton_id',$item->carton_id)
                              ->first()
                              ->update([
                                  'pago_id' => $pago_proc->id,
                                  'user_id' => auth()->user()->id
                          ]);
+
+                         $item->update([
+                            'status' => 'pagado',
+                            'pago_id' => $pago_proc->id
+                        ]);
                      }
          
                  }
-         
-                 Cart::destroy();
+
+                 
          
                  return redirect()->route('mis-cartones');
-     
              }
 
              else{
@@ -195,6 +223,8 @@ class ShoppingCart extends Component
 
     public function destroy(){
 
+        /*
+
         foreach(Cart::content() as $item){
 
             CartonSorteo::where('sorteo_id', $item->options['sorteo'])
@@ -205,9 +235,9 @@ class ShoppingCart extends Component
                 ]);
         }
 
-        Cart::destroy();
 
-        $this->emitTo('dropdown-cart', 'render');
+
+        $this->emitTo('dropdown-cart', 'render');*/
     }
 
     public function mount(){
@@ -230,48 +260,6 @@ class ShoppingCart extends Component
         if($this->r_i_o == 0 || $this->t_w == 0 || $this->c_u == 0) $this->pendiente = 1;
         else $this->pendiente = 0;
 
-
-        $buscar = CartonSorteo::where('user_id',auth()->user()->id)
-            ->where('status_carton','Reservado')
-            ->where('status_pago','En espera de pago')
-            ->get();
-
-        foreach(Cart::content() as $item){
-            $encontrado = 0;
-            foreach($buscar as $busca){
-                if($busca->id == $item->options['id_registro']) $encontrado = 1;
-            }
-
-        }
-
-        foreach($buscar as $busca){
-            $encontrado = 0;
-
-            foreach(Cart::content() as $item){
-
-                if($item->options['id_registro'] == $busca->id) $encontrado = 1;
-
-            }
-
-            if($encontrado == 0 ){
-
-                $this->options['carton'] = $busca->carton_id;
-                $this->options['id_registro'] = $busca->id;
-                $this->options['sorteo'] = $busca->sorteo_id;
-                $this->options['serial'] = Carton::where('id',$busca->carton_id)
-                    ->first()
-                    ->serial;
-
-                Cart::add([ 'id' => $busca->carton_id, 
-                    'name' => 'name', 
-                    'qty' => '1', 
-                    'price' => '1', 
-                    'weight' => 550,
-                    'options' => $this->options
-                ]);
-            }
-        }
-
     }
 
 
@@ -280,9 +268,18 @@ class ShoppingCart extends Component
 
         $this->dolar_valor = valor_dolar_hoy();
 
+        $content = Cart::where('user_id',auth()->user()->id)
+            ->where('status','no_pagado')
+            ->get();
+
+        $this->subtotal = Cart::where('user_id',auth()->user()->id)
+            ->where('status','no_pagado')
+            ->sum('precio');
+
+
         $this->emit('scrollIntoView');
 
-        return view('livewire.shopping-cart');
+        return view('livewire.shopping-cart',compact('content'));
     }
 
     public function volver(){

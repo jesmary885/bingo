@@ -1542,7 +1542,7 @@
 
     </div>
 
-    @if (Cart::count())
+    @if ($content)
     
 
     <div class=" px-2 md:flex md:justify-between w-full md:-mt-10 font-Arima  ">
@@ -1557,6 +1557,8 @@
                         </p>
                     </div>
                 </header>
+
+               
 
                     <div class="relative overflow-x-auto">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -1581,25 +1583,25 @@
                             </thead>
 
                             <tbody class="divide-y divide-gray-200 text-sm">
-                                @forelse (Cart::content() as $item)
+                                @forelse ($content as $item)
                                 <!-- record 1 -->
                                     <tr>
                                         <td >
 
-                                            @livewire('cartonview',['carton'=> $item->options['carton'],key($item->id)])
+                                            @livewire('cartonview',['carton'=> $item->carton_id,key($item->id)])
                                             
                                         </td>
                                         <td class="p-2 text-center ">
-                                            <div class="font-medium text-gray-800">{{$item->options['carton']}}</div>
+                                            <div class="font-medium text-gray-800">{{$item->carton_id}}</div>
                                         </td>
 
                                         <td class="p-2 text-center ">
-                                            <div class="font-medium text-gray-800">{{$item->options['sorteo']}}</div>
+                                            <div class="font-medium text-gray-800">{{$item->sorteo_id}}</div>
                                         </td>
     
                                         <td class="p-2">
                                             <div class="flex justify-center">
-                                                <button wire:loading.attr="disabled" wire:click="delete('{{$item->rowId}}','{{$item->options['carton']}}','{{$item->options['sorteo']}}')"
+                                                <button wire:loading.attr="disabled" wire:click="delete('{{$item->id}}')"
                                                     wire:loading.class="text-red-600 opacity-25">
                                                     <svg class="h-8 w-8 rounded-full p-1 hover:bg-gray-100 hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
@@ -1754,7 +1756,7 @@
             
                             <div class="mt-2 space-y-2 ">
     
-                                @if(auth()->user()->saldo >= Cart::subtotal())
+                                @if(auth()->user()->saldo >= $subtotal)
     
     
     
@@ -1798,7 +1800,7 @@
                                             </div>
                                         </div>
                                         
-                                        <h2 class="text-sm md:text-md lg:text-lg font-bold text-gray-500  dark:text-gray-300">$ {{floatval(Cart::subTotal())}}</h2>
+                                        <h2 class="text-sm md:text-md lg:text-lg font-bold text-gray-500  dark:text-gray-300">$ {{floatval($subtotal)}}</h2>
         
                                     
                                     </div>
@@ -1822,7 +1824,7 @@
                                             </div>
                                         </div>
                                         
-                                        <h2 class="text-sm md:text-md lg:text-lg  font-bold text-gray-500  dark:text-gray-300">Bs. {{(floatval(Cart::subTotal()) * $dolar_valor)}}</h2>
+                                        <h2 class="text-sm md:text-md lg:text-lg  font-bold text-gray-500  dark:text-gray-300">Bs. {{(floatval($subtotal) * $dolar_valor)}}</h2>
         
                                     
                                     </div>

@@ -4,8 +4,8 @@
             <span class="relative  inline-block cursor-pointer">
                 <x-cart color="gray" size="30" />
 
-                @if (Cart::count())
-                    <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">{{ Cart::count() }}</span>
+                @if ($cart_count)
+                    <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">{{ $cart_count }}</span>
                 @else
                     <span class="absolute top-0 right-0 inline-block w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full"></span>
                 @endif 
@@ -18,12 +18,12 @@
         <x-slot name="content"> 
 
              <ul class=" overflow-auto h-96 ">
-                @forelse (Cart::content() as $item)
+                @forelse ($content_cart as $item)
                     <li class=" p-2 border-b border-gray-200">
                         <div class="w-full" >
-                            @livewire('cartonview',['carton'=> $item->options['carton'],key( '001'.$item->options['carton'])])
+                            @livewire('cartonview',['carton'=> $item->carton_id,key( '001'.$item->carton_id)])
 
-                            <p class=" text-center mt-1 text-xs text-gray-700 font-bold " >Carton Nro. {{$item->options['carton']}}</p>
+                            <p class=" text-center mt-1 text-xs text-gray-700 font-bold " >Carton Nro. {{$item->carton_id}}</p>
                         </div>
 
                         <div class="flex" >
@@ -41,9 +41,9 @@
                 @endforelse
             </ul>
 
-            @if (Cart::count())
+            @if ($cart_count)
                 <div class="py-2 px-3">
-                    <p class="text-lg text-gray-700 mt-2 mb-3"><span class="font-bold">Total:</span> USD {{ Cart::subtotal() }}</p>
+                    <p class="text-lg text-gray-700 mt-2 mb-3"><span class="font-bold">Total:</span> USD {{ $subtotal }}</p>
 
 
                      <x-button-enlace href="{{ route('shopping-cart') }}" color="blue" class="w-full">

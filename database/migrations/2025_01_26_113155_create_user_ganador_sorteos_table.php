@@ -13,19 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_ganancias', function (Blueprint $table) {
+        Schema::create('user_ganador_sorteos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
 
             $table->unsignedBigInteger('sorteo_id')->nullable();
             $table->foreign('sorteo_id')->references('id')->on('sorteos');
 
-            $table->string('ganancia');
 
-            $table->string('status'); //procesado - no_procesado
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -36,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_ganancias');
+        Schema::dropIfExists('user_ganador_sorteos');
     }
 };

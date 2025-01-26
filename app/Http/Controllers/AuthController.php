@@ -22,13 +22,13 @@ class AuthController extends Controller
 
         Auth::logout();
 
-        $cart = collect(session()->get('cart'));
+        /*$cart = collect(session()->get('cart'));
 
         if (!config('cart.destroy_on_logout')) {
             $cart->each(function($rows, $identifier) {
                 session()->put('cart.' . $identifier, $rows);
             });
-        }
+        }*/
 
 
         return redirect('/');

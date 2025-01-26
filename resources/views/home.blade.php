@@ -1,6 +1,8 @@
 <x-app-layout>
 
 
+
+
     <section class="bg-blue-100">
         <div class="items-center px-8 mx-auto lg:px-16 md:px-12">
 
@@ -892,9 +894,11 @@
 
     </section>
 
+    
+
     <div class=" bg-white py-14 card p-2 md:p-4 m-8 md:-mt-20  rounded-xl border border-white  shadow-md shadow-black/5 saturate-200 ">
        
-        <h2 class="text-blue-800 text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter font-Allerta text-center mb-4 pt-4">Sorteos más próximos </h2>
+        <h2 class="text-blue-800 text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter font-Allerta text-center mb-4 pt-4">Próximos sorteos </h2>
    
 
         <div class="relative font-Arima  pt-2 lg:pt-2">

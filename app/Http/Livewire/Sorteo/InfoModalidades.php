@@ -9,7 +9,7 @@ class InfoModalidades extends Component
 {
     protected $listeners = ['render'];
 
-    public $open = false, $sorteo_select, $sorteo, $carton_lleno, $tradicional;
+    public $open = false, $sorteo_select, $sorteo, $carton_lleno, $tradicional, $tipo;
 
     public function mount(){
 

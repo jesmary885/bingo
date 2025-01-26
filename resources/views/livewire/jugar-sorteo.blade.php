@@ -2251,7 +2251,121 @@
                 @else
                     @if($ganador_1 == 0 || $ganador_2 == 0 || $ganador_3 == 0)
 
-                        <div class="w-full bg-white border p-2 border-gray-200 rounded-lg shadow ">
+
+                    <div class="flex items-center rounded-t-lg  bg-blue-500 text-gray-800 border p-2 border-gray-200 shadow">
+
+                        
+                        <div class="p-4 w-full">
+                            
+                            <div class="grid grid-cols-4 gap-4">
+                                <div class="col-span-2 lg:col-span-1 ">
+                                    <div class="flex flex-row bg-white shadow-sm rounded p-4">
+                                        <div class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 text-blue-500">
+                                        
+                                        <svg class="w-8 h-8" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g id="a"><path d="M36.08,45.81c7.79-3.37,12.83-11.04,12.83-19.53,0-1.5-.16-2.99-.47-4.46l-2.28-6c-3.77-6.69-10.85-10.82-18.53-10.82C15.88,5,6.35,14.53,6.35,26.28c0,8.49,5.04,16.16,12.83,19.53h16.9Z" fill="#f0f3f5" fill-rule="evenodd"/><path d="M27.63,5c-.69,0-1.36,.04-2.04,.1,6.92,.63,13.15,4.6,16.6,10.72l2.28,6c.31,1.47,.47,2.96,.47,4.46,0,8.49-5.04,16.16-12.83,19.53h3.96c7.79-3.37,12.83-11.04,12.83-19.53,0-1.5-.16-2.99-.47-4.46l-2.28-6c-3.77-6.69-10.85-10.82-18.53-10.82Z" fill="#e4ecf0" fill-rule="evenodd"/><path d="M34.5,37.18c-.3,0-.59,.05-.88,.14l-.24,2.69,1.85,2.88c1.28-.33,2.17-1.49,2.17-2.81,0-1.6-1.3-2.9-2.9-2.9Z" fill="#e8a3c1" fill-rule="evenodd"/><path d="M21.09,34.1c-1.6,0-2.9,1.3-2.9,2.9,0,1.52,1.18,2.79,2.7,2.89l1.57-2.24v-3.2c-.42-.23-.89-.35-1.37-.35h0Z" fill="#8fd7f8" fill-rule="evenodd"/><path d="M40.89,30.43c-1.6,0-2.9,1.3-2.9,2.9,0,1.6,1.3,2.9,2.9,2.9,1.6,0,2.9-1.3,2.9-2.9,0-1.6-1.3-2.9-2.9-2.9Z" fill="#8fd7f8" fill-rule="evenodd"/><path d="M13.35,28.27c-1.6,0-2.9,1.3-2.9,2.9,0,1.6,1.3,2.9,2.9,2.9,1.6,0,2.9-1.3,2.9-2.9,0-1.6-1.3-2.9-2.9-2.9Z" fill="#e8a3c1" fill-rule="evenodd"/><path d="M21.07,20.85c-1.6,0-2.9,1.3-2.9,2.9s1.23,2.84,2.79,2.9l1.99-5.1c-.53-.45-1.19-.69-1.88-.69Z" fill="#f5e680" fill-rule="evenodd"/><path d="M31.91,17.05c-1.52,0-2.78,1.17-2.89,2.68l4.14,2.83c1.01-.48,1.65-1.5,1.65-2.62,0-1.6-1.3-2.9-2.9-2.9Z" fill="#b8f5d2" fill-rule="evenodd"/><path d="M19.88,12.44c-1.6,0-2.9,1.3-2.9,2.9s1.3,2.9,2.9,2.9c1.6,0,2.9-1.3,2.9-2.9,0-1.6-1.3-2.9-2.9-2.9Z" fill="#e8a3c1" fill-rule="evenodd"/><path d="M34.5,37.18c-.28,0-.55,.04-.81,.12,1.2,.36,2.07,1.46,2.07,2.78,0,.84-.36,1.61-.96,2.15l.42,.66c1.28-.33,2.17-1.49,2.17-2.81,0-1.6-1.3-2.9-2.9-2.9Z" fill="#e38fb6" fill-rule="evenodd"/><path d="M21.09,34.1c-.29,0-.56,.04-.82,.12,.19,.06,.38,.13,.56,.22l-1.27,5.01c.39,.24,.84,.4,1.33,.43l1.57-2.24v-3.2c-.42-.23-.89-.35-1.37-.35Z" fill="#75cdf8" fill-rule="evenodd"/><path d="M40.89,30.43c-.27,0-.54,.05-.8,.13,1.22,.37,2.06,1.5,2.06,2.77,0,1.28-.85,2.4-2.08,2.77,.27,.08,.54,.13,.82,.13,1.6,0,2.9-1.3,2.9-2.9,0-1.6-1.3-2.9-2.9-2.9Z" fill="#75cdf8" fill-rule="evenodd"/><path d="M13.35,28.27c-.28,0-.56,.05-.82,.13,1.23,.36,2.08,1.49,2.08,2.77,0,1.28-.84,2.41-2.07,2.77,.26,.08,.53,.12,.81,.13,1.6,0,2.9-1.3,2.9-2.9,0-1.6-1.3-2.9-2.9-2.9Z" fill="#e38fb6" fill-rule="evenodd"/><path d="M21.07,20.85c-.29,0-.59,.05-.87,.14,.41,.1,.79,.29,1.11,.55l-1.8,4.62c.43,.29,.93,.45,1.45,.48l1.99-5.1c-.53-.45-1.19-.69-1.88-.69Z" fill="#f2d865" fill-rule="evenodd"/><path d="M31.91,17.05c-.28,0-.56,.04-.83,.13,1.24,.36,2.09,1.48,2.1,2.77,0,.77-.3,1.5-.85,2.05l.83,.57c1.01-.48,1.65-1.5,1.65-2.62,0-1.6-1.3-2.9-2.9-2.9Z" fill="#a1f3c0" fill-rule="evenodd"/><path d="M19.88,12.44c-.27,0-.54,.05-.8,.13,1.22,.37,2.06,1.49,2.06,2.77,0,1.28-.85,2.4-2.08,2.77,.27,.08,.54,.13,.82,.13,1.6,0,2.9-1.3,2.9-2.9,0-1.6-1.3-2.9-2.9-2.9Z" fill="#e38fb6" fill-rule="evenodd"/><polygon fill="#f5e680" fill-rule="evenodd" points="38.22 53.23 31.92 31.42 28.24 29.89 23.34 31.41 17.04 53.23 29.62 55.32 38.22 53.23"/><path d="M28.24,29.89l-4.9,1.52-1.11,3.84c1.54,1.25,3.47,1.93,5.45,1.94,1.95-.01,3.84-.66,5.37-1.87l-1.12-3.9-3.68-1.53Z" fill="#f2d865" fill-rule="evenodd"/><path d="M27.63,41.72c-1.8,0-3.08,1.46-3.25,3.25l-.8,8.27,3.89,1.83,4.19-1.83-.79-8.27c-.17-1.79-1.45-3.25-3.25-3.25Z" fill="#ebb680" fill-rule="evenodd"/><path d="M34,28.36c-.9,2.75-3.47,4.61-6.37,4.61-3.7,0-6.7-3-6.7-6.7s3-6.7,6.7-6.7c2.9,0,5.47,1.86,6.37,4.61v4.17Z" fill="#7a8594" fill-rule="evenodd"/><path d="M40.78,15.82c-.94,0-1.77,.63-2.01,1.54l-1.83,6.83h-9.3c-1.15,0-2.09,.93-2.09,2.08s.93,2.09,2.09,2.09h10.9c.94,0,1.77-.63,2.02-1.55l1.83-6.83h5.8v-4.17h-7.41Z" fill="#8fd7f8" fill-rule="evenodd"/><path d="M43.67,15.82c-.28,.66-.42,1.37-.42,2.09,0,.72,.15,1.42,.42,2.08h4.51v-4.17h-4.51Z" fill="#75cdf8" fill-rule="evenodd"/><path d="M57.65,17.91c0,3.01-2.44,5.44-5.44,5.44s-5.44-2.44-5.44-5.44,2.44-5.44,5.44-5.44,5.44,2.44,5.44,5.44Z" fill="#d9f0f3" fill-rule="evenodd"/><path d="M52.21,12.46c-.46,0-.91,.06-1.35,.18,2.39,.63,4.06,2.79,4.06,5.26,0,2.48-1.68,4.64-4.08,5.26,.45,.12,.91,.18,1.37,.18,3.01,0,5.44-2.44,5.44-5.44,0-3.01-2.44-5.44-5.44-5.44Z" fill="#b8e3ee" fill-rule="evenodd"/><polygon fill="#f2d865" fill-rule="evenodd" points="17.86 50.38 17.04 53.23 29.62 55.32 38.22 53.23 37.4 50.38 17.86 50.38"/><polygon fill="#e6a361" fill-rule="evenodd" points="23.86 50.38 23.59 53.23 27.48 55.06 31.67 53.23 31.4 50.38 23.86 50.38"/><path d="M14.9,53.23h25.46c1.6,0,2.88,1.29,2.88,2.88s-1.29,2.88-2.88,2.88H14.9c-1.6,0-2.88-1.29-2.88-2.88s1.29-2.88,2.88-2.88Z" fill="#f0f3f5" fill-rule="evenodd"/><path d="M36.69,53.23c1.6,0,2.89,1.29,2.89,2.88s-1.29,2.88-2.89,2.88h3.67c1.6,0,2.88-1.29,2.88-2.88s-1.29-2.88-2.88-2.88h-3.67Z" fill="#e4ecf0" fill-rule="evenodd"/><path d="M52.2,11.46c-2.39,0-4.46,1.32-5.57,3.26-4.03-6.62-11.23-10.72-19.01-10.72C15.35,4,5.35,13.99,5.35,26.28c0,8.59,4.95,16.33,12.64,20.04l-1.71,5.92h-1.39c-2.14,0-3.88,1.74-3.88,3.88s1.74,3.88,3.88,3.88h25.46c2.14,0,3.88-1.74,3.88-3.88s-1.74-3.88-3.88-3.88h-1.39l-1.71-5.92c7.69-3.7,12.65-11.44,12.65-20.03,0-.8-.05-1.61-.13-2.41,.75,.31,1.57,.48,2.43,.48,3.55,0,6.44-2.89,6.44-6.44s-2.89-6.44-6.44-6.44Zm-16.36,29.93l-.9-3.12c.82,.21,1.46,.93,1.46,1.81,0,.51-.22,.97-.56,1.31Zm-8.21-9.41c-3.14,0-5.7-2.56-5.7-5.7s2.57-5.7,5.7-5.7c1.82,0,3.59,.83,4.74,2.62h-4.74c-1.7,0-3.08,1.38-3.08,3.08s1.38,3.08,3.08,3.08h4.74c-1.03,1.59-2.78,2.62-4.74,2.62Zm-7.43,6.68c-.6-.32-1.01-.94-1.01-1.66,0-1.05,.85-1.9,1.9-1.9,.04,0,.08,.03,.13,.03l-1.02,3.53Zm-1.03-14.92c0-1.03,.87-1.9,1.9-1.9,.08,0,.16,.03,.24,.04-.69,.99-1.12,2.15-1.29,3.39-.5-.35-.85-.9-.85-1.54Zm14.11-2.58c-.84-.93-1.86-1.67-3.04-2.1,.32-.6,.95-1.02,1.67-1.02,1.05,0,1.9,.85,1.9,1.9,0,.47-.23,.88-.53,1.22Zm-5.65,6.2c-.6,0-1.08-.49-1.08-1.08s.49-1.08,1.08-1.08h9.3c.45,0,.85-.3,.97-.74l1.83-6.83c.13-.47,.56-.8,1.05-.8h5.09c-.06,.35-.11,.71-.11,1.08s.05,.73,.11,1.08h-3.49c-.45,0-.85,.3-.97,.74l-1.83,6.83c-.13,.47-.56,.8-1.05,.8h-10.91Zm-20.28-1.08C7.35,15.1,16.45,6,27.63,6c6.7,0,12.92,3.36,16.68,8.82h-3.53c-1.39,0-2.62,.94-2.98,2.29l-1.63,6.08h-1.57c-.05-.1-.1-.2-.15-.3,.85-.73,1.37-1.8,1.37-2.95,0-2.15-1.75-3.9-3.9-3.9-1.68,0-3.09,1.11-3.62,2.64-.22-.02-.43-.1-.66-.1-1.83,0-3.49,.67-4.81,1.74-.54-.28-1.12-.47-1.74-.47-2.15,0-3.9,1.75-3.9,3.9,0,1.76,1.24,3.22,2.87,3.68,.25,1.67,1.01,3.17,2.16,4.31l-.42,1.45c-.23-.04-.46-.09-.69-.09-2.15,0-3.9,1.75-3.9,3.9,0,1.62,1.02,2.99,2.46,3.58l-1.09,3.78c-6.83-3.43-11.21-10.37-11.21-18.08Zm34.89,29.84c0,1.04-.84,1.88-1.88,1.88H14.9c-1.04,0-1.88-.85-1.88-1.88s.85-1.88,1.88-1.88h25.46c1.04,0,1.88,.85,1.88,1.88Zm-17.56-3.88l.69-7.17c.11-1.13,.86-2.34,2.25-2.34s2.15,1.21,2.25,2.34l.69,7.17h-5.89Zm7.89,0l-.71-7.36c-.23-2.41-2.02-4.15-4.25-4.15s-4.01,1.75-4.24,4.15l-.71,7.36h-4.31l5.56-19.24c1.1,.61,2.36,.99,3.71,.99s2.58-.42,3.69-1.04l5.57,19.29h-4.31Zm4.12-7.87l-.27-.93c1.19-.68,1.97-1.93,1.97-3.35,0-2.15-1.75-3.9-3.9-3.9-.05,0-.1,.02-.16,.02l-1.32-4.56c.65-.65,1.18-1.41,1.56-2.28h3.94c1.39,0,2.62-.94,2.98-2.29l1.63-6.08h3.44c.26,.47,.56,.9,.92,1.29,.26,1.31,.41,2.66,.41,4,0,7.71-4.38,14.66-11.21,18.08Zm15.5-22.01c-2.45,0-4.44-1.99-4.44-4.44s1.99-4.44,4.44-4.44,4.44,1.99,4.44,4.44-1.99,4.44-4.44,4.44Z"/><path d="M27.63,35.45c-.55,0-1,.45-1,1v1.55c0,.55,.45,1,1,1s1-.45,1-1v-1.55c0-.55-.45-1-1-1Z"/><path d="M40.89,29.43h0c-2.15,0-3.9,1.75-3.9,3.9s1.75,3.9,3.9,3.9,3.9-1.75,3.9-3.9-1.75-3.9-3.9-3.9Zm0,5.8c-1.05,0-1.9-.85-1.9-1.9s.85-1.9,1.9-1.9c1.05,0,1.9,.85,1.9,1.9s-.87,1.9-1.9,1.9Z"/><path d="M13.35,27.27c-2.15,0-3.9,1.75-3.9,3.9s1.75,3.9,3.9,3.9,3.9-1.75,3.9-3.9-1.75-3.9-3.9-3.9Zm0,5.8c-1.05,0-1.9-.85-1.9-1.9s.85-1.9,1.9-1.9,1.9,.85,1.9,1.9-.85,1.9-1.9,1.9Z"/><path d="M19.88,19.24c2.15,0,3.9-1.75,3.9-3.9,0-2.15-1.75-3.9-3.9-3.9s-3.9,1.75-3.9,3.9,1.75,3.9,3.9,3.9Zm0-5.79h0c1.03,0,1.9,.87,1.9,1.9,0,1.05-.85,1.9-1.9,1.9s-1.9-.87-1.9-1.9,.87-1.9,1.9-1.9Z"/></g><g id="b"/><g id="c"/><g id="d"/><g id="e"/><g id="f"/><g id="g"/><g id="h"/><g id="i"/><g id="j"/><g id="k"/><g id="l"/><g id="m"/><g id="n"/><g id="o"/><g id="p"/><g id="q"/><g id="r"/><g id="s"/><g id="t"/><g id="u"/><g id="v"/><g id="w"/><g id="x"/><g id="y"/><g id="a`"/><g id="aa"/><g id="ab"/><g id="ac"/><g id="ad"/><g id="ae"/><g id="af"/><g id="ag"/><g id="ah"/><g id="ai"/><g id="aj"/><g id="ak"/><g id="al"/><g id="am"/><g id="an"/><g id="ao"/><g id="ap"/><g id="aq"/><g id="ar"/><g id="as"/><g id="at"/><g id="au"/><g id="av"/><g id="aw"/><g id="ax"/></svg>
+                                        </div>
+                                        <div class="flex flex-col flex-grow ml-4">
+                                        <div class="text-xs md:text-base text-blue-500 font-bold">SORTEO NRO</div>
+
+                
+                                        <div class="font-semibold text-sm">{{$sorteo->id}}</div>
+
+                                     
+
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-span-2 lg:col-span-1 ">
+                                    <div class="flex flex-row bg-white shadow-sm rounded p-4">
+                                    <div class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 text-blue-500">
+                                        <svg  class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g id="_x32_1_x2C__Bingo_x2C__Lottery_x2C__Bet_x2C__Bingo_x2C__Gambling_x2C__Gaming_x2C__Card_x2C__Check"><g><path style="fill:#FFFFFF;" d="M501,41v430c0,16.57-13.43,30-30,30H41c-16.57,0-30-13.43-30-30V41c0-16.57,13.43-30,30-30h430    C487.57,11,501,24.43,501,41z"/><polygon style="fill:#FFFFFF;" points="456,261 456,311 431,320.867 406,311 397,286.6 406,261   "/><polygon style="fill:#FFFFFF;" points="356,261 365.4,286.2 356,311 331,318.733 306,311 295.8,287.8 306,261   "/><polygon style="fill:#FFFFFF;" points="256,261 261.8,286.2 256,311 231,323 206,311 198.6,286.6 206,261   "/><polygon style="fill:#FFFFFF;" points="156,261 161.8,284.2 156,311 131,318.733 106,311 100.6,286.6 106,261   "/><polygon style="fill:#FFFFFF;" points="406,261 406,311 381,320.867 356,311 356,261   "/><polygon style="fill:#FFFFFF;" points="306,261 306,311 281,320.867 256,311 256,261   "/><polygon style="fill:#FFFFFF;" points="206,261 206,311 181,318.733 156,311 156,261   "/><polygon style="fill:#FFFFFF;" points="106,261 106,311 81,318.733 56,311 56,261   "/><polygon style="fill:#FFFFFF;" points="456,310.835 456,360.835 431,370.702 406,360.835 397,336.435 406,310.835   "/><polygon style="fill:#FFFFFF;" points="356,310.835 365.4,336.035 356,360.835 331,368.568 306,360.835 295.8,337.635     306,310.835   "/><polygon style="fill:#FFFFFF;" points="256,310.835 261.8,336.035 256,360.835 231,372.835 206,360.835 198.6,336.435     206,310.835   "/><polygon style="fill:#FFFFFF;" points="156,310.835 161.8,334.035 156,360.835 131,368.568 106,360.835 100.6,336.435     106,310.835   "/><polygon style="fill:#FFFFFF;" points="406,310.835 406,360.835 381,370.702 356,360.835 356,310.835   "/><polygon style="fill:#FFFFFF;" points="306,310.835 306,360.835 281,370.702 256,360.835 256,310.835   "/><polygon style="fill:#FFFFFF;" points="206,310.835 206,360.835 181,368.568 156,360.835 156,310.835   "/><polygon style="fill:#FFFFFF;" points="106,310.835 106,360.835 81,368.568 56,360.835 56,310.835   "/><polygon style="fill:#FFFFFF;" points="456,360.67 456,410.67 431,420.537 406,410.67 397,386.27 406,360.67   "/><polygon style="fill:#FFFFFF;" points="356,360.67 365.4,385.87 356,410.67 331,418.403 306,410.67 295.8,387.47 306,360.67   "/><polygon style="fill:#FFFFFF;" points="256,360.67 261.8,385.87 256,410.67 231,422.67 206,410.67 198.6,386.27 206,360.67   "/><polygon style="fill:#FFFFFF;" points="156,360.67 161.8,383.87 156,410.67 131,418.403 106,410.67 100.6,386.27 106,360.67   "/><polygon style="fill:#FFFFFF;" points="406,360.67 406,410.67 381,420.537 356,410.67 356,360.67   "/><polygon style="fill:#FFFFFF;" points="306,360.67 306,410.67 281,420.537 256,410.67 256,360.67   "/><polygon style="fill:#FFFFFF;" points="206,360.67 206,410.67 181,418.403 156,410.67 156,360.67   "/><polygon style="fill:#FFFFFF;" points="106,360.67 106,410.67 81,418.403 56,410.67 56,360.67   "/><polygon style="fill:#FFFFFF;" points="456,410.505 456,460.505 406,460.505 397,436.105 406,410.505   "/><polygon style="fill:#FFFFFF;" points="356,410.505 365.4,435.705 356,460.505 306,460.505 295.8,437.305 306,410.505   "/><polygon style="fill:#FFFFFF;" points="256,410.505 261.8,435.705 256,460.505 206,460.505 198.6,436.105 206,410.505   "/><polygon style="fill:#FFFFFF;" points="156,410.505 161.8,433.705 156,460.505 106,460.505 100.6,436.105 106,410.505   "/><rect x="356" y="410.505" style="fill:#FFFFFF;" width="50" height="50"/><rect x="256" y="410.505" style="fill:#FFFFFF;" width="50" height="50"/><rect x="156" y="410.505" style="fill:#FFFFFF;" width="50" height="50"/><rect x="56" y="410.505" style="fill:#FFFFFF;" width="50" height="50"/><rect x="81" y="171" style="fill:#9DCAFC;" width="350" height="50"/><g><path style="fill:#4269A7;" d="M471,1H41C18.944,1,1,18.944,1,41v430c0,22.056,17.944,40,40,40h430c22.056,0,40-17.944,40-40V41     C511,18.944,493.056,1,471,1z M491,471c0,11.028-8.972,20-20,20H41c-11.028,0-20-8.972-20-20V41c0-11.028,8.972-20,20-20h430     c11.028,0,20,8.972,20,20V471z"/><path style="fill:#4269A7;" d="M61,141h20c16.542,0,30-13.458,30-30c0-7.678-2.902-14.688-7.663-20     C108.098,85.688,111,78.678,111,71c0-16.542-13.458-30-30-30H61c-5.523,0-10,4.477-10,10c0,9.679,0,70.257,0,80     C51,136.523,55.477,141,61,141z M81,121H71v-20h10c5.514,0,10,4.486,10,10S86.514,121,81,121z M91,71c0,5.514-4.486,10-10,10H71     V61h10C86.514,61,91,65.486,91,71z"/><path style="fill:#4269A7;" d="M141,141c5.523,0,10-4.477,10-10V51c0-5.523-4.477-10-10-10s-10,4.477-10,10v80     C131,136.523,135.477,141,141,141z"/><path style="fill:#4269A7;" d="M181,141c5.523,0,10-4.477,10-10V85.868l31.52,50.432c2.379,3.807,6.976,5.535,11.237,4.313     c4.288-1.229,7.243-5.151,7.243-9.612V51c0-5.523-4.477-10-10-10s-10,4.477-10,10v45.132L189.48,45.7     c-2.364-3.783-6.948-5.543-11.237-4.313C173.955,42.617,171,46.539,171,51v80C171,136.523,175.477,141,181,141z"/><path style="fill:#4269A7;" d="M311,141h20c5.523,0,10-4.477,10-10V91c0-5.523-4.477-10-10-10h-20c-5.523,0-10,4.477-10,10     s4.477,10,10,10h10v20h-10c-16.542,0-30-13.458-30-30s13.458-30,30-30h20c5.523,0,10-4.477,10-10s-4.477-10-10-10h-20     c-27.57,0-50,22.43-50,50S283.43,141,311,141z"/><path style="fill:#4269A7;" d="M411,141c27.57,0,50-22.43,50-50s-22.43-50-50-50s-50,22.43-50,50S383.43,141,411,141z M411,61     c16.542,0,30,13.458,30,30s-13.458,30-30,30s-30-13.458-30-30S394.458,61,411,61z"/><path style="fill:#4269A7;" d="M81,161c-5.523,0-10,4.477-10,10v50c0,5.523,4.477,10,10,10h350c5.523,0,10-4.477,10-10v-50     c0-5.523-4.477-10-10-10H81z M421,211H91v-30h330V211z"/><path style="fill:#4269A7;" d="M456,251c-310.093,0-39.145,0-400,0c-5.523,0-10,4.477-10,10c0,17.6,0,173.464,0,200     c0,5.523,4.477,10,10,10c146.31,0,253.183,0,400,0c5.523,0,10-4.477,10-10c0-17.6,0-173.464,0-200     C466,255.477,461.523,251,456,251z M446,351h-30v-30h30V351z M396,351h-30v-30h30V351z M346,351h-30v-30h30V351z M296,351h-30     v-30h30V351z M246,351h-30v-30h30V351z M196,351h-30v-30h30V351z M146,351h-30v-30h30V351z M96,351H66v-30h30V351z M66,371h30v30     H66V371z M116,371h30v30h-30V371z M166,371h30v30h-30V371z M216,371h30v30h-30V371z M266,371h30v30h-30V371z M316,371h30v30h-30     V371z M366,371h30v30h-30V371z M416,371h30v30h-30V371z M446,301h-30v-30h30V301z M396,301h-30v-30h30V301z M346,301h-30v-30h30     V301z M296,301h-30v-30h30V301z M246,301h-30v-30h30V301z M196,301h-30v-30h30V301z M146,301h-30v-30h30V301z M66,271h30v30H66     V271z M66,421h30v30H66V421z M116,421h30v30h-30V421z M166,421h30v30h-30V421z M216,421h30v30h-30V421z M266,421h30v30h-30V421z      M316,421h30v30h-30V421z M366,421h30v30h-30V421z M446,451h-30v-30h30V451z"/></g></g></g><g id="Layer_1"/></svg>
+                                       
+                                    </div>
+                                    <div class="flex flex-col flex-grow ml-4">
+                                        <div class="text-xs md:text-base text-blue-500 font-bold">MODALIDAD</div>
+    
+                                        @if($ganador_1 == 0 )
+                                        <div class="font-semibold text-sm">{{$sorteo->type_3}}</div>
+    
+                                        @endif
+    
+                                    @if($ganador_2 == 0 && $ganador_1 == 1)
+                                    <div class="font-semibold text-sm">{{$sorteo->type_2}}</div>
+                                    @endif
+    
+                                    @if($ganador_3 == 0 && $ganador_2 == 1)
+                                    <div class="font-semibold text-sm">{{$sorteo->type_1}}</div>
+                                    @endif
+    
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-span-2 lg:col-span-1 ">
+                                    <div class="flex flex-row bg-white shadow-sm rounded p-4">
+                                    <div class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 text-blue-500">
+                                        <svg  class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g id="_x32_1_x2C__Bingo_x2C__Lottery_x2C__Bet_x2C__Bingo_x2C__Gambling_x2C__Gaming_x2C__Card_x2C__Check"><g><path style="fill:#FFFFFF;" d="M501,41v430c0,16.57-13.43,30-30,30H41c-16.57,0-30-13.43-30-30V41c0-16.57,13.43-30,30-30h430    C487.57,11,501,24.43,501,41z"/><polygon style="fill:#FFFFFF;" points="456,261 456,311 431,320.867 406,311 397,286.6 406,261   "/><polygon style="fill:#FFFFFF;" points="356,261 365.4,286.2 356,311 331,318.733 306,311 295.8,287.8 306,261   "/><polygon style="fill:#FFFFFF;" points="256,261 261.8,286.2 256,311 231,323 206,311 198.6,286.6 206,261   "/><polygon style="fill:#FFFFFF;" points="156,261 161.8,284.2 156,311 131,318.733 106,311 100.6,286.6 106,261   "/><polygon style="fill:#FFFFFF;" points="406,261 406,311 381,320.867 356,311 356,261   "/><polygon style="fill:#FFFFFF;" points="306,261 306,311 281,320.867 256,311 256,261   "/><polygon style="fill:#FFFFFF;" points="206,261 206,311 181,318.733 156,311 156,261   "/><polygon style="fill:#FFFFFF;" points="106,261 106,311 81,318.733 56,311 56,261   "/><polygon style="fill:#FFFFFF;" points="456,310.835 456,360.835 431,370.702 406,360.835 397,336.435 406,310.835   "/><polygon style="fill:#FFFFFF;" points="356,310.835 365.4,336.035 356,360.835 331,368.568 306,360.835 295.8,337.635     306,310.835   "/><polygon style="fill:#FFFFFF;" points="256,310.835 261.8,336.035 256,360.835 231,372.835 206,360.835 198.6,336.435     206,310.835   "/><polygon style="fill:#FFFFFF;" points="156,310.835 161.8,334.035 156,360.835 131,368.568 106,360.835 100.6,336.435     106,310.835   "/><polygon style="fill:#FFFFFF;" points="406,310.835 406,360.835 381,370.702 356,360.835 356,310.835   "/><polygon style="fill:#FFFFFF;" points="306,310.835 306,360.835 281,370.702 256,360.835 256,310.835   "/><polygon style="fill:#FFFFFF;" points="206,310.835 206,360.835 181,368.568 156,360.835 156,310.835   "/><polygon style="fill:#FFFFFF;" points="106,310.835 106,360.835 81,368.568 56,360.835 56,310.835   "/><polygon style="fill:#FFFFFF;" points="456,360.67 456,410.67 431,420.537 406,410.67 397,386.27 406,360.67   "/><polygon style="fill:#FFFFFF;" points="356,360.67 365.4,385.87 356,410.67 331,418.403 306,410.67 295.8,387.47 306,360.67   "/><polygon style="fill:#FFFFFF;" points="256,360.67 261.8,385.87 256,410.67 231,422.67 206,410.67 198.6,386.27 206,360.67   "/><polygon style="fill:#FFFFFF;" points="156,360.67 161.8,383.87 156,410.67 131,418.403 106,410.67 100.6,386.27 106,360.67   "/><polygon style="fill:#FFFFFF;" points="406,360.67 406,410.67 381,420.537 356,410.67 356,360.67   "/><polygon style="fill:#FFFFFF;" points="306,360.67 306,410.67 281,420.537 256,410.67 256,360.67   "/><polygon style="fill:#FFFFFF;" points="206,360.67 206,410.67 181,418.403 156,410.67 156,360.67   "/><polygon style="fill:#FFFFFF;" points="106,360.67 106,410.67 81,418.403 56,410.67 56,360.67   "/><polygon style="fill:#FFFFFF;" points="456,410.505 456,460.505 406,460.505 397,436.105 406,410.505   "/><polygon style="fill:#FFFFFF;" points="356,410.505 365.4,435.705 356,460.505 306,460.505 295.8,437.305 306,410.505   "/><polygon style="fill:#FFFFFF;" points="256,410.505 261.8,435.705 256,460.505 206,460.505 198.6,436.105 206,410.505   "/><polygon style="fill:#FFFFFF;" points="156,410.505 161.8,433.705 156,460.505 106,460.505 100.6,436.105 106,410.505   "/><rect x="356" y="410.505" style="fill:#FFFFFF;" width="50" height="50"/><rect x="256" y="410.505" style="fill:#FFFFFF;" width="50" height="50"/><rect x="156" y="410.505" style="fill:#FFFFFF;" width="50" height="50"/><rect x="56" y="410.505" style="fill:#FFFFFF;" width="50" height="50"/><rect x="81" y="171" style="fill:#9DCAFC;" width="350" height="50"/><g><path style="fill:#4269A7;" d="M471,1H41C18.944,1,1,18.944,1,41v430c0,22.056,17.944,40,40,40h430c22.056,0,40-17.944,40-40V41     C511,18.944,493.056,1,471,1z M491,471c0,11.028-8.972,20-20,20H41c-11.028,0-20-8.972-20-20V41c0-11.028,8.972-20,20-20h430     c11.028,0,20,8.972,20,20V471z"/><path style="fill:#4269A7;" d="M61,141h20c16.542,0,30-13.458,30-30c0-7.678-2.902-14.688-7.663-20     C108.098,85.688,111,78.678,111,71c0-16.542-13.458-30-30-30H61c-5.523,0-10,4.477-10,10c0,9.679,0,70.257,0,80     C51,136.523,55.477,141,61,141z M81,121H71v-20h10c5.514,0,10,4.486,10,10S86.514,121,81,121z M91,71c0,5.514-4.486,10-10,10H71     V61h10C86.514,61,91,65.486,91,71z"/><path style="fill:#4269A7;" d="M141,141c5.523,0,10-4.477,10-10V51c0-5.523-4.477-10-10-10s-10,4.477-10,10v80     C131,136.523,135.477,141,141,141z"/><path style="fill:#4269A7;" d="M181,141c5.523,0,10-4.477,10-10V85.868l31.52,50.432c2.379,3.807,6.976,5.535,11.237,4.313     c4.288-1.229,7.243-5.151,7.243-9.612V51c0-5.523-4.477-10-10-10s-10,4.477-10,10v45.132L189.48,45.7     c-2.364-3.783-6.948-5.543-11.237-4.313C173.955,42.617,171,46.539,171,51v80C171,136.523,175.477,141,181,141z"/><path style="fill:#4269A7;" d="M311,141h20c5.523,0,10-4.477,10-10V91c0-5.523-4.477-10-10-10h-20c-5.523,0-10,4.477-10,10     s4.477,10,10,10h10v20h-10c-16.542,0-30-13.458-30-30s13.458-30,30-30h20c5.523,0,10-4.477,10-10s-4.477-10-10-10h-20     c-27.57,0-50,22.43-50,50S283.43,141,311,141z"/><path style="fill:#4269A7;" d="M411,141c27.57,0,50-22.43,50-50s-22.43-50-50-50s-50,22.43-50,50S383.43,141,411,141z M411,61     c16.542,0,30,13.458,30,30s-13.458,30-30,30s-30-13.458-30-30S394.458,61,411,61z"/><path style="fill:#4269A7;" d="M81,161c-5.523,0-10,4.477-10,10v50c0,5.523,4.477,10,10,10h350c5.523,0,10-4.477,10-10v-50     c0-5.523-4.477-10-10-10H81z M421,211H91v-30h330V211z"/><path style="fill:#4269A7;" d="M456,251c-310.093,0-39.145,0-400,0c-5.523,0-10,4.477-10,10c0,17.6,0,173.464,0,200     c0,5.523,4.477,10,10,10c146.31,0,253.183,0,400,0c5.523,0,10-4.477,10-10c0-17.6,0-173.464,0-200     C466,255.477,461.523,251,456,251z M446,351h-30v-30h30V351z M396,351h-30v-30h30V351z M346,351h-30v-30h30V351z M296,351h-30     v-30h30V351z M246,351h-30v-30h30V351z M196,351h-30v-30h30V351z M146,351h-30v-30h30V351z M96,351H66v-30h30V351z M66,371h30v30     H66V371z M116,371h30v30h-30V371z M166,371h30v30h-30V371z M216,371h30v30h-30V371z M266,371h30v30h-30V371z M316,371h30v30h-30     V371z M366,371h30v30h-30V371z M416,371h30v30h-30V371z M446,301h-30v-30h30V301z M396,301h-30v-30h30V301z M346,301h-30v-30h30     V301z M296,301h-30v-30h30V301z M246,301h-30v-30h30V301z M196,301h-30v-30h30V301z M146,301h-30v-30h30V301z M66,271h30v30H66     V271z M66,421h30v30H66V421z M116,421h30v30h-30V421z M166,421h30v30h-30V421z M216,421h30v30h-30V421z M266,421h30v30h-30V421z      M316,421h30v30h-30V421z M366,421h30v30h-30V421z M446,451h-30v-30h30V451z"/></g></g></g><g id="Layer_1"/></svg>
+                                       
+                                    </div>
+                                    <div class="flex flex-col flex-grow ml-4">
+                                        <div class="text-xs md:text-base text-blue-500 font-bold">MODALIDADES</div>
+
+                                        <div class="font-semibold text-sm">@livewire('sorteo.info-modalidades',['sorteo_select' => $sorteo->id, 'tipo' => 'Jugar']) </div>
+    
+                     
+    
+                                  
+    
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-span-2 lg:col-span-1 ">
+                                    <div class="flex flex-row bg-white shadow-sm rounded p-4">
+                                    <div class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 text-blue-500">
+                                     
+                                    
+                                        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><style type="text/css">
+                                            .st0{display:none;}
+                                            .st1{display:inline;}
+                                            .st2{fill:#CDF6F9;}
+                                            .st3{fill:#FFFFFF;}
+                                            .st4{fill:#1A83A8;}
+                                        </style><g id="Layer_1" class="st0"/><g id="Layer_2"/><g id="Layer_3"/><g id="Layer_4"/><g id="Layer_5"/><g id="Layer_6"><circle class="st2" cx="16" cy="20.667" r="8.333"/><path class="st3" d="M16.383,16.901l1.066,1.706l1.952,0.486c0.324,0.081,0.451,0.473,0.237,0.728l-1.293,1.541l0.141,2.007   c0.023,0.333-0.31,0.575-0.619,0.45L16,23.065l-1.865,0.754c-0.309,0.125-0.643-0.117-0.619-0.45l0.141-2.007l-1.293-1.541   c-0.214-0.256-0.087-0.647,0.237-0.728l1.952-0.486l1.066-1.706C15.794,16.618,16.206,16.618,16.383,16.901z"/><path class="st2" d="M24.5,4.5l-3.23,9.71C19.83,13.03,18,12.33,16,12.33s-3.83,0.7-5.27,1.88L7.5,4.5C7.25,3.76,7.8,3,8.58,3   h14.84C24.2,3,24.75,3.76,24.5,4.5z"/><path class="st3" d="M19.21,3l-1.14,9.59c-0.66-0.17-1.36-0.26-2.07-0.26s-1.41,0.09-2.07,0.26L12.79,3H19.21z"/><path class="st4" d="M19.618,18.22l-1.6-0.398l-0.872-1.397c-0.498-0.796-1.795-0.796-2.293,0l-0.872,1.397l-1.6,0.398   c-0.455,0.113-0.813,0.447-0.958,0.894c-0.146,0.446-0.052,0.927,0.25,1.286l1.06,1.262l-0.115,1.644   c-0.033,0.468,0.174,0.912,0.554,1.188c0.235,0.171,0.513,0.259,0.792,0.259c0.171,0,0.344-0.033,0.508-0.1L16,24.035l1.527,0.617   c0.435,0.176,0.922,0.117,1.301-0.159c0.38-0.276,0.587-0.72,0.554-1.188l-0.115-1.644l1.06-1.262   c0.302-0.359,0.396-0.84,0.25-1.286C20.432,18.667,20.073,18.333,19.618,18.22z M17.654,20.783   c-0.15,0.179-0.225,0.409-0.208,0.642l0.09,1.29l-1.199-0.485c-0.107-0.043-0.223-0.065-0.337-0.065s-0.229,0.022-0.337,0.065   l-1.199,0.485l0.09-1.29c0.017-0.233-0.058-0.463-0.208-0.642l-0.831-0.99l1.255-0.313c0.227-0.057,0.422-0.199,0.546-0.397   L16,17.987l0.685,1.097c0.124,0.198,0.319,0.34,0.546,0.397l1.255,0.313L17.654,20.783z"/><path class="st4" d="M25.072,2.948C24.689,2.417,24.07,2.1,23.415,2.1H8.585c-0.655,0-1.274,0.317-1.657,0.848   C6.545,3.479,6.439,4.167,6.646,4.788l3.047,9.154c-1.796,1.686-2.927,4.073-2.927,6.725c0,5.091,4.143,9.233,9.233,9.233   s9.233-4.142,9.233-9.233c0-2.652-1.13-5.039-2.927-6.725l3.047-9.154C25.561,4.167,25.455,3.479,25.072,2.948z M16,11.434   c-0.439,0-0.867,0.041-1.29,0.101L13.803,3.9h4.394l-0.907,7.635C16.867,11.475,16.439,11.434,16,11.434z M8.354,4.219   C8.321,4.122,8.354,4.047,8.388,4.001S8.481,3.9,8.585,3.9h3.406l0.958,8.063c-0.613,0.216-1.196,0.494-1.743,0.828L8.354,4.219z    M23.433,20.667c0,4.099-3.334,7.434-7.433,7.434s-7.433-3.335-7.433-7.434s3.334-7.433,7.433-7.433S23.433,16.568,23.433,20.667z    M23.646,4.219l-2.853,8.571c-0.547-0.334-1.129-0.612-1.743-0.828L20.009,3.9h3.406c0.104,0,0.164,0.055,0.197,0.101   S23.679,4.122,23.646,4.219z"/></g><g id="Layer_7"/><g id="Layer_8"/><g id="Layer_9"/><g id="Layer_10"/><g id="Layer_11"/><g id="Layer_12"/><g id="Layer_13"/><g id="Layer_14"/><g id="Layer_15"/><g id="Layer_16"/><g id="Layer_17"/><g id="Layer_18"/><g id="Layer_19"/><g id="Layer_20"/><g id="Layer_21"/><g id="Layer_22"/><g id="Layer_23"/><g id="Layer_24"/><g id="Layer_25"/><g id="Layer_26"/></svg>
+                                    </div>
+                                    <div class="flex flex-col flex-grow ml-4">
+                                        <div class="text-xs md:text-base text-blue-500 font-bold">LUGAR NRO</div>
+    
+                                        @if($ganador_1 == 0 )
+                                        <div class="font-semibold text-sm">Tercero</div>
+    
+                                        @endif
+    
+                                        @if($ganador_2 == 0 && $ganador_1 == 1)
+                                        <div class="font-semibold text-sm">Segundo</div>
+                                        @endif
+        
+                                        @if($ganador_3 == 0 && $ganador_2 == 1)
+                                        <div class="font-semibold text-sm">Primero</div>
+                                        @endif
+    
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
+                        <div class="w-full bg-white border p-2 border-gray-200 rounded-b-lg shadow ">
 
                             <div id="accordion-flush" data-accordion="collapse"
                                 data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
@@ -2260,7 +2374,7 @@
 
                                 <h2 id="accordion-flush-heading-3">
                                     <button wire:click="visible_todos" type="button" class="flex justify-between items-center py-5 w-full font-medium text-left text-gray-500  border-gray-200 dark:border-gray-700 dark:text-gray-400 focus:outline-none  " data-accordion-target="#accordion-flush-body-3" aria-expanded="false" aria-controls="accordion-flush-body-3">
-                                        <span class="font-Arima text-blue-600 font-bold text-center ml-4">CARTONES DE TODOS LOS PARTICIPANTES</span>
+                                        <span class="font-Arima text-blue-600 font-bold text-center text-sm md:text-base ml-4">CARTONES DE TODOS LOS PARTICIPANTES</span>
                                         <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                     </button>
                                 </h2>
@@ -2382,9 +2496,9 @@
 
                         <div class="grid grid-cols-5 md:grid-cols-8 gap-1 mt-4">
 
-                            <aside class="col-start-1 col-end-6 overflow-y-hidden md:col-span-1 overflow-x-auto md:h-162 md:overflow-x-hidden md:overflow-y-auto bg-blue-100 border p-2 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700  " >
+                            <aside class="col-start-1 col-end-6 overflow-y-hidden md:col-span-1 overflow-x-auto md:h-162 md:overflow-x-hidden md:overflow-y-auto bg-blue-500 border p-2 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700  " >
                                 <div class="w-full flex justify-start md:flex-col md:max-h-96">
-                                    <p class=" font-Arima text-blue-600 font-bold text-center text-sm md:text-base ">FICHAS</p>
+                                    <p class=" font-Arima text-white font-bold text-center text-sm md:text-base ">FICHAS</p>
                                     @foreach($fichas as $ficha)
                                             <div class="relative mr-2 md:mr-0 md:w-full  mt-7">
                                                 @if($ficha_ultima == $ficha->id)
@@ -2496,7 +2610,7 @@
 
                                 <div class="mt-4">
                                     @foreach($cartones_ganadores as $cg)
-                                        <div class="py-1 md:py-2 md:px-12 ">
+                                        <div class="py-1 md:py-2 md:px-6 ">
                                                 <div class=" bg-blue-500 rounded-md shadow-md overflow-hidden md:max-w-xl ">
                                                     <div class="grid grid-cols-5 gap-0.5 justify-center  mb-0.5 mt-1">  
                                             
@@ -2829,8 +2943,9 @@
                                                                 @endif 
                                                             @endif 
 
+
                                                             @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '5')
-                                                                @if($this->posicion($item,'5',$cg->carton->id) == '0' || $this->posicion($item,'3',$cg->carton->id) == '1' || $this->posicion($item,'5',$cg->carton->id) == '2' || $this->posicion($item,'5',$cg->carton->id) == '3' || $this->posicion($item,'5',$cg->carton->id) == '4')
+                                                                @if($this->posicion($item,'5',$cg->carton->id) == '0' || $this->posicion($item,'5',$cg->carton->id) == '1' || $this->posicion($item,'5',$cg->carton->id) == '2' || $this->posicion($item,'5',$cg->carton->id) == '3' || $this->posicion($item,'5',$cg->carton->id) == '4')
                                                                      bg-yellow-500 
                                                                 @endif 
                                                             @endif 
@@ -2939,7 +3054,7 @@
                     
 
 
-                        <div class=" bg-white border p-2 overflow-x-auto border-gray-200 rounded-lg shadow  mt-4">
+                        <div class=" bg-white border p-2 overflow-x-auto border-gray-200 rounded-lg shadow w-full  mt-4">
                             <div class="flex justify-center">
                                 <img width="54" height="30" class="w-[54px]"
                                     src="https://horizon-ui.com/shadcn-nextjs-boilerplate/_next/static/media/SidebarBadge.d6d6c919.png"
@@ -2948,439 +3063,439 @@
                             </div>  
 
                                 <p class=" font-Arima text-blue-600 font-bold text-center mt-4"  >CARTONES GANADORES</p>
-                                <div class="flex justify-center text-center overflow-x-auto ">
+                                <div class="flex overflow-x-auto text-center  ">
 
          
                                         @foreach($cartones_ganadores as $cg)
-                                        <div class="py-1 md:py-2 md:px-12 ">
-                                                <div class=" bg-blue-500 rounded-md shadow-md overflow-hidden w-40 mr-2  ">
-                                                    <div class="grid grid-cols-5 gap-0.5 justify-center  mb-0.5 mt-1">  
-                                            
-                                                        <div class=" bg-blue-500 text-white justify-center ml-1 text-xs text-center  py-2 font-bold">B</div>  
-                                                        <div class=" bg-blue-500 text-white justify-center mx-0.5 text-xs  text-center  py-2 font-bold">I</div>  
-                                                        <div class=" bg-blue-500 text-white justify-center mx-0.5 text-xs  text-center py-2  font-bold">N</div>  
-                                                        <div class=" bg-blue-500 text-white justify-center mx-0.5 text-xs  text-center py-2  font-bold">G</div>  
-                                                        <div class=" bg-blue-500 text-white justify-center mr-1 text-xs  text-center py-2  font-bold">O</div>  
-                                                    </div>  
-                                            
-                                                    <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5 ">  
-                                                        @foreach (json_decode($cg->carton->content_1) as $item)
-                                                        
-                                                            <div class="bg-gray-100
-                                                                @if($cg->type == 'Cuatro esquinas')
-                                                                    @if($this->posicion($item,'1',$cg->carton->id) == '0' || $this->posicion($item,'1',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif 
-
-                                                                @if($cg->type == 'Cartón lleno')
-                                                                    @if($this->posicion($item,'1',$cg->carton->id) == '0' || $this->posicion($item,'1',$cg->carton->id) == '1' || $this->posicion($item,'1',$cg->carton->id) == '2' || $this->posicion($item,'1',$cg->carton->id) == '3' || $this->posicion($item,'1',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif 
-
-                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '1')
-                                                                    @if($this->posicion($item,'1',$cg->carton->id) == '0' || $this->posicion($item,'1',$cg->carton->id) == '1' || $this->posicion($item,'1',$cg->carton->id) == '2' || $this->posicion($item,'1',$cg->carton->id) == '3' || $this->posicion($item,'1',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif 
-
-                                                                  @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '1')
-                                                                     @if($this->posicion($item,'1',$cg->carton->id) == '0')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '2')
-                                                                     @if($this->posicion($item,'1',$cg->carton->id) == '1')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '3')
-                                                                     @if($this->posicion($item,'1',$cg->carton->id) == '2')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '4')
-                                                                     @if($this->posicion($item,'1',$cg->carton->id) == '3')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '5')
-                                                                     @if($this->posicion($item,'1',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-
-                                                    
-
-                                                                @if($cg->type == 'Cuatro esquinas')
-                                                                    @if($this->posicion($item,'1',$cg->carton->id) == '0' || $this->posicion($item,'1',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif
-
-                                                                @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Izquierda')
-                                                                    @if($this->posicion($item,'1',$cg->carton->id) == '0')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif
-
-                                                                @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Derecha')
-                                                                    @if($this->posicion($item,'1',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif 
-
-                                                                 @if($cg->type == 'Cruz G.')
-                                                                    @if($this->posicion($item,'1',$cg->carton->id) == '2')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif
-                                                                
-                                                                text-xs justify-center text-center py-2 font-bold">
-                                                                
-                                                                {{$item}}
-                                                            </div>  
-                                                        @endforeach
-                                                    </div>  
-                                            
-                                                    <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5">  
-                                                        @foreach (json_decode($cg->carton->content_2) as $item)
-                                                            <div class="bg-gray-100  
-
-                                                                @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Izquierda')
-                                                                    @if($this->posicion($item,'2',$cg->carton->id) == '1')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif 
-
-                                                                @if($cg->type == 'Cartón lleno')
-                                                                    @if($this->posicion($item,'2',$cg->carton->id) == '0' || $this->posicion($item,'2',$cg->carton->id) == '1' || $this->posicion($item,'2',$cg->carton->id) == '2' || $this->posicion($item,'2',$cg->carton->id) == '3' || $this->posicion($item,'2',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif
-
-
-                                                               @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '2')
-                                                                    @if($this->posicion($item,'2',$cg->carton->id) == '0' || $this->posicion($item,'2',$cg->carton->id) == '1' || $this->posicion($item,'2',$cg->carton->id) == '2' || $this->posicion($item,'2',$cg->carton->id) == '3' || $this->posicion($item,'2',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif 
-
-                                                                 @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '1')
-                                                                     @if($this->posicion($item,'2',$cg->carton->id) == '0')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '2')
-                                                                     @if($this->posicion($item,'2',$cg->carton->id) == '1')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '3')
-                                                                     @if($this->posicion($item,'2',$cg->carton->id) == '2')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '4')
-                                                                     @if($this->posicion($item,'2',$cg->carton->id) == '3')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '5')
-                                                                     @if($this->posicion($item,'2',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-
-                                                                
-
-                                                                @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Derecha')
-                                                                    @if($this->posicion($item,'2',$cg->carton->id) == '3')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif 
-
-                                                                @if($cg->type == 'Cruz P.')
-                                                                    @if($this->posicion($item,'2',$cg->carton->id) == '2')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif
-
-                                                                text-xs justify-center text-center py-2 font-bold">
-                                                                {{$item}}
-                                                            </div>  
-                                                        @endforeach
-                                                    </div> 
-            
-                                                    <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5">  
-                                                        @foreach (json_decode($cg->carton->content_3) as $item)
-                                                            <div class="bg-gray-100 
-                                                                @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Izquierda')
-                                                                    @if($this->posicion($item,'3',$cg->carton->id) == '2')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif
-
-                                                                @if($cg->type == 'Cartón lleno')
-                                                                    @if($this->posicion($item,'3',$cg->carton->id) == '0' || $this->posicion($item,'3',$cg->carton->id) == '1' || $this->posicion($item,'3',$cg->carton->id) == '2' || $this->posicion($item,'3',$cg->carton->id) == '3' || $this->posicion($item,'3',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif 
-
-                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '3')
-                                                                    @if($this->posicion($item,'3',$cg->carton->id) == '0' || $this->posicion($item,'3',$cg->carton->id) == '1' || $this->posicion($item,'3',$cg->carton->id) == '2' || $this->posicion($item,'3',$cg->carton->id) == '3' || $this->posicion($item,'3',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif 
-
-                                                                 @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '1')
-                                                                     @if($this->posicion($item,'3',$cg->carton->id) == '0')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '2')
-                                                                     @if($this->posicion($item,'3',$cg->carton->id) == '1')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '3')
-                                                                     @if($this->posicion($item,'3',$cg->carton->id) == '2')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '4')
-                                                                     @if($this->posicion($item,'3',$cg->carton->id) == '3')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '5')
-                                                                     @if($this->posicion($item,'3',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                                
-             
-
-                                                                @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Derecha')
-                                                                    @if($this->posicion($item,'3',$cg->carton->id) == '2')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif 
-
-                                                                @if($cg->type == 'Cruz P.')
-                                                                    @if($this->posicion($item,'3',$cg->carton->id) == '3' ||  $this->posicion($item,'3',$cg->carton->id) == '2' || $this->posicion($item,'3',$cg->carton->id) == '1')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif
-
-                                                                @if($cg->type == 'Cruz G.')
-                                                                    @if($this->posicion($item,'3',$cg->carton->id) == '0' || $this->posicion($item,'3',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif
-
-                                                                text-xs justify-center text-center py-2 font-bold">
-                                                                {{$item}}
-                                                            </div>  
-                                                        @endforeach
-                                                    </div> 
-                                            
-                                                    <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5">
-                                                        @foreach (json_decode($cg->carton->content_4) as $item)
-                                                            <div class="bg-gray-100 
-                                                                @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Izquierda')
-                                                                    @if($this->posicion($item,'4',$cg->carton->id) == '3')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif 
-
-                                                                @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Derecha')
-                                                                    @if($this->posicion($item,'4',$cg->carton->id) == '1')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif 
-
-                                                                @if($cg->type == 'Cartón lleno')
-                                                                    @if($this->posicion($item,'4',$cg->carton->id) == '0' || $this->posicion($item,'4',$cg->carton->id) == '1' || $this->posicion($item,'4',$cg->carton->id) == '2' || $this->posicion($item,'4',$cg->carton->id) == '3' || $this->posicion($item,'4',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif 
-
-                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '4')
-                                                                    @if($this->posicion($item,'4',$cg->carton->id) == '0' || $this->posicion($item,'4',$cg->carton->id) == '1' || $this->posicion($item,'4',$cg->carton->id) == '2' || $this->posicion($item,'4',$cg->carton->id) == '3' || $this->posicion($item,'4',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif 
-
-
-                                                                 @if($cg->type == 'Cruz P.')
-                                                                    @if($this->posicion($item,'4',$cg->carton->id) == '2')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                                @endif
-
-                                                                 
-
-                                                                 @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '1')
-                                                                     @if($this->posicion($item,'4',$cg->carton->id) == '0')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '2')
-                                                                     @if($this->posicion($item,'4',$cg->carton->id) == '1')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '3')
-                                                                     @if($this->posicion($item,'4',$cg->carton->id) == '2')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '4')
-                                                                     @if($this->posicion($item,'4',$cg->carton->id) == '3')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '5')
-                                                                     @if($this->posicion($item,'4',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                                text-xs justify-center text-center py-2 font-bold">
-                                                                    {{$item}}
-                                                            </div>  
-                                                        @endforeach
-                                                    </div> 
-                                            
-                                                    <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5">  
-                                                        @foreach (json_decode($cg->carton->content_5) as $item)
-                                                            <div class="bg-gray-100 
-                                                            @if($cg->type == 'Cuatro esquinas') 
-                                                                @if($this->posicion($item,'5',$cg->carton->id) == '0' || $this->posicion($item,'5',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                @endif
-                                                            @endif
-
-                                                            @if($cg->type == 'Cartón lleno')
-                                                                @if($this->posicion($item,'5',$cg->carton->id) == '0' || $this->posicion($item,'5',$cg->carton->id) == '1' || $this->posicion($item,'5',$cg->carton->id) == '2' || $this->posicion($item,'5',$cg->carton->id) == '3' || $this->posicion($item,'5',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                @endif 
-                                                            @endif 
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '5')
-                                                                @if($this->posicion($item,'5',$cg->carton->id) == '0' || $this->posicion($item,'5',$cg->carton->id) == '1' || $this->posicion($item,'5',$cg->carton->id) == '2' || $this->posicion($item,'5',$cg->carton->id) == '3' || $this->posicion($item,'5',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                @endif 
-                                                            @endif 
-
-
-                                                          
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '1')
-                                                                     @if($this->posicion($item,'5',$cg->carton->id) == '0')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '2')
-                                                                     @if($this->posicion($item,'5',$cg->carton->id) == '1')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '3')
-                                                                     @if($this->posicion($item,'5',$cg->carton->id) == '2')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '4')
-                                                                     @if($this->posicion($item,'5',$cg->carton->id) == '3')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-                                                            @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '5')
-                                                                     @if($this->posicion($item,'5',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif
-
-
-
-                                                            @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Izquierda')
-                                                                    @if($this->posicion($item,'5',$cg->carton->id) == '4')
-                                                                     bg-yellow-500 
-                                                                     @endif 
-                                                            @endif 
-
-                                                            @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Derecha')
-                                                                @if($this->posicion($item,'5',$cg->carton->id) == '0')
-                                                                     bg-yellow-500 
+                                            <div class="py-1 md:py-2 md:px-12 ">
+                                                    <div class=" bg-blue-500 rounded-md shadow-md overflow-hidden w-48 mr-2  ">
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center  mb-0.5 mt-1">  
+                                                
+                                                            <div class=" bg-blue-500 text-white justify-center ml-1 text-xs text-center  py-2 font-bold">B</div>  
+                                                            <div class=" bg-blue-500 text-white justify-center mx-0.5 text-xs  text-center  py-2 font-bold">I</div>  
+                                                            <div class=" bg-blue-500 text-white justify-center mx-0.5 text-xs  text-center py-2  font-bold">N</div>  
+                                                            <div class=" bg-blue-500 text-white justify-center mx-0.5 text-xs  text-center py-2  font-bold">G</div>  
+                                                            <div class=" bg-blue-500 text-white justify-center mr-1 text-xs  text-center py-2  font-bold">O</div>  
+                                                        </div>  
+                                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5 ">  
+                                                            @foreach (json_decode($cg->carton->content_1) as $item)
+                                                            
+                                                                <div class="bg-gray-100
+                                                                    @if($cg->type == 'Cuatro esquinas')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '0' || $this->posicion($item,'1',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
                                                                     @endif 
-                                                            @endif 
 
-                                                            @if($cg->type == 'Cruz G.')
-                                                                @if($this->posicion($item,'5',$cg->carton->id) == '2')
-                                                                    bg-yellow-500 
+                                                                    @if($cg->type == 'Cartón lleno')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '0' || $this->posicion($item,'1',$cg->carton->id) == '1' || $this->posicion($item,'1',$cg->carton->id) == '2' || $this->posicion($item,'1',$cg->carton->id) == '3' || $this->posicion($item,'1',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '1')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '0' || $this->posicion($item,'1',$cg->carton->id) == '1' || $this->posicion($item,'1',$cg->carton->id) == '2' || $this->posicion($item,'1',$cg->carton->id) == '3' || $this->posicion($item,'1',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '1')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '0')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '2')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '1')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '3')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '4')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '3')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '5')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+
+                                                        
+
+                                                                    @if($cg->type == 'Cuatro esquinas')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '0' || $this->posicion($item,'1',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Izquierda')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '0')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Derecha')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Cruz G.')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+                                                                    
+                                                                    text-xs justify-center text-center py-2 font-bold">
+                                                                    
+                                                                    {{$item}}
+                                                                </div>  
+                                                            @endforeach
+                                                        </div>  
+                                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5">  
+                                                            @foreach (json_decode($cg->carton->content_2) as $item)
+                                                                <div class="bg-gray-100  
+
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Izquierda')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '1')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Cartón lleno')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '0' || $this->posicion($item,'2',$cg->carton->id) == '1' || $this->posicion($item,'2',$cg->carton->id) == '2' || $this->posicion($item,'2',$cg->carton->id) == '3' || $this->posicion($item,'2',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '2')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '0' || $this->posicion($item,'2',$cg->carton->id) == '1' || $this->posicion($item,'2',$cg->carton->id) == '2' || $this->posicion($item,'2',$cg->carton->id) == '3' || $this->posicion($item,'2',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '1')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '0')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '2')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '1')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '3')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '4')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '3')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '5')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+
+                                                                    
+
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Derecha')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '3')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Cruz P.')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+                                                                    text-xs justify-center text-center py-2 font-bold">
+                                                                    {{$item}}
+                                                                </div>  
+                                                            @endforeach
+                                                        </div> 
+                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5">  
+                                                            @foreach (json_decode($cg->carton->content_3) as $item)
+                                                                <div class="bg-gray-100 
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Izquierda')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+                                                                    @if($cg->type == 'Cartón lleno')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '0' || $this->posicion($item,'3',$cg->carton->id) == '1' || $this->posicion($item,'3',$cg->carton->id) == '2' || $this->posicion($item,'3',$cg->carton->id) == '3' || $this->posicion($item,'3',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '3')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '0' || $this->posicion($item,'3',$cg->carton->id) == '1' || $this->posicion($item,'3',$cg->carton->id) == '2' || $this->posicion($item,'3',$cg->carton->id) == '3' || $this->posicion($item,'3',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '1')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '0')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '2')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '1')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '3')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '4')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '3')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '5')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                    
+                
+
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Derecha')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Cruz P.')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '3' ||  $this->posicion($item,'3',$cg->carton->id) == '2' || $this->posicion($item,'3',$cg->carton->id) == '1')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+                                                                    @if($cg->type == 'Cruz G.')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '0' || $this->posicion($item,'3',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+                                                                    text-xs justify-center text-center py-2 font-bold">
+                                                                    {{$item}}
+                                                                </div>  
+                                                            @endforeach
+                                                        </div> 
+                                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5">
+                                                            @foreach (json_decode($cg->carton->content_4) as $item)
+                                                                <div class="bg-gray-100 
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Izquierda')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '3')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Derecha')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '1')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Cartón lleno')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '0' || $this->posicion($item,'4',$cg->carton->id) == '1' || $this->posicion($item,'4',$cg->carton->id) == '2' || $this->posicion($item,'4',$cg->carton->id) == '3' || $this->posicion($item,'4',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '4')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '0' || $this->posicion($item,'4',$cg->carton->id) == '1' || $this->posicion($item,'4',$cg->carton->id) == '2' || $this->posicion($item,'4',$cg->carton->id) == '3' || $this->posicion($item,'4',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+
+                                                                    @if($cg->type == 'Cruz P.')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+                                                                    
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '1')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '0')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '2')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '1')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '3')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '4')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '3')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '5')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                    text-xs justify-center text-center py-2 font-bold">
+                                                                        {{$item}}
+                                                                </div>  
+                                                            @endforeach
+                                                        </div> 
+                                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5">  
+                                                            @foreach (json_decode($cg->carton->content_5) as $item)
+                                                                <div class="bg-gray-100 
+                                                                @if($cg->type == 'Cuatro esquinas') 
+                                                                    @if($this->posicion($item,'5',$cg->carton->id) == '0' || $this->posicion($item,'5',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                    @endif
+                                                                @endif
+
+                                                                @if($cg->type == 'Cartón lleno')
+                                                                    @if($this->posicion($item,'5',$cg->carton->id) == '0' || $this->posicion($item,'5',$cg->carton->id) == '1' || $this->posicion($item,'5',$cg->carton->id) == '2' || $this->posicion($item,'5',$cg->carton->id) == '3' || $this->posicion($item,'5',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                    @endif 
                                                                 @endif 
-                                                            @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '5')
+                                                                    @if($this->posicion($item,'5',$cg->carton->id) == '0' || $this->posicion($item,'5',$cg->carton->id) == '1' || $this->posicion($item,'5',$cg->carton->id) == '2' || $this->posicion($item,'5',$cg->carton->id) == '3' || $this->posicion($item,'5',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                    @endif 
+                                                                @endif 
+
 
                                                             
 
-                                                            text-xs justify-center text-center py-2 font-bold">{{$item}}</div>  
-                                                        @endforeach
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '1')
+                                                                        @if($this->posicion($item,'5',$cg->carton->id) == '0')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '2')
+                                                                        @if($this->posicion($item,'5',$cg->carton->id) == '1')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '3')
+                                                                        @if($this->posicion($item,'5',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '4')
+                                                                        @if($this->posicion($item,'5',$cg->carton->id) == '3')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '5')
+                                                                        @if($this->posicion($item,'5',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+
+
+                                                                @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Izquierda')
+                                                                        @if($this->posicion($item,'5',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif 
+
+                                                                @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Derecha')
+                                                                    @if($this->posicion($item,'5',$cg->carton->id) == '0')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif 
+
+                                                                @if($cg->type == 'Cruz G.')
+                                                                    @if($this->posicion($item,'5',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                    @endif 
+                                                                @endif
+
+                                                                
+
+                                                                text-xs justify-center text-center py-2 font-bold">{{$item}}</div>  
+                                                            @endforeach
+                                                        </div> 
+                
+                                                        <div class="bg-blue-600 m-1 text-center">
+                                                            <p class=" text-white  text-xs ">CARTÓN NRO. {{$cg->carton->id}}  </p>
+                                                        </div>
+                
+                                                        <div class="bg-blue-500 m-1 text-center">
+                                                            <p class=" text-white text-xs "> {{$this->nombre($cg->user->name)}}</p>
+                                                        </div>
+
+                                                        <div class="bg-blue-500 m-1 text-center">
+                                                        
+
+                                                            <p class=" text-white text-xs ">Ganancia: {{round($this->premio($cg->carton->id),2)}} $ </p>
+                                                        </div>
+
+                                                        <div class="bg-blue-500 m-1 text-center">
+                                                            <p class=" text-white text-xs font-bold  ">Modalidad: {{$cg->type}}  </p>
+                                                        </div>
+
+                                                        <div class="bg-blue-500 m-1 text-center">
+                                                            <p class=" text-white text-xs font-bold uppercase ">LUGAR: {{$cg->lugar}} </p>
+                                                        </div>
+                
+                
                                                     </div> 
-            
-                                                    <div class="bg-blue-600 m-1 text-center">
-                                                        <p class=" text-white  text-xs ">CARTÓN NRO. {{$cg->carton->id}}  </p>
-                                                    </div>
-            
-                                                    <div class="bg-blue-500 m-1 text-center">
-                                                        <p class=" text-white text-xs "> {{$this->nombre($cg->user->name)}}</p>
-                                                    </div>
-
-                                                    <div class="bg-blue-500 m-1 text-center">
-                                                       
-
-                                                        <p class=" text-white text-xs ">Ganancia: {{round($this->premio($cg->carton->id),2)}} $ </p>
-                                                    </div>
-
-                                                    <div class="bg-blue-500 m-1 text-center">
-                                                        <p class=" text-white text-xs font-bold  ">Modalidad: {{$cg->type}}  </p>
-                                                    </div>
-
-                                                    <div class="bg-blue-500 m-1 text-center">
-                                                        <p class=" text-white text-xs font-bold uppercase ">LUGAR: {{$cg->lugar}} </p>
-                                                    </div>
-            
-            
-                                                </div> 
-                                        
-                                        
-                                        </div>
-                                    @endforeach
+                                            
+                                            
+                                            </div>
+                                         @endforeach
                                 
 
                                 </div>
@@ -4424,6 +4539,8 @@
         </div>
 
         <div class=" font-Arima ">
+
+            
 
             <div class="bg-white  shadow-lg">
                 <div class=" py-1 flex justify-center ">

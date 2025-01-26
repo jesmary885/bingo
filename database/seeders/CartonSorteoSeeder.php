@@ -16,7 +16,7 @@ class CartonSorteoSeeder extends Seeder
      */
     public function run()
     {
-        $cartones = Carton::all();
+      /*  $cartones = Carton::all();
         
         foreach($cartones as $carton){
 
@@ -26,7 +26,7 @@ class CartonSorteoSeeder extends Seeder
                 'status_carton' => 'Disponible',
                 'status_juego' => 'Sin estado'
             ]);
-        }
+        }*/
 
        /* CartonSorteo::create([
             'sorteo_id' => '1',

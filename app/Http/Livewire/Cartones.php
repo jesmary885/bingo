@@ -2,12 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Cart;
 use App\Models\Carton;
 use App\Models\CartonSorteo;
+use App\Models\Sorteo;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\WithPagination;
 
 class Cartones extends Component
@@ -78,7 +79,6 @@ class Cartones extends Component
 
     public function add_cart($carton_comprar){
 
-        //dd($carton_comprar);
 
         $carton_sorteo_update = CartonSorteo::where('sorteo_id', $this->sorteo)
             ->where('carton_id',$carton_comprar)
@@ -87,23 +87,15 @@ class Cartones extends Component
 
         if($carton_sorteo_update){
 
-            $this->options['carton'] = $carton_comprar;
-            $this->options['id_registro'] = $carton_sorteo_update->id;
-            $this->options['sorteo'] = $this->sorteo;
-            $this->options['serial'] = Carton::where('id',$carton_comprar)
-                ->first()
-                ->serial;
+            $precio = Sorteo::where('id',$this->sorteo)->first()->precio_carton_dolar;
 
-
-            Cart::add([ 'id' => $carton_comprar, 
-                'name' => 'name', 
-                'qty' => '1', 
-                'price' => '1', 
-                'weight' => 550,
-                'options' => $this->options
+            Cart::create([
+                'carton_id' => $carton_comprar,
+                'sorteo_id' => $this->sorteo,
+                'user_id' => auth()->user()->id,
+                'precio' => $precio,
+                'status' => 'no_pagado'
             ]);
-
-            
 
             $carton_sorteo_update->update([
                 'status_carton' => 'Reservado',
@@ -111,12 +103,27 @@ class Cartones extends Component
                 'user_id' => auth()->user()->id
             ]);
 
+
+          /*  $this->options['carton'] = $carton_comprar;
+            $this->options['user_id'] = auth()->user()->id;
+            $this->options['id_registro'] = $carton_sorteo_update->id;
+            $this->options['sorteo'] = $this->sorteo;
+            $this->options['serial'] = Carton::where('id',$carton_comprar)
+                ->first()
+                ->serial;
+
+            Cart::add([ 'id' => $carton_comprar, 
+                'name' => 'name', 
+                'qty' => '1', 
+                'price' => $precio, 
+                'weight' => 550,
+                'options' => $this->options
+            ]);*/
+
+           
             $this->cambiando =1;
 
             $this->emitTo('dropdown-cart', 'render');
-          // $this->emitTo('admin.pagos.reporte-pago-index','render');
-            
-            
 
         }
         else{

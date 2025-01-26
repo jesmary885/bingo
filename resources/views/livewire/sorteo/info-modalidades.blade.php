@@ -1,10 +1,22 @@
 <div class=" font-Arima " >
 
+    @if($tipo == 'Cartones')
+
     <button type="button" wire:click="$set('open',true)" type="button" class=" ml-0 md:ml-2 mt-1 md:mt-0 middle none focus:outline-none  center font-Arima  mr-1 rounded-lg bg-red-500 py-1 px-2 text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
         INFORMACIÓN DE MODALIDADES
-
-        
     </button>
+
+    @else
+
+    <button type="button" wire:click="$set('open',true)" type="button" class=" ml-0 md:ml-2 mt-1 md:mt-0 middle none focus:outline-none  center font-Arima  mr-1 rounded-lg bg-red-500 px-2 text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+        Ver
+    </button>
+
+    @endif
+
+
+
+  
 
     <x-dialog-modal wire:model="open">
 
@@ -83,7 +95,7 @@
                         <h4 class="text-blue-500 leading-relaxed font-bold text-sm">TRADICIONAL</h4>
 
                         <p class="mt-1 text-gray-500 text-center font-Arima text-sm">
-                            Jugaremos con 5 patrones (Línea horizontal, Línea vertical, Cuatro esquinas, Diagonal de derecha a izquierda y Diagonal de izquierda a derecha)
+                            Jugaremos con 7 patrones (Línea horizontal, Línea vertical, Cuatro esquinas, Diagonal de derecha a izquierda y Diagonal de izquierda a derecha)
                         </p>
 
                         <div class=" grid grid-cols-2 md:grid-cols-3 " >

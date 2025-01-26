@@ -15,13 +15,13 @@ class SorteoSeeder extends Seeder
      */
     public function run()
     {
-        Sorteo::create([
+        /*Sorteo::create([
             'fecha_ejecucion' => '2024-08-25 9:00:00',
             'type_1' => 'Tradicional',
             'status' => 'Aperturado',
             'precio_carton_dolar' => '1',
             'porcentaje_ganancia' => '70'
-        ]);
+        ]);*/
 
        
 

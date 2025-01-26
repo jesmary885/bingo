@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Pagos;
 
+use App\Models\Cart;
 use App\Models\CartonSorteo;
 use App\Models\Pago;
 use App\Models\referidos;
@@ -28,6 +29,7 @@ class Index extends Component
             ->where('tipo','!=','Retiro')
             ->count();
     }
+
 
     public function render()
     {
@@ -197,6 +199,16 @@ class Index extends Component
             ]);
         }
 
+
+        $busqueda_carro = Cart::where('pago_id',$this->registro_select)
+            ->get();
+
+        foreach($busqueda_carro as $busq){
+            $busq->update([
+                'status' => 'pagado'
+            ]);
+        }
+
     }
 
     public function Pago_no_recibido($registro){
@@ -227,6 +239,15 @@ class Index extends Component
                     'pago_id' => null,
                     'user_id' => null
                 ]);
+        }
+
+        $busqueda_carro = Cart::where('pago_id',$this->registro_select)
+            ->get();
+
+        foreach($busqueda_carro as $busq){
+            $busq->update([
+                'status' => 'cancelado'
+            ]);
         }
 
     }

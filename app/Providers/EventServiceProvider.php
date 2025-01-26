@@ -21,13 +21,6 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
 
-        Login::class => [
-            "App\Listeners\MergeTheCart"
-        ],
-
-        Logout::class => [
-            "App\Listeners\MergeTheCartLogout"
-        ]
     ];
 
     /**

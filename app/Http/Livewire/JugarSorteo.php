@@ -13,6 +13,8 @@ use App\Models\Pago;
 use App\Models\Sorteo;
 use App\Models\SorteoFicha;
 use App\Models\User;
+use App\Models\UserGanadorSorteo;
+use App\Models\UserGanancias;
 use App\Models\UserSaldo;
 use DateTime;
 use GuzzleHttp\Client;
@@ -80,6 +82,8 @@ class JugarSorteo extends Component
             if($ganadores_actuales_primer) $this->ganador_3 = 1;
             if($ganadores_actuales_segundo) $this->ganador_2 = 1;
             if($ganadores_actuales_tercer) $this->ganador_1 = 1; 
+
+            
 
            // dd($this->ganador_1);
 
@@ -960,7 +964,11 @@ class JugarSorteo extends Component
             ->where('sorteo_id',$this->sorteo->id)
             ->first();
 
-        if($carton_sorteo_activo){
+        $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
+            ->where('status_carton','No disponible')
+            ->count();
+
+        if($carton_sorteo_activo || auth()->user()->id == 1 ){ //esto se hace si al menos hay un usuario logueado que este jugando en este sorteo o que se loguee el admin
             if($this->cant_lugares == 1){
 
                 $ganadores_sorteo_1 = CartonGanador::with('carton')
@@ -993,14 +1001,6 @@ class JugarSorteo extends Component
                                 ->count();
                                     
                                 $sorteo = Sorteo::where('id',$this->sorteo)->first();
-    
-                                $porcentaje_empresa = 100 - $this->sorteo->porcentaje_ganancia;
-                                $ganancia_empresa = $cant_cartones * ($porcentaje_empresa * 0.01);
-    
-                                EmpresaGanancias::create([
-                                    'sorteo_id' => $this->sorteo->id,
-                                    'ganancia' => $ganancia_empresa,
-                                ]);
                                     
                                 $ganancia_dolares = ($cant_cartones * ($this->sorteo->porcentaje_ganancia * 0.01)) / $cant_ganadores_sorteo;
     
@@ -1097,6 +1097,21 @@ class JugarSorteo extends Component
                         }
                     }
                     $this->ganador_1 = 1;
+
+                    ///////////////////Ganancia de empresa
+
+                    $cantidad_ganancia_porcentaje_jugadores = $this->sorteo->porcentaje_ganancia;
+
+                    $porcentaje_empresa = 100 - $cantidad_ganancia_porcentaje_jugadores;
+                    $ganancia_empresa = (($cant_cartones * $this->sorteo->precio_carton_dolar) * ($porcentaje_empresa)) / 0.1;
+
+                    EmpresaGanancias::create([
+                        'sorteo_id' => $this->sorteo->id,
+                        'ganancia' => $ganancia_empresa,
+                    ]);
+
+                    ///////////////////////////////////////
+
     
                     Sorteo::where('id',$this->sorteo->id)->first()->update([
                         'status' => 'Finalizado'
@@ -1171,14 +1186,6 @@ class JugarSorteo extends Component
                                     
                                 $sorteo = Sorteo::where('id',$this->sorteo)->first();
     
-                                $porcentaje_empresa = 100 - $this->sorteo->porcentaje_ganancia_2do_lugar;
-                                $ganancia_empresa = $cant_cartones * ($porcentaje_empresa * 0.01);
-    
-                                EmpresaGanancias::create([
-                                    'sorteo_id' => $this->sorteo->id,
-                                    'ganancia' => $ganancia_empresa,
-                                ]);
-                                    
                                 $ganancia_dolares = ($cant_cartones * ($this->sorteo->porcentaje_ganancia_2do_lugar * 0.01)) / $cant_ganadores_sorteo;
     
                                 $ganadores_sorteo_usuario_log = CartonGanador::where('sorteo_id',$this->sorteo->id)
@@ -1319,14 +1326,6 @@ class JugarSorteo extends Component
                                 ->count();
                                     
                                 $sorteo = Sorteo::where('id',$this->sorteo)->first();
-    
-                                $porcentaje_empresa = 100 - $this->sorteo->porcentaje_ganancia;
-                                $ganancia_empresa = $cant_cartones * ($porcentaje_empresa * 0.01);
-    
-                                EmpresaGanancias::create([
-                                    'sorteo_id' => $this->sorteo->id,
-                                    'ganancia' => $ganancia_empresa,
-                                ]);
                                     
                                 $ganancia_dolares = ($cant_cartones * ($this->sorteo->porcentaje_ganancia * 0.01)) / $cant_ganadores_sorteo;
     
@@ -1421,12 +1420,26 @@ class JugarSorteo extends Component
     
                         }
                         $this->ganador_2 = 1;
+
+                        ///////////////////Ganancia de empresa
+
+                        $cantidad_ganancia_porcentaje_jugadores = $this->sorteo->porcentaje_ganancia_2do_lugar + $this->sorteo->porcentaje_ganancia;
+
+                        $porcentaje_empresa = 100 - $cantidad_ganancia_porcentaje_jugadores;
+                        $ganancia_empresa = (($cant_cartones * $this->sorteo->precio_carton_dolar) * ($porcentaje_empresa)) / 0.1;
+
+                        EmpresaGanancias::create([
+                            'sorteo_id' => $this->sorteo->id,
+                            'ganancia' => $ganancia_empresa,
+                        ]);
+
+                        ///////////////////////////////////////
     
                         Sorteo::where('id',$this->sorteo->id)->first()->update([
                             'status' => 'Finalizado'
                         ]);
 
-                        $busqueda_sorteo_carton = CartonSorteo::where('sorte_id',$this->sorteo->id)
+                        /*$busqueda_sorteo_carton = CartonSorteo::where('sorte_id',$this->sorteo->id)
                         ->where('status_carton','reservado')
                         ->where('status_pago','En espera_pago')
                         ->get();
@@ -1441,7 +1454,7 @@ class JugarSorteo extends Component
                                     ]
                                 );
                             }
-                        }
+                        }*/
     
                         $this->sorteo_finalizado = 1;
     
@@ -1462,8 +1475,6 @@ class JugarSorteo extends Component
     
             else{
     
-                
-    
                 if($this->ganador_1 == 0){
     
                     $ganadores_sorteo_1 = CartonGanador::with('carton')
@@ -1476,70 +1487,15 @@ class JugarSorteo extends Component
                         ->count();
             
                     if($ganadores_sorteo_1->isEmpty() == false){
+
                         $gano_yo = 0;
     
-                
                         foreach($ganadores_sorteo_1 as $ganador_yo){
                             
                             if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;
-    
-                            CartonSorteo::where('carton_id',$ganador_yo->carton_id)
-                                ->where('sorteo_id',$this->sorteo->id)
-                                ->first()
-                                ->update([
-                                    'status_juego' => 'Gano'
-                                ]);
-    
-                                $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
-                                ->where('status_carton','No disponible')
-                                ->count();
-                                    
-                                $sorteo = Sorteo::where('id',$this->sorteo)->first();
-    
-                                $porcentaje_empresa = 100 - $this->sorteo->porcentaje_ganancia_3er_lugar;
-                                $ganancia_empresa = $cant_cartones * ($porcentaje_empresa * 0.01);
-    
-                                EmpresaGanancias::create([
-                                    'sorteo_id' => $this->sorteo->id,
-                                    'ganancia' => $ganancia_empresa,
-                                ]);
-                                    
-                                $ganancia_dolares = ($cant_cartones * ($this->sorteo->porcentaje_ganancia_3er_lugar * 0.01)) / $cant_ganadores_sorteo;
-    
-                                $ganadores_sorteo_usuario_log = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                                    ->where('user_id',$ganador_yo->user->id)
-                                    ->where('lugar','Tercero')
-                                    ->get();
-    
-                                foreach($ganadores_sorteo_usuario_log as $gsul){
-                                    $gsul->update([
-                                        'premio' => $ganancia_dolares,
-                                    ]);
-                                }
-    
-                                $user_ganador = User::where('id',$ganador_yo->user->id)->first();
-    
-                                $saldo= (UserSaldo::where('user_id',$ganador_yo->user->id)->first()->saldo) + $ganancia_dolares;
-    
-                                if($user_ganador->retiro_inmediato == 'Si'){
-    
-                                    $cuenta = CuentasUser::where('user_id',$ganador_yo->user->id)
-                                        ->first();
-        
-                                    Pago::create([
-                                        'user_id' => $ganador_yo->user->id,
-                                        'monto' => $ganancia_dolares,
-                                        'tipo' => 'Retiro',
-                                        'status' => 'Pendiente',
-                                        'cuenta_id' => $cuenta->id]);
-                                }
-    
-                                UserSaldo::where('user_id',$ganador_yo->user->id)->first()->update([
-                                    'saldo' => $saldo,
-                                ]);
-    
-    
+
                         }
+
                 
                         if($gano_yo > 0){
     
@@ -1603,7 +1559,6 @@ class JugarSorteo extends Component
                         }
                         $this->ganador_1 = 1;
     
-    
                     }
     
                 }
@@ -1620,68 +1575,14 @@ class JugarSorteo extends Component
                         ->count();
             
                     if($ganadores_sorteo_2->isEmpty() == false){
+
+
                         $gano_yo = 0;
     
                 
                         foreach($ganadores_sorteo_2 as $ganador_yo){
                             
                             if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;
-    
-                            CartonSorteo::where('carton_id',$ganador_yo->carton_id)
-                                ->where('sorteo_id',$this->sorteo->id)
-                                ->first()
-                                ->update([
-                                    'status_juego' => 'Gano'
-                                ]);
-    
-                                $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
-                                ->where('status_carton','No disponible')
-                                ->count();
-                                    
-                                $sorteo = Sorteo::where('id',$this->sorteo)->first();
-    
-                                $porcentaje_empresa = 100 - $this->sorteo->porcentaje_ganancia_2do_lugar;
-                                $ganancia_empresa = $cant_cartones * ($porcentaje_empresa * 0.01);
-    
-                                EmpresaGanancias::create([
-                                    'sorteo_id' => $this->sorteo->id,
-                                    'ganancia' => $ganancia_empresa,
-                                ]);
-                                    
-                                $ganancia_dolares = ($cant_cartones * ($this->sorteo->porcentaje_ganancia_2do_lugar * 0.01)) / $cant_ganadores_sorteo;
-    
-                                $ganadores_sorteo_usuario_log = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                                    ->where('user_id',$ganador_yo->user->id)
-                                    ->where('lugar','Segundo')
-                                    ->get();
-    
-                                foreach($ganadores_sorteo_usuario_log as $gsul){
-                                    $gsul->update([
-                                        'premio' => $ganancia_dolares,
-                                    ]);
-                                }
-    
-                                $user_ganador = User::where('id',$ganador_yo->user->id)->first();
-    
-                                $saldo= (UserSaldo::where('user_id',$ganador_yo->user->id)->first()->saldo) + $ganancia_dolares;
-    
-                                if($user_ganador->retiro_inmediato == 'Si'){
-    
-                                    $cuenta = CuentasUser::where('user_id',$ganador_yo->user->id)
-                                        ->first();
-        
-                                    Pago::create([
-                                        'user_id' => $ganador_yo->user->id,
-                                        'monto' => $ganancia_dolares,
-                                        'tipo' => 'Retiro',
-                                        'status' => 'Pendiente',
-                                        'cuenta_id' => $cuenta->id]);
-                                }
-    
-                                UserSaldo::where('user_id',$ganador_yo->user->id)->first()->update([
-                                    'saldo' => $saldo,
-                                ]);
-    
     
                         }
                 
@@ -1762,66 +1663,17 @@ class JugarSorteo extends Component
                         ->count();
             
                     if($ganadores_sorteo_3->isEmpty() == false){
+                        
+                        $ganancia_dolares = ((($cant_cartones * $this->sorteo->precio_carton_dolar) * $this->sorteo->porcentaje_ganancia) / 100 ) / $cant_ganadores_sorteo;
+
                         $gano_yo = 0;
     
-                
+
                         foreach($ganadores_sorteo_3 as $ganador_yo){
-                            if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;
-    
-                            CartonSorteo::where('carton_id',$ganador_yo->carton_id)
-                                ->where('sorteo_id',$this->sorteo->id)
-                                ->first()
-                                ->update([
-                                    'status_juego' => 'Gano'
-                                ]);
-    
-                                $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
-                                ->where('status_carton','No disponible')
-                                ->count();
-                                    
-                                $sorteo = Sorteo::where('id',$this->sorteo)->first();
-    
-                                $porcentaje_empresa = 100 - $this->sorteo->porcentaje_ganancia;
-                                $ganancia_empresa = $cant_cartones * ($porcentaje_empresa * 0.01);
-    
-                                EmpresaGanancias::create([
-                                    'sorteo_id' => $this->sorteo->id,
-                                    'ganancia' => $ganancia_empresa,
-                                ]);
-                                    
-                                $ganancia_dolares = ($cant_cartones * ($this->sorteo->porcentaje_ganancia * 0.01)) / $cant_ganadores_sorteo;
-    
-                                $ganadores_sorteo_usuario_log = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                                    ->where('user_id',$ganador_yo->user->id)
-                                    ->where('lugar','Primero')
-                                    ->get();
-    
-                                foreach($ganadores_sorteo_usuario_log as $gsul){
-                                    $gsul->update([
-                                        'premio' => $ganancia_dolares,
-                                    ]);
-                                }
-    
-                                $user_ganador = User::where('id',$ganador_yo->user->id)->first();
-    
-                                $saldo= (UserSaldo::where('user_id',$ganador_yo->user->id)->first()->saldo) + $ganancia_dolares;
-    
-                                if($user_ganador->retiro_inmediato == 'Si'){
-    
-                                    $cuenta = CuentasUser::where('user_id',$ganador_yo->user->id)
-                                        ->first();
-        
-                                    Pago::create([
-                                        'user_id' => $ganador_yo->user->id,
-                                        'monto' => $ganancia_dolares,
-                                        'tipo' => 'Retiro',
-                                        'status' => 'Pendiente',
-                                        'cuenta_id' => $cuenta->id]);
-                                }
-    
-                                UserSaldo::where('user_id',$ganador_yo->user->id)->first()->update([
-                                    'saldo' => $saldo,
-                                ]);
+                            
+                            if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;                         
+
+                            
                         }
                 
                         if($gano_yo > 0){
@@ -1885,27 +1737,13 @@ class JugarSorteo extends Component
     
                         }
                         $this->ganador_3 = 1;
+
+
     
                         Sorteo::where('id',$this->sorteo->id)->first()->update([
                             'status' => 'Finalizado'
                         ]);
 
-                        $busqueda_sorteo_carton = CartonSorteo::where('sorte_id',$this->sorteo->id)
-                        ->where('status_carton','reservado')
-                        ->where('status_pago','En espera_pago')
-                        ->get();
-
-                        if($busqueda_sorteo_carton){
-                            foreach($busqueda_sorteo_carton as $busqueda_s_c){
-                                CartonSorteo::where('id',$busqueda_s_c->id)->update(
-                                    [
-                                        'status_carton' => 'Disponible',
-                                        'user_id' => null,
-                                        'status_pago' => null
-                                    ]
-                                );
-                            }
-                        }
     
                         $this->sorteo_finalizado = 1;
     

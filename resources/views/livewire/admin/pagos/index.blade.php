@@ -118,6 +118,12 @@
                                     Constancia
                                 </th>
 
+                                <th class="text-center">
+
+                                    Detalle
+                                
+                                </th>
+
                                 <th>
                                 
                                 </th>
@@ -173,6 +179,10 @@
                                 </td>
                                 @endif
 
+
+                                <td class="text-center">
+                                    @livewire('admin.pagos.ver-detalle-pago',['registro'=> $registro->id,key( '001'.$registro->id)])
+                                </td>
             
 
                                 <td class="text-center">
@@ -180,7 +190,7 @@
                                         
                                     wire:click="Pago_recibido('{{$registro->id}}')">
                                     <i class="	fas fa-check-circle"></i>
-                                </button>
+                                    </button>
                                 </td>
 
                                 <td class="text-center">
@@ -188,8 +198,10 @@
                                         
                                     wire:click="Pago_no_recibido('{{$registro->id}}')">
                                     <i class="	fa fa-times-circle"></i>
-                                </button>
+                                    </button>
                                 </td>
+
+                               
                             </tr>
                         @endforeach
                     </tbody>
