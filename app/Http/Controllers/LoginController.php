@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+
 use Illuminate\Session\SessionManager;
 
 class LoginController extends Controller
@@ -29,7 +31,24 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
+
+
+       
+
+
         if (Auth::attempt($credentials)){
+
+            $previous_session = Auth::User()->session_id;
+
+            if ($previous_session) {
+            
+                Session::getHandler()->destroy($previous_session);
+            }
+    
+            $user = User::where('id',auth()->user()->id)->first();
+    
+            $user->session_id = Session::getId();
+            $user->save();
 
             $sessionManager->flash('mensaje', '¡Bienvenido, mucha suerte en los sorteos de hoy!');
 
