@@ -1494,6 +1494,19 @@ class JugarSorteo extends Component
                             
                             if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;
 
+                            $cant_ganador_carton_sorteo = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                                ->where('carton_id',$ganador_yo->carton_id)
+                                ->count();
+
+                            if($cant_ganador_carton_sorteo > 1){
+
+                                for($i = 1 ; $i <$cant_ganador_carton_sorteo; $i++){
+                                    CartonGanador::where('sorteo_id',$this->sorteo_j->id)
+                                        ->where('carton_id',$ganador_yo->carton_id)->first()->delete();
+                                }
+                            }
+
+
                         }
 
                 
@@ -1583,6 +1596,18 @@ class JugarSorteo extends Component
                         foreach($ganadores_sorteo_2 as $ganador_yo){
                             
                             if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;
+
+                            $cant_ganador_carton_sorteo = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                            ->where('carton_id',$ganador_yo->carton_id)
+                            ->count();
+
+                        if($cant_ganador_carton_sorteo > 1){
+
+                            for($i = 1 ; $i <$cant_ganador_carton_sorteo; $i++){
+                                CartonGanador::where('sorteo_id',$this->sorteo_j->id)
+                                    ->where('carton_id',$ganador_yo->carton_id)->first()->delete();
+                            }
+                        }
     
                         }
                 
@@ -1671,7 +1696,19 @@ class JugarSorteo extends Component
 
                         foreach($ganadores_sorteo_3 as $ganador_yo){
                             
-                            if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;                         
+                            if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;             
+                            
+                            $cant_ganador_carton_sorteo = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                            ->where('carton_id',$ganador_yo->carton_id)
+                            ->count();
+
+                            if($cant_ganador_carton_sorteo > 1){
+
+                                for($i = 1 ; $i <$cant_ganador_carton_sorteo; $i++){
+                                    CartonGanador::where('sorteo_id',$this->sorteo_j->id)
+                                        ->where('carton_id',$ganador_yo->carton_id)->first()->delete();
+                                }
+                            }
 
                             
                         }
