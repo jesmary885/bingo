@@ -2158,11 +2158,11 @@
                            </th>
 
                            <th scope="col" class="text-center py-3">
-                            Cartones ganadores
+                            Cartones ganadores 
                          </th>
 
                          <th scope="col" class="text-center py-3">
-                            Fichas sorteadas
+                            Mis cartones
                          </th>
                      </tr>
                   </thead>

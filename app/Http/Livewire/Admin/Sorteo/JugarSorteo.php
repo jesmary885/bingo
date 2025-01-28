@@ -424,6 +424,8 @@ class JugarSorteo extends Component
                                 ->addInfo('Ya hay ganadores en el 3er lugar, continuemos para el 2do lugar');
                         }
                     }
+
+                    $this->emitTo('jugar-sorteo', 'render');
             }
             elseif($this->ganador_1 == 1 && $this->ganador_2 == 0){
 
@@ -506,6 +508,8 @@ class JugarSorteo extends Component
                                 ->addInfo('Ya hay ganadores en el 2do lugar, continuemos para el 3er lugar');
                         }
                     }
+
+                    $this->emitTo('jugar-sorteo', 'render');
             }
             elseif($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0){
 
@@ -641,6 +645,8 @@ class JugarSorteo extends Component
 
                         }
                 }
+
+                $this->emitTo('jugar-sorteo', 'render');
             }
         }
     }
