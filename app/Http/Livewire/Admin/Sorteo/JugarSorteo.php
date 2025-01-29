@@ -436,13 +436,7 @@ class JugarSorteo extends Component
 
                 if($ganadores_sorteo_3->isEmpty() == false){
 
-                    $ganancia_dolares = ((($cant_cartones * $this->sorteo_j->precio_carton_dolar) * $this->sorteo_j->porcentaje_ganancia) / 100 ) / $cant_ganadores_sorteo;
-
                     foreach($ganadores_sorteo_3 as $ganador_yo){
-
-                        $ganador_yo->update([
-                            'premio' => $ganancia_dolares,
-                        ]);
 
                         CartonSorteo::where('carton_id',$ganador_yo->carton_id)
                             ->where('sorteo_id',$this->sorteo_j->id)
@@ -450,36 +444,6 @@ class JugarSorteo extends Component
                             ->update([
                                 'status_juego' => 'Gano'
                             ]);
-
-                        $user_ganador = User::where('id',$ganador_yo->user_id)->first();
-
-                        $buqueda_user_sorteo_ganador = UserGanadorSorteo::where('user_id',$ganador_yo->user_id)
-                            ->where('sorteo_id',$this->sorteo_j->id)
-                            ->first();
-
-                        if(!$buqueda_user_sorteo_ganador){
-
-                            UserGanadorSorteo::create([
-                                'user_id' => $ganador_yo->user_id,
-                                'sorteo_id' => $this->sorteo_j->id
-                            ]);
-
-                        }
-
-                        $saldo= (UserSaldo::where('user_id',$ganador_yo->user_id)->first()->saldo) + $ganancia_dolares;
-
-                        UserSaldo::where('user_id',$ganador_yo->user_id)->first()->update([
-                            'saldo' => $saldo,
-                        ]);
-
-
-                        if($user_ganador->retiro_inmediato == 'Si'){
-                            UserGanancias::create([
-                                'user_id' => $ganador_yo->user_id,
-                                'ganancia' => $ganancia_dolares,
-                                'sorteo_id' => $this->sorteo_j->id,
-                                'status' => 'no_procesado']);
-                        }
                     }
                     
                     $buscar_notificacion = Notification_Sorteo::where('user_id',auth()->user()->id)
