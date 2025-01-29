@@ -32,13 +32,15 @@ class CartonGanador extends Component
 
     }
 
-    public function premio($carton){
+    public function premio($carton,$sorteo){
 
-        $ultimo_sorteo = ModelsCartonGanador::latest('id')->first();
+        //$ultimo_sorteo = ModelsCartonGanador::latest('id')->first();
 
-        $premio = ModelsCartonGanador::where('sorteo_id',$ultimo_sorteo->sorteo_id )
+        $premio = ModelsCartonGanador::where('sorteo_id',$sorteo )
             ->where('carton_id',$carton)
             ->first()->premio;
+
+            
 
         return $premio;
 

@@ -1542,7 +1542,8 @@
 
     </div>
 
-    @if ($content)
+
+    @if ($content->count())
     
 
     <div class=" px-2 md:flex md:justify-between w-full md:-mt-10 font-Arima  ">
@@ -1915,12 +1916,14 @@
     </div>
 
     @else
-        <div class="flex flex-col items-center">
-            <x-cart />
-            <p class="text-lg text-gray-700 mt-4">TU CARRO DE COMPRAS ESTÁ VACÍO</p>
 
-            <x-button-enlace href="/home" class="mt-4 px-16">
-                Ir al inicio
+
+        <div class="flex flex-col items-center">
+
+            <p class="text-lg text-gray-700 mt-4 font-Allerta">TU CARRO DE COMPRAS ESTÁ VACÍO</p>
+
+            <x-button-enlace href="/home" class="mt-2 font-Allerta">
+                IR AL INICIO
             </x-button-enlace>
         </div>
     @endif

@@ -3014,12 +3014,7 @@
                                                         <p class=" text-white text-xs "> {{$this->nombre($cg->user->name)}}</p>
                                                     </div>
 
-                                                    <div class="bg-blue-500 m-1 text-center">
-                                                       
-
-                                                        <p class=" text-white text-xs ">Ganancia: {{round($this->premio($cg->carton->id),2)}} $ </p>
-                                                    </div>
-
+                                                  
                                                     <div class="bg-blue-500 m-1 text-center">
                                                         <p class=" text-white text-xs font-bold  ">Modalidad: {{$cg->type}}  </p>
                                                     </div>
@@ -3063,11 +3058,11 @@
                             </div>  
 
                                 <p class=" font-Arima text-blue-600 font-bold text-center mt-4"  >CARTONES GANADORES</p>
-                                <div class="flex overflow-x-auto text-center  ">
+                                <div class="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 font-Arima mt-4 w-full">
 
          
                                         @foreach($cartones_ganadores as $cg)
-                                            <div class="py-1 md:py-2 md:px-12 ">
+                                            <div class="py-1 md:py-2 md:px-12 flex justify-center ">
                                                     <div class=" bg-blue-500 rounded-md shadow-md overflow-hidden w-48 mr-2  ">
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center  mb-0.5 mt-1">  
                                                 
@@ -3479,7 +3474,7 @@
                                                         <div class="bg-blue-500 m-1 text-center">
                                                         
 
-                                                            <p class=" text-white text-xs ">Ganancia: {{round($this->premio($cg->carton->id),2)}} $ </p>
+                                                            <p class=" text-white text-xs ">Ganancia: {{round($this->premio($cg->carton->id,$cg->sorteo_id),2)}} $ </p>
                                                         </div>
 
                                                         <div class="bg-blue-500 m-1 text-center">
@@ -3495,7 +3490,7 @@
                                             
                                             
                                             </div>
-                                         @endforeach
+                                        @endforeach
                                 
 
                                 </div>

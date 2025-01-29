@@ -1770,7 +1770,6 @@ class JugarSorteo extends Component
     public function render()
     {
 
-
         if($this->sorteo_iniciado == 1){
       
             if($this->cartones_sorteo_iniciado == 1){
@@ -1802,10 +1801,6 @@ class JugarSorteo extends Component
                     $cartones_ganadores = CartonGanador::where('sorteo_id',$this->sorteo->id)
                         ->get(); 
 
-
-
-
-               
 
                     $ficha_ultima = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->first()->id;
 

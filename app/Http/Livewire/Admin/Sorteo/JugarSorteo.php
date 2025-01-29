@@ -413,8 +413,6 @@ class JugarSorteo extends Component
                                 'nro' => '2'
                             ]);
 
-                            $this->ganador_2 = 1;
-            
                             notyf()
                                 ->duration(0)
                                 ->position('x', 'center')
@@ -423,8 +421,6 @@ class JugarSorteo extends Component
                                 ->addInfo('Ya hay ganadores en el 2do lugar, continuemos para el 3er lugar');
                         }
                     }
-
-                    
 
         
             }
@@ -459,8 +455,6 @@ class JugarSorteo extends Component
                             'nro' => '3'
                         ]);
 
-
-                        $this->ganador_3 = 1;
                 
                         notyf()
                             ->duration(0)
@@ -499,8 +493,6 @@ class JugarSorteo extends Component
 
 
         if($this->ganador_1 == 0 && $ganadores_actuales_tercer){
-
-       
 
             $this->ganador_1 = 1;
 
@@ -565,8 +557,6 @@ class JugarSorteo extends Component
         }
         elseif($this->ganador_1 == 1 && $this->ganador_2 == 0 && $ganadores_actuales_segundo){
 
-
-
             $this->ganador_2 = 1;
 
             $ganadores_sorteo_1 = CartonGanador::where('sorteo_id',$this->sorteo_j->id)
@@ -591,7 +581,7 @@ class JugarSorteo extends Component
                         ->where('lugar','Segundo')
                         ->count();
 
-                $ganancia_dolares = ((($cant_cartones * $this->sorteo_j->precio_carton_dolar) * $this->sorteo_j->porcentaje_ganancia_3er_lugar) / 100 ) / $cant_ganadores_sorteo;
+                $ganancia_dolares = ((($cant_cartones * $this->sorteo_j->precio_carton_dolar) * $this->sorteo_j->porcentaje_ganancia_2do_lugar) / 100 ) / $cant_ganadores_sorteo;
 
                 $ganador_yo->update([
                     'premio' => $ganancia_dolares,
@@ -658,7 +648,7 @@ class JugarSorteo extends Component
                         ->where('lugar','Primero')
                         ->count();
 
-                $ganancia_dolares = ((($cant_cartones * $this->sorteo_j->precio_carton_dolar) * $this->sorteo_j->porcentaje_ganancia_3er_lugar) / 100 ) / $cant_ganadores_sorteo;
+                $ganancia_dolares = ((($cant_cartones * $this->sorteo_j->precio_carton_dolar) * $this->sorteo_j->porcentaje_ganancia) / 100 ) / $cant_ganadores_sorteo;
 
                 $ganador_yo->update([
                     'premio' => $ganancia_dolares,
@@ -752,9 +742,12 @@ class JugarSorteo extends Component
             Sorteo::where('id',$this->sorteo_j->id)->first()->update([
                 'status' => 'Finalizado'
             ]);
+
+           // $this->emitUp('jugar-sorteo');
         }
 
         $this->emitUp('jugar-sorteo');
+
 
     }
 

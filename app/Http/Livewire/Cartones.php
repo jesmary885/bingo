@@ -104,23 +104,6 @@ class Cartones extends Component
             ]);
 
 
-          /*  $this->options['carton'] = $carton_comprar;
-            $this->options['user_id'] = auth()->user()->id;
-            $this->options['id_registro'] = $carton_sorteo_update->id;
-            $this->options['sorteo'] = $this->sorteo;
-            $this->options['serial'] = Carton::where('id',$carton_comprar)
-                ->first()
-                ->serial;
-
-            Cart::add([ 'id' => $carton_comprar, 
-                'name' => 'name', 
-                'qty' => '1', 
-                'price' => $precio, 
-                'weight' => 550,
-                'options' => $this->options
-            ]);*/
-
-           
             $this->cambiando =1;
 
             $this->emitTo('dropdown-cart', 'render');
