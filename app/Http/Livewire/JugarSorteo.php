@@ -1494,18 +1494,6 @@ class JugarSorteo extends Component
                             
                             if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;
 
-                          /*  $cant_ganador_carton_sorteo = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                                ->where('carton_id',$ganador_yo->carton_id)
-                                ->count();
-
-                            if($cant_ganador_carton_sorteo > 1){
-
-                                for($i = 1 ; $i <$cant_ganador_carton_sorteo; $i++){
-                                    CartonGanador::where('sorteo_id',$this->sorteo->id)
-                                        ->where('carton_id',$ganador_yo->carton_id)->first()->delete();
-                                }
-                            }*/
-
 
                         }
 
@@ -1596,18 +1584,6 @@ class JugarSorteo extends Component
                         foreach($ganadores_sorteo_2 as $ganador_yo){
                             
                             if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;
-
-                            /*$cant_ganador_carton_sorteo = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                            ->where('carton_id',$ganador_yo->carton_id)
-                            ->count();
-
-                            if($cant_ganador_carton_sorteo > 1){
-
-                                for($i = 1 ; $i <$cant_ganador_carton_sorteo; $i++){
-                                    CartonGanador::where('sorteo_id',$this->sorteo->id)
-                                        ->where('carton_id',$ganador_yo->carton_id)->first()->delete();
-                                }
-                            }*/
     
                         }
                 
@@ -1697,20 +1673,7 @@ class JugarSorteo extends Component
                         foreach($ganadores_sorteo_3 as $ganador_yo){
                             
                             if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;             
-                            
-                           /* $cant_ganador_carton_sorteo = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                            ->where('carton_id',$ganador_yo->carton_id)
-                            ->count();
 
-                            if($cant_ganador_carton_sorteo > 1){
-
-                                for($i = 1 ; $i <$cant_ganador_carton_sorteo; $i++){
-                                    CartonGanador::where('sorteo_id',$this->sorteo->id)
-                                        ->where('carton_id',$ganador_yo->carton_id)->first()->delete();
-                                }
-                            }*/
-
-                            
                         }
                 
                         if($gano_yo > 0){
@@ -1775,13 +1738,6 @@ class JugarSorteo extends Component
                         }
                         $this->ganador_3 = 1;
 
-
-    
-                        Sorteo::where('id',$this->sorteo->id)->first()->update([
-                            'status' => 'Finalizado'
-                        ]);
-
-    
                         $this->sorteo_finalizado = 1;
     
                         $this->ganadores_primer_lugar = CartonGanador::where('sorteo_id',$this->sorteo->id)
@@ -1819,9 +1775,6 @@ class JugarSorteo extends Component
       
             if($this->cartones_sorteo_iniciado == 1){
 
-       
-
-        
 
                 $fichas = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->get();
 
@@ -1999,17 +1952,6 @@ class JugarSorteo extends Component
                 
             }
 
-           /* $ultimo_sorteo = CartonGanador::latest('id')->first();
-
-            
-
-            //error aqui
-            if($ultimo_sorteo){
-
-                $cartones_ganadores = CartonGanador::where('sorteo_id',$ultimo_sorteo->sorteo_id)
-                ->get(); 
-
-            }*/
         }
 
         else{
