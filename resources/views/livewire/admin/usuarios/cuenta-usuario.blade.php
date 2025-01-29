@@ -25,7 +25,9 @@
                     <div class="container">
 
                         @foreach($cuentas_usuario as $cuenta)
-                            @if($cuenta->metodo_pago == 'usdt')
+
+               
+                            @if($cuenta->metodo_pago == 'BINANCE(USDT)')
                     
                                 <div class="callout callout-danger">
                                     <h5 class="mb-2">USDT</h5>

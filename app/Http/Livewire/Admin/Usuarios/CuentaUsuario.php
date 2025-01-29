@@ -28,6 +28,8 @@ class CuentaUsuario extends Component
         $cuentas_usuario = CuentasUser::where('user_id',$this->registro)
             ->get();
 
+            
+
         return view('livewire.admin.usuarios.cuenta-usuario',compact('cuentas_usuario'));
     }
 }
