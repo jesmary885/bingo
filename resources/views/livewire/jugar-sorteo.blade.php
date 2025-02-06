@@ -2438,13 +2438,13 @@
                                                     @if($ganador_1 == 0)
                                 
                                                         @if($type_3 == 'Tradicional')
-                                                            {{$this->verifi_linea_horizontal($todo_c->carton->id)}}
-                                                            {{$this->verifi_linea_vertical($todo_c->carton->id)}}
-                                                            {{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}
-                                                            {{$this->diagonal_iz($todo_c->carton->id)}}
-                                                            {{$this->diagonal_dr($todo_c->carton->id)}}
-                                                            {{$this->cruz_pequeña($todo_c->carton->id)}}
-                                                            {{$this->cruz_grande($todo_c->carton->id)}}
+                                                            @if($linea_h == 0) {{$this->verifi_linea_horizontal($todo_c->carton->id)}} @endif
+                                                            @if($linea_v == 0){{$this->verifi_linea_vertical($todo_c->carton->id)}} @endif
+                                                            @if($ce == 0){{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}@endif
+                                                            @if($diag_iz == 0){{$this->diagonal_iz($todo_c->carton->id)}}@endif
+                                                            @if($diag_d == 0){{$this->diagonal_dr($todo_c->carton->id)}}@endif
+                                                            @if($crup_p == 0){{$this->cruz_pequeña($todo_c->carton->id)}}@endif
+                                                            @if($cruz_g == 0){{$this->cruz_grande($todo_c->carton->id)}}@endif
                                                         @else
                                                             {{$this->verifi_carton_lleno($todo_c->carton->id)}}
                                                         @endif
@@ -2453,13 +2453,13 @@
                                                     @if($ganador_1 == 1 && $ganador_2 == 0 && $ganador_3 == 0)
                                 
                                                         @if($type_2 == 'Tradicional')
-                                                            {{$this->verifi_linea_horizontal($todo_c->carton->id)}}
-                                                            {{$this->verifi_linea_vertical($todo_c->carton->id)}}
-                                                            {{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}
-                                                            {{$this->diagonal_iz($todo_c->carton->id)}}
-                                                            {{$this->diagonal_dr($todo_c->carton->id)}}
-                                                            {{$this->cruz_pequeña($todo_c->carton->id)}}
-                                                            {{$this->cruz_grande($todo_c->carton->id)}}
+                                                            @if($linea_h == 0){{$this->verifi_linea_horizontal($todo_c->carton->id)}}@endif
+                                                            @if($linea_v == 0){{$this->verifi_linea_vertical($todo_c->carton->id)}}@endif
+                                                            @if($ce == 0){{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}@endif
+                                                            @if($diag_iz == 0){{$this->diagonal_iz($todo_c->carton->id)}}@endif
+                                                            @if($diag_d == 0){{$this->diagonal_dr($todo_c->carton->id)}}@endif
+                                                            @if($crup_p == 0){{$this->cruz_pequeña($todo_c->carton->id)}}@endif
+                                                            @if($cruz_g == 0){{$this->cruz_grande($todo_c->carton->id)}}@endif
                                                         @else
                                                             {{$this->verifi_carton_lleno($todo_c->carton->id)}}
                                                         @endif
@@ -2469,21 +2469,19 @@
                                                     @if($ganador_1 == 1 && $ganador_2 == 1 && $ganador_3 == 0)
                                 
                                                         @if($type_1 == 'Tradicional')
-                                                            {{$this->verifi_linea_horizontal($todo_c->carton->id)}}
-                                                            {{$this->verifi_linea_vertical($todo_c->carton->id)}}
-                                                            {{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}
-                                                            {{$this->diagonal_iz($todo_c->carton->id)}}
-                                                            {{$this->diagonal_dr($todo_c->carton->id)}}
-                                                            {{$this->cruz_pequeña($todo_c->carton->id)}}
-                                                            {{$this->cruz_grande($todo_c->carton->id)}}
+                                                            @if($linea_h == 0){{$this->verifi_linea_horizontal($todo_c->carton->id)}}@endif
+                                                            @if($linea_v == 0){{$this->verifi_linea_vertical($todo_c->carton->id)}}@endif
+                                                            @if($ce == 0){{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}@endif
+                                                            @if($diag_iz == 0){{$this->diagonal_iz($todo_c->carton->id)}}@endif
+                                                            @if($diag_d == 0){{$this->diagonal_dr($todo_c->carton->id)}}@endif
+                                                            @if($crup_p == 0){{$this->cruz_pequeña($todo_c->carton->id)}}@endif
+                                                            @if($cruz_g == 0){{$this->cruz_grande($todo_c->carton->id)}}@endif
                                                         @else
                                                             {{$this->verifi_carton_lleno($todo_c->carton->id)}}
                                                         @endif
                                 
                                                     @endif
-                                
-                                                
-                                        
+
                                             @endforeach
                                         </div>
 

@@ -24,9 +24,9 @@ use Flasher\Toastr\Prime\ToastrInterface;
 
 class JugarSorteo extends Component
 {
-    public $visible,$no_hay_sorteos = 0, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
+    public $linea_h = 0, $linea_v = 0, $ce= 0, $diag_iz = 0, $diag_d= 0, $crup_p = 0, $cruz_g = 0,$visible,$no_hay_sorteos = 0, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
 
-   protected $listeners = ['render' => 'render','echo:sorteo_fichas,NewFichaSorteo' => 'render', 'echo:ganador,NewGanador' => 'ganador_fin','echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' ];
+   protected $listeners = ['render' => 'render','echo:sorteo_fichas,NewFichaSorteo' => 'render', 'echo:ganador,NewGanador' => 'ganador_fin','echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' , 'finalizar' => 'finalizar'];
 
     public function mount(){
 
@@ -83,9 +83,53 @@ class JugarSorteo extends Component
             if($ganadores_actuales_segundo) $this->ganador_2 = 1;
             if($ganadores_actuales_tercer) $this->ganador_1 = 1; 
 
-            
+            if($this->ganador_1 == 1 && $this->ganador_2 == 0){
 
-           // dd($this->ganador_1);
+                $ganadores_sorteo_1 = CartonGanador::with('carton')
+                    ->where('sorteo_id',$this->sorteo->id)
+                    ->where('lugar','Tercero')
+                    ->get();
+
+                foreach($ganadores_sorteo_1 as $ganador_yo){
+                            
+                    if($this->sorteo->type_3 == 'Tradicional'){
+                        if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Horizontal') $this->linea_h = 1;
+                        if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Vertical') $this->linea_v = 1;
+                        if($ganador_yo->type == 'Cuatro esquinas') $this->c_e = 1;
+                        if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Izquierda') $this->diag_iz = 1;
+                        if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Derecha') $this->diag_d = 1;
+                        if($ganador_yo->type == 'Cruz G.') $this->cruz_g = 1;
+                        if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
+                    }
+                }
+
+
+
+
+
+            }
+            if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0){
+
+                $ganadores_sorteo_1 = CartonGanador::with('carton')
+                    ->where('sorteo_id',$this->sorteo->id)
+                    ->where('lugar','Segundo')
+                    ->get();
+
+                foreach($ganadores_sorteo_1 as $ganador_yo){
+                            
+                    if($this->sorteo->type_2 == 'Tradicional'){
+                        if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Horizontal') $this->linea_h = 1;
+                        if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Vertical') $this->linea_v = 1;
+                        if($ganador_yo->type == 'Cuatro esquinas') $this->c_e = 1;
+                        if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Izquierda') $this->diag_iz = 1;
+                        if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Derecha') $this->diag_d = 1;
+                        if($ganador_yo->type == 'Cruz G.') $this->cruz_g = 1;
+                        if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
+                    }
+                }
+
+
+            }
 
         } 
         else{
@@ -496,7 +540,6 @@ class JugarSorteo extends Component
         }
     }
 
-
     public function verifi_linea_horizontal($carton){
         $cont1 = 0;
         $cont2 = 0;
@@ -729,7 +772,6 @@ class JugarSorteo extends Component
             }
         }
     }
-
 
     public function verifi_cuatro_esquinas($carton){
 
@@ -1494,6 +1536,15 @@ class JugarSorteo extends Component
                             
                             if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;
 
+                            if($this->sorteo->type_3 == 'Tradicional'){
+                                if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Horizontal') $this->linea_h = 1;
+                                if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Vertical') $this->linea_v = 1;
+                                if($ganador_yo->type == 'Cuatro esquinas') $this->c_e = 1;
+                                if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Izquierda') $this->diag_iz = 1;
+                                if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Derecha') $this->diag_d = 1;
+                                if($ganador_yo->type == 'Cruz G.') $this->cruz_g = 1;
+                                if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
+                            }
 
                         }
 
@@ -1582,9 +1633,18 @@ class JugarSorteo extends Component
     
                 
                         foreach($ganadores_sorteo_2 as $ganador_yo){
-                            
+
                             if($ganador_yo->user_id == auth()->user()->id) $gano_yo++;
-    
+
+                            if($this->sorteo->type_2 == 'Tradicional'){
+                                if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Horizontal') $this->linea_h = 1;
+                                if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Vertical') $this->linea_v = 1;
+                                if($ganador_yo->type == 'Cuatro esquinas') $this->c_e = 1;
+                                if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Izquierda') $this->diag_iz = 1;
+                                if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Derecha') $this->diag_d = 1;
+                                if($ganador_yo->type == 'Cruz G.') $this->cruz_g = 1;
+                                if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
+                            }
                         }
                 
                         if($gano_yo > 0){
@@ -1738,7 +1798,7 @@ class JugarSorteo extends Component
                         }
                         $this->ganador_3 = 1;
 
-                        $this->sorteo_finalizado = 1;
+                     /*   $this->sorteo_finalizado = 1;
     
                         $this->ganadores_primer_lugar = CartonGanador::where('sorteo_id',$this->sorteo->id)
                             ->where('lugar','Primero')
@@ -1750,7 +1810,7 @@ class JugarSorteo extends Component
         
                         $this->ganadores_tercer_lugar = CartonGanador::where('sorteo_id',$this->sorteo->id)
                             ->where('lugar','Tercero')
-                            ->get() ?? [];
+                            ->get() ?? [];*/
                     }
                 }
             }
@@ -1760,9 +1820,24 @@ class JugarSorteo extends Component
 
 
 
+    }
 
+    public function finalizar(){
 
+        $this->sorteo_finalizado = 1;
+    
+        $this->ganadores_primer_lugar = CartonGanador::where('sorteo_id',$this->sorteo->id)
+            ->where('lugar','Primero')
+            ->get() ?? [];
         
+        $this->ganadores_segundo_lugar = CartonGanador::where('sorteo_id',$this->sorteo->id)
+            ->where('lugar','Segundo')
+            ->get() ?? [];
+        
+        $this->ganadores_tercer_lugar = CartonGanador::where('sorteo_id',$this->sorteo->id)
+            ->where('lugar','Tercero')
+            ->get() ?? [];
+
     }
 
 

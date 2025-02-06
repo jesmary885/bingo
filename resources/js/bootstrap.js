@@ -47,15 +47,16 @@ window.Echo = new Echo({
 });*/
 
 import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
- 
-window.Pusher = Pusher;
+window.Pusher = require('pusher-js');
  
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    forceTLS: true
+    wsHost: 'proyectobingomas.site',
+    wsPort: 443,
+    forceTLS: true,
+    disableStats: true,
 });
 
 

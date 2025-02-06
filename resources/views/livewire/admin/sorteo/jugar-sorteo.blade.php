@@ -15,7 +15,12 @@
 
             <div class="card card-primary card-outline w-full mr-1 ">
 
-              
+                @if($finalizo == 1)
+                    <x-button-enlace wire:click="finalizar()" class="mt-2 font-Allerta">
+                        FINALIZAR SORTEO
+                    </x-button-enlace>
+                @endif
+
 
                 <h2 class="font-bold text-blue-600 text-center p-4" >Seleccione el valor de la ficha </h2>
 
