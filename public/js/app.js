@@ -9684,12 +9684,15 @@ window.Echo = new Echo({
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
   broadcaster: 'pusher',
-  key: "public-key-123",
+  key: 'public-key-123',
   cluster: "mt1",
   wsHost: 'proyectobingomas.site',
   wsPort: 443,
+  wssport: 443,
   forceTLS: true,
-  disableStats: true
+  disableStats: true,
+  enabledTransports: ['wss', 'ws'],
+  path: '/app'
 });
 
 /***/ }),

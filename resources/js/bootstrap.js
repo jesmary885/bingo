@@ -51,12 +51,14 @@ window.Pusher = require('pusher-js');
  
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: process.env.MIX_PUSHER_APP_KEY,
+    key: 'public-key-123',
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     wsHost: 'proyectobingomas.site',
     wsPort: 443,
+    wssport: 443,
     forceTLS: true,
     disableStats: true,
+     enabledTransports: ['wss','ws'],
+    path: '/app'
 });
-
 

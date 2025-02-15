@@ -26,7 +26,7 @@ class JugarSorteo extends Component
 {
     public $linea_h = 0, $linea_v = 0, $ce= 0, $diag_iz = 0, $diag_d= 0, $crup_p = 0, $cruz_g = 0,$visible,$no_hay_sorteos = 0, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
 
-   protected $listeners = ['render' => 'render','echo:sorteo_fichas,NewFichaSorteo' => 'render', 'echo:ganador,NewGanador' => 'ganador_fin','echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' , 'finalizar' => 'finalizar'];
+   protected $listeners = ['render' => 'render','echo:sorteo_fichas,NewFichaSorteo' => ['render','emitir_sonido'], 'echo:ganador,NewGanador' => ['ganador_fin','emitir_sonido_ganador'],'echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' , 'finalizar' => 'finalizar'];
 
     public function mount(){
 
@@ -138,6 +138,64 @@ class JugarSorteo extends Component
 
         $fecha_actual = date("Y-m-d H:i:s");
         $this->hoy= new DateTime($fecha_actual);
+    }
+
+    public function emitir_sonido_ganador(){
+
+        $this->emit('emitirSonido_ganador');
+    }
+
+
+    public function emitir_sonido(){
+
+        $this->emit('emitirSonido');
+    }
+
+    public function ganancia_sorteo_primer(){
+
+        $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
+            ->where('status_carton','No disponible')
+            ->count();
+
+        $sorteo_s = Sorteo::where('id',$this->sorteo->id)->first();
+
+        return $cant_cartones * ($sorteo_s->porcentaje_ganancia * 0.01);
+    }
+
+    public function ganancia_sorteo_segundo(){
+
+        $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
+            ->where('status_carton','No disponible')
+            ->count();
+
+        $sorteo_s = Sorteo::where('id',$this->sorteo->id)->first();
+
+        return $cant_cartones * ($sorteo_s->porcentaje_ganancia_2do_lugar * 0.01);
+
+    }
+
+    public function ganancia_sorteo_tercero(){
+
+        $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
+            ->where('status_carton','No disponible')
+            ->count();
+
+        $sorteo_s = Sorteo::where('id',$this->sorteo->id)->first();
+
+        return $cant_cartones * ($sorteo_s->porcentaje_ganancia_3er_lugar * 0.01);
+
+    }
+
+    
+
+    public function playMusic()
+    {
+        $this->dispatchBrowserEvent('play-music');
+    }
+
+    public function pauseMusic()
+    {
+        $this->dispatchBrowserEvent('pause-music');
     }
 
     public function background_ultimo($item){

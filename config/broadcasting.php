@@ -36,15 +36,17 @@ return [
             'secret' => env('PUSHER_APP_SECRET'),
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
-               /* 'cluster' => env('PUSHER_APP_CLUSTER'),
-                'host' => '127.0.0.1',
-                'port' => 6001,
-                'useTLS' => true,*/
-                'cluster' => env('PUSHER_APP_CLUSTER'),
-               // 'encrypted' => true,
-                'host' => 'proyectobingomas.site',
-                'port' => 443,
-                'scheme' => 'wss'
+                'cluster' => env('PUSHER_APP_CLUSTER', 'mt1'),
+            'useTLS' => true,
+            'host' => env('PUSHER_HOST', 'proyectobingomas.site'),
+            'port' => env('PUSHER_PORT'),
+            'scheme' => env('PUSHER_SCHEME', 'https'),
+            // Opciones para conexión WebSocket:
+            'wsHost' => env('PUSHER_HOST', 'proyectobingomas.site'),
+            'wsPort' => 443,   // Porque el proxy inverso de Nginx expone HTTPS en 443
+            'wssPort' => 443,
+            'forceTLS' => true,
+            'encrypted' => true,        
             ],
             'client_options' => [
                 // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html
