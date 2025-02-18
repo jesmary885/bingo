@@ -102,6 +102,50 @@
                     </div>
                 </div>
             </div>
+
+            @if ($sorteo_fecha->count())
+     
+            <div class="overflow-x-auto relative shadow-md sm:rounded-lg container mt-2">
+                <table class="table text-sm table-bordered table-responsive-lg table-responsive-md table-responsive-sm">
+                    <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+                        <tr>
+                            <th class="text-center py-3">Sorteo Nro</th>
+                            <th class="text-center">Cant de cartones vendidos</th>
+                            <th class="text-center">Precio cartón</th>
+                            <th class="text-center">Ganancia BING+</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($sorteo_fecha as $sorteo)
+                                <tr class=" border-gray-700 hover:bg-gray-300">
+    
+                                    <th class="py-3 text-center font-medium whitespace-nowrap ">{{$sorteo->id}}</th>
+                                    <td class="text-center">{{$this->cartones_vendidos($sorteo->id)}}</td>
+                                    <td class="text-center">{{$sorteo->precio_carton_dolar}} $</td>
+                                    <td class="text-center">{{$this->ganancia_bing($sorteo->id)}} $</td>
+                                   
+                                    
+    
+    
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+             
+            
+            @else
+                 <div class="card-body">
+                    <strong>No hay registros</strong>
+                </div>
+            @endif
+
+
+
+
+
+
+
         
             @endif
 

@@ -67,7 +67,7 @@
     @if($cartones_sorteo_iniciado == 1)
 
 
-            <div class="relative block p-4 h-screen overflow-hidden bg-white  mb-2 mt-1 font-Arima ">
+            <div class="relative block p-4  overflow-hidden bg-white  mb-2 mt-1 font-Arima ">
                 @if($cant_lugares == 1)
                     @if($ganador_1 == 0)
 
@@ -2314,42 +2314,36 @@
                     @if($boton_pulsado == 0)
 
 
-
-
-
-
-
-                    <div class="py-6 w-full h-full mi-div mx-auto my-auto " >
-                        <div class="container mx-auto  ">
-                            <dh-component>
-                                <div aria-label="action panel"  tabindex="0" class="focus:outline-none w-11/12 mx-auto mb-4 my-6 md:w-5/12 shadow sm:px-10 sm:py-6 py-4 px-4 bg-white dark:bg-gray-800 rounded-md">
-                                    <p tabindex="0" class="focus:outline-none text-lg text-gray-800 dark:text-gray-100 font-semibold pb-3 text-center">Estamos iniciando con el sorteo</p>
-                                    <p tabindex="0" class="focus:outline-none text-sm text-gray-600 dark:text-gray-400 pb-3 font-normal  ">Le invitamos a ingresar a la sala de juego, haciendo clic en el botón que se encuentra debajo de este mensaje </p>
-                                    <div class="w-12 h-6 cursor-pointer rounded-full relative shadow-sm">
-                                        <input  wire:click="activar_sonido_pulsar" aria-label="subscribe" type="checkbox" name="toggle" id="toggle1" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:bg-indigo-600 focus:outline-none checkbox w-4 h-4 rounded-full bg-white absolute m-1 shadow-sm appearance-none cursor-pointer" />
-                                        <label for="toggle1" class="toggle-label bg-gray-200 block w-12 h-6 overflow-hidden rounded-full bg-gray-300 cursor-pointer"></label>
-                                        
-                                    
-                                    </div>
-                                    <style>
-                                        .checkbox:checked {
-                                            /* Apply class right-0*/
-                                            right: 0;
-                                        }
-                                        .checkbox:checked + .toggle-label {
-                                            /* Apply class bg-indigo-700 */
-                                            background-color: #4c51bf;
-                                        }
-                                    </style>
+                        <div class="h-screen" >
+                            <div class="py-6 w-full h-full mi-div mx-auto my-auto " >
+                                <div class="container mx-auto  ">
+                                    <dh-component>
+                                        <div aria-label="action panel"  tabindex="0" class="focus:outline-none w-11/12 mx-auto mb-4 my-6 md:w-5/12 shadow sm:px-10 sm:py-6 py-4 px-4 bg-white dark:bg-gray-800 rounded-md">
+                                            <p tabindex="0" class="focus:outline-none text-lg text-gray-800 dark:text-gray-100 font-semibold pb-3 text-center">Estamos iniciando con el sorteo</p>
+                                            <p tabindex="0" class="focus:outline-none text-sm text-gray-600 dark:text-gray-400 pb-3 font-normal  ">Le invitamos a ingresar a la sala de juego, haciendo clic en el botón que se encuentra debajo de este mensaje </p>
+                                            <div class="w-12 h-6 cursor-pointer rounded-full relative shadow-sm">
+                                                <input  wire:click="activar_sonido_pulsar" aria-label="subscribe" type="checkbox" name="toggle" id="toggle1" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:bg-indigo-600 focus:outline-none checkbox w-4 h-4 rounded-full bg-white absolute m-1 shadow-sm appearance-none cursor-pointer" />
+                                                <label for="toggle1" class="toggle-label bg-gray-200 block w-12 h-6 overflow-hidden rounded-full bg-gray-300 cursor-pointer"></label>
+                                                
+                                            
+                                            </div>
+                                            <style>
+                                                .checkbox:checked {
+                                                    /* Apply class right-0*/
+                                                    right: 0;
+                                                }
+                                                .checkbox:checked + .toggle-label {
+                                                    /* Apply class bg-indigo-700 */
+                                                    background-color: #4c51bf;
+                                                }
+                                            </style>
+                                        </div>
+                                    </dh-component>
                                 </div>
-                            </dh-component>
+                            </div>
+
                         </div>
-                    </div>
 
-                    
-
-
-                 
 
 
                     @else
@@ -8255,9 +8249,9 @@
                     
                             </aside>
 
-                            <div class="col-span-3 md:col-span-5 p-2">
+                            <div class="col-span-3 md:col-span-5 p-2 ">
 
-                                <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-70 mi-div">
+                                <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-70 mi-div h-full">
 
                                     <p class=" font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500 text-center"  >MIS CARTONES</p>
 
@@ -8780,7 +8774,7 @@
                     
 
 
-                        <div class=" bg-white border p-2 overflow-x-auto border-gray-200 rounded-lg shadow w-full  mt-4">
+                        <div class=" bg-white border p-2 overflow-x-auto border-gray-200 rounded-lg shadow w-full mi-div  mt-4">
                             <div class="flex justify-center">
                                 <img width="54" height="30" class="w-[54px]"
                                     src="https://horizon-ui.com/shadcn-nextjs-boilerplate/_next/static/media/SidebarBadge.d6d6c919.png"

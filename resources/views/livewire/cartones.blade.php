@@ -1725,12 +1725,15 @@
                     </div>
                 </div>
 
-                <div class="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10 ">
+                <div class="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10  ">
                     <div>
+
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full border-4 opacity-100"></span>
 
                     
 
-                        <a title="Carro de compra" href="{{ route('shopping-cart') }}"  class="block w-20 h-20 rounded-full transition-all shadow hover:shadow-lg bg-white transform hover:scale-110 hover:rotate-12">
+                        <a title="Carro de compra" href="{{ route('shopping-cart') }}"  class="block w-20 h-20 rounded-full transition-all shadow hover:shadow-lg bg-white transform hover:scale-110 hover:rotate-12 border-4 text-3xl border-gray-50 hover:border-gray-500">
                         
 
                             @if ($cart_count)
@@ -1879,6 +1882,8 @@
                                 </g>
                                 
                             </svg>
+
+                            
 
 
                             

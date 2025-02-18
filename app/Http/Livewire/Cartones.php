@@ -108,6 +108,12 @@ class Cartones extends Component
 
             $this->emitTo('dropdown-cart', 'render');
 
+
+                notyf()
+                    ->duration(5000) // 2 seconds
+                    ->dismissible(true)
+                    ->addSuccess('Haz clic en el carro de compra para pagar tu(s carton(es))');
+
         }
         else{
 
