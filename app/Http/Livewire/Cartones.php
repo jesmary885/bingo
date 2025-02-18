@@ -125,6 +125,10 @@ class Cartones extends Component
 
     public function render()
     {
+
+        $cart_count = Cart::where('user_id',auth()->user()->id)
+            ->where('status','no_pagado')
+            ->count();
         
         $total_cartones_disponibles = DB::select('SELECT COUNT(*) as cantidad from carton_sorteos cs
             where cs.sorteo_id = :sorteo_id AND cs.status_carton = "Disponible"',array('sorteo_id' => $this->sorteo));
@@ -186,6 +190,6 @@ class Cartones extends Component
         $this->cambiando = 0;
 
 
-        return view('livewire.cartones',compact('cartones'));
+        return view('livewire.cartones',compact('cartones','cart_count'));
     }
 }

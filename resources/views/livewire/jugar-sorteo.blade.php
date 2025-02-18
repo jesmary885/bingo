@@ -3,6 +3,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
     <style>
+
+.mi-div {
+            width: 100%;
+            height: 100%;
+            background-image: url('/img/banderin.svg');
+            background-size: cover; /* Ajusta el SVG al tamaño del div */
+            background-position: center; /* Centra el SVG */
+            background-repeat: no-repeat; /* Evita que se repita */
+        }
+
+        .mi-estrellas {
+            width: 100%;
+            height: 100%;
+            background-image: url('/img/estrellas.svg');
+            background-size: cover; /* Ajusta el SVG al tamaño del div */
+            background-position: center; /* Centra el SVG */
+            background-repeat: no-repeat; /* Evita que se repita */
+        }
+
         @keyframes bounce {
       0%, 100% {
         transform: translateY(0);
@@ -15,7 +34,13 @@
     .animate-bounce {
       animation: bounce 2s infinite ease-in-out;
     }
+
+
       </style>
+
+   
+    
+
 
 
 
@@ -42,7 +67,7 @@
     @if($cartones_sorteo_iniciado == 1)
 
 
-            <div class="relative block p-4 overflow-hidden border bg-white border-slate-100 rounded-lg mb-2 mt-1 font-Arima ">
+            <div class="relative block p-4 h-screen overflow-hidden bg-white  mb-2 mt-1 font-Arima ">
                 @if($cant_lugares == 1)
                     @if($ganador_1 == 0)
 
@@ -2288,14 +2313,44 @@
 
                     @if($boton_pulsado == 0)
 
-                    <button wire:click="activar_sonido_pulsar">
-
-                        ok
-
-                    </button>
 
 
-                   
+
+
+
+
+                    <div class="py-6 w-full h-full mi-div mx-auto my-auto " >
+                        <div class="container mx-auto  ">
+                            <dh-component>
+                                <div aria-label="action panel"  tabindex="0" class="focus:outline-none w-11/12 mx-auto mb-4 my-6 md:w-5/12 shadow sm:px-10 sm:py-6 py-4 px-4 bg-white dark:bg-gray-800 rounded-md">
+                                    <p tabindex="0" class="focus:outline-none text-lg text-gray-800 dark:text-gray-100 font-semibold pb-3 text-center">Estamos iniciando con el sorteo</p>
+                                    <p tabindex="0" class="focus:outline-none text-sm text-gray-600 dark:text-gray-400 pb-3 font-normal  ">Le invitamos a ingresar a la sala de juego, haciendo clic en el botón que se encuentra debajo de este mensaje </p>
+                                    <div class="w-12 h-6 cursor-pointer rounded-full relative shadow-sm">
+                                        <input  wire:click="activar_sonido_pulsar" aria-label="subscribe" type="checkbox" name="toggle" id="toggle1" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:bg-indigo-600 focus:outline-none checkbox w-4 h-4 rounded-full bg-white absolute m-1 shadow-sm appearance-none cursor-pointer" />
+                                        <label for="toggle1" class="toggle-label bg-gray-200 block w-12 h-6 overflow-hidden rounded-full bg-gray-300 cursor-pointer"></label>
+                                        
+                                    
+                                    </div>
+                                    <style>
+                                        .checkbox:checked {
+                                            /* Apply class right-0*/
+                                            right: 0;
+                                        }
+                                        .checkbox:checked + .toggle-label {
+                                            /* Apply class bg-indigo-700 */
+                                            background-color: #4c51bf;
+                                        }
+                                    </style>
+                                </div>
+                            </dh-component>
+                        </div>
+                    </div>
+
+                    
+
+
+                 
+
 
                     @else
 
@@ -8202,7 +8257,7 @@
 
                             <div class="col-span-3 md:col-span-5 p-2">
 
-                                <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-70">
+                                <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-70 mi-div">
 
                                     <p class=" font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500 text-center"  >MIS CARTONES</p>
 
@@ -8275,7 +8330,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-span-2 md:col-span-2  overflow-y-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-2 " >
+                            <div class="col-span-2 md:col-span-2 mi-estrellas  overflow-y-auto  border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-2 " >
                                 
                                 <p class=" font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500 text-center "  >GANADORES</p>
 
@@ -10348,50 +10403,6 @@
             });
         </script>
 
-<script>
-    Livewire.on('play-music', () => {
-        document.getElementById('background-music').play();
-    });
-
-    Livewire.on('pause-music', () => {
-        document.getElementById('background-music').pause();
-    });
-</script>
-
-{{-- <script>
-     const audio = document.getElementById('background-music');
-    const musicButton = document.getElementById('music-button');
-
-    window.addEventListener('load', () => {
-        const isPlaying = localStorage.getItem('musicPlaying') === 'true';
-
-        if (isPlaying) {
-            musicButton.textContent = 'Pausar música';
-        } else {
-            musicButton.textContent = 'Reproducir música';
-        }
-    });
-
-    function toggleMusic() {
-        if (audio.paused) {
-            audio.play()
-                .then(() => {
-                    localStorage.setItem('musicPlaying', 'true');
-                    musicButton.textContent = 'Pausar música';
-                })
-                .catch((error) => {
-                    console.error('Error al reproducir la música:', error);
-                    alert('Haz clic en "Reproducir música" para iniciar la música.');
-                });
-        } else {
-            audio.pause();
-            localStorage.setItem('musicPlaying', 'false');
-            musicButton.textContent = 'Reproducir música';
-        }
-    }
-</script> --}}
-
-
 
 
 <script>
@@ -10434,6 +10445,8 @@
         }, 10000); // 2000 milisegundos = 2 segundos
     });
 </script>
+
+
 
 
 </div>

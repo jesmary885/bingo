@@ -89,7 +89,8 @@
     <link rel="stylesheet" href="{{ asset('vendor/FlexSlider/flexslider.css') }}">
 
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
     <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
 
 
@@ -122,7 +123,13 @@
     {{-- FlexSlider --}}
     <script src="{{ asset('vendor/FlexSlider/jquery.flexslider-min.js') }}"></script>
 
-    <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/app.js')}}" defer></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
 
 
 
@@ -230,6 +237,8 @@
 
 
     @yield('adminlte_js')
+
+   
 </body>
 
 </html>
