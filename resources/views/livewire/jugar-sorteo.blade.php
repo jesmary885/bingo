@@ -66,6 +66,8 @@
 
     @if($cartones_sorteo_iniciado == 1)
 
+   
+
 
             <div class="relative block p-4  overflow-hidden bg-white  mb-2 mt-1 font-Arima ">
                 @if($cant_lugares == 1)

@@ -165,9 +165,11 @@ class JugarSorteo extends Component
 
     public function emitir_sonido_ganador(){
 
+        $this->emit('ganador_fin');
+
         $this->emit('emitirSonido_ganador');
 
-        $this->emit('ganador_fin');
+        
     }
 
 
