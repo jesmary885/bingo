@@ -34,7 +34,7 @@ class JugarSorteo extends Component
    public function mount(){
 
     //QUITAS ESTO PARA QUE SE ELIMINE EL BOTON AL REFRESCAR LA PAGINA
-   Session::forget('metodo_ejecutado');
+  // Session::forget('metodo_ejecutado');
 
  
             if (session()->has('metodo_ejecutado')) {

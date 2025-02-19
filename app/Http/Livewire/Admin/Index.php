@@ -83,14 +83,6 @@ class Index extends Component
                 ->Where('status','Finalizado')
                 ->get();
 
-
-           /* $ganancias_mes_rango_p = DB::select('SELECT sum(e.ganancia) as ganancia from empresa_ganancias e
-            where e.created_at BETWEEN :fecha_inicioo AND :fecha_finn '
-            ,array('fecha_inicioo' =>$fecha_inicio, 'fecha_finn' => $fecha_fin));
-
-            foreach( $ganancias_mes_rango_p as $e){
-                $this->ganancias_mes_rango = $e->monto;
-            }*/
         }
 
 

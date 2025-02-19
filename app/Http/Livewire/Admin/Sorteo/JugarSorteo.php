@@ -399,7 +399,7 @@ class JugarSorteo extends Component
                     }
 
             }
-            elseif($this->ganador_1 == 1 && $this->ganador_2 == 0){
+            elseif($this->ganador_1 == 1 && $this->ganador_2 == 0 && $ganadores_actuales_segundo){
 
 
                     $ganadores_sorteo_2 = CartonGanador::where('sorteo_id',$this->sorteo)
@@ -462,7 +462,7 @@ class JugarSorteo extends Component
 
         
             }
-            elseif($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0){
+            elseif($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0 && $ganadores_actuales_primer){
 
                 $ganadores_sorteo_3 = CartonGanador::where('sorteo_id',$this->sorteo)
                     ->where('lugar','Primero')->get();
