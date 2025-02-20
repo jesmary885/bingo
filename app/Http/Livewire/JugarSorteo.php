@@ -27,7 +27,7 @@ class JugarSorteo extends Component
 {
     public $boton_pulsado, $linea_h = 0, $linea_v = 0, $ce= 0, $diag_iz = 0, $diag_d= 0, $crup_p = 0, $cruz_g = 0,$visible,$no_hay_sorteos = 0, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
 
-   protected $listeners = ['render' => 'render','echo:sorteo_fichas,NewFichaSorteo' => 'emitir_sonido', 'echo:ganador,NewGanador' => 'emitir_sonido_ganador','echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' , 'finalizar' => 'finalizar'];
+   protected $listeners = ['render' => 'render','echo:sorteo_fichas,NewFichaSorteo' => 'emitir_sonido', 'echo:ganador,NewGanador' => 'emitir_sonido_ganador','echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' , 'finalizar' => 'finalizar', 'ganador_fin' => 'ganador_fin'];
 
    public $initialized = false;
    
@@ -36,7 +36,6 @@ class JugarSorteo extends Component
     //QUITAS ESTO PARA QUE SE ELIMINE EL BOTON AL REFRESCAR LA PAGINA
   // Session::forget('metodo_ejecutado');
 
- 
             if (session()->has('metodo_ejecutado')) {
                 $this->boton_pulsado = 1;
             }
@@ -119,11 +118,6 @@ class JugarSorteo extends Component
                                 if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
                             }
                         }
-    
-    
-    
-    
-    
                     }
                     if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0){
     
@@ -144,10 +138,7 @@ class JugarSorteo extends Component
                                 if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
                             }
                         }
-    
-    
                     }
-    
                 } 
                 else{
                     $this->sorteo_iniciado = 0;
@@ -156,20 +147,14 @@ class JugarSorteo extends Component
                 $fecha_actual = date("Y-m-d H:i:s");
                 $this->hoy= new DateTime($fecha_actual);
 
-
-           
-        
     }
 
-    
 
     public function emitir_sonido_ganador(){
 
-        $this->emit('ganador_fin');
-
         $this->emit('emitirSonido_ganador');
 
-        
+        $this->emit('ganador_fin');
     }
 
 
