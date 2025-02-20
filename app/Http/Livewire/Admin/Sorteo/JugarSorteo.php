@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Builder;
 class JugarSorteo extends Component
 {
 
-    public $sorteo_j, $letra_select = 0, $numero_select = 0, $sorteo, $iniciar, $ganador_1 = 0, $lugares, $ganador_2 = 0, $ganador_3 = 0, $finalizo = 0;
+    public $sorteo_finalizado = 0, $sorteo_j, $letra_select = 0, $numero_select = 0, $sorteo, $iniciar, $ganador_1 = 0, $lugares, $ganador_2 = 0, $ganador_3 = 0, $finalizo = 0;
 
     protected $listeners = ['render' => 'render', 'echo:ganador,NewGanador' => 'ganad' , 'verificar' => 'verific' ];
 
@@ -725,6 +725,16 @@ class JugarSorteo extends Component
             }
 
         }
+
+        notyf()
+        ->duration(0)
+        ->position('x', 'center')
+        ->position('y', 'center')
+        ->dismissible(true)
+        ->addInfo('Ha finalizado correctamente el sorteo');
+
+        $this->sorteo_finalizado = 1;
+
         /////////////////////////////////////////////////////////////////////////////////////////////////
 
         $this->emitTo('jugar-sorteo', 'finalizar');
@@ -737,6 +747,15 @@ class JugarSorteo extends Component
         $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo_j->id)
         ->where('status_carton','No disponible')
         ->count();
+
+     /*   $ganadores_sorteo_3 = CartonGanador::where('sorteo_id',$this->sorteo_j->id)
+        ->where('lugar','Tercero')->get();
+
+        $ganadores_sorteo_2 = CartonGanador::where('sorteo_id',$this->sorteo_j->id)
+            ->where('lugar','Segundo')->get();
+
+        $ganadores_sorteo_1 = CartonGanador::where('sorteo_id',$this->sorteo_j->id)
+            ->where('lugar','Primero')->get();*/
 
     
 

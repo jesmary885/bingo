@@ -1051,7 +1051,8 @@ class JugarSorteo extends Component
 
     public function visible_todos(){
 
-        $this->visible = 1;
+        if($this->visible == 0) $this->visible = 1;
+        else $this->visible = 0;
       
 
     }
