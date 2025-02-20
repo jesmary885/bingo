@@ -110,7 +110,7 @@ class Cartones extends Component
 
 
                 notyf()
-                    ->duration(5000) // 2 seconds
+                    ->duration(2000) // 2 seconds
                     ->dismissible(true)
                     ->addSuccess('Haz clic en el carro de compra para pagar tu(s carton(es))');
 

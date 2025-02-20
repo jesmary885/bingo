@@ -733,7 +733,6 @@ class JugarSorteo extends Component
         ->dismissible(true)
         ->addInfo('Ha finalizado correctamente el sorteo');
 
-        $this->sorteo_finalizado = 1;
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -15,7 +15,7 @@
 
             <div class="card card-primary card-outline w-full mr-1 ">
 
-                @if($finalizo == 1 && $sorteo_finalizado = 0)
+                @if($finalizo == 1)
                     <x-button-enlace wire:click="finalizar()" class="mt-2 font-Allerta">
                         FINALIZAR SORTEO
                     </x-button-enlace>
