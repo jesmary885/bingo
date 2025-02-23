@@ -58,77 +58,70 @@ class RegistroUsuarios extends Component
         $this->validate($rules);
 
 
+        if($this->password == $this->password_confirmation){
+            if($this->terminos_condiciones == 1){
+                if($this->confirmar_edad == 1){
 
-        if($this->terminos_condiciones == 1){
-            if($this->confirmar_edad == 1){
-
-      
-                if($this->password == $this->password_confirmation)
-                {
-                    $user= User::create([
-                        'name' => $this->name,
-                        'email' => $this->email,
-                        'estado' => 'activo',
-                        'password' => Hash::make($this->password),
-                    ])->assignRole('Jugador');
-            
-                    UserSaldo::create([
-                        'user_id' => $user->id,
-                        'saldo' => '0',
-                    ]);
-            
-                    $user->update([
-                        'codigo_referido' => 'b-'.$user->id
-                    ]);
-            
-                    if($this->codigo){
-            
-                        $busqueda_codigo = User::where('codigo_referido',$this->codigo)->first();
-            
-                        if( $busqueda_codigo){
-            
-                            referidos::create([
-                                'user_id' => $user->id,
-                                'refer_id' => $busqueda_codigo->id,
-                                'status' => 'Pendiente',
-                                'compra' => 'No'
-                            ]);
-            
+        
+                        $user= User::create([
+                            'name' => $this->name,
+                            'email' => $this->email,
+                            'estado' => 'activo',
+                            'password' => Hash::make($this->password),
+                        ])->assignRole('Jugador');
+                
+                        UserSaldo::create([
+                            'user_id' => $user->id,
+                            'saldo' => '0',
+                        ]);
+                
+                        $user->update([
+                            'codigo_referido' => 'b-'.$user->id
+                        ]);
+                
+                        if($this->codigo){
+                
+                            $busqueda_codigo = User::where('codigo_referido',$this->codigo)->first();
+                
+                            if( $busqueda_codigo){
+                
+                                referidos::create([
+                                    'user_id' => $user->id,
+                                    'refer_id' => $busqueda_codigo->id,
+                                    'status' => 'Pendiente',
+                                    'compra' => 'No'
+                                ]);
+                
+                            }
+                
                         }
-            
-                    }
-            
-                    auth()->login($user);
-                    return redirect(route("home"));
+                
+                        auth()->login($user);
+                        return redirect(route("home"));
 
                 }
-
                 else{
+
                     notyf()
                     ->duration(9000) // 2 seconds
-                    ->addError('Las contraseñas no coinciden');
+                    ->addError('Debe confirmar que es mayor de 18 años para procesar el registro');
 
                 }
-                
-
             }
             else{
 
                 notyf()
-                ->duration(9000) // 2 seconds
-                ->addError('Debe confirmar que es mayor de 18 años para procesar el registro');
+                    ->duration(9000) // 2 seconds
+                    ->addError('Debe confirmar que esta de acuerdo con la Politica de Privacidad y las Condiciones de servicio para procesar el registro');
 
             }
-        }else{
-
-            notyf()
-                ->duration(9000) // 2 seconds
-                ->addError('Debe confirmar que esta de acuerdo con la Politica de Privacidad y las Condiciones de servicio para procesar el registro');
-
         }
 
+        else{
+            notyf()
+            ->duration(9000) // 2 seconds
+            ->addError('Las contraseñas no coinciden');
 
-
-
+        }
     }
 }

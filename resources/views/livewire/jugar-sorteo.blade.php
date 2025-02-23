@@ -2349,6 +2349,21 @@
 
                     @else
 
+                    <button 
+    id="audioToggle" 
+    class="fixed bottom-4 right-4 p-3 bg-blue-500 hover:bg-blue-600 rounded-full shadow-lg text-white transition-all"
+    aria-label="Silenciar música"
+>
+    <svg id="audioIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Icono de altavoz (estado activo) -->
+        <path id="soundOn" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M15.536 8.464a5 5 0 010 7.072M12 6.253v11.5m0-11.5L7.757 9.757M12 6.253l-4.95 4.95a5 5 0 000 7.071"/>
+        <!-- Icono de silencio (estado oculto por defecto) -->
+        <path id="soundOff" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h2l4-4v16l-4-4zm11.828-8.414a5 5 0 010 7.072M15.535 8.464L19.07 5M12 6.253v3.495m0 3.747v3.495"/>
+    </svg>
+</button>
+
                         <div class="flex items-center rounded-t-lg  bg-blue-500 text-gray-800 border p-2 border-gray-200 shadow">
 
                             
@@ -10440,6 +10455,54 @@
         }, 10000); // 2000 milisegundos = 2 segundos
     });
 </script>
+
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+        // Crear el elemento de audio
+        const audioElement = new Audio("{{ asset('img/medieval-epic-adventure-action-heroic-powerful-opener-intro-117935.mp3') }}");
+        audioElement.volume = 0.2; // Volumen inicial al 20%
+        audioElement.loop = true; // Repetir la música
+
+        const audioToggle = document.getElementById('audioToggle');
+        const soundOnIcon = document.getElementById('soundOn');
+        const soundOffIcon = document.getElementById('soundOff');
+
+        // Estado inicial
+        let isMuted = false;
+
+        // Función para alternar el estado del audio
+        function toggleAudio() {
+            isMuted = !isMuted;
+            
+            if(isMuted) {
+                audioElement.pause();
+                soundOnIcon.classList.add('hidden');
+                soundOffIcon.classList.remove('hidden');
+                audioToggle.setAttribute('aria-label', 'Activar música');
+            } else {
+                audioElement.play();
+                soundOffIcon.classList.add('hidden');
+                soundOnIcon.classList.remove('hidden');
+                audioToggle.setAttribute('aria-label', 'Silenciar música');
+            }
+        }
+
+        // Event listener para el botón
+        audioToggle.addEventListener('click', toggleAudio);
+
+        // Manejo inicial para navegadores que bloquean autoplay
+        audioElement.play().catch(error => {
+            // Si falla el autoplay, cambiar a estado "muteado"
+            isMuted = true;
+            soundOnIcon.classList.add('hidden');
+            soundOffIcon.classList.remove('hidden');
+            audioToggle.setAttribute('aria-label', 'Activar música');
+        });
+    });
+</script>
+
+
 
 
 
