@@ -34,7 +34,7 @@ class JugarSorteo extends Component
    public function mount(){
 
     //QUITAS ESTO PARA QUE SE ELIMINE EL BOTON AL REFRESCAR LA PAGINA
-  // Session::forget('metodo_ejecutado');
+   Session::forget('metodo_ejecutado');
 
             if (session()->has('metodo_ejecutado')) {
                 $this->boton_pulsado = 1;
@@ -165,6 +165,12 @@ class JugarSorteo extends Component
         $this->emit('emitirSonido');
 
      
+    }
+
+    public function mutear_activar(){
+
+        $this->emit('boton_mute');
+
     }
 
     public function ganancia_sorteo_primer(){

@@ -423,23 +423,7 @@
                             <img src="{{Storage::url('img/logo4.png') }}" alt="" class="block h-16 w-36 ">
                         </div>
                     </a>
-                    
 
-
-                        {{-- <a href="{{ route('auth.redirect') }}" class="block group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
-                            <div class="relative flex items-center space-x-4 justify-center">
-                                    <img src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg" class="absolute mt-4 left-0 w-6 mr-2" alt="Facebook logo">
-                                <span class="mt-4 md:mt-4 text-xs sm:text-sm tracking-wide text-gray-600 font-semibold ">Inicia sesión con Facebook</span>
-                            </div>
-                        </a> 
-        
-                        <div class="relative mt-10 h-px bg-gray-300">
-                            <div class="absolute left-0 top-0 flex justify-center w-full -mt-2">
-                                <span class="bg-white px-4 text-xs text-gray-500 uppercase">O registrate con tu Email</span>
-                            </div>
-                        </div>
-
-                        --}}
                         
                         <div class="mt-1">
             
@@ -473,7 +457,7 @@
                             <div class="flex flex-col mb-6">
                                 <label for="password" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Contraseña:</label>
                                 
-                                <div class="relative" x-data="{ show: true }">
+                                <div class="relative" x-data="{ show: true , showHelp: false }">
 
                                     <div class="inline-flex items-center justify-center absolute left-0 top-0 mt-2 w-10 text-gray-400">
                                         <span>
@@ -484,7 +468,7 @@
                                     </div>
 
                                     <input :type="show ? 'password' : 'text'"
-                                      id="password" type="password" wire:model="password" name="password" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Contraseña">
+                                      id="password" type="password" wire:model="password" onclick="toggleHelpCard()" @click.away="showHelp = false"  name="password" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Contraseña">
                     
                                     <div class="flex items-center absolute inset-y-0 right-0 mr-3  text-sm leading-5">
                     
@@ -505,6 +489,26 @@
                                         </svg>
                     
                                     </div>
+
+                                    <div 
+                                    id="helpCard"
+                                    class="absolute hidden w-64 p-4 mt-2 bg-white border rounded-lg shadow-lg z-50"
+                                    style="top: 100%; left: 0;"
+                                >
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h3 class="font-semibold text-gray-800">Cómo completar este campo</h3>
+                                        <button 
+                                            onclick="toggleHelpCard()"
+                                            class="text-gray-500 hover:text-gray-700"
+                                        >
+                                            ×
+                                        </button>
+                                    </div>
+                                    <p class="text-sm text-gray-600">
+                                        Su contraseña debe contener mínimo 6 y máximo 30 caracteres.
+                                        Debe coincidir con la contraseña ingresada en el campo de "Confirma la contraseña"
+                                    </p>
+                                </div>
                                 </div>
                                 
                                 
@@ -631,4 +635,26 @@
         </div>
 
     </div>
+
+    <script>
+        function toggleHelpCard() {
+            const helpCard = document.getElementById('helpCard');
+            const isVisible = helpCard.classList.contains('hidden');
+            
+            // Ocultar todas las tarjetas primero
+            document.querySelectorAll('[id^="helpCard"]').forEach(card => {
+                card.classList.add('hidden');
+            });
+            
+            // Toggle estado de la tarjeta actual
+            helpCard.classList.toggle('hidden', !isVisible);
+            
+            // Cerrar al hacer clic fuera del input (ya manejado por Alpine si lo usas)
+            document.addEventListener('click', (e) => {
+                if (!helpCard.contains(e.target) && e.target.id !== 'password') {
+                    helpCard.classList.add('hidden');
+                }
+            });
+        }
+        </script>
 </div>

@@ -9,7 +9,7 @@
     @else
 
     <button type="button" wire:click="$set('open',true)" type="button" class=" ml-0 md:ml-2 mt-1 md:mt-0 middle none focus:outline-none  center font-Arima  mr-1 rounded-lg bg-red-500 px-2 text-md lg:text-lg font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-        VER
+        Ver
     </button>
 
     @endif

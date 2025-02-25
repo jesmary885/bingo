@@ -39,30 +39,6 @@
       </style>
 
    
-    
-
-
-
-
-
-
-
-
-{{-- <div class="flex justify-center mt-8">
-    <audio id="background-music" loop>
-        <source src="{{Storage::url('img/bingo.mp3') }}" type="audio/mpeg">
-        Tu navegador no soporta el elemento de audio.
-    </audio>
-
-    <button
-        id="music-button"
-        onclick="toggleMusic()"
-        class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-    >
-        Reproducir música
-    </button>
-</div> --}}
-
 
     @if($cartones_sorteo_iniciado == 1)
 
@@ -2312,6 +2288,22 @@
                 @else
                     @if($ganador_1 == 0 || $ganador_2 == 0 || $ganador_3 == 0)
 
+          
+                    <button 
+                        id="audioToggle" 
+                        class="fixed bottom-4 right-4 p-3 bg-green-500 hover:bg-green-600 rounded-full text-white transition-all animate-fade-right shadow-2xl shadow-green-700 border-2"
+                        aria-label="Silenciar música"
+                        >
+                        <svg id="audioIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <!-- Icono de altavoz (estado activo) -->
+                            <path id="soundOn" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                d="M15.536 8.464a5 5 0 010 7.072M12 6.253v11.5m0-11.5L7.757 9.757M12 6.253l-4.95 4.95a5 5 0 000 7.071"/>
+                            <!-- Icono de silencio (estado oculto por defecto) -->
+                            <path id="soundOff" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h2l4-4v16l-4-4zm11.828-8.414a5 5 0 010 7.072M15.535 8.464L19.07 5M12 6.253v3.495m0 3.747v3.495"/>
+                        </svg>
+                    </button>
+
                     @if($boton_pulsado == 0)
 
 
@@ -2322,9 +2314,9 @@
                                         <div aria-label="action panel"  tabindex="0" class="focus:outline-none w-11/12 mx-auto mb-4 my-6 md:w-5/12 shadow sm:px-10 sm:py-6 py-4 px-4 bg-white dark:bg-gray-800 rounded-md">
                                             <p tabindex="0" class="focus:outline-none text-lg text-gray-800 dark:text-gray-100 font-semibold pb-3 text-center">Estamos iniciando con el sorteo</p>
                                             <p tabindex="0" class="focus:outline-none text-sm text-gray-600 dark:text-gray-400 pb-3 font-normal  ">Le invitamos a ingresar a la sala de juego, haciendo clic en el botón que se encuentra debajo de este mensaje </p>
-                                            <div class="w-12 h-6 cursor-pointer rounded-full relative shadow-sm">
-                                                <input  wire:click="activar_sonido_pulsar" aria-label="subscribe" type="checkbox" name="toggle" id="toggle1" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:bg-indigo-600 focus:outline-none checkbox w-4 h-4 rounded-full bg-white absolute m-1 shadow-sm appearance-none cursor-pointer" />
-                                                <label for="toggle1" class="toggle-label bg-gray-200 block w-12 h-6 overflow-hidden rounded-full bg-gray-300 cursor-pointer"></label>
+                                            <div  class="w-12 h-6 cursor-pointer rounded-full relative shadow-sm">
+                                                <input id="startButton"  wire:click="activar_sonido_pulsar"   aria-label="subscribe" type="checkbox" name="toggle" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:bg-indigo-600 focus:outline-none checkbox w-4 h-4 rounded-full bg-white absolute m-1 shadow-sm appearance-none cursor-pointer" />
+                                                <label for="startButton" class="toggle-label bg-gray-200 block w-12 h-6 overflow-hidden rounded-full bg-gray-300 cursor-pointer"></label>
                                                 
                                             
                                             </div>
@@ -2349,20 +2341,6 @@
 
                     @else
 
-                    <button 
-    id="audioToggle" 
-    class="fixed bottom-4 right-4 p-3 bg-blue-500 hover:bg-blue-600 rounded-full shadow-lg text-white transition-all"
-    aria-label="Silenciar música"
->
-    <svg id="audioIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <!-- Icono de altavoz (estado activo) -->
-        <path id="soundOn" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-              d="M15.536 8.464a5 5 0 010 7.072M12 6.253v11.5m0-11.5L7.757 9.757M12 6.253l-4.95 4.95a5 5 0 000 7.071"/>
-        <!-- Icono de silencio (estado oculto por defecto) -->
-        <path id="soundOff" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-              d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h2l4-4v16l-4-4zm11.828-8.414a5 5 0 010 7.072M15.535 8.464L19.07 5M12 6.253v3.495m0 3.747v3.495"/>
-    </svg>
-</button>
 
                         <div class="flex items-center rounded-t-lg  bg-blue-500 text-gray-800 border p-2 border-gray-200 shadow">
 
@@ -4256,21 +4234,32 @@
                                         
                                         </div>
                                         <div class="flex flex-col flex-grow  mt-2">
-                                            <div class="font-Allerta text-xs md:text-md lg:text-lg font-bold text-blue-500 ">MODALIDAD</div>
+                                            <div class="font-Allerta text-xs md:text-md lg:text-lg font-bold text-blue-500 ">RONDA</div>
         
-                                            @if($ganador_1 == 0 )
-                                            <div class="text-yellow-500 font-Allerta font-extrabold uppercase mt-2 underline text-xs  md:text-md lg:text-lg ">{{$sorteo->type_3}}</div>
-                        
-        
-                                            @endif
-        
-                                        @if($ganador_2 == 0 && $ganador_1 == 1)
-                                        <div class="text-yellow-500 font-Allerta font-extrabold text-xs  md:text-md lg:text-lg">{{$sorteo->type_2}}</div>
-                                        @endif
-        
-                                        @if($ganador_3 == 0 && $ganador_2 == 1)
-                                        <div class="text-yellow-500 font-Allerta font-extrabold text-xs  md:text-md lg:text-lg">{{$sorteo->type_1}}</div>
-                                        @endif
+                                                @if($ganador_1 == 0 )
+                                                    <div class="text-yellow-500 font-Allerta font-extrabold uppercase underline text-xs md:text-lg">{{$sorteo->type_3}}</div>
+                                                @endif
+                
+                                                @if($ganador_2 == 0 && $ganador_1 == 1)
+                                                    <div class="text-yellow-500 font-Allerta font-extrabold text-xs md:text-lg underline">{{$sorteo->type_2}}</div>
+                                                @endif
+                
+                                                @if($ganador_3 == 0 && $ganador_2 == 1)
+                                                    <div class="text-yellow-500 font-Allerta font-extrabold text-xs md:text-lg underline">{{$sorteo->type_1}}</div>
+                                                @endif
+
+                                                @if($ganador_1 == 0)
+
+                                                    <p class="font-Allerta text-xs  font-bold text-red-500">(3er lugar)</p>
+                                                @endif
+
+                                                @if($ganador_1 == 1 && $ganador_2 == 0 && $ganador_3 == 0)
+                                                    <p class="font-Allerta text-xs  font-bold text-red-500">(2do lugar)</p>
+                                                @endif
+
+                                                @if($ganador_1 == 1 && $ganador_2 == 1 && $ganador_3 == 0)
+                                                    <p class="font-Allerta text-xs font-bold text-red-500">(1er lugar)</p>
+                                                @endif
         
                                             
                                         </div>
@@ -5109,7 +5098,7 @@
                                                 </svg>
                                         </div>
                                         <div class="flex flex-col flex-grow mt-2 ">
-                                            <div class="font-Allerta text-xs md:text-md lg:text-lg font-bold text-blue-500 ">MODALIDADES</div>
+                                            <div class="font-Allerta text-xs md:text-md lg:text-lg font-bold text-blue-500 ">FORMACIONES</div>
 
                                             <div class="font-semibold mt-2 ">@livewire('sorteo.info-modalidades',['sorteo_select' => $sorteo->id, 'tipo' => 'Jugar']) </div>
         
@@ -10416,15 +10405,13 @@
 
 
 <script>
-        // Escuchar el evento emitido por Livewire
+  
         Livewire.on('emitirSonido', function () {
-            // Crear un elemento de audio
+  
 
             const audio = new Audio('{{ asset("img/notification-beep-229154.mp3") }}');
 
-    
-            
-            // Reproducir el sonido
+
             audio.play();
 
             // Detener el sonido después de 2 segundos
@@ -10458,49 +10445,73 @@
 
 
 <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        // Crear el elemento de audio
-        const audioElement = new Audio("{{ asset('img/medieval-epic-adventure-action-heroic-powerful-opener-intro-117935.mp3') }}");
-        audioElement.volume = 0.2; // Volumen inicial al 20%
-        audioElement.loop = true; // Repetir la música
 
-        const audioToggle = document.getElementById('audioToggle');
-        const soundOnIcon = document.getElementById('soundOn');
-        const soundOffIcon = document.getElementById('soundOff');
 
-        // Estado inicial
-        let isMuted = false;
+    document.addEventListener('DOMContentLoaded', function() {
+            const startButton = document.getElementById('startButton');
+            const audioToggle = document.getElementById('audioToggle');
+            const soundOnIcon = document.getElementById('soundOn');
+            const soundOffIcon = document.getElementById('soundOff');
 
-        // Función para alternar el estado del audio
-        function toggleAudio() {
-            isMuted = !isMuted;
-            
-            if(isMuted) {
-                audioElement.pause();
-                soundOnIcon.classList.add('hidden');
-                soundOffIcon.classList.remove('hidden');
-                audioToggle.setAttribute('aria-label', 'Activar música');
-            } else {
-                audioElement.play();
-                soundOffIcon.classList.add('hidden');
-                soundOnIcon.classList.remove('hidden');
-                audioToggle.setAttribute('aria-label', 'Silenciar música');
+            audioToggle.classList.add('hidden');
+
+            let audioElement = null;
+
+            startButton.addEventListener('click', function() {
+
+                audioToggle.classList.remove('hidden');
+
+                audioElement = new Audio("{{ asset('img/Skedaddle Back - Nathan Moore.mp3') }}");
+                audioElement.volume = 0.4;
+                audioElement.loop = true;
+
+                // Reproducir el audio
+                audioElement.play().catch(error => {
+                    console.error('Error al reproducir el audio:', error);
+                });
+
+                // Ocultar el botón de inicio
+                startButton.style.display = 'none';
+
+
+                // Mostrar el botón de mute
+                document.getElementById('audioToggle').classList.remove('hidden');
+
+                // Configurar controles de audio
+                setupAudioControls(audioElement);
+            });
+
+            function setupAudioControls(audio) {
+               
+                
+
+                let isMuted = false;
+
+                function toggleAudio() {
+                    isMuted = !isMuted;
+                    
+                    if(isMuted) {
+                        audio.pause();
+                        soundOnIcon.classList.add('hidden');
+                        soundOffIcon.classList.remove('hidden');
+                        audioToggle.setAttribute('aria-label', 'Activar música');
+                    } else {
+                        audio.play();
+                        soundOffIcon.classList.add('hidden');
+                        soundOnIcon.classList.remove('hidden');
+                        audioToggle.setAttribute('aria-label', 'Silenciar música');
+                    }
+                }
+
+                audioToggle.addEventListener('click', toggleAudio);
             }
-        }
 
-        // Event listener para el botón
-        audioToggle.addEventListener('click', toggleAudio);
-
-        // Manejo inicial para navegadores que bloquean autoplay
-        audioElement.play().catch(error => {
-            // Si falla el autoplay, cambiar a estado "muteado"
-            isMuted = true;
-            soundOnIcon.classList.add('hidden');
-            soundOffIcon.classList.remove('hidden');
-            audioToggle.setAttribute('aria-label', 'Activar música');
-        });
     });
+
+
+
 </script>
+
 
 
 

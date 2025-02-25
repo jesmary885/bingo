@@ -34,7 +34,7 @@ class RegistroUsuarios extends Component
     protected $rules = [
         'name' => ['required', 'string', 'max:255'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        'password' => ['required', 'min:6', 'max:30' ,'confirmed' ],
+        'password' => ['required', 'min:6', 'max:30'],
     ];
 
     protected $rul_password_confirm = [
