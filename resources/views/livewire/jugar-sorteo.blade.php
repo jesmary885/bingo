@@ -2291,7 +2291,7 @@
           
                     <button 
                         id="audioToggle" 
-                        class="fixed bottom-4 right-4 p-3 bg-green-500 hover:bg-green-600 rounded-full text-white transition-all animate-fade-right shadow-2xl shadow-green-700 border-2"
+                        class="fixed bottom-4 top-8 right-4 p-3 bg-green-500 hover:bg-green-600 rounded-full text-white transition-all animate-fade-right shadow-2xl shadow-green-700 border-2"
                         aria-label="Silenciar música"
                         >
                         <svg id="audioIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
