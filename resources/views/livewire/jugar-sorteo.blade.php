@@ -2348,7 +2348,7 @@
                             <div class="p-4 w-full">
                                 
                                 <div class="grid grid-cols-4 gap-4">
-                                    <div class="col-span-2 lg:col-span-1 ">
+                                    <div class="col-span-4 md:col-span-2 lg:col-span-1 ">
                                         <div class="flex flex-row bg-white shadow-sm rounded p-1">
                                             <div class="flex items-center justify-center flex-shrink-0 h-20 w-20 rounded-xl text-blue-500">
                                             
@@ -3400,7 +3400,7 @@
 
 
 
-                                    <div class="col-span-2 lg:col-span-1 ">
+                                    <div class="col-span-4 md:col-span-2  lg:col-span-1 ">
                                         <div class="flex flex-row bg-white shadow-sm rounded p-1">
                                             <div class="flex items-center justify-center flex-shrink-0 h-20  w-20 rounded-xl text-blue-500">
                                             <svg class="h-24 w-24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
@@ -4266,7 +4266,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-span-2 lg:col-span-1 ">
+                                    <div class="col-span-4 md:col-span-2  lg:col-span-1 ">
                                         <div class="flex flex-row bg-white shadow-sm rounded p-1">
                                             <div class="flex items-center justify-center flex-shrink-0 h-20  w-20 rounded-xl text-blue-500">
                                                 <svg class="h-24 w-24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
@@ -5111,7 +5111,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-span-2 lg:col-span-1 ">
+                                    <div class="col-span-4 md:col-span-2  lg:col-span-1 ">
                                         <div class="flex flex-row bg-white shadow-sm rounded p-1">
                                             <div class="flex items-center justify-center flex-shrink-0 h-20 w-20 rounded-xl text-blue-500">
 
