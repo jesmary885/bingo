@@ -1929,7 +1929,7 @@ class JugarSorteo extends Component
         if($this->sorteo_iniciado == 1){
       
             if($this->cartones_sorteo_iniciado == 1 || auth()->user()->id == 1){
-
+/*
                 if (session()->has('metodo_ejecutado')) {
                     $this->boton_pulsado = 1;
                 }
@@ -1937,7 +1937,7 @@ class JugarSorteo extends Component
                     $this->boton_pulsado = 0;
                     Session::put('metodo_ejecutado', true);
     
-                }
+                }*/
 
 
                 $fichas = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->get();
