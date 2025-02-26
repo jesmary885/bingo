@@ -34,16 +34,16 @@ class JugarSorteo extends Component
    public function mount(){
 
     //QUITAS ESTO PARA QUE SE ELIMINE EL BOTON AL REFRESCAR LA PAGINA
-  // Session::forget('metodo_ejecutado');
+  /* Session::forget('metodo_ejecutado');
 
-            if (session()->has('metodo_ejecutado')) {
+            if (session()->has('metodo_ejecutado')) {*/
                 $this->boton_pulsado = 1;
-            }
+          /*  }
             else{
                 $this->boton_pulsado = 0;
                 Session::put('metodo_ejecutado', true);
 
-            }
+            }*/
     
 
             $this->cont_ganador = 0;
@@ -1917,7 +1917,7 @@ class JugarSorteo extends Component
             ->where('lugar','Tercero')
             ->get() ?? [];
 
-        Session::forget('metodo_ejecutado');
+     //   Session::forget('metodo_ejecutado');
 
     }
 
