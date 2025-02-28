@@ -1067,19 +1067,9 @@ class JugarSorteo extends Component
 
       //  $this->boton_pulsado = 1;
 
-      Session::forget('metodo_ejecutado');
-
-            if (session()->has('metodo_ejecutado')) {
-                $this->boton_pulsado = 1;
-            }
-            else{
-                $this->boton_pulsado = 0;
-                Session::put('metodo_ejecutado', true);
-
-            }
-
-      /*  if( $this->boton_pulsado == 0 ) $this->boton_pulsado = 1;
-        else $this->boton_pulsado= 0;*/
+     
+        if( $this->boton_pulsado == 0 ) $this->boton_pulsado = 1;
+        else $this->boton_pulsado= 0;
     }
 
     public function nombre($nombre){

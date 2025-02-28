@@ -70,6 +70,7 @@ Route::middleware(['auth'])->group(function()
 
     Route::get('mis-cartones', [ShoppingCartController::class,'cartones'])->name('mis-cartones');
 
+
     Route::get('jugar', [JugarController::class,'jugar'])->name('jugar');
 
     Route::get('resultados-sorteos', [JugarController::class,'resultados'])->name('resultados-sorteos');
