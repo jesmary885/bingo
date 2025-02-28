@@ -39,7 +39,7 @@ class JugarSorteoEspera extends Component
 
             if($cartones >= 1){
 
-                $this->emitTo('jugar-sorteo', 'render');
+                $this->redirect('/jugar'); 
 
             }
 
@@ -66,6 +66,8 @@ class JugarSorteoEspera extends Component
                     $horas_restantes = 0;
                     $minutos_restantes = 0;
                     $ano_restantes = 0;
+
+                    $sorteo_nro = 0;
                 }
         }
         return view('livewire.sorteo.jugar-sorteo-espera',compact('sorteo_nro','ano_restantes','minutos_restantes','mes_restantes','dias_restantes','horas_restantes'));
