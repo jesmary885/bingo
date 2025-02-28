@@ -26,7 +26,7 @@ class ShoppingCart extends Component
 
     protected $rules = [
         'constancia' => 'required',
-
+        'referencia' => 'required',
     ];
 
     protected $rules_telefono = [

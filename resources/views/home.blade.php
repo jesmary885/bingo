@@ -901,6 +901,8 @@
         <h2 class="text-blue-800 text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter font-Allerta text-center mb-4 pt-4">Próximos sorteos </h2>
    
 
+        @if ($sorteos->count())
+
         <div class="relative font-Arima  pt-2 lg:pt-2">
 
             <div class="bg-cover w-full flex justify-center items-center">
@@ -908,6 +910,8 @@
                     <div class="w-12/12 mx-auto rounded-2xl bg-white md:p-5 bg-opacity-40 backdrop-filter backdrop-blur-lg">
         
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
+
+                          
 
                             @foreach($sorteos as $sorteo)
           
@@ -5593,13 +5597,24 @@
                             </article>
 
                             @endforeach
-        
+
+
                         </div>
                        
                     </div>
                 </div>
             </div>
         </div>
+
+        @else
+
+        <div class="flex justify-center mt-8 w-full">
+
+            <p class="  font-Arima  text-lg md:text-xl lg:text-2xl  ">-No existen sorteos activos-</p>
+
+        </div>
+
+        @endif
        
     </div>
 

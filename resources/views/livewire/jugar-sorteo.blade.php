@@ -8169,7 +8169,7 @@
                                                         @if($type_3 == 'Tradicional')
                                                             @if($linea_h == 0) {{$this->verifi_linea_horizontal($todo_c->carton->id)}} @endif
                                                             @if($linea_v == 0){{$this->verifi_linea_vertical($todo_c->carton->id)}} @endif
-                                                            @if($ce == 0){{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}@endif
+                                                            @if($c_e == 0){{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}@endif
                                                             @if($diag_iz == 0){{$this->diagonal_iz($todo_c->carton->id)}}@endif
                                                             @if($diag_d == 0){{$this->diagonal_dr($todo_c->carton->id)}}@endif
                                                             @if($crup_p == 0){{$this->cruz_pequeña($todo_c->carton->id)}}@endif
@@ -8184,7 +8184,7 @@
                                                         @if($type_2 == 'Tradicional')
                                                             @if($linea_h == 0){{$this->verifi_linea_horizontal($todo_c->carton->id)}}@endif
                                                             @if($linea_v == 0){{$this->verifi_linea_vertical($todo_c->carton->id)}}@endif
-                                                            @if($ce == 0){{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}@endif
+                                                            @if($c_e == 0){{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}@endif
                                                             @if($diag_iz == 0){{$this->diagonal_iz($todo_c->carton->id)}}@endif
                                                             @if($diag_d == 0){{$this->diagonal_dr($todo_c->carton->id)}}@endif
                                                             @if($crup_p == 0){{$this->cruz_pequeña($todo_c->carton->id)}}@endif
@@ -8200,7 +8200,7 @@
                                                         @if($type_1 == 'Tradicional')
                                                             @if($linea_h == 0){{$this->verifi_linea_horizontal($todo_c->carton->id)}}@endif
                                                             @if($linea_v == 0){{$this->verifi_linea_vertical($todo_c->carton->id)}}@endif
-                                                            @if($ce == 0){{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}@endif
+                                                            @if($c_e == 0){{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}@endif
                                                             @if($diag_iz == 0){{$this->diagonal_iz($todo_c->carton->id)}}@endif
                                                             @if($diag_d == 0){{$this->diagonal_dr($todo_c->carton->id)}}@endif
                                                             @if($crup_p == 0){{$this->cruz_pequeña($todo_c->carton->id)}}@endif
