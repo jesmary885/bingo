@@ -29,6 +29,14 @@ class JugarSorteoEspera extends Component
             ->where('status_juego', 'Sin estado')
             ->count();
 
+            $mes_restantes = 0;
+            $dias_restantes = 0;
+            $horas_restantes = 0;
+            $minutos_restantes = 0;
+            $ano_restantes = 0;
+
+            $sorteo_nro = 0;
+
             if($cartones >= 1){
 
                 $this->emitTo('jugar-sorteo', 'render');
