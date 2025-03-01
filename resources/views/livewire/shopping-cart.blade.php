@@ -1848,7 +1848,7 @@
                                 </p>
     
                                 <div class="w-full flex justify-center mt-2">
-                                    <input type="numer" name="referencia" wire:model="referencia" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"  />
+                                    <input type="number" name="referencia" wire:model="referencia" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"  />
                                     <x-input-error class="mt-2 font-bold" for="referencia" />
                                 </div>
                 

@@ -271,11 +271,9 @@
                 Alpine.data('datepicker',()=>({
                     fecha_pago:null,
                     init(){
-                        flatpickr(this.$refs.myDatepicker, {dateFormat:'Y-m-d H:i', altInput:true, altFormat: 'F j, Y',})
+                        flatpickr(this.$refs.myDatepicker, {dateFormat:'Y-m-d H:i', altInput:true, enableTime:true, altFormat: 'F j, Y h:i K',})
                     },
-                    reset(){
-                        this.fecha_inicio= null;
-                    }
+                 
                 }))
             })
         
