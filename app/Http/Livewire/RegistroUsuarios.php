@@ -58,6 +58,7 @@ class RegistroUsuarios extends Component
         $this->validate($rules);
 
 
+
         if($this->password == $this->password_confirmation){
             if($this->terminos_condiciones == 1){
                 if($this->confirmar_edad == 1){
@@ -78,20 +79,24 @@ class RegistroUsuarios extends Component
                         $user->update([
                             'codigo_referido' => 'b-'.$user->id
                         ]);
-                
+
+                        
                         if($this->codigo){
-                
+                                
                             $busqueda_codigo = User::where('codigo_referido',$this->codigo)->first();
-                
+
                             if( $busqueda_codigo){
-                
+
                                 referidos::create([
                                     'user_id' => $user->id,
                                     'refer_id' => $busqueda_codigo->id,
                                     'status' => 'Pendiente',
                                     'compra' => 'No'
                                 ]);
-                
+
+                                auth()->login($user);
+                                return redirect(route("home"));
+
                             }
 
                             else{
@@ -100,11 +105,13 @@ class RegistroUsuarios extends Component
                                     ->duration(9000) // 2 seconds
                                     ->addError('El código ingresado no existe');
                             }
-                
+
                         }
-                
-                        auth()->login($user);
-                        return redirect(route("home"));
+
+                        else{
+                            auth()->login($user);
+                            return redirect(route("home"));
+                        }
 
                 }
                 else{
