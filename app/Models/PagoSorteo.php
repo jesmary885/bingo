@@ -11,6 +11,8 @@ class PagoSorteo extends Model
 
     protected $table = "pago_sorteos";
 
+    protected $guarded = ['id','created_at','updated_at'];
+
     //Relacion uno a muchos inversa
 
     public function pago(){
