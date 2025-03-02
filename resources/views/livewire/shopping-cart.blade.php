@@ -1807,7 +1807,7 @@
                                     </div>
     
                                     <div class="px-4 text-xs mt-1 text-blue-500 bg-gray-100 rounded-full text-center  ">
-                                        queryset2023@gmail.com
+                                        bingomas2000@gmail.com
                                     </div>
     
                                 </button>
