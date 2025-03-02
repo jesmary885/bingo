@@ -34,7 +34,7 @@ class IniciarSorteo extends Component
 
         else{
 
-            $usuario_pendiente = PagoSorteo::where('sorteo_id',$sorteo_select->id)
+            $usuario_pendiente = PagoSorteo::where('sorteo_id',$sorteo)
             ->where('status','Pendiente')
             ->first();
 
