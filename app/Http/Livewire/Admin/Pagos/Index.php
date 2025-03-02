@@ -187,6 +187,18 @@ class Index extends Component
             ]);
         }
 
+        $pago_usuario = PagoSorteo::where('pago_id',$this->registro_select)
+        ->get();
+
+        foreach($pago_usuario as $pu){
+
+            PagoSorteo::where('id',$pu->id)
+                ->update([
+                    'status' => 'Pago no recibido'
+                ]);
+
+        }
+
         $pagos_carton = CartonSorteo::where('pago_id',$this->registro_select)
             ->get();
 
@@ -245,7 +257,7 @@ class Index extends Component
 
         foreach($pago_usuario as $pu){
 
-            PagoSorteo::where('id',$pu->id)->first()
+            PagoSorteo::where('id',$pu->id)
                 ->update([
                     'status' => 'Pago no recibido'
                 ]);
