@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Sorteo;
 
+use App\Models\PagoSorteo;
 use App\Models\Sorteo;
 use Livewire\Component;
 
@@ -33,13 +34,33 @@ class IniciarSorteo extends Component
 
         else{
 
+            $usuario_pendiente = PagoSorteo::where('sorteo_id',$sorteo_select->id)
+            ->where('status','Pendiente')
+            ->first();
 
-            Sorteo::where('id',$sorteo)->first()
+            if($usuario_pendiente){
+
+                notyf()
+                    ->duration(0)
+                    ->position('x', 'center')
+                    ->position('y', 'center')
+                    ->dismissible(true)
+                    ->addError('Aún tiene un pago pendiente por verificar');
+
+            }
+            else{
+
+                Sorteo::where('id',$sorteo)->first()
                 ->update([
                 'status'=>'Iniciado'
-            ]);
+                ]);
 
-            return redirect()->route('admin.sorteo_jugar',$sorteo);
+                return redirect()->route('admin.sorteo_jugar',$sorteo);
+                
+            }
+
+
+            
 
         }
 

@@ -8,6 +8,7 @@ use App\Models\CartonSorteo;
 use App\Models\CuentasUser;
 use App\Models\MetodoPago;
 use App\Models\Pago;
+use App\Models\PagoSorteo;
 use App\Models\Sorteo;
 use App\Models\User;
 use Livewire\Component;
@@ -191,6 +192,12 @@ class ShoppingCart extends Component
                          $item->update([
                             'status' => 'pagado',
                             'pago_id' => $pago_proc->id
+                        ]);
+
+                        PagoSorteo::create([
+                            'sorteo_id' => $item->sorteo_id,
+                            'pago_id' => $item->pago_id,
+                            'status' => 'Pendiente',
                         ]);
                      }
          

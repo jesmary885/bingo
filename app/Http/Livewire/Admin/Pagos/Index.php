@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin\Pagos;
 use App\Models\Cart;
 use App\Models\CartonSorteo;
 use App\Models\Pago;
+use App\Models\PagoSorteo;
 use App\Models\referidos;
 use Livewire\Component;
 Use Livewire\WithPagination;
@@ -197,6 +198,13 @@ class Index extends Component
                 'status_carton' => 'No disponible',
                 'status_pago' => 'Pago recibido',
             ]);
+
+            PagoSorteo::where('sorteo_id',$carton_modif->sorteo_id)
+                ->where('pago_id',$carton_modif->pago_id)
+                ->first()
+                ->update([
+                    'status' => 'Pago recibido'
+                ]);
         }
 
 
@@ -227,8 +235,22 @@ class Index extends Component
                 'status' => 'Pago no recibido'
             ]);
 
+       
+
         $pagos_carton = CartonSorteo::where('pago_id',$this->registro_select)
             ->get();
+
+        $pago_usuario = PagoSorteo::where('pago_id',$this->registro_select)
+        ->get();
+
+        foreach($pago_usuario as $pu){
+
+            PagoSorteo::where('id',$pu->id)->first()
+                ->update([
+                    'status' => 'Pago no recibido'
+                ]);
+
+        }
 
         foreach($pagos_carton as $carton_modif){
 
@@ -239,6 +261,8 @@ class Index extends Component
                     'pago_id' => null,
                     'user_id' => null
                 ]);
+
+            
         }
 
         $busqueda_carro = Cart::where('pago_id',$this->registro_select)
