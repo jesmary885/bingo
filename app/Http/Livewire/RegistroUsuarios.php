@@ -93,6 +93,13 @@ class RegistroUsuarios extends Component
                                 ]);
                 
                             }
+
+                            else{
+
+                                notyf()
+                                    ->duration(9000) // 2 seconds
+                                    ->addError('El código ingresado no existe');
+                            }
                 
                         }
                 
