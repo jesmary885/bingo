@@ -64,28 +64,27 @@ class RegistroUsuarios extends Component
                 if($this->confirmar_edad == 1){
 
         
-                        $user= User::create([
-                            'name' => $this->name,
-                            'email' => $this->email,
-                            'estado' => 'activo',
-                            'password' => Hash::make($this->password),
-                        ])->assignRole('Jugador');
-                
-                        UserSaldo::create([
-                            'user_id' => $user->id,
-                            'saldo' => '0',
-                        ]);
-                
-                        $user->update([
-                            'codigo_referido' => 'b-'.$user->id
-                        ]);
-
-                        
                         if($this->codigo){
                                 
                             $busqueda_codigo = User::where('codigo_referido',$this->codigo)->first();
 
                             if( $busqueda_codigo){
+
+                                $user= User::create([
+                                    'name' => $this->name,
+                                    'email' => $this->email,
+                                    'estado' => 'activo',
+                                    'password' => Hash::make($this->password),
+                                ])->assignRole('Jugador');
+                        
+                                UserSaldo::create([
+                                    'user_id' => $user->id,
+                                    'saldo' => '0',
+                                ]);
+                        
+                                $user->update([
+                                    'codigo_referido' => 'b-'.$user->id
+                                ]);
 
                                 referidos::create([
                                     'user_id' => $user->id,
@@ -109,6 +108,23 @@ class RegistroUsuarios extends Component
                         }
 
                         else{
+
+                            $user= User::create([
+                                'name' => $this->name,
+                                'email' => $this->email,
+                                'estado' => 'activo',
+                                'password' => Hash::make($this->password),
+                            ])->assignRole('Jugador');
+                    
+                            UserSaldo::create([
+                                'user_id' => $user->id,
+                                'saldo' => '0',
+                            ]);
+                    
+                            $user->update([
+                                'codigo_referido' => 'b-'.$user->id
+                            ]);
+                            
                             auth()->login($user);
                             return redirect(route("home"));
                         }

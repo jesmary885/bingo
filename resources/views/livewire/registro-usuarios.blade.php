@@ -510,6 +510,8 @@
                                     </p>
                                 </div>
                                 </div>
+
+                                <x-input-error for="password" />
                                 
                                 
                      
