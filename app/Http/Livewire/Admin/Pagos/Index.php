@@ -194,7 +194,7 @@ class Index extends Component
 
             PagoSorteo::where('id',$pu->id)
                 ->update([
-                    'status' => 'Pago no recibido'
+                    'status' => 'Pago recibido'
                 ]);
 
         }
@@ -211,12 +211,7 @@ class Index extends Component
                 'status_pago' => 'Pago recibido',
             ]);
 
-            PagoSorteo::where('sorteo_id',$carton_modif->sorteo_id)
-                ->where('pago_id',$carton_modif->pago_id)
-                ->first()
-                ->update([
-                    'status' => 'Pago recibido'
-                ]);
+ 
         }
 
 
