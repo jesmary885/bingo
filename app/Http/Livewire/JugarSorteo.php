@@ -34,6 +34,13 @@ class JugarSorteo extends Component
    public function mount(){
 
     //QUITAS ESTO PARA QUE SE ELIMINE EL BOTON AL REFRESCAR LA PAGINA
+
+
+    //puse esto aui a ver si me trae el ultimo sorteo finalizado, luego lo
+
+
+
+
         Session::forget('metodo_ejecutado');
 
             if (session()->has('metodo_ejecutado')) {
@@ -1081,20 +1088,40 @@ class JugarSorteo extends Component
 
     public function ganador_fin(){
 
-        if($this->sorteo_finalizado == 1){
-            $this->Sorteo::where('status','Finalizado')
-            ->latest()
-            ->first();
-        }
+      
 
-            $carton_sorteo_activo = CartonSorteo::where('user_id', auth()->user()->id)
-            ->where('status_pago', 'Pago recibido')
-            ->where('sorteo_id',$this->sorteo->id)
-            ->first();
+            if($this->sorteo){
 
-            $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
+                $carton_sorteo_activo = CartonSorteo::where('user_id', auth()->user()->id)
+                ->where('status_pago', 'Pago recibido')
+                ->where('sorteo_id',$this->sorteo->id)
+                ->first();
+
+                $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
                 ->where('status_carton','No disponible')
                 ->count();
+            }
+            else{
+
+                $this->sorteo = Sorteo::where('status','Finalizado')
+                ->latest()
+                ->first();
+
+                $carton_sorteo_activo = CartonSorteo::where('user_id', auth()->user()->id)
+                ->where('status_pago', 'Pago recibido')
+                ->where('sorteo_id',$this->sorteo->id)
+                ->first();
+
+                $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
+                ->where('status_carton','No disponible')
+                ->count();
+
+
+            }
+
+           
+
+            
 
             if($carton_sorteo_activo || auth()->user()->id == 1 ){ //esto se hace si al menos hay un usuario logueado que este jugando en este sorteo o que se loguee el admin
                 if($this->cant_lugares == 1){
