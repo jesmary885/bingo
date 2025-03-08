@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Cart;
 use App\Models\CartonSorteo;
 use App\Models\Sorteo;
 use Carbon\Carbon;
@@ -37,6 +38,11 @@ class CartonesReservados extends Command
                             'user_id' => null,
                             'status_pago' => null
                         ]);
+
+                        Cart::where('carton_id',$carton->id)
+                            ->where('user_id',$sorteo->user_id)
+                            ->where('sorteo_id',$sorteo->sorteo_id)
+                            ->delete();
                     }
                 }
             }

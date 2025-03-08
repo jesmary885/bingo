@@ -23,7 +23,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('referidos:pendientes')->everyMinute(); 
-        $schedule->command('verif:cartones')->everyFiveMinutes();
+        $schedule->command('verif:cartones')->everyMinute();
     }
 
     /**
