@@ -251,7 +251,7 @@ class ShoppingCart extends Component
 
             notyf()
                 ->duration(9000) // 2 seconds
-                ->addError('¡No se pudo procesar su solicitud!, el sorteo Nro. '.$sorteo . ' ¡ya inició!, comunicate con un administrador');
+                ->addError('¡No se pudo procesar su solicitud!, el sorteo Nro. '.$sorteo . ' ¡ya inició!, comunícate con un administrador');
         }
 
     }
