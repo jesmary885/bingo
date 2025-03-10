@@ -36,16 +36,21 @@ class CartonesReservados extends Command
                     $dateDiff = Carbon::now()->diffInMinutes($carton->updated_at);
 
                     if($dateDiff >= 30){
-                        $carton->update([
+
+                        $cart = Cart::where('carton_id',$carton->carton_id)
+                            ->where('user_id',$carton->user_id)
+                            ->where('sorteo_id',$sorteo->id)
+                            ->first();
+
+                        if($cart){
+                            $cart->delete();
+                        }
+
+                       $carton->update([
                             'status_carton' => 'Disponible',
                             'user_id' => null,
                             'status_pago' => null
                         ]);
-
-                        Cart::where('carton_id',$carton->id)
-                            ->where('user_id',$sorteo->user_id)
-                            ->where('sorteo_id',$sorteo->sorteo_id)
-                            ->delete();
                     }
                 }
             }
