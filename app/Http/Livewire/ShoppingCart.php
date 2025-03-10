@@ -256,25 +256,7 @@ class ShoppingCart extends Component
 
     }
 
-   
-    public function destroy(){
 
-        /*
-
-        foreach(Cart::content() as $item){
-
-            CartonSorteo::where('sorteo_id', $item->options['sorteo'])
-                ->where('carton_id',$item->options['carton'])
-                ->first()
-                ->update([
-                    'status_carton' => 'Disponible'
-                ]);
-        }
-
-
-
-        $this->emitTo('dropdown-cart', 'render');*/
-    }
 
     public function mount(){
 

@@ -5577,7 +5577,7 @@
 
                                     <h3 class="font-semibold text-sm md:text-lg leading-8 text-blue-700 underline">
 
-                                        2do lugar (Sorteo  {{$sorteo->type_1}})
+                                        2do lugar (Sorteo  {{$sorteo->type_2}})
                                     
                                     </h3>
 

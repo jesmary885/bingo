@@ -7,6 +7,7 @@ use App\Models\CartonSorteo;
 use App\Models\Pago;
 use App\Models\PagoSorteo;
 use App\Models\referidos;
+use App\Models\UserSaldo;
 use Livewire\Component;
 Use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
@@ -169,59 +170,77 @@ class Index extends Component
 
     public function confirm_pago_recibido(){
 
+        $tipo_pago = Pago::where('id',$this->registro_select)->first()->tipo;
+
         Pago::where('id',$this->registro_select)
             ->first()
             ->update([
                 'status' => 'Pago recibido'
             ]);
 
-        $registro_pago_user = Pago::where('id',$this->registro_select)->first()->user_id;
+        if($tipo_pago == 'Pago de carton'){
 
-        $busqueda_refer = referidos::where('user_id',$registro_pago_user)
-            ->where('compra','No')
-            ->first();
+            $registro_pago_user = Pago::where('id',$this->registro_select)->first()->user_id;
 
-        if($busqueda_refer){
-            $busqueda_refer->update([
-                'compra' => 'Si'
-            ]);
-        }
+            $busqueda_refer = referidos::where('user_id',$registro_pago_user)
+                ->where('compra','No')
+                ->first();
 
-        $pago_usuario = PagoSorteo::where('pago_id',$this->registro_select)
-        ->get();
+            if($busqueda_refer){
+                $busqueda_refer->update([
+                    'compra' => 'Si'
+                ]);
+            }
 
-        foreach($pago_usuario as $pu){
+            $pago_usuario = PagoSorteo::where('pago_id',$this->registro_select)
+            ->get();
 
-            PagoSorteo::where('id',$pu->id)
-                ->update([
-                    'status' => 'Pago recibido'
+            foreach($pago_usuario as $pu){
+
+                PagoSorteo::where('id',$pu->id)
+                    ->update([
+                        'status' => 'Pago recibido'
+                    ]);
+
+            }
+
+            $pagos_carton = CartonSorteo::where('pago_id',$this->registro_select)
+                ->get();
+
+            foreach($pagos_carton as $carton_modif){
+
+                $carton_sorteo_update = CartonSorteo::where('id',$carton_modif->id)->first();
+                
+                $carton_sorteo_update->update([
+                    'status_carton' => 'No disponible',
+                    'status_pago' => 'Pago recibido',
                 ]);
 
-        }
+    
+            }
 
-        $pagos_carton = CartonSorteo::where('pago_id',$this->registro_select)
-            ->get();
 
-        foreach($pagos_carton as $carton_modif){
+            $busqueda_carro = Cart::where('pago_id',$this->registro_select)
+                ->get();
 
-            $carton_sorteo_update = CartonSorteo::where('id',$carton_modif->id)->first();
-            
-            $carton_sorteo_update->update([
-                'status_carton' => 'No disponible',
-                'status_pago' => 'Pago recibido',
+            foreach($busqueda_carro as $busq){
+                $busq->update([
+                    'status' => 'pagado'
+                ]);
+            }
+
+        }else{
+
+            $pago_user = Pago::where('id',$this->registro_select)->first();
+
+            $saldo = UserSaldo::where('user_id',$pago_user->user_id)->first()->saldo;
+
+            $saldo_new = $saldo + $pago_user->monto;
+
+            UserSaldo::where('user_id',$pago_user->user_id)->first()->update([
+                'monto' => $saldo_new
             ]);
 
- 
-        }
-
-
-        $busqueda_carro = Cart::where('pago_id',$this->registro_select)
-            ->get();
-
-        foreach($busqueda_carro as $busq){
-            $busq->update([
-                'status' => 'pagado'
-            ]);
         }
 
     }
