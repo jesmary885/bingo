@@ -83,6 +83,7 @@ class Cartones extends Component
         $carton_sorteo_update = CartonSorteo::where('sorteo_id', $this->sorteo)
             ->where('carton_id',$carton_comprar)
             ->where('status_carton','Disponible')
+            ->lockForUpdate() // Bloquea la fila
             ->first();
 
         if($carton_sorteo_update){

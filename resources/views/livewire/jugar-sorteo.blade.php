@@ -10270,7 +10270,7 @@
             <div class="bg-white  shadow-lg">
                 <div class=" py-1 flex justify-center ">
 
-                    <p class="font-semibold text-md md:text-md text-gray-600 text-center justify-center mx-4  ">En estos momentos no se esta efectuando ningún sorteo en el que te encuestres participando</p>
+                    <p class="font-semibold text-md md:text-md text-gray-600 text-center justify-center mx-4  ">En estos momentos no se esta efectuando ningún sorteo en el que te encuestres participando. (Recuerda que debes reportar el pago de tus cartones para participar en el sorteo)</p>
 
                 </div>
             </div>

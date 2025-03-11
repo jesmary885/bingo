@@ -204,7 +204,7 @@ class CartonSeeder extends Seeder
         DB::table('cartons')->insert([
             'content_1' => json_encode(['14','19','42','51','64']),
             'content_2' => json_encode(['8','20','34','48','74']),
-            'content_3' => json_encode(['3','24','34','47','62']),
+            'content_3' => json_encode(['3','24','38','47','62']),
             'content_4' => json_encode(['15','25','40','49','71']),
             'content_5' => json_encode(['1','17','44','50','61']),
             'serial' => ''
