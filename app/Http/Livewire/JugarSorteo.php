@@ -25,21 +25,13 @@ use Flasher\Toastr\Prime\ToastrInterface;
 
 class JugarSorteo extends Component
 {
-    public $boton_pulsado, $linea_h = 0, $linea_v = 0, $c_e= 0, $diag_iz = 0, $diag_d= 0, $crup_p = 0, $cruz_g = 0,$visible,$no_hay_sorteos = 0, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
+    public $boton_pulsado, $linea_h = 0, $linea_v = 0, $c_e= 0, $diag_iz = 0, $diag_d= 0, $crup_p = 0, $cruz_g = 0,$visible,$no_hay_sorteos, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
 
    protected $listeners = ['render' => 'render','echo:sorteo_fichas,NewFichaSorteo' => 'emitir_sonido', 'echo:ganador,NewGanador' => 'emitir_sonido_ganador','echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' , 'finalizar' => 'finalizar', 'ganador_fin' => 'ganador_fin'];
 
    public $initialized = false;
    
    public function mount(){
-
-    //QUITAS ESTO PARA QUE SE ELIMINE EL BOTON AL REFRESCAR LA PAGINA
-
-
-    //puse esto aui a ver si me trae el ultimo sorteo finalizado, luego lo
-
-
-
 
         Session::forget('metodo_ejecutado');
 
@@ -51,8 +43,6 @@ class JugarSorteo extends Component
                 Session::put('metodo_ejecutado', true);
 
             }
-    
-
             $this->cont_ganador = 0;
 
             $this->visible = 0;
