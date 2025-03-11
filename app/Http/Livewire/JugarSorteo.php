@@ -2153,6 +2153,9 @@ class JugarSorteo extends Component
         else{
 
 
+            $this->no_hay_sorteos = 1;
+
+
             $cartones_user = CartonSorteo::whereHas('sorteo',function(Builder $query){
                 $query->where('status','Aperturado');
             })
