@@ -52,6 +52,12 @@ class AdminController extends Controller
         return view('admin.sorteos_resultados');
     }
 
+    public function sorteo_carton_user(){
+
+        return view('admin.sorteos_carton_user');
+
+    }
+
 
     public function iniciar_sorteo(){
 

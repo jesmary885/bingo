@@ -20,7 +20,7 @@ class CartonesReservados extends Command
         //$sorteos = Sorteo::where('status','Aperturado')->get(); vas a crear dis comandos uno para todos los sorteos
         //y otro para los aperturados
 
-        $sorteos = Sorteo::all();
+        $sorteos = Sorteo::where('status','Aperturado')->get();
 
         foreach($sorteos as $sorteo){
 
