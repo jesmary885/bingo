@@ -329,28 +329,6 @@ class JugarSorteo extends Component
 
                 else{
 
-                    $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Primero')
-                        ->first();
-
-                    $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Segundo')
-                        ->first();
-
-                    $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Tercero')
-                        ->first();
-
-
-                    if(!$ganadores_actuales_primer) $this->ganador_3 = 0; 
-                    else $this->ganador_3 = 1; 
-
-                    if(!$ganadores_actuales_segundo) $this->ganador_2 = 0; 
-                    else $this->ganador_2 = 1; 
-
-                    if(!$ganadores_actuales_tercer) $this->ganador_1 = 0; 
-                    else $this->ganador_1 = 1; 
-
 
                     if($this->ganador_1 == 0){
                         $this->carton_ganador_1 = $fichas_carton; 
@@ -438,27 +416,6 @@ class JugarSorteo extends Component
 
                 else{
 
-                    $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Primero')
-                        ->first();
-
-                    $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Segundo')
-                        ->first();
-
-                    $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Tercero')
-                        ->first();
-
-
-                    if(!$ganadores_actuales_primer) $this->ganador_3 = 0; 
-                    else $this->ganador_3 = 1; 
-
-                    if(!$ganadores_actuales_segundo) $this->ganador_2 = 0; 
-                    else $this->ganador_2 = 1; 
-
-                    if(!$ganadores_actuales_tercer) $this->ganador_1 = 0; 
-                    else $this->ganador_1 = 1; 
 
                     if($this->ganador_1 == 0){
                         $this->carton_ganador_1 = $fichas_carton; 
@@ -541,28 +498,6 @@ class JugarSorteo extends Component
                 }
 
                 else{
-
-                    $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Primero')
-                        ->first();
-
-                    $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Segundo')
-                        ->first();
-
-                    $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Tercero')
-                        ->first();
-
-
-                    if(!$ganadores_actuales_primer) $this->ganador_3 = 0; 
-                    else $this->ganador_3 = 1; 
-
-                    if(!$ganadores_actuales_segundo) $this->ganador_2 = 0; 
-                    else $this->ganador_2 = 1; 
-
-                    if(!$ganadores_actuales_tercer) $this->ganador_1 = 0; 
-                    else $this->ganador_1 = 1; 
 
 
                     if($this->ganador_1 == 0){
@@ -648,27 +583,6 @@ class JugarSorteo extends Component
     
                     else{
 
-                    $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Primero')
-                        ->first();
-
-                    $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Segundo')
-                        ->first();
-
-                    $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Tercero')
-                        ->first();
-
-
-                    if(!$ganadores_actuales_primer) $this->ganador_3 = 0; 
-                    else $this->ganador_3 = 1; 
-
-                    if(!$ganadores_actuales_segundo) $this->ganador_2 = 0; 
-                    else $this->ganador_2 = 1; 
-
-                    if(!$ganadores_actuales_tercer) $this->ganador_1 = 0; 
-                    else $this->ganador_1 = 1; 
     
                         if($this->ganador_1 == 0){
                             $this->carton_ganador_1 = $fichas_carton; 
@@ -781,27 +695,6 @@ class JugarSorteo extends Component
 
                 else{
 
-                    $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Primero')
-                        ->first();
-
-                    $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Segundo')
-                        ->first();
-
-                    $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Tercero')
-                        ->first();
-
-
-                    if(!$ganadores_actuales_primer) $this->ganador_3 = 0; 
-                    else $this->ganador_3 = 1; 
-
-                    if(!$ganadores_actuales_segundo) $this->ganador_2 = 0; 
-                    else $this->ganador_2 = 1; 
-
-                    if(!$ganadores_actuales_tercer) $this->ganador_1 = 0; 
-                    else $this->ganador_1 = 1; 
 
                     if($this->ganador_1 == 0){
                         $this->carton_ganador_1 = Carton::where('id',$carton)->first(); 
@@ -1012,28 +905,6 @@ class JugarSorteo extends Component
 
                 else{
 
-                    $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Primero')
-                        ->first();
-
-                    $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Segundo')
-                        ->first();
-
-                    $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                        ->where('lugar','Tercero')
-                        ->first();
-
-
-                    if(!$ganadores_actuales_primer) $this->ganador_3 = 0; 
-                    else $this->ganador_3 = 1; 
-
-                    if(!$ganadores_actuales_segundo) $this->ganador_2 = 0; 
-                    else $this->ganador_2 = 1; 
-
-                    if(!$ganadores_actuales_tercer) $this->ganador_1 = 0; 
-                    else $this->ganador_1 = 1; 
-
 
                     if($this->ganador_1 == 0){
                         $this->carton_ganador_1 = $fichas_carton; 
@@ -1134,7 +1005,7 @@ class JugarSorteo extends Component
 
                 else{
 
-                    $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                   /* $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo->id)
                         ->where('lugar','Primero')
                         ->first();
 
@@ -1154,7 +1025,7 @@ class JugarSorteo extends Component
                     else $this->ganador_2 = 1; 
 
                     if(!$ganadores_actuales_tercer) $this->ganador_1 = 0; 
-                    else $this->ganador_1 = 1;
+                    else $this->ganador_1 = 1;*/
 
                     if($this->ganador_1 == 0){
                         $this->carton_ganador_1 = $fichas_carton; 
