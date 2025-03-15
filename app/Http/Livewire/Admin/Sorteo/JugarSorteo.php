@@ -91,6 +91,7 @@ class JugarSorteo extends Component
     }
 
     public function ganad(){
+        
 
         $this->sorteo_j = Sorteo::where('id',$this->sorteo)->first();
 
