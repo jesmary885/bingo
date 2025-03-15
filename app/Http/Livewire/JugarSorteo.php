@@ -1720,11 +1720,17 @@ class JugarSorteo extends Component
                                         ->addInfo('Felicidades su cartón Nro ' . $ganadores_sorteo_1_notificacion->carton_id . ', ha ganado el tercer lugar en el sorteo Nro '. $this->sorteo->id );
                                     
         
-                                    Notification_Sorteo::create([
-                                        'user_id' => auth()->user()->id,
-                                        'sorteo_id' => $this->sorteo->id,
-                                        'nro' => '1'
-                                    ]);
+                                        if(auth()->user()->id != 1){
+
+                                            Notification_Sorteo::create([
+                                                'user_id' => auth()->user()->id,
+                                                'sorteo_id' => $this->sorteo->id,
+                                                'nro' => '1'
+                                            ]);
+    
+                                        }
+                                        
+                               
                                 }
                         
                             }
@@ -1736,12 +1742,18 @@ class JugarSorteo extends Component
                                     ->first();
         
                                 if(!$buscar_notificacion){ 
+
+                                    if(auth()->user()->id != 1){
+
+                                        Notification_Sorteo::create([
+                                            'user_id' => auth()->user()->id,
+                                            'sorteo_id' => $this->sorteo->id,
+                                            'nro' => '1'
+                                        ]);
+
+                                    }
         
-                                    Notification_Sorteo::create([
-                                        'user_id' => auth()->user()->id,
-                                        'sorteo_id' => $this->sorteo->id,
-                                        'nro' => '1'
-                                    ]);
+                                    
         
                         
                                     notyf()
@@ -1815,13 +1827,14 @@ class JugarSorteo extends Component
                                         ->dismissible(true)
                                         ->addInfo('Felicidades su cartón Nro ' . $ganadores_sorteo_1_notificacion->carton_id . ', ha ganado el segundo lugar en el sorteo Nro '. $this->sorteo->id  );
                                     
+                                    if(auth()->user()->id != 1){
         
-        
-                                    Notification_Sorteo::create([
-                                        'user_id' => auth()->user()->id,
-                                        'sorteo_id' => $this->sorteo->id,
-                                        'nro' => '2'
-                                    ]);
+                                        Notification_Sorteo::create([
+                                            'user_id' => auth()->user()->id,
+                                            'sorteo_id' => $this->sorteo->id,
+                                            'nro' => '2'
+                                        ]);
+                                    }
                                 }
                         
                             }
@@ -1833,12 +1846,16 @@ class JugarSorteo extends Component
                                     ->first();
         
                                 if(!$buscar_notificacion){ 
+
+                                    if(auth()->user()->id != 1){
         
-                                    Notification_Sorteo::create([
-                                        'user_id' => auth()->user()->id,
-                                        'sorteo_id' => $this->sorteo->id,
-                                        'nro' => '2'
-                                    ]);
+                                        Notification_Sorteo::create([
+                                            'user_id' => auth()->user()->id,
+                                            'sorteo_id' => $this->sorteo->id,
+                                            'nro' => '2'
+                                        ]);
+
+                                    }
         
                         
                                     notyf()
@@ -1908,12 +1925,15 @@ class JugarSorteo extends Component
                                         ->addInfo('Felicidades su cartón Nro ' . $ganadores_sorteo_1_notificacion->carton_id . ', ha ganado el primer lugar en el sorteo Nro '. $this->sorteo->id  );
                                     
         
-        
-                                    Notification_Sorteo::create([
-                                        'user_id' => auth()->user()->id,
-                                        'sorteo_id' => $this->sorteo->id,
-                                        'nro' => '3'
-                                    ]);
+                                    if(auth()->user()->id != 1){
+
+                                        Notification_Sorteo::create([
+                                            'user_id' => auth()->user()->id,
+                                            'sorteo_id' => $this->sorteo->id,
+                                            'nro' => '3'
+                                        ]);
+                                        
+                                    }
                                 }
                             
                             }
