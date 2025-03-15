@@ -109,6 +109,7 @@
                 <table class="table text-sm table-bordered table-responsive-lg table-responsive-md table-responsive-sm">
                     <thead class="text-xs uppercase bg-gray-700 text-gray-400">
                         <tr>
+                            <th class="text-center py-3">Fecha</th>
                             <th class="text-center py-3">Sorteo Nro</th>
                             <th class="text-center">Cant de cartones vendidos</th>
                             <th class="text-center">Precio cartón</th>
@@ -118,7 +119,8 @@
                     <tbody>
                         @foreach ($sorteo_fecha as $sorteo)
                                 <tr class=" border-gray-700 hover:bg-gray-300">
-    
+
+                                    <td class="text-center">{{\Carbon\Carbon::parse($sorteo->updated_at)->format('d-m-Y h:i')}}</td>
                                     <th class="py-3 text-center font-medium whitespace-nowrap ">{{$sorteo->id}}</th>
                                     <td class="text-center">{{$this->cartones_vendidos($sorteo->id)}}</td>
                                     <td class="text-center">{{$sorteo->precio_carton_dolar}} $</td>
