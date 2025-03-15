@@ -26,7 +26,7 @@ class JugarController extends Controller
             ->where('status_juego', 'Sin estado')
             ->count(); 
 
-            if($cartones >= 1){
+            if($cartones >= 1 || auth()->user()->id == 1){
 
                 return view('jugar.index');
 
