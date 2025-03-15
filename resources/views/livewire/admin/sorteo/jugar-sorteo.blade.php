@@ -165,13 +165,11 @@
         </div>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
                 Livewire.on('miEvento', () => {
                     setTimeout(() => {
                         @this.ganad(); // Llama al método de Livewire después de 10 segundos
                     }, 10000); // 10 segundos de retraso
                 });
-            });
         </script>
     @endif
 </div>
