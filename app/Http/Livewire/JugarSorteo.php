@@ -60,7 +60,7 @@ class JugarSorteo extends Component
                     ->where('status_juego', 'Sin estado')
                     ->count(); 
 
-                    if($cartones >= 1) {
+                    if($cartones >= 1 || auth()->user()->id == 1) {
 
                         $this->cartones_sorteo_iniciado = 1;
 
@@ -1995,8 +1995,12 @@ class JugarSorteo extends Component
     {
 
         if($this->sorteo_iniciado == 1){
+
+            
+
       
             if($this->cartones_sorteo_iniciado == 1 || auth()->user()->id == 1){
+
 
 
                 $fichas = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->get();
