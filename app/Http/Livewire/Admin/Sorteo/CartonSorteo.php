@@ -9,6 +9,9 @@ use Livewire\Component;
 
 class CartonSorteo extends Component
 {
+
+    protected $listeners = ['render' => 'render','echo:new_pago,NewPago' => 'render'];
+    
     public function render()
     {
 
