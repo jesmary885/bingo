@@ -23,7 +23,7 @@ class JugarSorteo extends Component
 
     public $sorteo_finalizado = 0, $sorteo_j, $letra_select = 0, $numero_select = 0, $sorteo, $iniciar, $ganador_1 = 0, $lugares, $ganador_2 = 0, $ganador_3 = 0, $finalizo = 0;
 
-   protected $listeners = ['render' => 'render', 'echo:ganador,NewGanador' => 'ganand_1' , 'verificar' => 'verific' ];
+   protected $listeners = ['render' => 'render', 'echo:ganador,NewGanador' => 'ganad' , 'verificar' => 'verific' ];
 
   // protected $listeners = ['render' => 'render', 'verificar' => 'verific' ];
 
@@ -91,7 +91,7 @@ class JugarSorteo extends Component
     }
 
     public function ganad(){
-        
+
 
         $this->sorteo_j = Sorteo::where('id',$this->sorteo)->first();
 

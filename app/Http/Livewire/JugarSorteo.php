@@ -1750,11 +1750,6 @@ class JugarSorteo extends Component
                                             'sorteo_id' => $this->sorteo->id,
                                             'nro' => '1'
                                         ]);
-
-                                    }
-        
-                                    
-        
                         
                                     notyf()
                                         ->duration(0) // 2 seconds
@@ -1762,6 +1757,7 @@ class JugarSorteo extends Component
                                         ->position('y', 'center')
                                         ->dismissible(true)
                                         ->addInfo('Ya hay un ganador en el 3er lugar, y su(s) carton(es) NO se encuentra entre los ganadores, tienes oportunidad para el premio del 2do lugar, continuemos ' );
+                                    }
                                 }
                             }
                             $this->ganador_1 = 1;
@@ -1855,7 +1851,7 @@ class JugarSorteo extends Component
                                             'nro' => '2'
                                         ]);
 
-                                    }
+                                    
         
                         
                                     notyf()
@@ -1864,7 +1860,11 @@ class JugarSorteo extends Component
                                         ->position('y', 'center')
                                         ->dismissible(true)
                                         ->addInfo('Ya hay un ganador en el 2do lugar, y su(s) carton(es) NO se encuentra entre los ganadores, tienes oportunidad para el premio del 1er lugar, continuemos ' );
+                                    }
+                                
                                 }
+
+
                             }
                             $this->ganador_1 = 1;
                             $this->ganador_2 = 1;
@@ -1932,7 +1932,7 @@ class JugarSorteo extends Component
                                             'sorteo_id' => $this->sorteo->id,
                                             'nro' => '3'
                                         ]);
-                                        
+
                                     }
                                 }
                             
