@@ -354,9 +354,18 @@ return [
                     'icon_color' => 'blue',
                     'can' => 'menu.admin'
                 ],
+
                 [
                     'text' => 'Catones - Usuarios',
                     'route'  => 'admin.sorteo_carton_user',
+                    'icon'    => 'fas fa-angle-right',
+                    'icon_color' => 'blue',
+                    'can' => 'menu.admin'
+                ],
+
+                [
+                    'text' => 'Cartones - Sorteo',
+                    'route'  => 'admin.sorteo_carton',
                     'icon'    => 'fas fa-angle-right',
                     'icon_color' => 'blue',
                     'can' => 'menu.admin'

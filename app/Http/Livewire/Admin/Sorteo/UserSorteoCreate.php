@@ -4,42 +4,47 @@ namespace App\Http\Livewire\Admin\Sorteo;
 
 use App\Models\Cart;
 use App\Models\Carton;
+use App\Models\CartonRepetido;
 use App\Models\CartonSorteo;
+use App\Models\Modificaciones;
 use App\Models\Sorteo;
 use App\Models\User;
 use Livewire\Component;
+use Illuminate\Database\Eloquent\Builder;
 
 class UserSorteoCreate extends Component
 {
     
     public $isopen = false;
 
-    public $usuarios, $user_id, $cartones, $carton_id, $sorteos, $sorteo_id, $comentario, $sorteo;
+    public $usuarios, $user_id, $carton_id, $sorteos, $sorteo_id, $comentario, $sorteo;
 
     protected $rules = [
-        'carton_id' => 'required',
         'user_id' => 'required',
+        'comentario' => 'required',
+
     ];
 
-    public function mount($sorteo){
+    public function mount($sorteo,$carton){
 
         $this->usuarios = User::all();
 
-        $this->sorteos = Sorteo::where('status','Aperturado')
-            ->get();
+        $this->sorteo_id = Sorteo::where('id',$sorteo)->first()->id;
 
-        $this->cartones = [];
-
-        $this->sorteo = CartonSorteo::where('id',$sorteo)->first();
+        $this->carton_id = Carton::where('id',$carton)->first()->id;
 
 
     }
 
-    public function updatedSoteoId($value)
+    public function open()
     {
-        $cartones_select = CartonSorteo::find($value);
-        $this->cartones = $cartones_select->carton;
+        $this->isopen = true;  
     }
+    public function close()
+    {
+        $this->isopen = false;  
+    }
+
 
     public function render()
     {
@@ -68,14 +73,23 @@ class UserSorteoCreate extends Component
 
         }
 
-        CartonSorteo::create([
-            'sorteo_id' => $this->sorteo_id,
-            'user_id' => $this->user_id,
-            'carton_id' => $this->carton_id,
-            'status_carton' => 'No disponible',
-            'status_juego' => 'Sin estado',
-            'status_pago' => 'Pago recibido'
+        
+        CartonSorteo::where('sorteo_id',$this->sorteo_id)
+            ->where('carton_id',$this->carton_id)
+            ->update([
+                'sorteo_id' => $this->sorteo_id,
+                'user_id' => $this->user_id,
+                'carton_id' => $this->carton_id,
+                'status_carton' => 'No disponible',
+                'status_juego' => 'Sin estado',
+                'status_pago' => 'Pago recibido'
+            ]);
+
+        Modificaciones::create([
+            'user_id'=> auth()->user()->id,
+            'modificacion' => $this->comentario
         ]);
+
 
         $cart_user = Cart::where('sorteo_id',$this->sorteo_id)
         ->where('user_id',$this->user_id)
@@ -91,6 +105,10 @@ class UserSorteoCreate extends Component
                 'status' => 'pagado',
              ]);
         }
+
+        $this->emit('alert','Datos registrados correctamente');
+        $this->emitTo('admin.sorteo.user-sorteo','render');
+        $this->isopen = false;  
 
 
     }

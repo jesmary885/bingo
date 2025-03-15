@@ -2217,13 +2217,11 @@ class JugarSorteo extends Component
                 })
                     ->where('user_id', auth()->user()->id)
                     ->where('status_pago', 'Pago recibido')
+                    ->where('status_juego', 'Sin estado')
                     ->first(); 
 
                 if($cartones_user){
 
-
-
-             
 
                     $fichas = [];
 

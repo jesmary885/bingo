@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Sorteo;
 
 use App\Models\Cart;
 use App\Models\CartonRepetido;
+use App\Models\CartonSorteo;
 use App\Models\PagoSorteo;
 use App\Models\Sorteo;
 use Livewire\Component;
@@ -69,6 +70,22 @@ class IniciarSorteo extends Component
 
     }
 
+    public function cartones_vendidos($sorteo){
+
+        return CartonSorteo::where('sorteo_id',$sorteo)
+            ->where('status_carton','No disponible')
+            ->count();
+
+    }
+
+    public function cartones_no_vendidos($sorteo){
+
+        return CartonSorteo::where('sorteo_id',$sorteo)
+            ->where('status_carton','Disponible')
+            ->count();
+
+    }
+
     public function verificar(){
 
         $report = 0;
@@ -80,14 +97,14 @@ class IniciarSorteo extends Component
             $busqueda_cart = Cart::where('sorteo_id',$sorteo->id)->get();
 
             foreach($busqueda_cart as $cart){
-                $busqueda_cart_carton = Cart::where('carton_id',$cart->carton_id)->count();
+                $busqueda_cart_carton = Cart::where('carton_id',$cart->carton_id)
+                    ->where('sorteo_id',$cart->sorteo_id)
+                    ->count();
 
                 if($busqueda_cart_carton > 1){
 
-                    $report = 1;
                     $report ++;
 
-                    
                     CartonRepetido::create([
                         'sorteo_id' => $sorteo->id,
                         'carton_id' => $cart->carton_id,
@@ -101,11 +118,17 @@ class IniciarSorteo extends Component
         if($report >= 1){
 
             notyf()
-            ->duration(0)
             ->position('x', 'center')
             ->position('y', 'center')
             ->dismissible(true)
             ->addError('Hay cartones con usuarios duplicados');
+        }else{
+
+            notyf()
+            ->position('x', 'center')
+            ->position('y', 'center')
+            ->dismissible(true)
+            ->addInfo('NO hay cartones duplicados');
         }
   
     }

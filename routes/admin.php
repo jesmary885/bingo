@@ -21,5 +21,6 @@ Route::middleware(['auth','IsAdmin'])->group(function(){
     Route::get('iniciar_sorteo/{sorteo}',[AdminController::class,'sorteo_jugar'])->name('admin.sorteo_jugar')->middleware('permission:menu.admin');
     Route::get('sorteos_user',[AdminController::class,'sorteo_carton_user'])->name('admin.sorteo_carton_user')->middleware('permission:menu.admin');
 
+    Route::get('sorteos_carton',[AdminController::class,'sorteo_carton'])->name('admin.sorteo_carton')->middleware('permission:menu.admin');
 
 });

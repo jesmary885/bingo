@@ -69,4 +69,9 @@ class AdminController extends Controller
         return view('admin.sorteo_jugar',compact('sorteo'));
     }
 
+    public function sorteo_carton(){
+
+        return view('admin.sorteos_carton');
+    }
+
 }

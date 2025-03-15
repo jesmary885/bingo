@@ -24,10 +24,20 @@ class UserSorteo extends Component
         $this->resetPage();
     }
 
+    public function delete($sorteo){
+
+        CartonRepetido::where('id',$sorteo)
+            ->delete();
+
+  /*  foreach($duplicados as $duplicado){
+        $duplicado->delete();
+    }*/
+    }
+
     public function render()
     {
 
-            $sorteos = CartonSorteo::whereHas('user',function(Builder $query){
+            $sorteos = CartonSorteo::whereHas('sorteo',function(Builder $query){
                 $query->where('status','Aperturado');
             })
             ->paginate(25);
