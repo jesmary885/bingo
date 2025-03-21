@@ -65,7 +65,7 @@ class RegisterController extends Controller
         ]);
 
         $user->update([
-            'codigo_referido' => 'b-'.$user->id
+            'codigo_referido' => 'Bing+2025-'.$user->id
         ]);
 
 

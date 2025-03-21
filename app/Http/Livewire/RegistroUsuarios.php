@@ -83,7 +83,7 @@ class RegistroUsuarios extends Component
                                 ]);
                         
                                 $user->update([
-                                    'codigo_referido' => 'b-'.$user->id
+                                    'codigo_referido' => 'BING-ONLINE-'.$user->id
                                 ]);
 
                                 referidos::create([
@@ -122,7 +122,7 @@ class RegistroUsuarios extends Component
                             ]);
                     
                             $user->update([
-                                'codigo_referido' => 'b-'.$user->id
+                                'codigo_referido' => 'BING-ONLINE-'.$user->id
                             ]);
                             
                             auth()->login($user);

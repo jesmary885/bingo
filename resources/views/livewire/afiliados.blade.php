@@ -1,13 +1,58 @@
 <div>
-    <div class=" flex justify-between relative container " >
+    <div class=" md:flex md:justify-between relative container " >
 
-        <div class="w-full flex flex-col justify-center " >
-            <h3 class=" font-Allerta font-bold text-2xl md:text-4xl text-blue-500 text-center mt-4 mb-2   ">MIS REFERIDOS</h3>
-        </div>
+        <div class="w-full flex flex-col justify-center mt-10" >
+            <!-- component -->
+             <div class="w-full flex justify-center items-center">
+                <div class="w-full bg-blue-100 rounded-lg shadow-sm p-2  border-dashed border border-blue-500 justify-between items-center gap-2 sm:gap-0">
+                   <div class="flex justify-center ">
 
-        <div class=" w-full ">
+                    <h3 class="text-gray-700 font-bold font-Allerta text-md md:text-base ">GANA COMPARTIENDO <span class="text-red-600 text-md md:text-base  font-Allerta underline" >TU CÓDIGO</span> </h3>
 
-            <div class=" w-3/4 items-center  "  >
+
+                   </div>
+
+                    <div class=" flex justify-center mt-2 " >
+
+                        <p class="text-gray-500 font-Allerta text-md md:text-base text-center  " >¡Comparte tu código de referidos con tus amigos y familiares!. Anímalos a participar en nuestros sorteos, registrándose con tu código.  </p>
+    
+                    </div>
+
+                   
+                    <div class="flex justify-center items-center gap-4">
+                        
+                        <div>
+
+                            
+
+                             <p id="code_copy" class=" text-blue-600 text-md md:text-lg text-center font-Allerta mt-2"> {{Auth::user()->codigo_referido}}  </p>
+
+
+                        </div>
+
+                        <div>
+                            <button onclick="copiarAlPortapapeles('code_copy')" id="button_copy" class="bg-blue-500 py-1 px-2 mt-2 text-white font-bold flex justify-center rounded-md hover:bg-blue-600"> Copiar </button>
+                        </div>
+                  
+                             
+                             
+                            
+                  
+                    </div>
+
+                    
+
+                </div>
+
+                
+             </div>
+
+             
+         </div>
+
+        <div class=" w-full justify-center">
+
+            <div class="w-full md:w-3/4 justify-center  "  >
 
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                     viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
@@ -611,9 +656,13 @@
             
         </div>
 
+        
+
+        
+
     </div>
 
-    <div class="bg-white rounded-lg shadow-lg mb-6">
+    <div class="bg-white rounded-lg shadow-lg mb-6 mt-6">
 
         
 
@@ -627,58 +676,57 @@
 
     @if ($afiliados->count())
 
-   
+    <div class="container">
+
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
+            <table class="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100">
+               <thead class="text-xs text-white uppercase bg-blue-500 border-b border-blue-400 dark:text-white">
+                  <tr>
+                        <th scope="col" class="px-6 py-3">
+                           Fecha de registro
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                           Nombre
+                        </th>
+
+                  </tr>
+               </thead>
+               <tbody>
+                  @foreach ($afiliados as $afiliado)
+                  <tr class="bg-blue-500 border-b border-blue-400 hover:bg-blue-400">
+                        <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+
+                
+
+                         {{\Carbon\Carbon::parse($afiliado->created_at)->format('d-m-Y h:i')}}
 
 
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
-               <table class="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100">
-                  <thead class="text-xs text-white uppercase bg-blue-500 border-b border-blue-400 dark:text-white">
-                     <tr>
-                           <th scope="col" class="px-6 py-3">
-                              Fecha de registro
-                           </th>
-                           <th scope="col" class="px-6 py-3">
-                              Nombre
-                           </th>
+                          
+                        </th>
+                        <td class="px-6 py-4">
 
-                     </tr>
-                  </thead>
-                  <tbody>
-                     @foreach ($afiliados as $afiliado)
-                     <tr class="bg-blue-500 border-b border-blue-400 hover:bg-blue-400">
-                           <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-
-                   
-
-                            {{\Carbon\Carbon::parse($afiliado->created_at)->format('d-m-Y h:i')}}
-
-
-                             
-                           </th>
-                           <td class="px-6 py-4">
-
-             
-
-                                {{$afiliado->refer->name}}
-
-
-             
-                              
-                           </td>
-
-
-                     </tr>
-
-                     @endforeach
-                  </tbody>
-               </table>
-            </div>
-            
-            <div >
           
-              {{$afiliados->links()}}
-              
-            </div>
+
+                             {{$afiliado->refer->name}}
+
+
+          
+                           
+                        </td>
+
+
+                  </tr>
+
+                  @endforeach
+               </tbody>
+            </table>
+         </div>
+         
+         <div>
+       
+           {{$afiliados->links()}}
+           
+         </div>
         @else
             <div class="card-body container">
 
@@ -687,9 +735,57 @@
                 </p>
 
 
-                 
+                
             </div>
         @endif
+
+    </div>
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+
+
+    <script>
+        function copiarAlPortapapeles(id_elemento) {
+
+            
+            var codigoACopiar = document.getElementById(id_elemento);
+            var seleccion = document.createRange();
+            seleccion.selectNodeContents(codigoACopiar);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(seleccion);
+            var res = document.execCommand('copy');
+            window.getSelection().removeRange(seleccion);
+
+            toastr.options={
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.success('Código copiado')
+        }
+    </script>
+
+
+
+   
+
+
+           
 
 
 

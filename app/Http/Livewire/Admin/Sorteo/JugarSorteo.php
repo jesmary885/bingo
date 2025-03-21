@@ -675,6 +675,17 @@ class JugarSorteo extends Component
             }
         }
 
+
+
+        $cart_sorteo = Cart::where('sorteo_id',$this->sorteo_j->id)
+            ->where('status','no_pagado')
+            ->get();
+
+        foreach($cart_sorteo as $cart_){
+
+            $cart_->delete();
+        }
+
         Sorteo::where('id',$this->sorteo_j->id)->first()->update([
             'status' => 'Finalizado'
         ]);
