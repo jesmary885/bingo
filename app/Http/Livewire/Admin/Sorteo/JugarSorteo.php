@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Sorteo;
 
 use App\Http\Livewire\FichasSorteo;
+use App\Models\Cart;
 use App\Models\CartonGanador;
 use App\Models\CartonSorteo;
 use App\Models\CuentasUser;
