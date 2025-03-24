@@ -22,6 +22,11 @@
                                 Referido de
                             </th>
 
+                            <th 
+                                class="text-center">
+                                Premio
+                            </th>
+
                         </tr>
                 </thead>
                 <tbody>
@@ -40,6 +45,10 @@
 
                             <td class="text-center">
                                 {{$usuario->user->name}}
+                            </td>
+
+                            <td class="text-center">
+                                {{$usuario->status}}
                             </td>
 
                         </tr>
