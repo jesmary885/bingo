@@ -689,6 +689,10 @@
                            Nombre
                         </th>
 
+                        <th scope="col" class="px-6 py-3">
+                            Estado de premio
+                         </th>
+
                   </tr>
                </thead>
                <tbody>
@@ -713,6 +717,20 @@
           
                            
                         </td>
+
+                        <td class="px-6 py-4">
+
+                            @if($afiliado->status == 'Pendiente')
+
+                            Pendiente por procesar
+
+                            @else
+
+                            Premio entregado 
+
+                            @endif
+
+                       </td>
 
 
                   </tr>
