@@ -34,7 +34,7 @@
                     <div class="flex justify-between " >
 
                         <div class="w-full flex mr-2">
-                            <select wire:model.lazy="sorteo_id" class="block w-full bg-gray-50 border border-gray-200 text-gray-400 py-1 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <select wire:model.lazy="sorteo_id" class="block w-full bg-gray-50 border border-gray-200 text-gray-800 py-1 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                 <option value="" selected>Seleccione el sorteo</option>
                                 @foreach ($sorteos as $sorteo)
                                     <option value="{{$sorteo->id}}">{{$sorteo->id}}</option>
@@ -44,10 +44,10 @@
                     </div>
 
                     <div class="w-full flex mr-2">
-                            <select wire:model="carton_id" class="block w-full bg-gray-50 border border-gray-200 text-gray-400 py-1 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <select wire:model="carton_id" class="block w-full bg-gray-50 border border-gray-200 text-gray-800 py-1 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                 <option value="" selected>Seleccione el carton</option>
                                 @foreach ($cartones as $carton)
-                                    <option value="{{$carton->id}}">{{$carton->id}}</option>
+                                    <option value="{{$carton->carton->id}}">{{$carton->carton->id}}</option>
                                 @endforeach
                             </select>
                             <x-input-error for="carton_id" />

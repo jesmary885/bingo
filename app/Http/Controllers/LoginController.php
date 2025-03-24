@@ -32,10 +32,6 @@ class LoginController extends Controller
         ]);
 
 
-
-       
-
-
         if (Auth::attempt($credentials)){
 
             $previous_session = Auth::User()->session_id;
