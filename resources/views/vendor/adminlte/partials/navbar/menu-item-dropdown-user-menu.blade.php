@@ -34,11 +34,22 @@
 
         <li class="user-footer">
 
+            <form method="POST" action="{{ route('logout_out') }}" x-data>
+                @csrf
 
-            <a href="{{ route('logout_out') }}" class="btn btn-default btn-flat float-right  btn-block">
-                    <i class="fa fa-fw fa-power-off text-red"></i>
-                    {{ __('adminlte::adminlte.log_out') }}
-            </a>
+                <x-dropdown-link class="flex justify-center text-md btn btn-default btn-flat float-right  btn-block" href="{{ route('logout_out') }}"
+                @click.prevent="$root.submit();">
+
+                <i class="fa fa-fw fa-power-off text-red"></i>
+                {{ __('adminlte::adminlte.log_out') }}
+       </x-dropdown-link>
+
+
+     
+
+            </form>
+
+
 
             <a href="{{ route('home') }}" class="btn btn-default btn-flat float-right  btn-block">
                 Ir a Página web
