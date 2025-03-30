@@ -6,11 +6,14 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Foundation\Auth\ThrottlesLogins; // Agrega esta línea
 
 use Illuminate\Session\SessionManager;
 
 class LoginController extends Controller
 {
+
+    use ThrottlesLogins; // Agrega este trait
 
      // Número máximo de intentos de login
      protected $maxAttempts = 5;
