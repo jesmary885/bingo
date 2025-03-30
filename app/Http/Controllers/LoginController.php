@@ -20,6 +20,15 @@ class LoginController extends Controller
      // Tiempo de bloqueo en minutos
      protected $decayMinutes = 15;
 
+      /**
+     * Método requerido por ThrottlesLogins
+     * Devuelve el nombre del campo usado como identificador de usuario
+     */
+    public function username()
+    {
+        return 'email'; // O 'username' si usas otro campo
+    }
+
     public function index(){
 
       /*  if (Auth::check()) {
