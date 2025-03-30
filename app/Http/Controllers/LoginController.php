@@ -64,7 +64,7 @@ class LoginController extends Controller
             $user = Auth::user();
 
             // Verificar si el usuario está activo
-            if (!$user->is_active) {
+            if (!$user->estado == 'activo') {
                 Auth::logout();
                 return back()->with('mensaje', 'Tu cuenta está desactivada');
             }
