@@ -6,22 +6,14 @@ use App\Http\Livewire\CartonGanador as LivewireCartonGanador;
 use App\Models\Carton;
 use App\Models\CartonGanador;
 use App\Models\CartonSorteo;
-use App\Models\CuentasUser;
-use App\Models\EmpresaGanancias;
 use App\Models\Notification_Sorteo;
-use App\Models\Pago;
 use App\Models\Sorteo;
 use App\Models\SorteoFicha;
-use App\Models\User;
-use App\Models\UserGanadorSorteo;
-use App\Models\UserGanancias;
-use App\Models\UserSaldo;
 use DateTime;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
-use Flasher\Toastr\Prime\ToastrInterface;
 
 class JugarSorteo extends Component
 {
@@ -47,68 +39,68 @@ class JugarSorteo extends Component
 
             $this->visible = 0;
     
-                $this->sorteo = Sorteo::where('status','Iniciado')->first();
-                $this->ganador_user_login = 0;
+            $this->sorteo = Sorteo::where('status','Iniciado')->first();
+            $this->ganador_user_login = 0;
             
-                if($this->sorteo){
+            if($this->sorteo){
 
-                    $cartones = CartonSorteo::whereHas('sorteo',function(Builder $query){
+                $cartones = CartonSorteo::whereHas('sorteo',function(Builder $query){
                         $query->where('id',$this->sorteo->id);
-                    })
-                    ->where('user_id', auth()->user()->id)
-                    ->where('status_pago', 'Pago recibido')
-                    ->where('status_juego', 'Sin estado')
-                    ->count(); 
+                })
+                ->where('user_id', auth()->user()->id)
+                ->where('status_pago', 'Pago recibido')
+                ->where('status_juego', 'Sin estado')
+                ->count(); 
 
-                    if($cartones >= 1 || auth()->user()->id == 1) {
+                if($cartones >= 1 || auth()->user()->id == 1) {
 
-                        $this->cartones_sorteo_iniciado = 1;
+                    $this->cartones_sorteo_iniciado = 1;
 
-                        $this->sorteo_iniciado = 1;
+                    $this->sorteo_iniciado = 1;
     
-                        if($this->sorteo->type_2 == null) $this->cant_lugares = 1;
-                        elseif($this->sorteo->type_2 != null && $this->sorteo->type_3 == null) $this->cant_lugares = 2;
-                        elseif($this->sorteo->type_2 != null && $this->sorteo->type_3 != null) $this->cant_lugares = 3; 
+                    if($this->sorteo->type_2 == null) $this->cant_lugares = 1;
+                    elseif($this->sorteo->type_2 != null && $this->sorteo->type_3 == null) $this->cant_lugares = 2;
+                    elseif($this->sorteo->type_2 != null && $this->sorteo->type_3 != null) $this->cant_lugares = 3; 
         
         
-                        if($this->cant_lugares == 1) $this->type_1 = $this->sorteo->type_1;
-                        elseif($this->cant_lugares == 2){
-                            $this->type_1 = $this->sorteo->type_1;
-                            $this->type_2 = $this->sorteo->type_2;
-                        }
-                        else{
-                            $this->type_1 = $this->sorteo->type_1;
-                            $this->type_2 = $this->sorteo->type_2;
-                            $this->type_3 = $this->sorteo->type_3;
+                    if($this->cant_lugares == 1) $this->type_1 = $this->sorteo->type_1;
+                    elseif($this->cant_lugares == 2){
+                        $this->type_1 = $this->sorteo->type_1;
+                        $this->type_2 = $this->sorteo->type_2;
+                    }
+                    else{
+                        $this->type_1 = $this->sorteo->type_1;
+                        $this->type_2 = $this->sorteo->type_2;
+                        $this->type_3 = $this->sorteo->type_3;
         
-                        }
+                    }
         
-                        $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                            ->where('lugar','Primero')
-                            ->first();
+                    $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                        ->where('lugar','Primero')
+                        ->first();
         
-                        $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                            ->where('lugar','Segundo')
-                            ->first();
+                    $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                        ->where('lugar','Segundo')
+                        ->first();
         
-                        $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                    $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                        ->where('lugar','Tercero')
+                        ->first();
+        
+                    if($ganadores_actuales_primer) $this->ganador_3 = 1;
+                    if($ganadores_actuales_segundo) $this->ganador_2 = 1;
+                    if($ganadores_actuales_tercer) $this->ganador_1 = 1; 
+        
+                    if($this->ganador_1 == 1 && $this->ganador_2 == 0){
+        
+                        $ganadores_sorteo_1 = CartonGanador::with('carton')
+                            ->where('sorteo_id',$this->sorteo->id)
                             ->where('lugar','Tercero')
-                            ->first();
+                            ->get();
         
-                        if($ganadores_actuales_primer) $this->ganador_3 = 1;
-                        if($ganadores_actuales_segundo) $this->ganador_2 = 1;
-                        if($ganadores_actuales_tercer) $this->ganador_1 = 1; 
-        
-                        if($this->ganador_1 == 1 && $this->ganador_2 == 0){
-        
-                            $ganadores_sorteo_1 = CartonGanador::with('carton')
-                                ->where('sorteo_id',$this->sorteo->id)
-                                ->where('lugar','Tercero')
-                                ->get();
-        
-                            foreach($ganadores_sorteo_1 as $ganador_yo){
+                        foreach($ganadores_sorteo_1 as $ganador_yo){
                                         
-                                if($this->sorteo->type_3 == 'Tradicional'){
+                            if($this->sorteo->type_3 == 'Tradicional'){
                                     if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Horizontal') $this->linea_h = 1;
                                     if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Vertical') $this->linea_v = 1;
                                     if($ganador_yo->type == 'Cuatro esquinas') $this->c_e = 1;
@@ -116,32 +108,32 @@ class JugarSorteo extends Component
                                     if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Derecha') $this->diag_d = 1;
                                     if($ganador_yo->type == 'Cruz G.') $this->cruz_g = 1;
                                     if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
-                                }
                             }
                         }
-                        if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0){
+                        
+                    }
+                    if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0){
         
-                            $ganadores_sorteo_1 = CartonGanador::with('carton')
-                                ->where('sorteo_id',$this->sorteo->id)
-                                ->where('lugar','Segundo')
-                                ->get();
+                        $ganadores_sorteo_1 = CartonGanador::with('carton')
+                            ->where('sorteo_id',$this->sorteo->id)
+                            ->where('lugar','Segundo')
+                            ->get();
         
-                            foreach($ganadores_sorteo_1 as $ganador_yo){
-                                        
-                                if($this->sorteo->type_2 == 'Tradicional'){
-                                    if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Horizontal') $this->linea_h = 1;
-                                    if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Vertical') $this->linea_v = 1;
-                                    if($ganador_yo->type == 'Cuatro esquinas') $this->c_e = 1;
-                                    if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Izquierda') $this->diag_iz = 1;
-                                    if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Derecha') $this->diag_d = 1;
-                                    if($ganador_yo->type == 'Cruz G.') $this->cruz_g = 1;
-                                    if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
-                                }
+                        foreach($ganadores_sorteo_1 as $ganador_yo){
+                            if($this->sorteo->type_2 == 'Tradicional'){
+                                if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Horizontal') $this->linea_h = 1;
+                                if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Vertical') $this->linea_v = 1;
+                                if($ganador_yo->type == 'Cuatro esquinas') $this->c_e = 1;
+                                if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Izquierda') $this->diag_iz = 1;
+                                if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Derecha') $this->diag_d = 1;
+                                if($ganador_yo->type == 'Cruz G.') $this->cruz_g = 1;
+                                if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
                             }
                         }
+                    }
 
-                    } 
-                    else  $this->sorteo_iniciado = 0;
+                } 
+                else  $this->sorteo_iniciado = 0;
 
                 } 
                 else{

@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('sorteo_id')->nullable();
             $table->foreign('sorteo_id')->references('id')->on('sorteos');
-            $table->string('letra');
+            $table->string('letra')->nullable();
             $table->string('numero');
 
         });
