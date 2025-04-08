@@ -60,7 +60,7 @@
                         <select wire:model="metodo" id="metodo" class=" mt-2 block w-full bg-gray-50 border border-gray-200 text-gray-700 py-1 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             <option value="" selected>Seleccione una opción</option>
                             <option value="PAGO MOVIL">Pago móvil</option>
-                            <option value="BINANCE(USDT)">Binance (USDT)</option>
+                            {{-- <option value="BINANCE(USDT)">Binance (USDT)</option> --}}
                         </select>
                         <x-input-error for="metodo" />
                     </div>

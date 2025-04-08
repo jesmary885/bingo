@@ -11,6 +11,7 @@ use App\Models\Pago;
 use App\Models\PagoSorteo;
 use App\Models\Sorteo;
 use App\Models\User;
+use App\Models\UserSaldo;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Contracts\Session\Session;
@@ -23,7 +24,7 @@ class ShoppingCart extends Component
     use WithFileUploads;
 
     protected $listeners = ['render'];
-    public $subtotal,$telefono,$pendiente, $r_i_o, $t_w, $c_u,$opcion_retiro_inmediato = 0, $metodo_select = 0, $dolar_valor, $procesa = 0, $adjunta = 0, $constancia,$referencia;
+    public $saldo, $user, $subtotal,$telefono,$pendiente, $r_i_o, $t_w, $c_u,$opcion_retiro_inmediato = 0, $metodo_select = 0, $dolar_valor, $procesa = 0, $adjunta = 0, $constancia,$referencia;
 
     protected $rules = [
         'constancia' => 'required',
@@ -41,6 +42,59 @@ class ShoppingCart extends Component
         'serial' => null,
     ];
 
+    public function mount(){
+
+        
+        $this->user = auth()->user();
+
+        $this->subtotal = Cart::where('user_id',$this->user->id)
+        ->where('status','no_pagado')
+        ->sum('precio');
+
+        $this->saldo = UserSaldo::where('user_id',$this->user->id)->first()->saldo;
+
+        if($this->saldo < $this->subtotal) {
+
+            $this->metodo_select = 2;
+            $this->adjunta = 1;
+        }
+
+        if( $this->user ->retiro_inmediato == null) $this->r_i_o = 0;
+        else $this->r_i_o = 1;
+
+        if( $this->user ->telefono_whatsapp == null) $this->t_w = 0;
+        else $this->t_w = 1;
+
+        $cuentas_usuario = CuentasUser::where('user_id',$this->user->id)
+            ->get();
+
+        if($cuentas_usuario->isEmpty() == false) $this->c_u = 1;
+        else $this->c_u = 0;
+
+        if($this->r_i_o == 0 || $this->t_w == 0 || $this->c_u == 0) $this->pendiente = 1;
+        else $this->pendiente = 0;
+
+    }
+
+    public function render()
+    {
+
+        $this->dolar_valor = valor_dolar_hoy();
+
+        $content = Cart::where('user_id',$this->user->id)
+            ->where('status','no_pagado')
+            ->get();
+
+        $this->subtotal = Cart::where('user_id',$this->user->id)
+            ->where('status','no_pagado')
+            ->sum('precio');
+
+
+        $this->emit('scrollIntoView');
+
+        return view('livewire.shopping-cart',compact('content'));
+    }
+
 
     public function metodo($metodo_seleccionado){
         if($metodo_seleccionado == 'binance') $this->metodo_select = 1;
@@ -56,7 +110,7 @@ class ShoppingCart extends Component
         if($opcion_seleccionada == 'Si') $this->opcion_retiro_inmediato = 1;
         else $this->opcion_retiro_inmediato = 2;
 
-        User::where('id',auth()->user()->id)->first()->update([
+        User::where('id',$this->user->id)->first()->update([
             'retiro_inmediato' => $opcion_seleccionada,
         ]);
 
@@ -86,7 +140,7 @@ class ShoppingCart extends Component
 
     public function procesar(){
 
-        $content = Cart::where('user_id',auth()->user()->id)
+        $content = Cart::where('user_id',$this->user->id)
             ->where('status','no_pagado')
             ->get();
 
@@ -107,7 +161,7 @@ class ShoppingCart extends Component
 
         if($no_pasa == 0){
 
-            $retiro_inmediato_opcion = User::where('id',auth()->user()->id)
+            $retiro_inmediato_opcion = User::where('id',$this->user->id)
             ->first();
 
             if($retiro_inmediato_opcion->retiro_inmediato == null) $r_i_o = 0;
@@ -120,15 +174,15 @@ class ShoppingCart extends Component
                     $rules_telefono = $this->rules_telefono;
                     $this->validate($rules_telefono);
         
-                    User::where('id',auth()->user()->id)->first()->update([
+                    User::where('id',$this->user->id)->first()->update([
                         'telefono_whatsapp' => $this->telefono
                     ]);
         
                 }
         
-                $retiro_i = User::where('id',auth()->user()->id)->first()->retiro_inmediato;
+                $retiro_i = User::where('id',$this->user->id)->first()->retiro_inmediato;
         
-                $cuentas_usuario_l = CuentasUser::where('user_id',auth()->user()->id)
+                $cuentas_usuario_l = CuentasUser::where('user_id',$this->user->id)
                     ->get();
                 
                 if($cuentas_usuario_l->isEmpty() == false && $cuentas_usuario_l) $this->c_u = 1;
@@ -146,21 +200,21 @@ class ShoppingCart extends Component
                     elseif($this->metodo_select == 2) $metodo= 'Pago movil';
                     else $metodo= 'Saldo';
 
-                    $registro_carro = Cart::where('user_id',auth()->user()->id)
+                    $registro_carro = Cart::where('user_id',$this->user->id)
                         ->where('status','no_pagado')
                         ->get();
 
-                        $subtotal = Cart::where('user_id',auth()->user()->id)
+                        $subtotal = Cart::where('user_id',$this->user->id)
                             ->where('status','no_pagado')
                             ->sum('precio');
 
-                        $cantidad = Cart::where('user_id',auth()->user()->id)
+                        $cantidad = Cart::where('user_id',$this->user->id)
                             ->where('status','no_pagado')
                             ->count();
             
                     if($this->metodo_select == 3){
             
-                        $user = User::where('id',auth()->user()->id)->first();
+                        $user = User::where('id',$this->user->id)->first();
             
                         $saldo_nuevo = $user->saldo - Cart::subtotal();
             
@@ -177,7 +231,7 @@ class ShoppingCart extends Component
                                 ->update([
                                     'status_carton' => 'No disponible',
                                     'status_pago' => 'Pago recibido',
-                                    'user_id' => auth()->user()->id
+                                    'user_id' => $this->user->id
                                 ]);
 
                                 $item->update([
@@ -189,7 +243,7 @@ class ShoppingCart extends Component
                     }
                     else{
                         $pago_proc = Pago::create([
-                            'user_id' => auth()->user()->id,
+                            'user_id' => $this->user->id,
                             'metodo_pago' => $metodo,
                             'monto' => $subtotal,
                             'constancia' => $constancia,
@@ -207,7 +261,7 @@ class ShoppingCart extends Component
                                 ->first()
                                 ->update([
                                     'pago_id' => $pago_proc->id,
-                                    'user_id' => auth()->user()->id
+                                    'user_id' => $this->user->id
                             ]);
 
                             $item->update([
@@ -258,47 +312,10 @@ class ShoppingCart extends Component
 
 
 
-    public function mount(){
-
-        $retiro_inmediato_opcion = User::where('id',auth()->user()->id)
-            ->first();
-
-        if($retiro_inmediato_opcion->retiro_inmediato == null) $this->r_i_o = 0;
-        else $this->r_i_o = 1;
-
-        if($retiro_inmediato_opcion->telefono_whatsapp == null) $this->t_w = 0;
-        else $this->t_w = 1;
-
-        $cuentas_usuario = CuentasUser::where('user_id',auth()->user()->id)
-            ->get();
-
-        if($cuentas_usuario->isEmpty() == false) $this->c_u = 1;
-        else $this->c_u = 0;
-
-        if($this->r_i_o == 0 || $this->t_w == 0 || $this->c_u == 0) $this->pendiente = 1;
-        else $this->pendiente = 0;
-
-    }
+ 
 
 
-    public function render()
-    {
-
-        $this->dolar_valor = valor_dolar_hoy();
-
-        $content = Cart::where('user_id',auth()->user()->id)
-            ->where('status','no_pagado')
-            ->get();
-
-        $this->subtotal = Cart::where('user_id',auth()->user()->id)
-            ->where('status','no_pagado')
-            ->sum('precio');
-
-
-        $this->emit('scrollIntoView');
-
-        return view('livewire.shopping-cart',compact('content'));
-    }
+    
 
     public function volver(){
         $this->emit('volver');

@@ -1751,16 +1751,24 @@
 
                     <div class="bg-white dark:bg-gray-900 ">
                         <div class=" px-1 py-2 mx-auto">
+                            @if(auth()->user()->saldo >= $subtotal)
+
                             <p class="font-semibold text-sm md:text-md  text-gray-700 uppercase text-center mt-2">
                                 Selecciona el método de pago
                             </p>
+
+                            @else
+
+                            <p class="font-semibold text-sm md:text-md  text-gray-700 uppercase text-center mt-2">
+                                Datos para realizar tu pago móvil
+                            </p>
+
+                            @endif
             
                             <div class="mt-2 space-y-2 ">
     
-                                @if(auth()->user()->saldo >= $subtotal)
-    
-    
-    
+                                @if($saldo >= $subtotal)
+
                                     <button wire:click="metodo('saldo')" class=" w-full px-4 py-4 mx-auto border @if($metodo_select == 3) border-blue-600 @endif cursor-pointer rounded-xl">
                                         <div class="flex items-center justify-between ">
                                             <div class="flex items-center">
@@ -1784,11 +1792,63 @@
                                         </div>
     
                                     </button>
+
+                                    <button wire:click="metodo('pago_movil')" class=" w-full px-4 py-4 mx-auto border @if($metodo_select == 2) border-blue-600 @endif cursor-pointer rounded-xl dark:border-gray-700">
+                                        <div class="flex items-center justify-between ">
+                                            <div class="flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5  @if($metodo_select == 2) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                </svg>
+                    
+                                                <div class="flex flex-col items-center mx-5 space-y-1">
+                                                    <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">PAGO MÓVIL</h2>
+                                                    
+                                                </div>
+                                            </div>
+                                            
+                                            <h2 class="text-sm md:text-md lg:text-lg  font-bold text-gray-500  dark:text-gray-300">Bs. {{(floatval($subtotal) * $dolar_valor)}}</h2>
+            
+                                        
+                                        </div>
+        
+                                        <div class="px-4 text-xs mt-1 text-blue-500 bg-gray-100 rounded-full text-center  dark:bg-gray-700 ">
+                                            (0134) (4.909.173) (04148264029)
+                                        </div>
+        
+                                    </button>
                                 
+                                @else
+
+                                <div class=" w-full px-4 py-4 mx-auto border  border-blue-600 rounded-xl dark:border-gray-700">
+                                    <div class="flex items-center justify-between ">
+                                        <div class="flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5  @if($metodo_select == 2) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                            </svg>
+                
+                                            <div class="flex flex-col items-center mx-5 space-y-1">
+                                                <h2 class="text-md font-medium text-gray-700 dark:text-gray-200">BANCO BANESCO</h2>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        <h2 class="text-sm md:text-md lg:text-lg  font-bold text-gray-500  dark:text-gray-300">Bs. {{(floatval($subtotal) * $dolar_valor)}}</h2>
+        
+                                    
+                                    </div>
+    
+                                    <div class="px-4 text-md mt-1 text-blue-500 font-semibold bg-gray-100 rounded-full text-center  dark:bg-gray-700 ">
+                                        (0134) (4.909.173) (04148264029)
+                                    </div>
+    
+                                </div>
+
+
+
                                 @endif
                                
     
-                                <button wire:click="metodo('binance')" class=" w-full px-4 py-4 mx-auto border @if($metodo_select == 1) border-blue-600 @endif cursor-pointer rounded-xl">
+                                {{-- <button wire:click="metodo('binance')" class=" w-full px-4 py-4 mx-auto border @if($metodo_select == 1) border-blue-600 @endif cursor-pointer rounded-xl">
                                     <div class="flex items-center justify-between ">
                                         <div class="flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 @if($metodo_select == 1) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
@@ -1810,31 +1870,9 @@
                                         bingomas2000@gmail.com
                                     </div>
     
-                                </button>
+                                </button> --}}
                                 
-                                <button wire:click="metodo('pago_movil')" class=" w-full px-4 py-4 mx-auto border @if($metodo_select == 2) border-blue-600 @endif cursor-pointer rounded-xl dark:border-gray-700">
-                                    <div class="flex items-center justify-between ">
-                                        <div class="flex items-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5  @if($metodo_select == 2) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                            </svg>
-                
-                                            <div class="flex flex-col items-center mx-5 space-y-1">
-                                                <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">PAGO MÓVIL</h2>
-                                                
-                                            </div>
-                                        </div>
-                                        
-                                        <h2 class="text-sm md:text-md lg:text-lg  font-bold text-gray-500  dark:text-gray-300">Bs. {{(floatval($subtotal) * $dolar_valor)}}</h2>
-        
-                                    
-                                    </div>
-    
-                                    <div class="px-4 text-xs mt-1 text-blue-500 bg-gray-100 rounded-full text-center  dark:bg-gray-700 ">
-                                        (0134) (4.909.173) (04148264029)
-                                    </div>
-    
-                                </button>
+                                
     
                             </div>
     
