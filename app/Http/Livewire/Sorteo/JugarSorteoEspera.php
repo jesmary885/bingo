@@ -10,12 +10,20 @@ use Illuminate\Database\Eloquent\Builder;
 class JugarSorteoEspera extends Component
 {
 
-    public $no_hay_sorteos = 0, $sorteo, $sorteo_user;
+    public $no_hay_sorteos = 0, $sorteo, $sorteo_user,$user;
 
     protected $listeners = [
         'render' => 'render',
         'echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'render'
     ];
+    
+
+    public function mount(){
+
+        $this->user = auth()->user();
+
+
+    }
 
 
     public function render()
@@ -28,7 +36,7 @@ class JugarSorteoEspera extends Component
             $cartones = CartonSorteo::whereHas('sorteo',function(Builder $query){
                 $query->where('id',$this->sorteo->id);
             })
-            ->where('user_id', auth()->user()->id)
+            ->where('user_id', $this->user->id)
             ->where('status_pago', 'Pago recibido')
             ->where('status_juego', 'Sin estado')
             ->count();
@@ -41,7 +49,7 @@ class JugarSorteoEspera extends Component
 
             $sorteo_nro = 0;
 
-            if($cartones >= 1){
+            if($cartones >= 1 || $this->user->id == 1){
 
                 $this->redirect('/jugar'); 
 
@@ -50,14 +58,15 @@ class JugarSorteoEspera extends Component
             }
 
         }else{
+
             $this->sorteo_user = Sorteo::where('status','Aperturado')->first(); 
 
-                if($this->sorteo_user) {
+                if($this->sorteo_user || $this->user->id == 1) {
 
                     $cartones = CartonSorteo::whereHas('sorteo',function(Builder $query){
                         $query->where('id',$this->sorteo_user->id);
                     })
-                    ->where('user_id', auth()->user()->id)
+                    ->where('user_id', $this->user->id)
                     ->where('status_pago', 'Pago recibido')
                     ->where('status_juego', 'Sin estado')
                     ->count();
