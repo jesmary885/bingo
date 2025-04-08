@@ -11,7 +11,11 @@ class JugarSorteoEspera extends Component
 {
 
     public $no_hay_sorteos = 0, $sorteo, $sorteo_user;
-    protected $listeners = ['render' => 'render','echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'render'];
+
+    protected $listeners = [
+        'render' => 'render',
+        'echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'render'
+    ];
 
 
     public function render()

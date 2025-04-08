@@ -1,5 +1,5 @@
 <x-app-layout>
 
-    @livewire('jugar-sorteo')
+    @livewire('jugar-sorteo',['sorteo' => $sorteo])
 
 </x-app-layout>

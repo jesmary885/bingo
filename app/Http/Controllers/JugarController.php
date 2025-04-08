@@ -10,16 +10,16 @@ use Illuminate\Database\Eloquent\Builder;
 class JugarController extends Controller
 {
 
-    public $sorteo;
+
 
     public function jugar(){
 
-        $this->sorteo = Sorteo::where('status','Iniciado')->first();
+        $sorteo = Sorteo::where('status','Iniciado')->first();
 
-        if($this->sorteo){
+        if($sorteo){
 
-            $cartones = CartonSorteo::whereHas('sorteo',function(Builder $query){
-                $query->where('id',$this->sorteo->id);
+            $cartones = CartonSorteo::whereHas('sorteo',function(Builder $query) use ($sorteo){
+                $query->where('id',$sorteo->id);
             })
             ->where('user_id', auth()->user()->id)
             ->where('status_pago', 'Pago recibido')
@@ -28,7 +28,7 @@ class JugarController extends Controller
 
             if($cartones >= 1 || auth()->user()->id == 1){
 
-                return view('jugar.index');
+                return view('jugar.index',compact('sorteo'));
 
             }
 
