@@ -5816,27 +5816,10 @@
                                                 </div>
                                                 <div class="flex flex-col flex-grow mt-2">
 
-                                                    
-                                
-
-                                                    @if($cant_lugares == 1)
-
-                                                    <p class="font-Allerta text-xs md:text-sm font-bold text-blue-500"> 1er lugar=<span class="text-yellow-500 text-xs md:text-sm font-bold">{{$this->ganancia_sorteo_primer()}}$</span></p>
-                                                    @endif
-                                                    @if($cant_lugares == 2)
-                                                    <p class="font-Allerta text-xs md:text-sm font-bold text-blue-500"> 1er lugar=<span class="text-yellow-500 text-xs md:text-sm font-bold">{{$this->ganancia_sorteo_primer()}}$</span></p>
-                                                    <p class="font-Allerta text-xs md:text-sm font-bold text-blue-500"> 2do lugar=<span class="text-yellow-500 text-xs md:text-sm font-bold">{{$this->ganancia_sorteo_segundo()}}$</span></p>
-                                                    @endif
-                                                    @if($cant_lugares == 3)
                                                     <p class="font-Allerta text-xs md:text-sm font-bold text-blue-500"> 1er lugar=<span class="text-yellow-500 text-xs md:text-sm font-bold">{{$this->ganancia_sorteo_primer()}}$</span></p>
                                                     <p class="font-Allerta text-xs md:text-sm font-bold text-blue-500"> 2do lugar=<span class="text-yellow-500 text-xs md:text-sm font-bold">{{$this->ganancia_sorteo_segundo()}}$</span></p>
                                                     <p class="font-Allerta text-xs md:text-sm font-bold text-blue-500"> 3er lugar=<span class="text-yellow-500 text-xs md:text-sm font-bold">{{$this->ganancia_sorteo_tercero()}}$</span></p>
-                                                    @endif
-
-                
-                                            
-                
-                                                    
+                                         
                                                 </div>
                                             </div>
                                         </div>
