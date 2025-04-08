@@ -41,7 +41,7 @@ class Cartones extends Component
     public function refrescar_pag(){
 
        
-        $total_cartones_disponibles = DB::select('SELECT COUNT(*) as cantidad from carton_sorteos cs
+        /*$total_cartones_disponibles = DB::select('SELECT COUNT(*) as cantidad from carton_sorteos cs
             where cs.sorteo_id = :sorteo_id AND cs.status_carton = "Disponible"',array('sorteo_id' => $this->sorteo));
 
         $total_cartones_no_disponibles = DB::select('SELECT COUNT(*) as cantidad from carton_sorteos cs
@@ -60,7 +60,16 @@ class Cartones extends Component
 
         $json_3 = json_encode($total_cartones_reservados);
         $cantidad_3 = json_decode($json_3);
-        $this->cant_cartones_reservados= $cantidad_3[0]->cantidad;
+        $this->cant_cartones_reservados= $cantidad_3[0]->cantidad;*/
+
+        $conteos = CartonSorteo::where('sorteo_id', $this->sorteo)
+            ->select('status_carton', DB::raw('COUNT(*) as cantidad'))
+            ->groupBy('status_carton')
+            ->pluck('cantidad', 'status_carton');
+
+        $this->cant_cartones_disponibles = $conteos->get('Disponible', 0);
+        $this->cant_cartones_no_disponibles = $conteos->get('No disponible', 0);
+        $this->cant_cartones_reservados = $conteos->get('Reservado', 0);
 
         $this->emitTo('dropdown-cart', 'render');
 
@@ -137,7 +146,7 @@ class Cartones extends Component
             ->where('status','no_pagado')
             ->count();
         
-        $total_cartones_disponibles = DB::select('SELECT COUNT(*) as cantidad from carton_sorteos cs
+        /*$total_cartones_disponibles = DB::select('SELECT COUNT(*) as cantidad from carton_sorteos cs
             where cs.sorteo_id = :sorteo_id AND cs.status_carton = "Disponible"',array('sorteo_id' => $this->sorteo));
 
         $total_cartones_no_disponibles = DB::select('SELECT COUNT(*) as cantidad from carton_sorteos cs
@@ -156,7 +165,16 @@ class Cartones extends Component
 
         $json_3 = json_encode($total_cartones_reservados);
         $cantidad_3 = json_decode($json_3);
-        $this->cant_cartones_reservados= $cantidad_3[0]->cantidad;
+        $this->cant_cartones_reservados= $cantidad_3[0]->cantidad;*/
+
+        $conteos = CartonSorteo::where('sorteo_id', $this->sorteo)
+            ->select('status_carton', DB::raw('COUNT(*) as cantidad'))
+            ->groupBy('status_carton')
+            ->pluck('cantidad', 'status_carton');
+
+        $this->cant_cartones_disponibles = $conteos->get('Disponible', 0);
+        $this->cant_cartones_no_disponibles = $conteos->get('No disponible', 0);
+        $this->cant_cartones_reservados = $conteos->get('Reservado', 0);
 
 
         if($this->cambiando == 1) {
