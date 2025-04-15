@@ -1838,7 +1838,7 @@
                                     </div>
     
                                     <div class="px-4 text-md mt-1 text-blue-500 font-semibold bg-gray-100 rounded-full text-center  dark:bg-gray-700 ">
-                                        (0134) (4.909.173) (04148264029)
+                                        (0131) (4.909.173) (04148264029)
                                     </div>
     
                                 </div>
@@ -1992,7 +1992,10 @@
     </script>
 
     <script>
-        <input type="number" pattern="[0-9]*" inputmode="numeric" id="telefono">
+       document.getElementById('telefono').addEventListener('input', function(e) {
+    // Elimina cualquier caracter que no sea número
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
     </script>
 
 
