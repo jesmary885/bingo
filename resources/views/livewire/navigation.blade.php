@@ -20,10 +20,15 @@
     </div>
     <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
       @auth
+      
+                
 
       <a class="bg-blue-500 font-Allerta text-center  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2" href="{{route('home')}}">Ir al Home</a>
 
       @else
+
+     
+                
 
       <a class="bg-blue-500 font-Allerta text-center  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2" href="{{route('Registro')}}">Registrarse</a>
       <a class="bg-blue-500 font-Allerta text-center hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2 mt-2 md:mt-0 " href="{{route('Login')}}">Iniciar sesión</a>

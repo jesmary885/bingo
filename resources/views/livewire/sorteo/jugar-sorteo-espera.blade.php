@@ -1054,10 +1054,7 @@
 
                         <div class=" mt-1 px-2 " >
 
-                            <div  id="cuenta">
-
-
-                            </div>
+                            <div id="cuenta" class="flex gap-4 justify-center mb-8"></div>
 
                         </div>
 
@@ -1083,34 +1080,51 @@
     <script src="{{ asset('vendor/dist/simplyCountdown.min.js') }}"></script>
 
     <script src="https://unpkg.com/flowbite@1.3.3/dist/flowbite.js"></script>
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/countdown@2.6.0/countdown.min.js"></script>
    
 
-
     <script>
-        simplyCountdown('#cuenta', {
-        year: 0, // No necesario cuando usas countdown
-        month: 0, // No necesario cuando usas countdown
-        day: <?php echo $dias_restantes; ?>,
-        hours: <?php echo $horas_restantes; ?>,
-        minutes: <?php echo $minutos_restantes; ?>,
-        seconds: <?php echo $segundos_restantes; ?>,
-        words: {
-            days: { singular: 'Día', plural: 'Dias' },
-            hours: { singular: 'Hora', plural: 'Horas' },
-            minutes: { singular: 'Minuto', plural: 'Minutos' },
-            seconds: { singular: 'Segundo', plural: 'Segundos' }
-        },
-        plural: true,
-        inline: false,
-        enableUtc: false, // Mejor usar la zona horaria local
-        refresh: 1000,
-        onEnd: function() {
-            // Función que se ejecuta cuando termina el countdown
-            alert('¡El tiempo ha terminado!');
-        }
-    });
+        // Fecha futura desde PHP (en formato ISO8601)
+        const endDate = new Date("<?php echo $fecha_futura_iso; ?>");
+
+        // Iniciar contador
+        const timer = countdown(endDate, function(ts) {
+            document.getElementById('cuenta').innerHTML = `
+                <div class="bg-white p-4 rounded-lg shadow-md text-center">
+                    <span class="text-4xl font-bold text-blue-600">${ts.days}</span>
+                    <span class="block text-gray-500">días</span>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md text-center">
+                    <span class="text-4xl font-bold text-blue-600">${ts.hours}</span>
+                    <span class="block text-gray-500">horas</span>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md text-center">
+                    <span class="text-4xl font-bold text-blue-600">${ts.minutes}</span>
+                    <span class="block text-gray-500">minutos</span>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md text-center">
+                    <span class="text-4xl font-bold text-blue-600">${ts.seconds}</span>
+                    <span class="block text-gray-500">segundos</span>
+                </div>
+            `;
+        }, countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS);
+
+        // Al terminar
+        timer.onEnd = function() {
+            document.getElementById('cuenta').classList.add('hidden');
+            document.getElementById('mensaje-final').classList.remove('hidden');
+        };
+
+        // Depuración (verifica en consola)
+        console.log("Fecha futura (JS):", endDate);
     </script>
+
+
+
+
+
+
 
 
 

@@ -52,13 +52,13 @@ Route::post('/registro', [RegisterController::class, 'create'])->name('Registro_
 Route::get('/Login', [LoginController::class, 'index'])->name('Login');
 Route::post('/Login', [LoginController::class, 'login'])->name('Login_iniciar');
 
-Route::get('/politica-de-privacidad', [LegalidadesController::class,'privacidad'])->name('politica_privacidad');
-
-Route::get('/condiciones-de-servicio', [LegalidadesController::class,'condiciones'])->name('condiciones_servicio');
+Route::get('/condiciones-de-servicio', [LegalidadesController::class,'condiciones_sin_log'])->name('condiciones_servicio');
 
 
 Route::middleware(['auth'])->group(function()
 {
+
+    Route::get('/condiciones-de-servicios', [LegalidadesController::class,'condiciones_log'])->name('condiciones_servicio_log');
 
     Route::get('/home', [HomeController::class,'index'])->name('home');
 

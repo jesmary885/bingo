@@ -588,7 +588,7 @@
 
                                 <div class="flex items-center mt-2">
                                     <input id="terminos_condiciones" name="terminos_condiciones" type="checkbox" wire:model="terminos_condiciones" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="link-checkbox" class=" text-xs sm:text-sm tracking-wide text-gray-600 mt-1 ml-2">Estoy de acuerdo con la <a href="{{route('politica_privacidad')}}" class="text-blue-600 dark:text-blue-500 hover:underline">Politica de privacidad</a> y <a href="{{route('condiciones_servicio')}}" class="text-blue-600 dark:text-blue-500 hover:underline">Condiciones de servicio</a></label>
+                                    <label for="link-checkbox" class=" text-xs sm:text-sm tracking-wide text-gray-600 mt-1 ml-2">Estoy de acuerdo con los <a href="{{route('condiciones_servicio')}}" class="text-blue-600 dark:text-blue-500 hover:underline">Términos y condiciones del servicio</a></label>
                                     
                                 </div>
 

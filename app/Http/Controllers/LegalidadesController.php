@@ -6,18 +6,24 @@ use Illuminate\Http\Request;
 
 class LegalidadesController extends Controller
 {
-    public function privacidad(){
 
 
-        return view('legalidades.privacidad');
+    public function condiciones_sin_log(){
 
-    }
 
-    public function condiciones(){
 
         return view('legalidades.condiciones');
 
     }
+
+    public function condiciones_log(){
+
+
+
+        return view('legalidades.condiciones_log');
+
+    }
+
 
 
 }

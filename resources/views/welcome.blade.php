@@ -886,8 +886,12 @@
 
                     @else
 
+           
+
 
                         <a href="{{ route('Login') }}" class="bg-blue-500 font-Allerta text-md md:text-xl hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                   
+                            
                             Inicia sesión en BING+
                         </a>
 

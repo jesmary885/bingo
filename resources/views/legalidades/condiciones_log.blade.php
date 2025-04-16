@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
 
   
     <div class="bg-white" >
@@ -20,7 +20,7 @@
 
                 <div class="bg-gray-50 text-gray-800">
                     <!-- Header -->
-                    <header class="bg-blue-700 text-white py-6 shadow-lg">
+                    <header class="bg-blue-600 text-white py-6 shadow-lg">
                         <div class="container mx-auto px-4">
                             <h1 class="text-3xl font-bold text-center font-Allerta ">Términos y Condiciones</h1>
                      
@@ -227,5 +227,5 @@
                 </div>
             </div>
     </div>
-</x-guest-layout>
+</x-app-layout>
    

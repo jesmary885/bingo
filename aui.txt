@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prueba Contador</title>
+    <!-- Usa esta URL exacta (versión 2.0.0): -->
+    <script src="https://cdn.jsdelivr.net/npm/simplycountdown.js@2.0.0/dist/simplyCountdown.min.js"></script>
+</head>
+<body>
+    <div id="cuenta"></div>
+    <script>
+        simplyCountdown('#cuenta', {
+            year: 0,
+            month: 0,
+            day: 0,
+            hours: 1,
+            minutes: 30,
+            seconds: 0,
+            onEnd: function() { alert('¡Terminó!'); }
+        });
+    </script>
+</body>
+</html>
