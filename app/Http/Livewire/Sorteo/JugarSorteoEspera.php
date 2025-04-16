@@ -46,6 +46,7 @@ class JugarSorteoEspera extends Component
             $horas_restantes = 0;
             $minutos_restantes = 0;
             $ano_restantes = 0;
+            $segundos_restantes = 0;
 
             $sorteo_nro = 0;
 
@@ -97,6 +98,7 @@ class JugarSorteoEspera extends Component
                         $horas_restantes = 0;
                         $minutos_restantes = 0;
                         $ano_restantes = 0;
+                        $segundos_restantes = 0;
 
                         $sorteo_nro = 0;
 
@@ -112,10 +114,11 @@ class JugarSorteoEspera extends Component
                     $horas_restantes = 0;
                     $minutos_restantes = 0;
                     $ano_restantes = 0;
+                    $segundos_restantes = 0;
 
                     $sorteo_nro = 0;
                 }
         }
-        return view('livewire.sorteo.jugar-sorteo-espera',compact('sorteo_nro','ano_restantes','minutos_restantes','mes_restantes','dias_restantes','horas_restantes'));
+        return view('livewire.sorteo.jugar-sorteo-espera',compact('sorteo_nro','ano_restantes','minutos_restantes','mes_restantes','dias_restantes','horas_restantes','segundos_restantes'));
     }
 }
