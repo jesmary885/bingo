@@ -74,12 +74,15 @@ class JugarSorteoEspera extends Component
                     if($cartones){
 
                         $proxima_fecha = strtotime($this->sorteo_user->fecha_ejecucion);
+                        $ahora = time();
 
-                        $mes_restantes = date("m",$proxima_fecha);
-                        $dias_restantes = date("d",$proxima_fecha);
-                        $horas_restantes = date("H",$proxima_fecha);
-                        $minutos_restantes = date("I",$proxima_fecha);
-                        $ano_restantes = date("Y",$proxima_fecha);
+                        $diferencia = $proxima_fecha - $ahora;
+
+                        // Calculamos el tiempo restante
+                        $dias_restantes = floor($diferencia / (60 * 60 * 24));
+                        $horas_restantes = floor(($diferencia % (60 * 60 * 24)) / (60 * 60));
+                        $minutos_restantes = floor(($diferencia % (60 * 60)) / 60);
+                        $segundos_restantes = $diferencia % 60;
 
                         $sorteo_nro = $this->sorteo_user->id;
 

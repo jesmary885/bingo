@@ -42,16 +42,7 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
 
-        {{-- <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>  --}}
-
-        <!-- Scripts -->
-     {{-- <script src="{{ asset('js/app.js') }}" defer></script>
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">  --}}
-
    
-
         
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

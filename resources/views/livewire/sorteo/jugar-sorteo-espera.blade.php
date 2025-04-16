@@ -1089,33 +1089,27 @@
 
     <script>
         simplyCountdown('#cuenta', {
-            year: <?php echo $ano_restantes?>, // required
-            month: <?php echo $mes_restantes?>, // required
-            day: <?php echo $dias_restantes?>, // required
-            hours: <?php echo $horas_restantes?>, // Default is 0 [0-23] integer
-            minutes: <?php echo $minutos_restantes?>, // Default is 0 [0-59] integer
-            seconds: 0, // Default is 0 [0-59] integer
-            words: { //words displayed into the countdown
-                days: { singular: 'Día', plural: 'Dias' },
-                hours: { singular: 'Hora', plural: 'Horas' },
-                minutes: { singular: 'Minuto', plural: 'Minutos' },
-                seconds: { singular: 'segundo', plural: 'segundos' }
-            },
-            plural: true, //use plurals
-            inline: false, //set to true to get an inline basic countdown like : 24 days, 4 hours, 2 minutes, 5 seconds
-            inlineClass: 'simply-countdown-inline', //inline css span class in case of inline = true
-            // in case of inline set to false
-            enableUtc: true, //Use UTC as default
-            onEnd: function() {
-                return;
-            }, //Callback on countdown end, put your own function here
-            refresh: 1000, // default refresh every 1s
-            sectionClass: 'simply-section', //section css class
-            amountClass: 'simply-amount', // amount css class
-            wordClass: 'simply-word', // word css class
-            zeroPad: false,
-            countUp: false
-        });
+        year: 0, // No necesario cuando usas countdown
+        month: 0, // No necesario cuando usas countdown
+        day: <?php echo $dias_restantes; ?>,
+        hours: <?php echo $horas_restantes; ?>,
+        minutes: <?php echo $minutos_restantes; ?>,
+        seconds: <?php echo $segundos_restantes; ?>,
+        words: {
+            days: { singular: 'Día', plural: 'Dias' },
+            hours: { singular: 'Hora', plural: 'Horas' },
+            minutes: { singular: 'Minuto', plural: 'Minutos' },
+            seconds: { singular: 'Segundo', plural: 'Segundos' }
+        },
+        plural: true,
+        inline: false,
+        enableUtc: false, // Mejor usar la zona horaria local
+        refresh: 1000,
+        onEnd: function() {
+            // Función que se ejecuta cuando termina el countdown
+            alert('¡El tiempo ha terminado!');
+        }
+    });
     </script>
 
 </div>
