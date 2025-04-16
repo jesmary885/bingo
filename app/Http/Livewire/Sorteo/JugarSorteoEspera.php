@@ -96,6 +96,8 @@ class JugarSorteoEspera extends Component
                             $horas_restantes = floor(($diferencia_segundos % (60 * 60 * 24)) / (60 * 60));
                             $minutos_restantes = floor(($diferencia_segundos % (60 * 60)) / 60);
                             $segundos_restantes = $diferencia_segundos % 60;
+                            $mes_restantes = 0;
+                            $ano_restantes = 0;
                         }
 
                         $sorteo_nro = $this->sorteo_user->id;
