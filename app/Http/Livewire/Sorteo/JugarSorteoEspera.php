@@ -77,15 +77,26 @@ class JugarSorteoEspera extends Component
                         $proxima_fecha = strtotime($this->sorteo_user->fecha_ejecucion);
                         $ahora = time();
 
-                        $diferencia = $proxima_fecha - $ahora;
+                        if (!$proxima_fecha) {
+                            die("Error: Formato de fecha inválido. Usa 'Y-m-d H:i:s'");
+                        }
 
-                        // Calculamos el tiempo restante
-                        $dias_restantes = floor($diferencia / (60 * 60 * 24));
-                        $horas_restantes = floor(($diferencia % (60 * 60 * 24)) / (60 * 60));
-                        $minutos_restantes = floor(($diferencia % (60 * 60)) / 60);
-                        $segundos_restantes = $diferencia % 60;
-                        $mes_restantes = 0;
-                        $ano_restantes = 0;
+                        $diferencia_segundos = $proxima_fecha - $ahora;
+
+                        if ($diferencia_segundos <= 0) {
+                            // Opción 1: Mostrar mensaje y desactivar contador
+                            echo "¡La fecha ya ha pasado!";
+                            $dias_restantes = $horas_restantes = $minutos_restantes = $segundos_restantes = 0;
+                            
+                            // Opción 2: Forzar una fecha futura de ejemplo (solo para pruebas)
+                            // $proxima_fecha = strtotime("+1 day");
+                            // $diferencia_segundos = $proxima_fecha - $ahora;
+                        } else {
+                            $dias_restantes = floor($diferencia_segundos / (60 * 60 * 24));
+                            $horas_restantes = floor(($diferencia_segundos % (60 * 60 * 24)) / (60 * 60));
+                            $minutos_restantes = floor(($diferencia_segundos % (60 * 60)) / 60);
+                            $segundos_restantes = $diferencia_segundos % 60;
+                        }
 
                         $sorteo_nro = $this->sorteo_user->id;
 
