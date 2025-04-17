@@ -27,8 +27,14 @@ class ShoppingCart extends Component
     public $saldo, $user, $subtotal,$telefono,$pendiente, $t_w, $c_u,$opcion_retiro_inmediato = 0, $metodo_select = 0, $dolar_valor, $procesa = 0, $adjunta = 0, $constancia,$referencia;
 
     protected $rules = [
-        'constancia' => 'required',
+        'constancia' => 'required|image|max:2048',
         'referencia' => 'required',
+    ];
+
+    protected $messages = [
+        'constancia.required' => 'Debes adjuntar una constancia.',
+        'constancia.max' => 'La constancia no debe pesar más de 2MB.',
+        'constancia.image' => 'El archivo debe ser una imagen (JPG, PNG, etc.).',
     ];
 
     protected $rules_telefono = [
