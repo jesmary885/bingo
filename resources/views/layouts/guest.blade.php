@@ -93,7 +93,7 @@
 
 
 
-                        <span class="ml-1 font-bold">
+                        <span class="ml-1 font-bold  hidden lg:block">
                             contáctanos
 
                         </span>
