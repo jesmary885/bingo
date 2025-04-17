@@ -32,7 +32,7 @@ class ShoppingCart extends Component
     ];
 
     protected $rules_telefono = [
-        'telefono' => 'required',
+        'telefono' => 'required|digits_between:6,20',
 
     ];
 

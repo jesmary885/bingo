@@ -33,8 +33,8 @@ class MisCuentasAdd extends Component
 
     protected $rules_pago_movil = [
         'banco' => 'required',
-        'cedula' => 'required',
-        'telefono' => 'required',
+        'cedula' => 'required|digits_between:5,15',
+        'telefono' => 'required|digits_between:6,20',
     ];
 
     public $open = false;
