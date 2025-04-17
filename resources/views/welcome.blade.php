@@ -2187,7 +2187,7 @@
     
                     <div class="flex justify-center mt-4">
     
-                        <iframe class="w-full" height="315" src="https://www.youtube.com/embed/L47Ro1y7KXk?si=rwO-aiTcaB5td7wU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe class="w-full" height="315" src="#" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     
     
                     </div>
