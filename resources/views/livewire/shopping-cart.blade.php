@@ -1664,7 +1664,7 @@
                                         </span>
                                         </div>
                             
-                                        <input id="telefono" pattern="[0-9]*" inputmode="numeric" wire:model.defer="telefono" type="number" name="telefono" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-1/2 md:w-1/3 py-2 focus:outline-none focus:border-blue-400" placeholder="Número de teléfono" />
+                                        <input id="telefono" pattern="[0-9]*" inputmode="numeric" wire:model.defer="telefono" type="number" name="telefono" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 md:w-1/3 py-2 focus:outline-none focus:border-blue-400" placeholder="Número de teléfono" />
                                         <x-input-error class="mt-2 font-bold" for="telefono" />
                                     </div>
                                 </div>
