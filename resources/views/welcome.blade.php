@@ -2187,9 +2187,16 @@
     
                     <div class="flex justify-center mt-4">
     
-                        <iframe class="w-full" height="315" src="#" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        {{-- <iframe class="w-full" height="315" src="#" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> --}}
                     
     
+
+                        <h4 class="  mt-2 md:mt-4  font-Arima font-bold  text-center text-lg md:text-xl lg:text-2xl pt-8">
+
+                        
+                      
+                            -- VIDEO EN DESARROLLO --
+                         </h4>
                     </div>
     
                     
