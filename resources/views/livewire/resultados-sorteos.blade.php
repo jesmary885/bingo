@@ -1,4 +1,4 @@
-<div class="bg-white" >
+<div>
 
     <div class=" flex justify-between relative container" >
 
@@ -2150,12 +2150,6 @@
                               Fecha del sorteo
                            </th>
                            
-                           <th scope="col" class="text-center py-3">
-                              Tipo de sorteo
-                           </th>
-                           <th scope="col" class="text-center py-3">
-                              Ganancia sorteada
-                           </th>
 
                            <th scope="col" class="text-center py-3">
                             Cartones ganadores 
@@ -2181,22 +2175,6 @@
                            <td class="text-center py-4">
                                 {{\Carbon\Carbon::parse($sorteo->fecha_ejecucion)->format('d-m-Y')}}
                            </td>
-                           <td class="text-center py-4">
-
-                                {{$sorteo->type_1}}
-
-                          
-                              
-                           </td>
-                           <td class="text-center py-4">
-
-                                {{$this->cant_ganancias($sorteo->id)}}
-
-                              
-                              
-                           </td>
-
-                          
 
                            <td class="text-center py-4">
 

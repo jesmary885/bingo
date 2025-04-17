@@ -1,4 +1,4 @@
-<div class="bg-white" >
+<div  >
 
     <div class=" flex justify-between relative container" >
 

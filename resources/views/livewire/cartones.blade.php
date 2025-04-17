@@ -1,8 +1,9 @@
 
-<div class="bg-white">
+<div >
 
 
-        <div class=" flex justify-between relative" >
+
+        <div class=" flex justify-between relative container" >
 
             <div class="w-full flex flex-col justify-center " >
                 <h3 class="font-Allerta text-xl md:text-4xl text-blue-500 text-center mt-4 mb-2 font-bold  ">COMPRA DE CARTONES</h3>

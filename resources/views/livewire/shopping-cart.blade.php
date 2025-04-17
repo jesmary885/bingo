@@ -1687,7 +1687,7 @@
                         </div>
                     </header>
 
-                
+   
 
 
                     <div class="bg-white dark:bg-gray-900 ">
@@ -1703,6 +1703,10 @@
                             <p class="font-semibold text-sm md:text-md  text-gray-700 uppercase text-center mt-2">
                                 Datos para realizar tu pago móvil
                             </p>
+
+                          
+
+                          
 
                  
 

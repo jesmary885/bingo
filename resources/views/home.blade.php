@@ -3,7 +3,7 @@
 
 
 
-    <section class="bg-blue-100">
+    <section class="bg-blue-100 border border-gray-400  shadow-md">
         <div class="items-center px-8 mx-auto lg:px-16 md:px-12">
 
                  

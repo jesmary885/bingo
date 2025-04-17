@@ -443,10 +443,10 @@
                               Tipo
                            </th>
                            <th scope="col" class="px-6 py-3">
-                              Cedula
+                              Cédula
                            </th>
                            <th scope="col" class="px-6 py-3">
-                              Telefono
+                              Teléfono
                            </th>
                            <th scope="col" class="px-6 py-3">
                               Banco
@@ -543,7 +543,7 @@
         @else
             <div class="card-body">
 
-                <p class=" font-semibold text-xs md:text-sm text-gray-600 font-sans text-center " >
+                <p class=" font-semibold text-xs md:text-sm text-gray-600 font-sans text-center mt-4 " >
                    - No tienes cuentas registradas -
                 </p>
 
