@@ -74,11 +74,7 @@ class ShoppingCart extends Component
     public function render()
     {
 
-
-
         $this->dolar_valor = valor_dolar_hoy();
-
-        dd($this->dolar_valor);
 
         $content = Cart::where('user_id',$this->user->id)
             ->where('status','no_pagado')
