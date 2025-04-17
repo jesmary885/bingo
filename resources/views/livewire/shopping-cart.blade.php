@@ -1620,8 +1620,10 @@
         <!-- Sub total -->
 
             <div class="w-full md:ml-2 " >
-                @if($r_i_o == 0 || $t_w == 0 || $c_u == 0)
-                    <div class="m-auto w-full bg-white shadow-md p-2 border mb-2 mt-2 md:mt-0  rounded-lg">
+                @if( $t_w == 0 || $c_u == 0)
+                    <div class="m-auto w-full bg-white shadow-md p-6 border mb-2 mt-2 md:mt-0  rounded-lg">
+
+                            @if($c_u == 0 || $t_w == 0)
                         
                             <header class="p-2 border-b flex"> 
                                 <div class="flex flex-col">
@@ -1630,75 +1632,14 @@
                                     </p>
                                 </div>
                             </header>
-                            <div class="flex flex-wrap p-2 w-full gap-4">
-                                @if($r_i_o == 0)
-                                <div class="bg-white dark:bg-gray-900">
-                                    <div class="px-1 py-2 mx-auto">
-        
-                                    
-        
-        
-                                        <div>
-                                            <div class="flex ">
-        
-                                            </div>
-                                            <p class="text-sm font-semibold text-gray-700  mt-2 text-justify ">
-                                                - ¿Deseas solicitar el retiro inmediato de tus ganancias una vez culmine el sorteo?. (Al seleccionar  "SI" no debe esperar a solicitar 
-                                                el pago de sus ganancias una vez culmine el sorteo en el que haya resultado ganador, es decir, su pago se efectuara inmediatamente luego de culminar el sorteo. Si seleccionas "NO" debe solicitar retirar el dinero en el menú Billetera->Retirar, esto le permitira mantener dinero
-                                                en la billetera de BING+ en caso de querer comprar más cartones para los próximos sorteos). Si tienes dudas sobre este proceso consulta con los administradores. <span class="font-bold underline text-blue-600"> Nota:</span> Puedes cambiar tu respuesta las veces que quieras en el menú de tu billetera
-                                            </p>
-        
-                                            <div class="flex justify-between mt-3">
-        
-                                                <button wire:click="opcion_retiro('Si')" class=" w-1/3 px-4 py-4 mx-auto border @if($opcion_retiro_inmediato == 1) border-blue-600 @endif cursor-pointer rounded-xl">
-                                                    <div class="flex items-center justify-between ">
-                                                        <div class="flex items-center">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 @if($opcion_retiro_inmediato == 1) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
-                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                                            </svg>
-                                
-                                                            <div class="flex flex-col items-center mx-5 space-y-1">
-                                                                <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">SI</h2>
-                                                                
-                                                            </div>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </button>
-        
-                                                <button wire:click="opcion_retiro('No')" class=" w-1/3 px-4 py-4 mx-auto border @if($opcion_retiro_inmediato == 2) border-blue-600 @endif cursor-pointer rounded-xl">
-                                                    <div class="flex items-center justify-between ">
-                                                        <div class="flex items-center">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 @if($opcion_retiro_inmediato == 2) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
-                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                                            </svg>
-                                
-                                                            <div class="flex flex-col items-center mx-5 space-y-1">
-                                                                <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">NO</h2>
-                                                                
-                                                            </div>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </button>
-        
-        
-        
-                                            </div>
-                                                
-                                        </div>
-                                        
-        
-                                    </div>
-        
-                                </div>
-        
+
                             @endif
+   
         
                             @if($c_u == 0)
         
-                                <p class="text-sm font-semibold text-gray-700 text-justify mt-2 ">
-                                    - Ingresa tu cuenta bancaria a donde deseas recibir tus ganancias:
+                                <p class="text-sm font-semibold text-gray-700 text-justify mt-2 mb-2 ">
+                                    - Registra tu cuenta bancaria a donde deseas recibir tus ganancias:
                                 </p>
         
                                 <div class=" flex justify-center mt-2 " >
@@ -1714,7 +1655,7 @@
                                     - Ingresa tu número de teléfono para mantenernos en contacto por whatSapp cuando ganes en nuestros sorteos o aclarar tus dudas
                                 </p>
         
-                                <div class="flex flex-col mt-2">
+                                <div class="flex flex-col mt-2 ">
                                 
                                     <div class="relative">
                                         <div class="inline-flex items-center justify-center absolute left-0 top-0 mt-2  w-10 text-gray-400">
@@ -1723,7 +1664,7 @@
                                         </span>
                                         </div>
                             
-                                        <input id="telefono" pattern="[0-9]*" inputmode="numeric" wire:model.defer="telefono" type="number" name="telefono" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Número de teléfono" />
+                                        <input id="telefono" pattern="[0-9]*" inputmode="numeric" wire:model.defer="telefono" type="number" name="telefono" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-1/3 py-2 focus:outline-none focus:border-blue-400" placeholder="Número de teléfono" />
                                         <x-input-error class="mt-2 font-bold" for="telefono" />
                                     </div>
                                 </div>
@@ -1732,7 +1673,7 @@
         
                             @endif
                     
-                            </div>
+                  
                     </div>
                 @endif
 
@@ -1763,6 +1704,8 @@
                                 Datos para realizar tu pago móvil
                             </p>
 
+                 
+
                             @endif
             
                             <div class="mt-2 space-y-2 ">
@@ -1775,14 +1718,18 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 @if($metodo_select == 3) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
                                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                                 </svg>
+
+                                               
                     
                                                 <div class="flex flex-col items-center mx-5 space-y-1">
-                                                    <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">SALDO</h2>
+
+                                                    
+                                                    <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">SALDO <span class="ml-1 font-bold text-xs text-green-600" >  TU SALDO Bs.  {{(floatval($user->saldo_actual->saldo) * $dolar_valor)}}  </span> </h2>
                                                     
                                                 </div>
                                             </div>
                                             
-                                            <h2 class="text-sm md:text-md lg:text-lg font-bold text-gray-500  dark:text-gray-300">$ {{floatval(Cart::subTotal())}}</h2>
+                                            <h2 class="text-sm md:text-md lg:text-lg font-bold text-gray-500  dark:text-gray-300">Bs. {{(floatval($subtotal) * $dolar_valor)}}</h2>
             
                                         
                                         </div>

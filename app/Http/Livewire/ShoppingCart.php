@@ -24,7 +24,7 @@ class ShoppingCart extends Component
     use WithFileUploads;
 
     protected $listeners = ['render'];
-    public $saldo, $user, $subtotal,$telefono,$pendiente, $r_i_o, $t_w, $c_u,$opcion_retiro_inmediato = 0, $metodo_select = 0, $dolar_valor, $procesa = 0, $adjunta = 0, $constancia,$referencia;
+    public $saldo, $user, $subtotal,$telefono,$pendiente, $t_w, $c_u,$opcion_retiro_inmediato = 0, $metodo_select = 0, $dolar_valor, $procesa = 0, $adjunta = 0, $constancia,$referencia;
 
     protected $rules = [
         'constancia' => 'required',
@@ -59,8 +59,6 @@ class ShoppingCart extends Component
             $this->adjunta = 1;
         }
 
-        if( $this->user ->retiro_inmediato == null) $this->r_i_o = 0;
-        else $this->r_i_o = 1;
 
         if( $this->user ->telefono_whatsapp == null) $this->t_w = 0;
         else $this->t_w = 1;
@@ -70,9 +68,6 @@ class ShoppingCart extends Component
 
         if($cuentas_usuario->isEmpty() == false) $this->c_u = 1;
         else $this->c_u = 0;
-
-        if($this->r_i_o == 0 || $this->t_w == 0 || $this->c_u == 0) $this->pendiente = 1;
-        else $this->pendiente = 0;
 
     }
 
@@ -105,18 +100,6 @@ class ShoppingCart extends Component
         $this->emit('scrollIntoView');
     }
 
-    public function opcion_retiro($opcion_seleccionada){
-
-        if($opcion_seleccionada == 'Si') $this->opcion_retiro_inmediato = 1;
-        else $this->opcion_retiro_inmediato = 2;
-
-        User::where('id',$this->user->id)->first()->update([
-            'retiro_inmediato' => $opcion_seleccionada,
-        ]);
-
-        $this->emit('scrollIntoView');
-
-    }
 
     public function delete($registro){
 
@@ -136,6 +119,8 @@ class ShoppingCart extends Component
     
         $this->emitTo('dropdown-cart', 'render');
     }
+
+    
 
 
     public function procesar(){
@@ -161,14 +146,7 @@ class ShoppingCart extends Component
 
         if($no_pasa == 0){
 
-            $retiro_inmediato_opcion = User::where('id',$this->user->id)
-            ->first();
-
-            if($retiro_inmediato_opcion->retiro_inmediato == null) $r_i_o = 0;
-            else $r_i_o = 1;
-
-            if( $r_i_o == 1){
-
+  
                 if($this->t_w == 0){
 
                     $rules_telefono = $this->rules_telefono;
@@ -180,7 +158,7 @@ class ShoppingCart extends Component
         
                 }
         
-                $retiro_i = User::where('id',$this->user->id)->first()->retiro_inmediato;
+
         
                 $cuentas_usuario_l = CuentasUser::where('user_id',$this->user->id)
                     ->get();
@@ -216,13 +194,13 @@ class ShoppingCart extends Component
             
                         $user = User::where('id',$this->user->id)->first();
             
-                        $saldo_nuevo = $user->saldo - Cart::subtotal();
-            
-                        $user->update([
-                            'saldo' =>  $saldo_nuevo,
-                        ]);
+                        $saldo_nuevo = $user->saldo_actual->saldo - $subtotal;
 
-            
+                        UserSaldo::where('user_id',$this->user->id)->first()
+                            ->update([
+                                'saldo' =>  $saldo_nuevo,
+                            ]);
+
                         foreach($registro_carro as $item){
             
                             CartonSorteo::where('sorteo_id', $item->sorteo_id)
@@ -289,15 +267,6 @@ class ShoppingCart extends Component
                     ->addError('Por favor, Registra tu cuenta para continuar');
                 }
 
-            }
-
-            else{
-
-                notyf()
-                        ->duration(9000) // 2 seconds
-                        ->addError('Por favor, selecciona SI O NO en la opción de retiro inmediato para continuar');
-
-            }
 
         }
 

@@ -910,18 +910,16 @@
 
 
 
-            <div class=" card  p-8 m-8   -mt-8  border border-gray-200 rounded-lg shadow-lg bg-white  saturate-200 ">
+            <div class=" card  p-8 m-8 -mt-8  border border-gray-200 rounded-lg shadow-lg bg-white  saturate-200 ">
 
                  
                 <div>
-
                     <h2 class="text-3xl md:text-5xl lg:text-6xl  text-blue-900 mb-4 text-center font-Allerta  font-black">¿Cómo Jugar en  BING+?</h2>
 
                     <p class="text-lg text-gray-500 leading-relaxed font-Arima  text-center mb-3 ">Participar en nuestros sorteos es muy fácil, te resumimos el proceso en solo 4 pasos:</p>
-    
                 </div>
 
-                <div class="pb-20 relative md:flex ">
+                <div class="relative md:flex ">
     
                     <div class="hidden md:block w-full md:w-8/12 xl:w-7/12 items-start">
         
@@ -1888,7 +1886,7 @@
     
                     
     
-                    <div class="w-full font-Arima ">
+                    <div class="w-full md:mt-20 font-Arima">
                       
                         
                         
@@ -1904,7 +1902,7 @@
         
         
         
-                          </div>
+                            </div>
                             <div class="col-start-2 col-end-11 pl-8 border-l-2 border-solid border-gray">
                                 <h3 class="text-gray-500 leading-relaxed font-bold">Inicio de sesión</h3>
                                 <p class="mt-1 text-gray-500 leading-relaxed text-justify">
@@ -1920,7 +1918,7 @@
                                       2
                                     </div>
                               
-                                  </div>
+                                </div>
         
         
         
@@ -1941,7 +1939,7 @@
                                       3
                                     </div>
                               
-                                  </div>
+                                </div>
         
         
         
@@ -1962,7 +1960,7 @@
                                       4
                                     </div>
                               
-                                  </div>
+                                </div>
         
         
         

@@ -75,4 +75,9 @@ class User extends Authenticatable
         return $this->hasMany(CartonGanador::class);
     }
 
+    public function saldo_actual()
+    {
+        return $this->hasOne(UserSaldo::class)->latest();
+    }
+
 }
