@@ -74,10 +74,10 @@
 
        
 
-        <div class="font-sans text-gray-900 antialiased">
+        <div class=" text-gray-900 ">
             {{ $slot }}
 
-            <div class="flex items-center justify-center  fixed bottom-0  right-0 mb-4 ml-4 z-10  ">
+            <div class="flex items-center justify-center  fixed bottom-0  right-0 mb-4 mr-4 z-10  ">
                 <div>
 
                     

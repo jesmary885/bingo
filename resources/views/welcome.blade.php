@@ -1996,18 +1996,21 @@
                                 <span class="text-blue-700 tracking-wide font-Allerta saturate-200  ">Modalidades de </span>
                                 <span class=" font-Allerta saturate-200 underline   leading-8 underline-offset-8	decoration-8 decoration-blue-600 uppercase  "   > juego</span>
                             </h2>
-                            <p class="text-lg text-gray-500 leading-relaxed font-Arima text-center mb-3 mt-5 saturate-200">
-                                Nuestros sorteos serán variables en su modalidad, la cual sera especificada en la descripción del sorteo. 
+                            <p class="text-lg text-gray-500 leading-relaxed font-Arima text-center mb-3 mt-6 saturate-200">
+                                Nuestros sorteos serán variables en su modalidad (tradicional y cartón lleno), la cual sera especificada en la descripción del sorteo. Los patrones válidos para nuestros sorteos son los siguientes: 
                             </p>
                         </div>
-                        <div class=" pt-6  md:flex md:justify-between mx-8 font-Arima ">
+                        <div class="   md:flex md:justify-between font-Arima ">
              
                             <div class=" card w-full container p-8 bg-white text-center  border border-gray-100 rounded-lg shadow-lg  md:mr-2">
                                 
-                                <div class="  " >
+                               
+                               
+                               
+                                {{-- <div class="  " >
 
                                     <p class="mt-1 text-gray-500 text-center font-Arima text-lg  ">
-                                        <span class=" underline  font-semibold">MODALIDAD TRADICIONAL:</span> En esta modalidad jugaremos con 7 patrones (Línea horizontal, Línea vertical, Cuatro esquinas, Diagonal de derecha a izquierda, Diagonal de izquierda a derecha, Cruz grande y Cruz pequeña)
+                                        <span class=" underline  font-semibold">TRADICIONAL:</span> En esta modalidad jugaremos con 7 patrones (Línea horizontal, Línea vertical, Cuatro esquinas, Diagonal de derecha a izquierda, Diagonal de izquierda a derecha, Cruz grande y Cruz pequeña)
                                      </p>
      
                                      
@@ -2016,12 +2019,12 @@
                                       </p>
 
 
-                                </div>
+                                </div> --}}
                              
 
                                
 
-                                <div class="flexslider w-full px-8 pt-8">
+                                <div class="flexslider w-full px-8 pt-2">
                                     <ul class="slides">
 
                                         <li class="bg-white rounded-lg shadow-lg">
