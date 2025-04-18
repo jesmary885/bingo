@@ -1859,7 +1859,7 @@
                                      
                                         <div class="flex ">
                                             <label class="custom-file-upload flex w-full  bg-white rounded-md py-8 text-md font-medium text-gray-700 dark:text-gray-200 ">
-                                                <input type="file"  name="constancia" wire:model="constancia" accept="image/*" class="image"/>
+                                                <input type="file"  name="constancia" wire:model="constancia" accept="image/*"  onchange="validateFileSize(this)" class="image"/>
                                                 <svg class=" w-5 h-5 text-gray-400 mr-2 " viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m512 144v288c0 26.5-21.5 48-48 48h-416c-26.5 0-48-21.5-48-48v-288c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1l12.4 32.9h88c26.5 0 48 21.5 48 48zm-136 144c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z"/></svg>
                                                   Selecciona un archivo
                                             </label>
@@ -1953,6 +1953,29 @@
         this.value = this.value.replace(/[^0-9]/g, '');
     });
     </script>
+
+<script>
+    function validateFileSize(input) {
+    const maxSizeMB = 2;
+    const maxSizeBytes = maxSizeMB * 1024 * 1024;
+
+    if (input.files && input.files[0]) {
+        const fileSize = input.files[0].size;
+
+        if (fileSize > maxSizeBytes) {
+            Swal.fire({
+                title: 'Archivo demasiado grande',
+                text: `El tamaño máximo permitido es ${maxSizeMB}MB`,
+                icon: 'error',
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#3B82F6', // Azul de Tailwind
+            });
+            input.value = '';
+            @this.set('constancia', null);
+        }
+    }
+}
+</script>
 
 
 
