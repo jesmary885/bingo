@@ -27,7 +27,7 @@
     </style>
 
 
-<div class=" bg-white pt-4">
+<div class="pt-4">
 
     <div class=" flex justify-between relative" >
 
