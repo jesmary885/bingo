@@ -6,18 +6,6 @@
             <div class="container" >
 
 
-                <div class=" flex justify-center mt-8 mb-6">
-
-                    <a href="{{route('welcome')}}" class="flex-shrink-0 flex items-center -mt-2 ">
-        
-                        <img src="{{Storage::url('img/logo4.png') }}" alt="" class="block h-16 w-36">
-                      
-                      </a>
-
-                </div>
-
-
-
                 <div class="bg-gray-50 text-gray-800">
                     <!-- Header -->
                     <header class="bg-blue-600 text-white py-6 shadow-lg">

@@ -114,6 +114,7 @@ class RegistroUsuarios extends Component
                                 'name' => $this->name,
                                 'email' => $this->email,
                                 'estado' => 'activo',
+                                'retiro_inmediato' => 'Si',
                                 'password' => Hash::make($this->password),
                             ])->assignRole('Jugador');
                     

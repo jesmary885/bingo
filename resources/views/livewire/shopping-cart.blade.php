@@ -1773,25 +1773,93 @@
                                 <div class=" w-full px-4 py-4 mx-auto border  border-blue-600 rounded-xl dark:border-gray-700">
                                     <div class="flex items-center justify-between ">
                                         <div class="flex items-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5  @if($metodo_select == 2) text-blue-600 @else text-gray-400 @endif sm:h-9 sm:w-9" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                            </svg>
+                                         
                 
                                             <div class="flex flex-col items-center mx-5 space-y-1">
-                                                <h2 class="text-md font-medium text-gray-700 dark:text-gray-200">BANCO BANESCO</h2>
+                                               
                                                 
                                             </div>
                                         </div>
                                         
-                                        <h2 class="text-sm md:text-md lg:text-lg  font-bold text-gray-500  dark:text-gray-300">Bs. {{(floatval($subtotal) * $dolar_valor)}}</h2>
+                                 
         
                                     
                                     </div>
-    
-                                    <div class="px-4 text-md mt-1 text-blue-500 font-semibold bg-gray-100 rounded-full text-center  dark:bg-gray-700 ">
-                                        (0131) (4.909.173) (04148264029)
+
+                                    <div class=" items-center " >
+                                        <div class="flex w-1/3 justify-between">
+
+                                            <div>
+                                                <span class="font-semibold  text-blue-600 text-md md:text-lg text-center font-Allerta mr-2   ">Banco: </span>
+                                            </div>
+                        
+                                            <div class="flex">
+                                                 <p  class=" text-blue-600 text-md md:text-lg text-center font-Allerta "> Banesco (0131)  </p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="flex w-1/3 justify-between items-center  gap-4">
+                        
+                                            <div>
+                                                 <span class="font-semibold mt-2 text-blue-600 text-md md:text-lg text-center font-Allerta mr-2">Cédula: </span>
+                                            </div>
+                    
+                                            <div class="flex" >
+
+                                                <p id="code_copy_1" class=" text-blue-600 text-md md:text-lg text-center font-Allerta "> 4909173  </p>
+
+                                                <button onclick="copiarAlPortapapeles('code_copy_1')" id="button_copy" class=" py-1  text-white font-bold flex justify-center rounded-md"> <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16">
+                                                    <title>pages</title>
+                                                    <path fill="#5a7197" d="M13.968 3.76l-2.976-2.96c-0.256-0.256-0.576-0.385-0.928-0.385l-4.895-0.016c0 0 0 0 0 0-0.352 0-0.689 0.144-0.944 0.385-0.239 0.256-0.385 0.592-0.385 0.944v0.88h-0.88c-0.352 0-0.688 0.144-0.944 0.385s-0.385 0.576-0.385 0.944v10.352c0 0.736 0.592 1.327 1.327 1.327h7.872c0.736 0 1.327-0.592 1.327-1.327v-0.88h0.88c0.736 0 1.327-0.592 1.327-1.327v-7.377c-0.016-0.352-0.144-0.689-0.399-0.944zM10.752 1.76l2.24 2.24h-2.016c-0.112 0-0.225-0.096-0.225-0.224v-2.016zM11.296 14.272c0 0.256-0.208 0.464-0.464 0.464h-7.856c-0.256 0-0.464-0.208-0.464-0.464v-10.352c0-0.128 0.048-0.239 0.144-0.32 0.081-0.096 0.208-0.144 0.32-0.144h0.88v8.608c0 0.736 0.592 1.327 1.327 1.327h6.129v0.88zM13.040 12.544h-7.872c-0.256 0-0.464-0.208-0.464-0.464v-10.352c0-0.128 0.048-0.239 0.144-0.336 0.079-0.081 0.208-0.128 0.32-0.128 0 0 0 0 0 0l4.72 0.016v2.528c0 0.592 0.48 1.072 1.072 1.072h2.528v7.2c0.016 0.256-0.192 0.464-0.448 0.464z"></path>
+                                                    </svg> </button>
+                                            </div>
+                                      
+                                      
+                                        </div>
+
+                                        <div class="flex w-1/3 justify-between">
+                        
+                                            <div>
+                                                 <span class="font-semibold mt-2 text-blue-600 text-md md:text-lg text-center font-Allerta mr-2   ">Teléfono: </span>
+                                            </div>
+                    
+                                            <div class="flex">
+
+                                                <p id="code_copy_2" class=" text-blue-600 text-md md:text-lg text-center font-Allerta "> 04148264029   </p>
+
+                                                <button onclick="copiarAlPortapapeles('code_copy_2')" id="button_copy" class=" py-1   text-white font-bold flex justify-center rounded-md"> <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16">
+                                                    <title>pages</title>
+                                                    <path fill="#5a7197" d="M13.968 3.76l-2.976-2.96c-0.256-0.256-0.576-0.385-0.928-0.385l-4.895-0.016c0 0 0 0 0 0-0.352 0-0.689 0.144-0.944 0.385-0.239 0.256-0.385 0.592-0.385 0.944v0.88h-0.88c-0.352 0-0.688 0.144-0.944 0.385s-0.385 0.576-0.385 0.944v10.352c0 0.736 0.592 1.327 1.327 1.327h7.872c0.736 0 1.327-0.592 1.327-1.327v-0.88h0.88c0.736 0 1.327-0.592 1.327-1.327v-7.377c-0.016-0.352-0.144-0.689-0.399-0.944zM10.752 1.76l2.24 2.24h-2.016c-0.112 0-0.225-0.096-0.225-0.224v-2.016zM11.296 14.272c0 0.256-0.208 0.464-0.464 0.464h-7.856c-0.256 0-0.464-0.208-0.464-0.464v-10.352c0-0.128 0.048-0.239 0.144-0.32 0.081-0.096 0.208-0.144 0.32-0.144h0.88v8.608c0 0.736 0.592 1.327 1.327 1.327h6.129v0.88zM13.040 12.544h-7.872c-0.256 0-0.464-0.208-0.464-0.464v-10.352c0-0.128 0.048-0.239 0.144-0.336 0.079-0.081 0.208-0.128 0.32-0.128 0 0 0 0 0 0l4.72 0.016v2.528c0 0.592 0.48 1.072 1.072 1.072h2.528v7.2c0.016 0.256-0.192 0.464-0.448 0.464z"></path>
+                                                    </svg> </button>
+                                            </div>
+                                      
+                                      
+                                        </div>
+
+                                        <div class="flex w-1/3 justify-between">
+                        
+                                            <div>
+                                                 <span class="font-semibold mt-2 text-blue-600 text-md md:text-lg text-center font-Allerta mr-2   ">Monto: </span>
+                                            </div>
+                    
+                                            <div class="flex">
+
+                                                <span class="text-blue-600 mr-2 text-md md:text-lg text-center font-Allerta">Bs. </span><p id="code_copy_3" class=" text-blue-600 text-md md:text-lg text-center font-Allerta "> {{(floatval($subtotal) * $dolar_valor)}}  </p>
+                                                <button onclick="copiarAlPortapapeles('code_copy_3')" id="button_copy" class=" py-1   text-white font-bold flex justify-center rounded-md"> <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16">
+                                                    <title>pages</title>
+                                                    <path fill="#5a7197" d="M13.968 3.76l-2.976-2.96c-0.256-0.256-0.576-0.385-0.928-0.385l-4.895-0.016c0 0 0 0 0 0-0.352 0-0.689 0.144-0.944 0.385-0.239 0.256-0.385 0.592-0.385 0.944v0.88h-0.88c-0.352 0-0.688 0.144-0.944 0.385s-0.385 0.576-0.385 0.944v10.352c0 0.736 0.592 1.327 1.327 1.327h7.872c0.736 0 1.327-0.592 1.327-1.327v-0.88h0.88c0.736 0 1.327-0.592 1.327-1.327v-7.377c-0.016-0.352-0.144-0.689-0.399-0.944zM10.752 1.76l2.24 2.24h-2.016c-0.112 0-0.225-0.096-0.225-0.224v-2.016zM11.296 14.272c0 0.256-0.208 0.464-0.464 0.464h-7.856c-0.256 0-0.464-0.208-0.464-0.464v-10.352c0-0.128 0.048-0.239 0.144-0.32 0.081-0.096 0.208-0.144 0.32-0.144h0.88v8.608c0 0.736 0.592 1.327 1.327 1.327h6.129v0.88zM13.040 12.544h-7.872c-0.256 0-0.464-0.208-0.464-0.464v-10.352c0-0.128 0.048-0.239 0.144-0.336 0.079-0.081 0.208-0.128 0.32-0.128 0 0 0 0 0 0l4.72 0.016v2.528c0 0.592 0.48 1.072 1.072 1.072h2.528v7.2c0.016 0.256-0.192 0.464-0.448 0.464z"></path>
+                                                    </svg> </button>
+                                            </div>
+                                      
+                                      
+                                        </div>
+
+                           
+
+
                                     </div>
-    
+
                                 </div>
 
 
@@ -1833,11 +1901,11 @@
                             <div class="mt-6 mb-2 text-center">
     
                                 <p class="font-semibold text-sm md:text-md text-gray-700 uppercase text-center">
-                                   Ingrese el Nro de referencia
+                                   Ingrese los últimos cuatro(4) digitos de su referencia
                                 </p>
     
                                 <div class="w-full flex justify-center mt-2">
-                                    <input type="number" name="referencia" wire:model="referencia" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"  />
+                                    <input type="number" name="referencia" wire:model="referencia" class="w-1/3 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"  />
                                     <x-input-error class="mt-2 font-bold" for="referencia" />
                                 </div>
                 
@@ -1975,6 +2043,45 @@
         }
     }
 }
+</script>
+
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+
+
+<script>
+    function copiarAlPortapapeles(id_elemento) {
+
+        
+        var codigoACopiar = document.getElementById(id_elemento);
+        var seleccion = document.createRange();
+        seleccion.selectNodeContents(codigoACopiar);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(seleccion);
+        var res = document.execCommand('copy');
+        window.getSelection().removeRange(seleccion);
+
+        toastr.options={
+            "closeButton": true,
+            "debug": true,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+        toastr.success('Elemento copiado')
+    }
 </script>
 
 

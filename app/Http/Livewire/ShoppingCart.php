@@ -17,6 +17,7 @@ use Livewire\WithFileUploads;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Session as FacadesSession;
 use Illuminate\Support\Facades\Storage;
+use GuzzleHttp\Client;
 
 class ShoppingCart extends Component
 {
@@ -81,6 +82,7 @@ class ShoppingCart extends Component
     {
 
         $this->dolar_valor = valor_dolar_hoy();
+
 
         $content = Cart::where('user_id',$this->user->id)
             ->where('status','no_pagado')
