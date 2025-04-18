@@ -66,7 +66,7 @@
                                     <div class="container mx-auto  ">
                                         <dh-component>
                                             <div aria-label="action panel"  tabindex="0" class="focus:outline-none w-11/12 mx-auto mb-4 my-6 md:w-5/12 shadow sm:px-10 sm:py-6 py-4 px-4 bg-white dark:bg-gray-800 rounded-md">
-                                                <p tabindex="0" class="focus:outline-none text-lg text-gray-800 dark:text-gray-100 font-semibold pb-3 text-center">Estamos iniciando con el sorteo</p>
+                                                <p tabindex="0" class="focus:outline-none text-lg text-gray-800 dark:text-gray-100 font-semibold pb-3 text-center">El sorteo ya esta efectuandose</p>
                                                 <p tabindex="0" class="focus:outline-none text-sm text-gray-600 dark:text-gray-400 pb-3 font-normal  ">Le invitamos a ingresar a la sala de juego, haciendo clic en el botón que se encuentra debajo de este mensaje </p>
                                                 <div  class="w-12 h-6 cursor-pointer rounded-full relative shadow-sm">
                                                     <input id="startButton"  wire:click="activar_sonido_pulsar"   aria-label="subscribe" type="checkbox" name="toggle" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:bg-indigo-600 focus:outline-none checkbox w-4 h-4 rounded-full bg-white absolute m-1 shadow-sm appearance-none cursor-pointer" />

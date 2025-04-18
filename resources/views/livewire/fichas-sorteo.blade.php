@@ -19,7 +19,7 @@
 
         <x-slot name="title">
             <div class=" flex justify-between ">
-                <p>MIS CARTONES Y FICHAS SORTEADAS - SORTEO NRO {{$sorteo}}</p>
+                <p class=" font-Allerta text-xs text-center " >MIS CARTONES Y FICHAS SORTEADAS - SORTEO NRO {{$sorteo}}</p>
 
                 <button type="button" wire:click="close" wire:loading.attr="disabled"  class="py-2.5 px-3 me-2 mb-2 text-sm font-bold text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                     X
@@ -30,7 +30,7 @@
 
         <x-slot name="content">
 
-            <div class="w-full grid grid-cols-6 sm:grid-cols-8 gap-8 container card rounded-lg shadow-md mb-4  ">
+            <div class="w-full grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-8 container card rounded-lg shadow-md mb-4  ">
                 @foreach($fichas as $ficha)
 
                     <div class="bg-blue-500 w-16 h-16 mb-2  rounded-full shadow-2xl shadow-blue-500 border-white  border-dashed border-2  flex justify-center items-center ">
@@ -47,7 +47,7 @@
                 @endforeach 
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-2  gap-6 mx-2 ">
+            <div class="grid grid-cols-1 sm:grid-cols-2  gap-6 mx-2 ">
 
                 @foreach ($mis_cartones as $carton)
                             

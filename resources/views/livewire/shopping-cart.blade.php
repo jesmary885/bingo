@@ -1770,7 +1770,7 @@
                                 
                                 @else
 
-                                <div class=" w-full px-4 py-4 mx-auto border  border-blue-600 rounded-xl dark:border-gray-700">
+                                <div class=" w-full px-4 py-4 mx-auto border bg-blue-100  border-blue-600 rounded-xl dark:border-gray-700">
                                     <div class="flex items-center justify-between ">
                                         <div class="flex items-center">
                                          
@@ -1786,11 +1786,17 @@
                                     
                                     </div>
 
-                                    <div class=" items-center " >
-                                        <div class="flex w-1/3 justify-between">
+                                
+                              
+              
+
+                                    
+
+                                    <div class=" text-center w-full  lg:w-1/2 mx-auto bg-blue-100 " >
+                                        <div class="flex  justify-between text-center">
 
                                             <div>
-                                                <span class="font-semibold  text-blue-600 text-md md:text-lg text-center font-Allerta mr-2   ">Banco: </span>
+                                                <span class="  text-blue-600 text-md md:text-lg text-center font-Allerta mr-2   ">Banco: </span>
                                             </div>
                         
                                             <div class="flex">
@@ -1799,10 +1805,10 @@
 
                                         </div>
 
-                                        <div class="flex w-1/3 justify-between items-center  gap-4">
+                                        <div class="flex justify-between items-center  gap-4">
                         
                                             <div>
-                                                 <span class="font-semibold mt-2 text-blue-600 text-md md:text-lg text-center font-Allerta mr-2">Cédula: </span>
+                                                 <span class=" mt-2 text-blue-600 text-md md:text-lg text-center font-Allerta mr-2">Cédula: </span>
                                             </div>
                     
                                             <div class="flex" >
@@ -1818,10 +1824,10 @@
                                       
                                         </div>
 
-                                        <div class="flex w-1/3 justify-between">
+                                        <div class="flex  justify-between">
                         
                                             <div>
-                                                 <span class="font-semibold mt-2 text-blue-600 text-md md:text-lg text-center font-Allerta mr-2   ">Teléfono: </span>
+                                                 <span class=" mt-2 text-blue-600 text-md md:text-lg text-center font-Allerta mr-2   ">Teléfono: </span>
                                             </div>
                     
                                             <div class="flex">
@@ -1837,10 +1843,10 @@
                                       
                                         </div>
 
-                                        <div class="flex w-1/3 justify-between">
+                                        <div class="flex  justify-between">
                         
                                             <div>
-                                                 <span class="font-semibold mt-2 text-blue-600 text-md md:text-lg text-center font-Allerta mr-2   ">Monto: </span>
+                                                 <span class=" mt-2 text-blue-600 text-md md:text-lg text-center font-Allerta mr-2   ">Monto: </span>
                                             </div>
                     
                                             <div class="flex">
