@@ -1,5 +1,30 @@
 <x-guest-layout>
 
+    <style>
+
+        .mi-div {
+                    width: 100%;
+                    height: 100%;
+                    background-image: url('/img/banderin.svg');
+                    background-size: cover; /* Ajusta el SVG al tamaño del div */
+                    background-position: center; /* Centra el SVG */
+                    background-repeat: no-repeat; /* Evita que se repita */
+                }
+        
+                .mi-estrellas {
+                    width: 100%;
+                    height: 100%;
+                    background-image: url('/img/estrellas.svg');
+                    background-size: cover; /* Ajusta el SVG al tamaño del div */
+                    background-position: center; /* Centra el SVG */
+                    background-repeat: no-repeat; /* Evita que se repita */
+                }
+        
+    
+        
+        
+              </style>
+
     <div>
 
         @livewire('navigation')
@@ -15,7 +40,7 @@
     <main class=" font-montserrat bg-white ">
 
         <div >
-            <section class="bg-blue-100">
+            <section class="mi-div">
                 <div class="items-center px-8 mx-auto lg:px-16 md:px-12">
                   <div class="justify-center w-full text-center pt-6 max-auto">
                     <div class="justify-center w-full mx-auto container">
@@ -1982,7 +2007,7 @@
             </div>
 
             {{-- ver modalidades y patroner y precios --}}
-            <section class=" bg-white mb-8 ">
+            <section class=" bg-white mb-8 mi-estrellas ">
                 <div class=" flex justify-center items-center">
                     <div class="">
                         <div class="text-center font-semibold px-4">
@@ -2024,7 +2049,7 @@
 
                                
 
-                                <div class="flexslider w-full px-8 pt-2">
+                                <div class="flexslider w-full px-8 pt-2 ">
                                     <ul class="slides">
 
                                         <li class="bg-white rounded-lg shadow-lg">

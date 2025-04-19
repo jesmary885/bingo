@@ -1,13 +1,38 @@
 <x-app-layout>
 
+    <style>
+
+        .mi-div {
+                    width: 100%;
+                    height: 100%;
+                    background-image: url('/img/banderin.svg');
+                    background-size: cover; /* Ajusta el SVG al tamaño del div */
+                    background-position: center; /* Centra el SVG */
+                    background-repeat: no-repeat; /* Evita que se repita */
+                }
+        
+                .mi-estrellas {
+                    width: 100%;
+                    height: 100%;
+                    background-image: url('/img/estrellas.svg');
+                    background-size: cover; /* Ajusta el SVG al tamaño del div */
+                    background-position: center; /* Centra el SVG */
+                    background-repeat: no-repeat; /* Evita que se repita */
+                }
+        
+    
+        
+        
+              </style>
 
 
 
-    <section class="bg-blue-100 border border-gray-400  shadow-md">
+
+    <section class="mi-div border border-gray-400  shadow-md">
         <div class="items-center px-8 mx-auto lg:px-16 md:px-12">
 
                  
-        @if(Session::has('mensaje'))
+    @if(Session::has('mensaje'))
 
         <div class="justify-center w-full text-center pt-6 max-auto">
           <div>
@@ -20,7 +45,7 @@
           </div>
 
       @endif
-          <div class="justify-center w-full text-center pt-6 max-auto">
+        <div class="justify-center w-full text-center pt-6 max-auto">
             <div class="justify-center w-full mx-auto container">
 
                 <div class="flex flex-col items-center justify-center max-w-xl gap-3 mx-auto lg:flex-row">
@@ -861,12 +886,12 @@
 
 
                 <h1 class=" mt-2 text-[#10172A] text-4xl md:text-6xl lg:text-7xl  font-bold tracking-tighter font-Allerta ">
-                    Juega y gana con <span class="underline mt-6 block leading-8 underline-offset-8	decoration-8 decoration-blue-600">BING+</span>
+                    JUEGA Y GANA CON <span class="underline mt-6 block leading-8 underline-offset-8	decoration-8 decoration-blue-600 text-blue-600">BING+</span>
                 </h1>
 
 
 
-              <h2 class="  mt-2 md:mt-8  font-Arima  text-center text-lg md:text-xl lg:text-2xl pt-8">
+         <h2 class="  mt-2 md:mt-8  font-Arima  text-center text-lg md:text-xl lg:text-2xl pt-8">
 
                         
                       
@@ -878,7 +903,7 @@
       
         </div>
 
-        <div class="flex justify-center pt-6 pb-20 " >
+        <div class="flex justify-center pt-6 pb-24  " >
 
 
             
@@ -894,14 +919,16 @@
 
     </section>
 
+    @if ($sorteos->count())
+
     
 
     <div class=" bg-white py-14 card p-2 md:p-4 m-8 md:-mt-20  rounded-xl border border-white  shadow-md shadow-black/5 saturate-200 ">
        
-        <h2 class="text-blue-800 text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter font-Allerta text-center mb-4 pt-4">Próximos sorteos </h2>
+    
    
 
-        @if ($sorteos->count())
+        
 
         <div class="relative font-Arima  pt-2 lg:pt-2">
 
@@ -916,9 +943,12 @@
                             @foreach($sorteos as $sorteo)
           
                             <article
-                                class="bg-white w-full p-2  md:p-6 md:mb-6 shadow transition duration-300 group transform hover:-translate-y-2 hover:shadow-2xl rounded-2xl cursor-pointer border">
+                                class="bg-white w-full p-2  md:p-6 md:mb-6 transition duration-300 group transform hover:-translate-y-2 hover:shadow-2xl rounded-2xl cursor-pointer border border-blue-800  shadow-lg">
                                 <a href="{{route('cartones.index',['sorteo' => $sorteo->id])}}"
                                     class="absolute opacity-0 top-0 right-0 left-0 bottom-0"></a>
+
+                                    <h3 class="text-3xl font-bold text-blue-600">SORTEO NRO. {{$sorteo->id}}</h3>
+
                                 <div class="relative mb-4 rounded-2xl">
 
                                     @if(($sorteo->id % 2) == 0)
@@ -5508,8 +5538,8 @@
 
                                         <div>
 
-                                            <span class="ml-2 text-xs font-semibold text-white"> @livewire('cartones-disponibles-cant', ['sorteo' => $sorteo->id])</span>
-                                            <span  class=" text-xs font-semibold text-white ">
+                                            <span class="ml-2 text-lg font-semibold text-white"> @livewire('cartones-disponibles-cant', ['sorteo' => $sorteo->id])</span>
+                                            <span  class=" text-lg font-semibold text-white ">
 
                                                 Precio por cartón: 1$ ({{$dolar_hoy * $sorteo->precio_carton_dolar}} Bs)
 
@@ -5533,22 +5563,13 @@
                                     </a>
                                 </div>
                                 <div class=" items-center w-full pb-4 ">
-                                    <p class="text-lg font-bold ">Sorteo Nro. {{$sorteo->id}}</p>
 
-                                    @if($sorteo->type_2 == null && $sorteo->type_3 == null)
-                                    <p class="text-md font-semibold ">SORTEO (PREMIO ÚNICO)</p>
-                                    @elseif($sorteo->type_2 != null && $sorteo->type_3 == null)
-                                    <p class="text-md font-semibold "> SORTEO (1ER Y 2DO LUGAR)</p>
-                                    @elseif($sorteo->type_2 != null && $sorteo->type_3 != null)
-                                    <p class="text-md font-semibold "> SORTEO (1ER, 2DO Y 3ER LUGAR)</p>
 
-                                    @endif
-
-                                    <p class="text-sm text-gray-500">Lanzamiento: {{\Carbon\Carbon::parse($sorteo->fecha_ejecucion)->format('d-m-Y h:i')}}</p>
+                                    <p class="text-lg text-gray-800 font-bold">Lanzamiento: {{\Carbon\Carbon::parse($sorteo->fecha_ejecucion)->format('d-m-Y h:i')}}</p>
                                     
-                                    <p class="text-sm text-gray-500 mt-2">Ganancia actual:  @livewire('ganancia-sorteo', ['sorteo' => $sorteo->id])</p>
+                                    <p class="text-lg text-blue-700 font-bold mt-2 underline leading-8 underline-offset-6">GANANCIA ACTUAL  @livewire('ganancia-sorteo', ['sorteo' => $sorteo->id])</p>
                                 </div>
-                                @if($sorteo->type_2 == null && $sorteo->type_3 == null)
+                                {{-- @if($sorteo->type_2 == null && $sorteo->type_3 == null)
                                     <h3 class="font-medium text-sm md:text-lg leading-8 text-blue-700 underline">
 
                                         Sorteo {{$sorteo->type_1}}
@@ -5586,7 +5607,7 @@
                                         3er lugar (Sorteo  {{$sorteo->type_3}})
                                     
                                     </h3>
-                                @endif
+                                @endif --}}
 
                              
 
@@ -5606,17 +5627,17 @@
             </div>
         </div>
 
-        @else
-
-        <div class="flex justify-center mt-8 w-full">
-
-            <p class="  font-Arima  text-lg md:text-xl lg:text-2xl  ">-No existen sorteos activos-</p>
-
-        </div>
-
-        @endif
-       
     </div>
+
+    @else
+
+    <div class="flex justify-center mt-8 w-full">
+
+        <h2 class="text-blue-800 text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter font-Allerta text-center mb-4 pt-4"> - En estos momentos no existen sorteos -</h2>
+
+    </div>
+
+    @endif
 
 
 </x-app-layout>
