@@ -20,6 +20,12 @@
                     background-repeat: no-repeat; /* Evita que se repita */
                 }
         
+                                /* Pantallas grandes (lg o más): elimina background-position: center */
+                @media (min-width: 1024px) {
+                    .mi-div {
+                        background-position: initial; /* O usa "left", "top", etc. según necesites */
+                    }
+                }
     
         
         
@@ -883,7 +889,7 @@
 
 
                       <h1 class=" mt-2 text-[#10172A] text-4xl md:text-6xl lg:text-7xl  font-bold tracking-tighter font-Allerta ">
-                       Juega y gana con <span class="underline mt-6 block leading-8 underline-offset-8	decoration-8 decoration-blue-600">BING+</span>
+                       Juega y gana con <span class="underline mt-6 block leading-8 underline-offset-8	decoration-8 decoration-blue-600 text-blue-700">BING+</span>
                       </h1>
 
                  

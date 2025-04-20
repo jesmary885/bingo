@@ -19,6 +19,13 @@
                     background-position: center; /* Centra el SVG */
                     background-repeat: no-repeat; /* Evita que se repita */
                 }
+
+                                 /* Pantallas grandes (lg o más): elimina background-position: center */
+                                 @media (min-width: 1024px) {
+                    .mi-div {
+                        background-position: initial; /* O usa "left", "top", etc. según necesites */
+                    }
+                }
         
     
         

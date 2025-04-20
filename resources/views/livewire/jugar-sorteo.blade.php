@@ -22,6 +22,13 @@
             background-repeat: no-repeat; /* Evita que se repita */
         }
 
+                                         /* Pantallas grandes (lg o más): elimina background-position: center */
+                @media (min-width: 1024px) {
+                    .mi-div {
+                        background-position: initial; /* O usa "left", "top", etc. según necesites */
+                    }
+                }
+
         @keyframes bounce {
       0%, 100% {
         transform: translateY(0);
@@ -69,6 +76,9 @@
                                                 <p tabindex="0" class="focus:outline-none text-lg text-gray-800 dark:text-gray-100 font-semibold pb-3 text-center">El sorteo ya esta efectuandose</p>
                                                 <p tabindex="0" class="focus:outline-none text-sm text-gray-600 dark:text-gray-400 pb-3 font-normal  ">Le invitamos a ingresar a la sala de juego, haciendo clic en el botón que se encuentra debajo de este mensaje </p>
                                                 <div  class="w-12 h-6 cursor-pointer rounded-full relative shadow-sm">
+
+                                                    <span
+                                                    class="animate-ping absolute inline-flex h-full w-full rounded-full border-4 opacity-200"></span>
                                                     <input id="startButton"  wire:click="activar_sonido_pulsar"   aria-label="subscribe" type="checkbox" name="toggle" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:bg-indigo-600 focus:outline-none checkbox w-4 h-4 rounded-full bg-white absolute m-1 shadow-sm appearance-none cursor-pointer" />
                                                     <label for="startButton" class="toggle-label bg-gray-200 block w-12 h-6 overflow-hidden rounded-full bg-gray-300 cursor-pointer"></label>
                                                     
