@@ -49,6 +49,25 @@ class JugarSorteo extends Component
         Sorteo::where('id', $this->sorteo)->update(['status' => 'Iniciado']);
     }
 
+    public function cambio_color($ficha_select){
+
+        $ficha = SorteoFicha::where('sorteo_id',$this->sorteo)
+            ->where('numero',$ficha_select)
+            ->first();
+
+        if($ficha) return "bg-blue-500 text-white  ";
+
+       /* foreach($fichas as $ficha){
+
+            if($ficha->numero == $ficha_select){
+                return "bg-blue-500 text-white";
+                break;
+            } 
+
+        }*/
+
+    }
+
     public function mount(){
 
 
@@ -513,8 +532,8 @@ class JugarSorteo extends Component
     public function render()
     {
 
-        $fichas = SorteoFicha::where('sorteo_id',$this->sorteo)->get();
+       //$fichas = SorteoFicha::where('sorteo_id',$this->sorteo)->get();
 
-        return view('livewire.admin.sorteo.jugar-sorteo',compact('fichas'));
+        return view('livewire.admin.sorteo.jugar-sorteo');
     }
 }
