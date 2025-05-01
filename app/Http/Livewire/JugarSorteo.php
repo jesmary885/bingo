@@ -1194,7 +1194,7 @@ class JugarSorteo extends Component
         else{
 
             $fichas = [];
-            $cartones_ganadores = [];
+            $cartones_ganadores = CartonGanador::where('sorteo_id',$this->sorteo->id)->get(); 
             $ficha_ultima = 0;
 
         }
