@@ -5174,17 +5174,17 @@
 
                                                         @if($ganador_1 == 1 && $ganador_2 == 1 && $ganador_3 == 0 && $user->id == 1)
                                     
-                                                            @if($type_3 == 'Lineal')
+                                                            @if($type_1 == 'Lineal')
                                                                     {{$this->verifi_linea_horizontal($todo_c->carton->id)}} 
                                                                     {{$this->verifi_linea_vertical($todo_c->carton->id)}}
-                                                            @elseif($type_3 == 'Diagonal')
+                                                            @elseif($type_1 == 'Diagonal')
                                                                     {{$this->diagonal_iz($todo_c->carton->id)}}
                                                                     {{$this->diagonal_dr($todo_c->carton->id)}}
-                                                            @elseif($type_3 == 'Cruz_grande')
+                                                            @elseif($type_1 == 'Cruz_grande')
                                                                     {{$this->cruz_grande($todo_c->carton->id)}}
-                                                            @elseif($type_3 == 'Cruz_pequena')
+                                                            @elseif($type_1 == 'Cruz_pequena')
                                                                     {{$this->cruz_pequeña($todo_c->carton->id)}}
-                                                            @elseif($type_3 == 'Cuatro_esquinas')
+                                                            @elseif($type_1 == 'Cuatro_esquinas')
                                                                     {{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}
                                                             @else
                                                                 {{$this->verifi_carton_lleno($todo_c->carton->id)}}
