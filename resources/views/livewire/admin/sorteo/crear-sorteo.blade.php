@@ -103,7 +103,11 @@
 
                                 <select wire:model="type_1" id="type_1" class=" mt-2 block w-full bg-gray-50 border border-gray-200 text-gray-700 py-0.5 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                     <option value="" selected>Seleccione una opción</option>
-                                    <option value="Tradicional">Tradicional</option>
+                                    <option value="Lineal">Lineal</option>
+                                    <option value="Diagonal">Diagonal</option>
+                                    <option value="Cruz_grande">Cruz grande</option>
+                                    <option value="Cruz_pequena">Cruz Pequena</option>
+                                    <option value="Cuatro_esquinas">Cuatro esquinas</option>
                                     <option value="Carton lleno">Carton lleno</option>
                                 </select>
                                 <x-input-error for="type_1" />
@@ -128,7 +132,11 @@
 
                                 <select wire:model="type_1" id="type_1" class=" mt-2 block w-full bg-gray-50 border border-gray-200 text-gray-700 py-0.5 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                     <option value="" selected>Seleccione una opción</option>
-                                    <option value="Tradicional">Tradicional</option>
+                                    <option value="Lineal">Lineal</option>
+                                    <option value="Diagonal">Diagonal</option>
+                                    <option value="Cruz_grande">Cruz grande</option>
+                                    <option value="Cruz_pequena">Cruz Pequena</option>
+                                    <option value="Cuatro_esquinas">Cuatro esquinas</option>
                                     <option value="Carton lleno">Carton lleno</option>
                                 </select>
                                 <x-input-error for="type_1" />
@@ -151,7 +159,11 @@
 
                                 <select wire:model="type_2" id="type_2" class=" mt-2 block w-full bg-gray-50 border border-gray-200 text-gray-700 py-0.5 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                     <option value="" selected>Seleccione una opción</option>
-                                    <option value="Tradicional">Tradicional</option>
+                                    <option value="Lineal">Lineal</option>
+                                    <option value="Diagonal">Diagonal</option>
+                                    <option value="Cruz_grande">Cruz grande</option>
+                                    <option value="Cruz_pequena">Cruz Pequena</option>
+                                    <option value="Cuatro_esquinas">Cuatro esquinas</option>
                                     <option value="Carton lleno">Carton lleno</option>
                                 </select>
                                 <x-input-error for="type_2" />
@@ -176,7 +188,11 @@
 
                                 <select wire:model="type_1" id="type_1" class=" mt-2 block w-full bg-gray-50 border border-gray-200 text-gray-700 py-0.5 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                     <option value="" selected>Seleccione una opción</option>
-                                    <option value="Tradicional">Tradicional</option>
+                                    <option value="Lineal">Lineal</option>
+                                    <option value="Diagonal">Diagonal</option>
+                                    <option value="Cruz_grande">Cruz grande</option>
+                                    <option value="Cruz_pequena">Cruz Pequena</option>
+                                    <option value="Cuatro_esquinas">Cuatro esquinas</option>
                                     <option value="Carton lleno">Carton lleno</option>
                                 </select>
                                 <x-input-error for="type_1" />
@@ -199,7 +215,11 @@
 
                                 <select wire:model="type_2" id="type_2" class=" mt-2 block w-full bg-gray-50 border border-gray-200 text-gray-700 py-0.5 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                     <option value="" selected>Seleccione una opción</option>
-                                    <option value="Tradicional">Tradicional</option>
+                                    <option value="Lineal">Lineal</option>
+                                    <option value="Diagonal">Diagonal</option>
+                                    <option value="Cruz_grande">Cruz grande</option>
+                                    <option value="Cruz_pequena">Cruz Pequena</option>
+                                    <option value="Cuatro_esquinas">Cuatro esquinas</option>
                                     <option value="Carton lleno">Carton lleno</option>
                                 </select>
                                 <x-input-error for="type_2" />
@@ -222,7 +242,11 @@
 
                                 <select wire:model="type_3" id="type_3" class=" mt-2 block w-full bg-gray-50 border border-gray-200 text-gray-700 py-0.5 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                     <option value="" selected>Seleccione una opción</option>
-                                    <option value="Tradicional">Tradicional</option>
+                                    <option value="Lineal">Lineal</option>
+                                    <option value="Diagonal">Diagonal</option>
+                                    <option value="Cruz_grande">Cruz grande</option>
+                                    <option value="Cruz_pequena">Cruz Pequena</option>
+                                    <option value="Cuatro_esquinas">Cuatro esquinas</option>
                                     <option value="Carton lleno">Carton lleno</option>
                                 </select>
                                 <x-input-error for="type_3" />

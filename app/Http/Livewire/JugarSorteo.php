@@ -17,7 +17,7 @@ use Livewire\Component;
 
 class JugarSorteo extends Component
 {
-    public $cant_cartones, $boton_pulsado, $linea_h = 0, $linea_v = 0, $c_e= 0, $diag_iz = 0, $diag_d= 0, $crup_p = 0, $cruz_g = 0,$visible, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
+    public $cant_cartones, $i, $boton_pulsado, $linea_h = 0, $linea_v = 0, $c_e= 0, $diag_iz = 0, $diag_d= 0, $crup_p = 0, $cruz_g = 0,$visible, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
 
     public $user;
 
@@ -60,11 +60,15 @@ class JugarSorteo extends Component
             ->where('lugar','Tercero')
             ->first();
         
-        if($ganadores_actuales_primer) $this->ganador_3 = 1;
+        if($ganadores_actuales_primer)  $this->ganador_3 = 1;
         if($ganadores_actuales_segundo) $this->ganador_2 = 1;
         if($ganadores_actuales_tercer) $this->ganador_1 = 1; 
-        
-        if($this->ganador_1 == 1 && $this->ganador_2 == 0){
+
+        if($this->ganador_1 == 0) $this->i = 3;
+        if($this->ganador_2 == 0 && $this->ganador_1 == 1) $this->i = 2;
+        if($this->ganador_3 == 0 && $this->ganador_2 == 1)  $this->i = 1;
+
+        /*if($this->ganador_1 == 1 && $this->ganador_2 == 0){
         
             $ganadores_sorteo_1 = CartonGanador::where('sorteo_id',$this->sorteo->id)
                 ->where('lugar','Tercero')
@@ -103,7 +107,7 @@ class JugarSorteo extends Component
                     if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
                 }
             }
-        }
+        }*/
 
         $fecha_actual = date("Y-m-d H:i:s");
         $this->hoy= new DateTime($fecha_actual);
@@ -810,9 +814,6 @@ class JugarSorteo extends Component
 
     public function activar_sonido_pulsar(){
 
-      //  $this->boton_pulsado = 1;
-
-     
         if( $this->boton_pulsado == 0 ) $this->boton_pulsado = 1;
         else $this->boton_pulsado= 0;
     }
@@ -871,15 +872,15 @@ class JugarSorteo extends Component
                                             
                                     if($ganador_yo->user_id == $this->user->id) $gano_yo++;
 
-                                    if($this->type_3 == 'Tradicional'){
-                                        if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Horizontal') $this->linea_h = 1;
-                                        if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Vertical') $this->linea_v = 1;
-                                        if($ganador_yo->type == 'Cuatro esquinas') $this->c_e = 1;
-                                        if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Izquierda') $this->diag_iz = 1;
-                                        if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Derecha') $this->diag_d = 1;
-                                        if($ganador_yo->type == 'Cruz G.') $this->cruz_g = 1;
-                                        if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
-                                        }
+                                    // if($this->type_3 == 'Tradicional'){
+                                    //     if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Horizontal') $this->linea_h = 1;
+                                    //     if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Vertical') $this->linea_v = 1;
+                                    //     if($ganador_yo->type == 'Cuatro esquinas') $this->c_e = 1;
+                                    //     if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Izquierda') $this->diag_iz = 1;
+                                    //     if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Derecha') $this->diag_d = 1;
+                                    //     if($ganador_yo->type == 'Cruz G.') $this->cruz_g = 1;
+                                    //     if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
+                                    //     }
 
                                     }
 
@@ -947,6 +948,8 @@ class JugarSorteo extends Component
                             }
 
                             $this->ganador_1 = 1;
+
+                            $this->i = 2;
                         }
                     }
         
@@ -960,21 +963,20 @@ class JugarSorteo extends Component
                         if($ganadores_sorteo_2->isEmpty() == false){
 
                             $gano_yo = 0;
-        
-                    
+
                             foreach($ganadores_sorteo_2 as $ganador_yo){
 
                                 if($ganador_yo->user_id == $this->user->id) $gano_yo++;
 
-                                if($this->type_2 == 'Tradicional'){
-                                    if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Horizontal') $this->linea_h = 1;
-                                    if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Vertical') $this->linea_v = 1;
-                                    if($ganador_yo->type == 'Cuatro esquinas') $this->c_e = 1;
-                                    if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Izquierda') $this->diag_iz = 1;
-                                    if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Derecha') $this->diag_d = 1;
-                                    if($ganador_yo->type == 'Cruz G.') $this->cruz_g = 1;
-                                    if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
-                                }
+                                // if($this->type_2 == 'Tradicional'){
+                                //     if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Horizontal') $this->linea_h = 1;
+                                //     if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Vertical') $this->linea_v = 1;
+                                //     if($ganador_yo->type == 'Cuatro esquinas') $this->c_e = 1;
+                                //     if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Izquierda') $this->diag_iz = 1;
+                                //     if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Derecha') $this->diag_d = 1;
+                                //     if($ganador_yo->type == 'Cruz G.') $this->cruz_g = 1;
+                                //     if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
+                                // }
                             }
                     
                             if($gano_yo > 0){
@@ -1043,6 +1045,7 @@ class JugarSorteo extends Component
                             }
                             $this->ganador_1 = 1;
                             $this->ganador_2 = 1;
+                            $this->i = 1;
                         }
                     }
         
