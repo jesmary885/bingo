@@ -950,6 +950,8 @@ class JugarSorteo extends Component
                             $this->ganador_1 = 1;
 
                             $this->i = 2;
+
+                            SorteoFicha::where('sorteo_id', $this->sorteo->id)->delete();
                         }
                     }
         
@@ -1046,6 +1048,7 @@ class JugarSorteo extends Component
                             $this->ganador_1 = 1;
                             $this->ganador_2 = 1;
                             $this->i = 1;
+                            SorteoFicha::where('sorteo_id', $this->sorteo->id)->delete();
                         }
                     }
         

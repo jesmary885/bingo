@@ -30,7 +30,7 @@
 
         <x-slot name="content">
 
-            <div class="w-full grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-8 container card rounded-lg shadow-md mb-4  ">
+            {{-- <div class="w-full grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-8 container card rounded-lg shadow-md mb-4  ">
                 @foreach($fichas as $ficha)
 
                     <div class="bg-blue-500 w-16 h-16 mb-2  rounded-full shadow-2xl shadow-blue-500 border-white  border-dashed border-2  flex justify-center items-center ">
@@ -45,7 +45,7 @@
                     </div>
 
                 @endforeach 
-            </div>
+            </div> --}}
 
             <div class="grid grid-cols-1 sm:grid-cols-2  gap-6 mx-2 ">
 
