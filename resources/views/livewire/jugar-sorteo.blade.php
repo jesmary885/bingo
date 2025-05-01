@@ -2082,7 +2082,7 @@
                                                             
                                                         @elseif(${"type_{$i}"} == 'Cruz_pequena')
 
-                                                            <div class="text-yellow-500 font-Allerta font-extrabold text-xs md:text-lg underline">CRUZ PEQUE;A</div>
+                                                            <div class="text-yellow-500 font-Allerta font-extrabold text-xs md:text-lg underline">CRUZ PEQUEÑA</div>
                                                             
                                                         @elseif(${"type_{$i}"} == 'Cuatro_esquinas')
 
