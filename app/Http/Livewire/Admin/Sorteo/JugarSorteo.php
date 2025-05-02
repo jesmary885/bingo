@@ -220,7 +220,7 @@ class JugarSorteo extends Component
                     ->position('x', 'center')
                     ->position('y', 'center')
                     ->dismissible(true)
-                    ->addInfo('Ya hay ganadores en el 2do lugar, continuemos para el 3er lugar');
+                    ->addInfo('Ya hay ganadores en el 2do lugar, continuemos para el 1er lugar');
             }
         }
 
