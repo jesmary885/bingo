@@ -78,7 +78,7 @@
                                                 <div  class="w-12 h-6 mb-2 cursor-pointer rounded-full relative shadow-sm">
 
 
-                                                    <button  wire:click="activar_sonido_pulsar"  class="bg-blue-500 mb-2  hover:bg-blue-600 py-3 px-2 text-xs rounded-full font-bold uppercase text-white cursor-pointer tracking-widest focus:outline-none focus:ring-2  focus:ring-blue-500 focus:ring-opacity-50 ">INICIAR</button>
+                                                    <button id="startButton" wire:click="activar_sonido_pulsar"  class="bg-blue-500 mb-2  hover:bg-blue-600 py-3 px-2 text-xs rounded-full font-bold uppercase text-white cursor-pointer tracking-widest focus:outline-none focus:ring-2  focus:ring-blue-500 focus:ring-opacity-50 ">INICIAR</button>
                                                     
 
                             
