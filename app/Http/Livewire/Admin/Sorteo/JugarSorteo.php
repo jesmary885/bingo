@@ -71,19 +71,19 @@ class JugarSorteo extends Component
 
             $this->user = auth()->user();
 
-            if(CartonGanador::where('sorteo_id',$this->sorteo->id)
+            if(CartonGanador::where('sorteo_id',$this->sorteo)
             ->where('lugar','Primero')
             ->exists()){ 
                 $this->ganador_3 = 1;
             }
 
-            if(CartonGanador::where('sorteo_id',$this->sorteo->id)
+            if(CartonGanador::where('sorteo_id',$this->sorteo)
                 ->where('lugar','Segundo')
                 ->exists()){ 
                     $this->ganador_2 = 1;
                 }
 
-            if(CartonGanador::where('sorteo_id',$this->sorteo->id)
+            if(CartonGanador::where('sorteo_id',$this->sorteo)
                 ->where('lugar','Tercero')
                 ->exists()){ 
                     $this->ganador_1 = 1;
