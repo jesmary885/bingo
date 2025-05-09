@@ -16,14 +16,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NewFichaSorteo implements ShouldBroadcast,ShouldQueue
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels, Queueable;
+    use SerializesModels,Queueable;
 
     public $ficha; // Solo datos necesarios
-    public $queue = 'high'; 
+
 
     public function __construct($ficha)
     {
         $this->ficha = $ficha; // Recibe array/objeto simple
+        $this->onQueue('high'); // ← Método correcto para asignar cola
     }
 
     public function broadcastOn()
