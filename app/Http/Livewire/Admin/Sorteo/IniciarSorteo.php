@@ -7,19 +7,17 @@ use App\Models\CartonRepetido;
 use App\Models\CartonSorteo;
 use App\Models\PagoSorteo;
 use App\Models\Sorteo;
+use App\Models\SorteoFicha;
 use Livewire\Component;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class IniciarSorteo extends Component
 {
 
-
     public function sorteo_select($sorteo){
 
-
-
         $sorteo_select = Sorteo::where('status','Iniciado')->first();
-
 
         if($sorteo_select){
 
@@ -90,7 +88,35 @@ class IniciarSorteo extends Component
 
         $report = 0;
 
+        /*try {
+            // 1. Desactivar verificación de claves foráneas
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            
+            // 2. Truncar primero las tablas que dependen de 'sorteos'
+            DB::table('sorteo_fichas')->truncate();
+            
+            // 3. Ahora truncar la tabla principal
+            DB::table('sorteos')->truncate();
+            
+            // 4. Reiniciar auto-incremento (opcional)
+            DB::statement('ALTER TABLE sorteos AUTO_INCREMENT = 1');
+            DB::statement('ALTER TABLE sorteo_fichas AUTO_INCREMENT = 1');
+            
+            // 5. Reactivar verificación de claves foráneas
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            
+            echo "Tablas truncadas exitosamente y auto-incrementos reiniciados";
+            
+        } catch (\Exception $e) {
+            // Asegurarse de reactivar las verificaciones incluso si hay error
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            echo "Error: " . $e->getMessage();
+        }*/
+
+
+
         $busqueda_sorteo = Sorteo::where('status','Aperturado')->get();
+
 
         foreach($busqueda_sorteo as $sorteo){
 

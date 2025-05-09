@@ -9,7 +9,7 @@ function valor_dolar_hoy(){
             'base_uri' => 'https://pydolarve.org',
         ]);
 
-        $resultado = $client->request('GET', '/api/v2/dollar?page=bcv');
+        $resultado = $client->request('GET', '/api/v1/dollar?page=bcv');
 
         if($resultado->getStatusCode() == 200){
 

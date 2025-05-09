@@ -17,13 +17,14 @@ use Livewire\Component;
 
 class JugarSorteo extends Component
 {
-    public $cant_cartones, $i, $boton_pulsado, $linea_h = 0, $linea_v = 0, $c_e= 0, $diag_iz = 0, $diag_d= 0, $crup_p = 0, $cruz_g = 0,$visible, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
+    public $cant_cartones, $cartones_todos, $i, $boton_pulsado, $linea_h = 0, $linea_v = 0, $c_e= 0, $diag_iz = 0, $diag_d= 0, $crup_p = 0, $cruz_g = 0,$visible, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
 
     public $user;
 
    protected $listeners = [
         'render' => 'render',
-        'echo:sorteo_fichas,NewFichaSorteo' => 'emitir_sonido',
+       // 'echo:sorteo_fichas,NewFichaSorteo' => 'emitir_sonido',
+       'echo-private:sorteo_fichas,ficha.sorteada' => 'emitir_sonido',
         'echo:ganador,NewGanador' => 'emitir_sonido_ganador',
         'echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' ,
         'finalizar' => 'finalizar',
@@ -44,25 +45,53 @@ class JugarSorteo extends Component
         $this->type_2 = $this->sorteo->type_2;
         $this->type_3 = $this->sorteo->type_3;
 
+        $this->cartones_todos = CartonSorteo::with('sorteo:id') // Carga solo datos necesarios de la relación
+            ->where('sorteo_id', $this->sorteo->id) // Más eficiente que whereHas
+            ->where('status_pago', 'Pago recibido')
+            ->where('status_juego', 'Sin estado')
+            ->select(['id']) // Solo columnas necesarias
+            ->get();
+
+            
+
         $this->cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
         ->where('status_carton','No disponible')
         ->count();
-        
-        $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo->id)
+
+        if(CartonGanador::where('sorteo_id',$this->sorteo->id)
             ->where('lugar','Primero')
-            ->first();
+            ->exists()){ 
+                $this->ganador_3 = 1;
+            }
+
+        if(CartonGanador::where('sorteo_id',$this->sorteo->id)
+            ->where('lugar','Segundo')
+            ->exists()){ 
+                $this->ganador_2 = 1;
+            }
+
+        if(CartonGanador::where('sorteo_id',$this->sorteo->id)
+            ->where('lugar','Tercero')
+            ->exists()){ 
+                $this->ganador_1 = 1;
+            }
+
+
+        /*$ganadores_actuales_primer =  CartonGanador::where('sorteo_id',$this->sorteo->id)
+            ->where('lugar','Primero')
+            ->exists();
         
         $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo->id)
             ->where('lugar','Segundo')
-            ->first();
+            ->exists();
         
         $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo->id)
             ->where('lugar','Tercero')
-            ->first();
+            ->exists();
         
         if($ganadores_actuales_primer)  $this->ganador_3 = 1;
         if($ganadores_actuales_segundo) $this->ganador_2 = 1;
-        if($ganadores_actuales_tercer) $this->ganador_1 = 1; 
+        if($ganadores_actuales_tercer) $this->ganador_1 = 1; */
 
         if($this->ganador_1 == 0) $this->i = 3;
         if($this->ganador_2 == 0 && $this->ganador_1 == 1) $this->i = 2;
@@ -644,10 +673,15 @@ class JugarSorteo extends Component
         }
     }
 
+    //optimizada
+
     public function verifi_cuatro_esquinas($carton){
 
-        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)->get();
-        $fichas_carton = Carton::where('id',$carton)->first();
+        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)
+            ->select(['numero'])
+            ->get();
+
+        $fichas_carton = Carton::find($carton);
 
         $cont = 0;
 
@@ -660,32 +694,32 @@ class JugarSorteo extends Component
 
         if($cont == 4){
 
+
             $buscar = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                ->where('carton_id', $fichas_carton->id)
-                ->first();
+                ->where('carton_id', $carton)
+                ->exists();
 
             if(!$buscar){
 
                     if($this->ganador_1 == 0){
-                        $this->carton_ganador_1 = $fichas_carton; 
+                     //   $this->carton_ganador_1 = $fichas_carton; 
                         $lugar = 'Tercero'; 
                     } 
 
                     if($this->ganador_1 == 1 && $this->ganador_2 == 0) {
-                        $this->carton_ganador_2 = $fichas_carton; 
+                     //   $this->carton_ganador_2 = $fichas_carton; 
                         $lugar = 'Segundo';
                     }
 
                     if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) {
-                        $this->carton_ganador_3 = $fichas_carton; 
+                     //   $this->carton_ganador_3 = $fichas_carton; 
                         $lugar = 'Primero';
                     }
 
 
-                $user = CartonSorteo::where('carton_id',$carton)
-                ->where('sorteo_id',$this->sorteo->id)
-                ->first()
-                ->user_id;
+                $user = CartonSorteo::where('carton_id', $carton)
+                    ->where('sorteo_id', $this->sorteo->id)
+                    ->value('user_id'); 
 
 
                 CartonGanador::create([
@@ -832,25 +866,27 @@ class JugarSorteo extends Component
             $carton_sorteo_activo = CartonSorteo::where('user_id', $this->user->id)
                 ->where('status_pago', 'Pago recibido')
                 ->where('sorteo_id',$this->sorteo->id)
-                ->first();
+                ->exists();
 
             $this->cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
                 ->where('status_carton','No disponible')
+                ->toBase()
                 ->count();
         }
         else{
 
             $this->sorteo = Sorteo::where('status','Finalizado')
-                ->latest()
+                ->latest('updated_at') // Ordenar por fecha de finalización
                 ->first();
 
             $carton_sorteo_activo = CartonSorteo::where('user_id', $this->user->id)
                 ->where('status_pago', 'Pago recibido')
                 ->where('sorteo_id',$this->sorteo->id)
-                ->first();
+                ->exists();
 
             $this->cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
                 ->where('status_carton','No disponible')
+                ->toBase()
                 ->count();
         }
 
@@ -859,290 +895,210 @@ class JugarSorteo extends Component
         
                     if($this->ganador_1 == 0){
                 
-                        $ganadores_sorteo_1 = CartonGanador::with('carton')
-                            ->where('sorteo_id',$this->sorteo->id)
-                            ->where('lugar','Tercero')
-                            ->get();
-
-                        if($ganadores_sorteo_1->isEmpty() == false){
-
-                            $gano_yo = 0;
+                        $ganadores_sorteo_1 = CartonGanador::where('sorteo_id', $this->sorteo->id)
+                            ->where('lugar', 'Tercero')
+                            ->where('user_id', $this->user->id) // Filtro directo
+                            ->exists(); // Solo verifica existencia
+                        
+                        $gano_yo = $ganadores_sorteo_1 ? 1 : 0;
                 
-                            foreach($ganadores_sorteo_1 as $ganador_yo){
-                                            
-                                    if($ganador_yo->user_id == $this->user->id) $gano_yo++;
 
-                                    // if($this->type_3 == 'Tradicional'){
-                                    //     if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Horizontal') $this->linea_h = 1;
-                                    //     if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Vertical') $this->linea_v = 1;
-                                    //     if($ganador_yo->type == 'Cuatro esquinas') $this->c_e = 1;
-                                    //     if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Izquierda') $this->diag_iz = 1;
-                                    //     if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Derecha') $this->diag_d = 1;
-                                    //     if($ganador_yo->type == 'Cruz G.') $this->cruz_g = 1;
-                                    //     if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
-                                    //     }
+                        if($gano_yo > 0){
+                    
+                            $this->ganador_user_login = 1;
 
-                                    }
-
-                                    if($gano_yo > 0){
+                            if(!Notification_Sorteo::where('user_id',$this->user->id)
+                                ->where('sorteo_id',$this->sorteo->id)
+                                ->where('nro','1')
+                                ->exists()){ 
                     
-                                            $this->ganador_user_login = 1;
-                    
-                                            $buscar_notificacion = Notification_Sorteo::where('user_id',$this->user->id)
-                                                ->where('sorteo_id',$this->sorteo->id)
-                                                ->where('nro','1')
-                                                ->first();
-                    
-                                            if(!$buscar_notificacion){ 
-                    
-                                                $ganadores_sorteo_1_notificacion = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                                                    ->where('lugar','Tercero')
-                                                    ->where('user_id',$this->user->id)
-                                                    ->first();
                                 
-                                                    notyf()
-                                                    ->duration(0)
-                                                    ->position('x', 'center')
-                                                    ->position('y', 'center')
-                                                    ->dismissible(true)
-                                                    ->addInfo('Felicidades su cartón Nro ' . $ganadores_sorteo_1_notificacion->carton_id . ', ha ganado el tercer lugar en el sorteo Nro '. $this->sorteo->id );
+                                notyf()
+                                    ->duration(0)
+                                    ->position('x', 'center')
+                                    ->position('y', 'center')
+                                    ->dismissible(true)
+                                    ->addInfo('Felicidades ha ganado el tercer lugar en el sorteo Nro '. $this->sorteo->id );
                                                 
-                                                if($this->user->id != 1){
 
-                                                    Notification_Sorteo::create([
-                                                        'user_id' => $this->user->id,
-                                                        'sorteo_id' => $this->sorteo->id,
-                                                        'nro' => '1'
-                                                    ]);
-                
-                                                }
-                                        
-                                            }
-                                    
-                                    }
-                                    else{
-                    
-                                            $buscar_notificacion = Notification_Sorteo::where('user_id',$this->user->id)
-                                                ->where('sorteo_id',$this->sorteo->id)
-                                                ->where('nro','1')
-                                                ->first();
-                    
-                                            if(!$buscar_notificacion){ 
-
-                                                if($this->user->id != 1){
-
-                                                    Notification_Sorteo::create([
-                                                        'user_id' => $this->user->id,
-                                                        'sorteo_id' => $this->sorteo->id,
-                                                        'nro' => '1'
-                                                    ]);
-                                    
-                                                    notyf()
-                                                        ->duration(0) // 2 seconds
-                                                        ->position('x', 'center')
-                                                        ->position('y', 'center')
-                                                        ->dismissible(true)
-                                                        ->addInfo('Ya hay un ganador en el 3er lugar, y su(s) carton(es) NO se encuentra entre los ganadores, tienes oportunidad para el premio del 2do lugar, continuemos ' );
-                                                }
-                                            }
+                                Notification_Sorteo::create([
+                                    'user_id' => $this->user->id,
+                                    'sorteo_id' => $this->sorteo->id,
+                                    'nro' => '1'
+                                ]);
                             }
-
-                            $this->ganador_1 = 1;
-
-                            $this->i = 2;
-
-                            SorteoFicha::where('sorteo_id', $this->sorteo->id)->delete();
                         }
-                    }
-        
-                    if($this->ganador_1 == 1 && $this->ganador_2 == 0){
-        
-                        $ganadores_sorteo_2 = CartonGanador::with('carton')
-                            ->where('sorteo_id',$this->sorteo->id)
-                            ->where('lugar','Segundo')
-                            ->get();
-                
-                        if($ganadores_sorteo_2->isEmpty() == false){
-
-                            $gano_yo = 0;
-
-                            foreach($ganadores_sorteo_2 as $ganador_yo){
-
-                                if($ganador_yo->user_id == $this->user->id) $gano_yo++;
-
-                                // if($this->type_2 == 'Tradicional'){
-                                //     if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Horizontal') $this->linea_h = 1;
-                                //     if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Vertical') $this->linea_v = 1;
-                                //     if($ganador_yo->type == 'Cuatro esquinas') $this->c_e = 1;
-                                //     if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Izquierda') $this->diag_iz = 1;
-                                //     if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Derecha') $this->diag_d = 1;
-                                //     if($ganador_yo->type == 'Cruz G.') $this->cruz_g = 1;
-                                //     if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
-                                // }
-                            }
+                        else{
                     
-                            if($gano_yo > 0){
-                    
-                                $this->ganador_user_login = 1;
-        
-                                $buscar_notificacion = Notification_Sorteo::where('user_id',$this->user->id)
-                                    ->where('sorteo_id',$this->sorteo->id)
-                                    ->where('nro','2')
-                                    ->first();
-        
-                                if(!$buscar_notificacion){ 
-        
-                                    $ganadores_sorteo_1_notificacion = CartonGanador::with('carton')
-                                        ->where('sorteo_id',$this->sorteo->id)
-                                        ->where('lugar','Segundo')
-                                        ->where('user_id',$this->user->id)
-                                        ->first();
-        
-                                        notyf()
-                                        ->duration(0)
+                            if(!Notification_Sorteo::where('user_id',$this->user->id)
+                                ->where('sorteo_id',$this->sorteo->id)
+                                ->where('nro','1')
+                                ->exists()){ 
+
+                                if($this->user->id != 1){
+
+                                    Notification_Sorteo::create([
+                                        'user_id' => $this->user->id,
+                                        'sorteo_id' => $this->sorteo->id,
+                                        'nro' => '1'
+                                    ]);
+                                        
+                                    notyf()
+                                        ->duration(0) // 2 seconds
                                         ->position('x', 'center')
                                         ->position('y', 'center')
                                         ->dismissible(true)
-                                        ->addInfo('Felicidades su cartón Nro ' . $ganadores_sorteo_1_notificacion->carton_id . ', ha ganado el segundo lugar en el sorteo Nro '. $this->sorteo->id  );
-                                    
-                                    if($this->user->id != 1){
-        
-                                        Notification_Sorteo::create([
-                                            'user_id' => $this->user->id,
-                                            'sorteo_id' => $this->sorteo->id,
-                                            'nro' => '2'
-                                        ]);
-                                    }
+                                        ->addInfo('Ya hay un ganador en el 3er lugar, y su(s) carton(es) NO se encuentra entre los ganadores, tienes oportunidad para el premio del 2do lugar, continuemos ' );
                                 }
-                        
                             }
-                            else{
-        
-                                $buscar_notificacion = Notification_Sorteo::where('user_id',$this->user->id)
-                                    ->where('sorteo_id',$this->sorteo->id)
-                                    ->where('nro','2')
-                                    ->first();
-        
-                                if(!$buscar_notificacion){ 
+                        }
 
-                                    if($this->user->id != 1){
-        
-                                        Notification_Sorteo::create([
-                                            'user_id' => $this->user->id,
-                                            'sorteo_id' => $this->sorteo->id,
-                                            'nro' => '2'
-                                        ]);
+                        $this->ganador_1 = 1;
 
+                        $this->i = 2;
+
+                        SorteoFicha::where('sorteo_id', $this->sorteo->id)->delete();
+                    }
+        
+                    if($this->ganador_1 == 1 && $this->ganador_2 == 0){
+
+                        $ganadores_sorteo_2 = CartonGanador::where('sorteo_id', $this->sorteo->id)
+                            ->where('lugar', 'Segundo')
+                            ->where('user_id', $this->user->id) // Filtro directo
+                            ->exists(); // Solo verifica existencia
+                        
+                        $gano_yo = $ganadores_sorteo_2 ? 1 : 0;
+
+                        if($gano_yo > 0){
+                    
+                            $this->ganador_user_login = 1;
+
+                            if(!Notification_Sorteo::where('user_id',$this->user->id)
+                                ->where('sorteo_id',$this->sorteo->id)
+                                ->where('nro','2')
+                                ->exists()){ 
+
+                                notyf()
+                                    ->duration(0)
+                                    ->position('x', 'center')
+                                    ->position('y', 'center')
+                                    ->dismissible(true)
+                                    ->addInfo('Felicidades ha ganado el segundo lugar en el sorteo Nro '. $this->sorteo->id );
+                                                
+
+                                Notification_Sorteo::create([
+                                    'user_id' => $this->user->id,
+                                    'sorteo_id' => $this->sorteo->id,
+                                    'nro' => '2'
+                                ]);
+                            }
+                        }
+                        else{
+                    
+                            if(!Notification_Sorteo::where('user_id',$this->user->id)
+                                ->where('sorteo_id',$this->sorteo->id)
+                                ->where('nro','2')
+                                ->exists()){ 
+
+                                if($this->user->id != 1){
+
+                                    Notification_Sorteo::create([
+                                        'user_id' => $this->user->id,
+                                        'sorteo_id' => $this->sorteo->id,
+                                        'nro' => '2'
+                                    ]);
+                                        
                                     notyf()
                                         ->duration(0) // 2 seconds
                                         ->position('x', 'center')
                                         ->position('y', 'center')
                                         ->dismissible(true)
                                         ->addInfo('Ya hay un ganador en el 2do lugar, y su(s) carton(es) NO se encuentra entre los ganadores, tienes oportunidad para el premio del 1er lugar, continuemos ' );
-                                    }
-                                
                                 }
-
-
                             }
-                            $this->ganador_1 = 1;
-                            $this->ganador_2 = 1;
-                            $this->i = 1;
-                        
                         }
+
+                        $this->ganador_1 = 1;
+                        $this->ganador_2 = 1;
+                        $this->i = 1;
                     }
         
                     if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0){
-        
-                        $ganadores_sorteo_3 = CartonGanador::with('carton')
-                            ->where('sorteo_id',$this->sorteo->id)
-                            ->where('lugar','Primero')
-                            ->get();
+
+                        $ganadores_sorteo_3 = CartonGanador::where('sorteo_id', $this->sorteo->id)
+                            ->where('lugar', 'Primero')
+                            ->where('user_id', $this->user->id) // Filtro directo
+                            ->exists(); // Solo verifica existencia
+                        
+                        $gano_yo = $ganadores_sorteo_3 ? 1 : 0;
                 
-                        if($ganadores_sorteo_3->isEmpty() == false){
+                        if($gano_yo > 0){
+                    
+                            $this->ganador_user_login = 1;
 
-                            $gano_yo = 0;
-        
-                            foreach($ganadores_sorteo_3 as $ganador_yo){
+                            if(!Notification_Sorteo::where('user_id',$this->user->id)
+                                ->where('sorteo_id',$this->sorteo->id)
+                                ->where('nro','3')
+                                ->exists()){ 
+                    
                                 
-                                if($ganador_yo->user_id == $this->user->id) $gano_yo++;             
+                                notyf()
+                                    ->duration(0)
+                                    ->position('x', 'center')
+                                    ->position('y', 'center')
+                                    ->dismissible(true)
+                                    ->addInfo('Felicidades ha ganado el primer lugar en el sorteo Nro '. $this->sorteo->id );
+                                                
 
+                                Notification_Sorteo::create([
+                                    'user_id' => $this->user->id,
+                                    'sorteo_id' => $this->sorteo->id,
+                                    'nro' => '3'
+                                ]);
                             }
+                        }
+                        else{
                     
-                            if($gano_yo > 0){
-                    
-                                $this->ganador_user_login = 1;
-        
-                                $buscar_notificacion = Notification_Sorteo::where('user_id',$this->user->id)
-                                    ->where('sorteo_id',$this->sorteo->id)
-                                    ->where('nro','3')
-                                    ->first();
-        
-                                if(!$buscar_notificacion){ 
-    
-                                    $ganadores_sorteo_1_notificacion = CartonGanador::with('carton')
-                                    ->where('sorteo_id',$this->sorteo->id)
-                                    ->where('lugar','Primero')
-                                    ->where('user_id',$this->user->id)
-                                    ->first();
-        
-                                    notyf()
-                                        ->duration(0)
-                                        ->position('x', 'center')
-                                        ->position('y', 'center')
-                                        ->dismissible(true)
-                                        ->addInfo('Felicidades su cartón Nro ' . $ganadores_sorteo_1_notificacion->carton_id . ', ha ganado el primer lugar en el sorteo Nro '. $this->sorteo->id  );
-                                    
-        
-                                    if($this->user->id != 1){
+                            if(!Notification_Sorteo::where('user_id',$this->user->id)
+                                ->where('sorteo_id',$this->sorteo->id)
+                                ->where('nro','3')
+                                ->exists()){ 
 
-                                        Notification_Sorteo::create([
-                                            'user_id' => $this->user->id,
-                                            'sorteo_id' => $this->sorteo->id,
-                                            'nro' => '3'
-                                        ]);
+                                if($this->user->id != 1){
 
-                                    }
-                                }
-                            
-                            }
-        
-                            else{
-        
-                                $buscar_notificacion = Notification_Sorteo::where('user_id',$this->user->id)
-                                    ->where('sorteo_id',$this->sorteo->id)
-                                    ->where('nro','3')
-                                    ->first();
-        
-                                if(!$buscar_notificacion){ 
-        
+                                    Notification_Sorteo::create([
+                                        'user_id' => $this->user->id,
+                                        'sorteo_id' => $this->sorteo->id,
+                                        'nro' => '3'
+                                    ]);
+                                        
                                     notyf()
                                         ->duration(0) // 2 seconds
                                         ->position('x', 'center')
                                         ->position('y', 'center')
                                         ->dismissible(true)
                                         ->addInfo('Sorteo Nro ' . $this->sorteo->id .' ha finalizado. Puede consultar los cartones ganadores y fichas sorteadas en la cabecera de la página '. '<img class="	far fa-hand-point-up" src="" alt="">');
-                                
-                                    $buscar_notificacion = Notification_Sorteo::where('user_id',$this->user->id)
-                                        ->where('sorteo_id',$this->sorteo->id)
-                                        ->where('nro','3')
-                                        ->first();
                                 }
-        
-                            }
-                            $this->ganador_1 = 1;
-                            $this->ganador_2 = 1;
-                            $this->ganador_3 = 1;
-
-                            if($this->sorteo_finalizado == 1){
-                                $this->emit('finalizar');
                             }
                         }
+        
+                       
+                        
+                        $this->ganador_1 = 1;
+                        $this->ganador_2 = 1;
+                        $this->ganador_3 = 1;
+
+
+                        if($this->sorteo_finalizado == 1){
+                            $this->emit('finalizar');
+                        }
+                        
                     }
 
         }
 
     }
+
 
     public function finalizar(){
 
@@ -1167,27 +1123,39 @@ class JugarSorteo extends Component
     public function render()
     {
 
-        $fichas = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->get();
+       // $fichas = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->get();
 
-        $mis_cartones = CartonSorteo::whereHas('sorteo',function(Builder $query){
+       $fichas = SorteoFicha::where('sorteo_id', $this->sorteo->id)
+            ->orderBy('created_at', 'DESC')  // Más explícito que latest()
+            ->select(['id', 'letra', 'numero'])  // Solo columnas necesarias
+            ->get();
+
+        /*$mis_cartones = CartonSorteo::whereHas('sorteo',function(Builder $query){
             $query->where('id',$this->sorteo->id);
             })
             ->where('user_id', $this->user->id)
             ->where('status_pago', 'Pago recibido')
             ->where('status_juego', 'Sin estado')
-            ->get(); 
+            ->get();*/
 
-        $cartones_todos = CartonSorteo::whereHas('sorteo',function(Builder $query){
-            $query->where('id',$this->sorteo->id);
-            })
+        $mis_cartones = CartonSorteo::with('sorteo:id') // Carga solo datos necesarios de la relación
+            ->where('sorteo_id', $this->sorteo->id) // Más eficiente que whereHas
+            ->where('user_id', $this->user->id)
             ->where('status_pago', 'Pago recibido')
             ->where('status_juego', 'Sin estado')
-            ->get(); 
+            ->select(['id']) // Solo columnas necesarias
+            ->get();
+
+        
 
         if($fichas->isEmpty() == false){
 
             $cartones_ganadores = CartonGanador::where('sorteo_id',$this->sorteo->id)->get(); 
-            $ficha_ultima = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->first()->id;
+            //$ficha_ultima = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->first()->id;
+
+            $ficha_ultima = SorteoFicha::where('sorteo_id', $this->sorteo->id)
+                ->orderBy('created_at', 'DESC')
+                ->value('id');
 
         }
 
@@ -1200,7 +1168,7 @@ class JugarSorteo extends Component
         }
 
     
-        return view('livewire.jugar-sorteo',compact('cartones_ganadores','cartones_todos','ficha_ultima','fichas','mis_cartones'));
+        return view('livewire.jugar-sorteo',compact('cartones_ganadores','ficha_ultima','fichas','mis_cartones'));
     }
 
    

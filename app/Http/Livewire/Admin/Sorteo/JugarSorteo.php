@@ -57,14 +57,6 @@ class JugarSorteo extends Component
 
         if($ficha) return "bg-blue-500 text-white  ";
 
-       /* foreach($fichas as $ficha){
-
-            if($ficha->numero == $ficha_select){
-                return "bg-blue-500 text-white";
-                break;
-            } 
-
-        }*/
 
     }
 
@@ -79,34 +71,40 @@ class JugarSorteo extends Component
 
             $this->user = auth()->user();
 
-            $ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo)
-                ->where('lugar','Primero')
-                ->first();
+            if(CartonGanador::where('sorteo_id',$this->sorteo->id)
+            ->where('lugar','Primero')
+            ->exists()){ 
+                $this->ganador_3 = 1;
+            }
 
-            $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo)
+            if(CartonGanador::where('sorteo_id',$this->sorteo->id)
                 ->where('lugar','Segundo')
-                ->first();
+                ->exists()){ 
+                    $this->ganador_2 = 1;
+                }
 
-            $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo)
+            if(CartonGanador::where('sorteo_id',$this->sorteo->id)
                 ->where('lugar','Tercero')
-                ->first();
-
-            if($ganadores_actuales_primer) $this->ganador_3 = 1;
-            if($ganadores_actuales_segundo) $this->ganador_2 = 1;
-            if($ganadores_actuales_tercer) $this->ganador_1 = 1; 
+                ->exists()){ 
+                    $this->ganador_1 = 1;
+                }
 
         }
 
         else $this->iniciar = 0;
     }
 
-    public function letra($letra_s){
+    public function letra($letra){
 
-        if($letra_s == 'B') $this->letra_select = 'B';
+        /*if($letra_s == 'B') $this->letra_select = 'B';
         elseif($letra_s == 'I') $this->letra_select = 'I';
         elseif($letra_s == 'N') $this->letra_select = 'N';
         elseif($letra_s == 'G') $this->letra_select = 'G';
-        else $this->letra_select = 'O';
+        else $this->letra_select = 'O';*/
+
+        if (in_array($letra, ['B', 'I', 'N', 'G', 'O'])) {
+            $this->letra_select = $letra;
+        }
 
     }
 
@@ -522,11 +520,6 @@ class JugarSorteo extends Component
 
     }
 
-    public function eliminar_ficha($ficha){
-
-        SorteoFicha::where('id',$ficha)->first()->delete();
-
-    }
 
 
     public function render()

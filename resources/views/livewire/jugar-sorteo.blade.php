@@ -5068,21 +5068,21 @@
                                     data-inactive-classes="text-gray-500 dark:text-gray-400">
                                     
 
-                                    {{-- <h2 id="accordion-flush-heading-3">
+                                 <h2 id="accordion-flush-heading-3">
                                         <button wire:click="visible_todos" type="button" class="flex justify-between items-center py-5 w-full font-medium text-left text-gray-500  border-gray-200 dark:border-gray-700 dark:text-gray-400 focus:outline-none  " data-accordion-target="#accordion-flush-body-3" aria-expanded="false" aria-controls="accordion-flush-body-3">
                                         
                                             
                                             <span class="font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500 ml-4">CARTONES DE TODOS LOS PARTICIPANTES</span>
                                             <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                         </button>
-                                    </h2> --}}
+                                    </h2> 
                                     <div id="accordion-flush-body-3" class="@if($visible == 0) hidden @endif" aria-labelledby="accordion-flush-heading-3">
                                         <div class="py-5  ">
                                             <div class="flex overflow-x-auto  ">
 
                                                 @foreach ($cartones_todos as $todo_c)
                             
-                                                        {{-- <div class=" bg-blue-500 mr-2 rounded-md shadow-md w-24  ">
+                                                         <div class=" bg-blue-500 mr-2 rounded-md shadow-md w-24  ">
                                                             <div class="grid grid-cols-5 gap-0.5 justify-center mb-0.5 mt-1 w-24 ">  
                                                     
                                                                 <div class=" bg-blue-500 text-white justify-center ml-1 text-xs text-center  py-2 font-bold">B</div>  
@@ -5131,7 +5131,7 @@
                                                             </div>
                 
                 
-                                                        </div>  --}}
+                                                        </div>  
                                     
                                                         @if($ganador_1 == 0 && $user->id == 1)
                                     

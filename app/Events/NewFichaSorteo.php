@@ -18,29 +18,30 @@ class NewFichaSorteo implements ShouldBroadcast,ShouldQueue
 {
     use Dispatchable, InteractsWithSockets, SerializesModels, Queueable;
 
-    /**
-     * Create a new event instance.
-     * 
-     * 
-     *
-     * @return void
-     */
+    public $ficha; // Solo datos necesarios
+    public $queue = 'high'; 
 
-
-    public $sorteo;
-
-    public function __construct( SorteoFicha $sorteo )
+    public function __construct($ficha)
     {
-        $this->sorteo = $sorteo;
+        $this->ficha = $ficha; // Recibe array/objeto simple
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
     public function broadcastOn()
     {
         return new Channel('sorteo_fichas');
     }
+
+    public function broadcastWith() // Optimiza payload
+    {
+        return [
+            'id' => $this->ficha['id'],
+            'numero' => $this->ficha['numero'],
+            'letra' => $this->ficha['letra']
+        ];
+    }
+
+    public function broadcastAs() {
+        return 'ficha.sorteada';
+    }
+
 }

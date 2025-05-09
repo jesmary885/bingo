@@ -28,11 +28,11 @@
 
                 <div class="flex justify-center">
 
-                    <button wire:click="letra('B')" type="button" class="btn btn-outline-primary text-3xl font-bold m-2">B</button>
-                    <button wire:click="letra('I')" type="button" class="btn btn-outline-primary text-3xl font-bold m-2">I</button>
-                    <button wire:click="letra('N')" type="button" class="btn btn-outline-primary text-3xl font-bold m-2">N</button>
-                    <button wire:click="letra('G')" type="button" class="btn btn-outline-primary text-3xl font-bold m-2">G</button>
-                    <button wire:click="letra('O')" type="button" class="btn btn-outline-primary text-3xl font-bold m-2">O</button>
+                    <button wire:click="letra('B')" wire:target="letra('B')" wire:loading.attr="disabled" type="button" class="btn btn-outline-primary text-3xl font-bold m-2">B <span wire:loading wire:target="letra('B')">...</span></button>
+                    <button wire:click="letra('I')" wire:target="letra('I')" wire:loading.attr="disabled" type="button" class="btn btn-outline-primary text-3xl font-bold m-2">I <span wire:loading wire:target="letra('I')">...</span></button>
+                    <button wire:click="letra('N')" wire:target="letra('N')" wire:loading.attr="disabled" type="button" class="btn btn-outline-primary text-3xl font-bold m-2">N <span wire:loading wire:target="letra('N')">...</span></button>
+                    <button wire:click="letra('G')" wire:target="letra('G')" wire:loading.attr="disabled" type="button" class="btn btn-outline-primary text-3xl font-bold m-2">G <span wire:loading wire:target="letra('G')">...</span></button>
+                    <button wire:click="letra('O')" wire:target="letra('O')" wire:loading.attr="disabled" type="button" class="btn btn-outline-primary text-3xl font-bold m-2">O <span wire:loading wire:target="letra('O')">...</span></button>
 
                 </div>
 

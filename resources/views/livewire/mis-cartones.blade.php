@@ -2177,7 +2177,7 @@
                         <div class="mt-2">
 
                             <p class=" text-gray-600 font-bold text-left text-lg " > - Sorteo Nro. {{$carton->sorteo->id}} -</p>
-                            <p class=" text-green-500 font-bold text-left text-md" > Cartón ajuditado a usted</p>
+                            <p class=" text-green-500 font-bold text-left text-md" > Cartón ajudicado a usted</p>
                             
 
                         </div>
