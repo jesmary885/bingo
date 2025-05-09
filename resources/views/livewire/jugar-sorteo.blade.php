@@ -5081,8 +5081,8 @@
                                             <div class="flex overflow-x-auto  ">
 
                                                 @foreach ($cartones_todos as $todo_c)
-                            
-                                                         <div class=" bg-blue-500 mr-2 rounded-md shadow-md w-24  ">
+                         
+                                                         {{-- <div class=" bg-blue-500 mr-2 rounded-md shadow-md w-24  ">
                                                             <div class="grid grid-cols-5 gap-0.5 justify-center mb-0.5 mt-1 w-24 ">  
                                                     
                                                                 <div class=" bg-blue-500 text-white justify-center ml-1 text-xs text-center  py-2 font-bold">B</div>  
@@ -5131,7 +5131,7 @@
                                                             </div>
                 
                 
-                                                        </div>  
+                                                        </div>   --}}
                                     
                                                         @if($ganador_1 == 0 && $user->id == 1)
                                     
