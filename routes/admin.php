@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth','IsAdmin'])->group(function(){
@@ -22,5 +23,10 @@ Route::middleware(['auth','IsAdmin'])->group(function(){
     Route::get('sorteos_user',[AdminController::class,'sorteo_carton_user'])->name('admin.sorteo_carton_user')->middleware('permission:menu.admin');
 
     Route::get('sorteos_carton',[AdminController::class,'sorteo_carton'])->name('admin.sorteo_carton')->middleware('permission:menu.admin');
+
+    Route::get('/test-redis', function() {
+        Redis::set('test', '¡Conectado!');
+        return Redis::get('test');
+    });
 
 });

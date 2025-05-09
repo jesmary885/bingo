@@ -9,6 +9,7 @@ use App\Http\Controllers\LegalidadesController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ShoppingCartController;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -37,6 +38,11 @@ Route::middleware([
     })->name('dashboard');
 });
 
+
+Route::get('/test-redis', function() {
+    Redis::set('test', '¡Conectado!');
+    return Redis::get('test');
+});
 
 Route::get('/auth/redirect', [AuthController::class,'redirect'])->name('auth.redirect');
 

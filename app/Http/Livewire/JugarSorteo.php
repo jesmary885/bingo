@@ -1143,7 +1143,7 @@ class JugarSorteo extends Component
             ->where('user_id', $this->user->id)
             ->where('status_pago', 'Pago recibido')
             ->where('status_juego', 'Sin estado')
-            ->select(['id']) // Solo columnas necesarias
+         //   ->select(['id']) // Solo columnas necesarias
             ->get();
 
         
