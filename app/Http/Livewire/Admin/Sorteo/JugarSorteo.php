@@ -24,7 +24,7 @@ class JugarSorteo extends Component
 
     public $sorteo_finalizado = 0; 
     public $sorteo_j;
-    public $letra_select = 0;
+    public $letra_select = 'B'; // Valor por defecto (B)
     public $numero_select = 0;
     public $sorteo;
     public $iniciar;
@@ -36,6 +36,7 @@ class JugarSorteo extends Component
     public $ganadores_actuales_primer;
     public $ganadores_actuales_segundo;
     public $ganadores_actuales_tercer;
+    public $numeros_seleccionados = []; 
 
     protected $listeners = [
         'render' => 'render', 
@@ -60,6 +61,15 @@ class JugarSorteo extends Component
 
     }
 
+        // Carga todos los números seleccionados UNA SOLA VEZ
+    public function cargarNumerosSeleccionados()
+    {
+        $this->numeros_seleccionados = SorteoFicha::where('sorteo_id', $this->sorteo)
+            ->pluck('numero')
+            ->toArray();
+    }
+
+
     public function mount(){
 
 
@@ -68,6 +78,8 @@ class JugarSorteo extends Component
         if($this->sorteo_j){
 
             $this->iniciar = 1;
+
+            $this->cargarNumerosSeleccionados();
 
             $this->user = auth()->user();
 
@@ -94,18 +106,9 @@ class JugarSorteo extends Component
         else $this->iniciar = 0;
     }
 
-    public function letra($letra){
-
-        /*if($letra_s == 'B') $this->letra_select = 'B';
-        elseif($letra_s == 'I') $this->letra_select = 'I';
-        elseif($letra_s == 'N') $this->letra_select = 'N';
-        elseif($letra_s == 'G') $this->letra_select = 'G';
-        else $this->letra_select = 'O';*/
-
-        if (in_array($letra, ['B', 'I', 'N', 'G', 'O'])) {
-            $this->letra_select = $letra;
-        }
-
+    public function letra($letra)
+    {
+        $this->letra_select = $letra;
     }
 
     public function ganad(){
@@ -496,7 +499,7 @@ class JugarSorteo extends Component
 
         $busqueda = SorteoFicha::where('sorteo_id',$this->sorteo)
             ->where('numero',$numero_n)
-            ->first();
+            ->exists();
 
         if(!$busqueda){
 
@@ -505,7 +508,9 @@ class JugarSorteo extends Component
                 'letra' => $this->letra_select,
                 'numero' => $numero_n,
             ]);
-            $this->letra_select = 0;
+       
+
+            $this->numeros_seleccionados[] = $numero_n;
 
         }else{
 
