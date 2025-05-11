@@ -2,29 +2,25 @@
 
 namespace App\Events;
 
-use App\Models\Sorteo;
-use App\Models\SorteoFicha;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewFichaSorteo implements ShouldBroadcast,ShouldQueue
+class NewFichaSorteo implements ShouldBroadcast
 {
-    use SerializesModels,Queueable;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $ficha; // Solo datos necesarios
-
+    public $id;
+    public $numero;
+    public $letra;
 
     public function __construct($ficha)
     {
-        $this->ficha = $ficha; // Recibe array/objeto simple
-        $this->onQueue('high'); // ← Método correcto para asignar cola
+        $this->id = $ficha['id'];
+        $this->numero = $ficha['numero'];
+        $this->letra = $ficha['letra'];
     }
 
     public function broadcastOn()
@@ -32,17 +28,17 @@ class NewFichaSorteo implements ShouldBroadcast,ShouldQueue
         return new Channel('sorteo_fichas');
     }
 
-    public function broadcastWith() // Optimiza payload
+    public function broadcastWith()
     {
         return [
-            'id' => $this->ficha['id'],
-            'numero' => $this->ficha['numero'],
-            'letra' => $this->ficha['letra']
+            'id' => $this->id,
+            'numero' => $this->numero,
+            'letra' => $this->letra
         ];
     }
 
-    public function broadcastAs() {
+    public function broadcastAs()
+    {
         return 'ficha.sorteada';
     }
-
 }
