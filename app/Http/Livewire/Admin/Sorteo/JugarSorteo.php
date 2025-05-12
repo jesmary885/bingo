@@ -508,9 +508,10 @@ class JugarSorteo extends Component
                 'letra' => $this->letra_select,
                 'numero' => $numero_n,
             ]);
-       
 
             $this->numeros_seleccionados[] = $numero_n;
+
+         
 
         }else{
 

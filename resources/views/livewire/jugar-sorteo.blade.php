@@ -1,49 +1,49 @@
 <div>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
-    <style>
+        <style>
 
-.mi-div {
-            width: 100%;
-            height: 100%;
-            background-image: url('/img/banderin.svg');
-            background-size: cover; /* Ajusta el SVG al tamaño del div */
-            background-position: center; /* Centra el SVG */
-            background-repeat: no-repeat; /* Evita que se repita */
-        }
+            .mi-div {
+                width: 100%;
+                height: 100%;
+                background-image: url('/img/banderin.svg');
+                background-size: cover; /* Ajusta el SVG al tamaño del div */
+                background-position: center; /* Centra el SVG */
+                background-repeat: no-repeat; /* Evita que se repita */
+            }
 
-        .mi-estrellas {
-            width: 100%;
-            height: 100%;
-            background-image: url('/img/estrellas.svg');
-            background-size: cover; /* Ajusta el SVG al tamaño del div */
-            background-position: center; /* Centra el SVG */
-            background-repeat: no-repeat; /* Evita que se repita */
-        }
+            .mi-estrellas {
+                width: 100%;
+                height: 100%;
+                background-image: url('/img/estrellas.svg');
+                background-size: cover; /* Ajusta el SVG al tamaño del div */
+                background-position: center; /* Centra el SVG */
+                background-repeat: no-repeat; /* Evita que se repita */
+            }
 
-                                         /* Pantallas grandes (lg o más): elimina background-position: center */
-                @media (min-width: 1024px) {
-                    .mi-div {
-                        background-position: initial; /* O usa "left", "top", etc. según necesites */
-                    }
+                                            /* Pantallas grandes (lg o más): elimina background-position: center */
+            @media (min-width: 1024px) {
+                .mi-div {
+                    background-position: initial; /* O usa "left", "top", etc. según necesites */
                 }
+            }
 
-        @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(calc(100% - 5px)); /* Rebote en la parte inferior */
-      }
-    }
+            @keyframes bounce {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(calc(100% - 5px)); /* Rebote en la parte inferior */
+                }
+            }
 
-    .animate-bounce {
-      animation: bounce 2s infinite ease-in-out;
-    }
+            .animate-bounce {
+                animation: bounce 2s infinite ease-in-out;
+            }
 
 
-      </style>
+        </style>
 
 
             <div class="relative block p-4  overflow-hidden bg-white  mb-2 mt-1 font-Arima ">
@@ -5082,7 +5082,7 @@
 
                                                 @foreach ($cartones_todos as $todo_c)
                          
-                                                         {{-- <div class=" bg-blue-500 mr-2 rounded-md shadow-md w-24  ">
+                                                         <div class=" bg-blue-500 mr-2 rounded-md shadow-md w-24  ">
                                                             <div class="grid grid-cols-5 gap-0.5 justify-center mb-0.5 mt-1 w-24 ">  
                                                     
                                                                 <div class=" bg-blue-500 text-white justify-center ml-1 text-xs text-center  py-2 font-bold">B</div>  
@@ -5131,7 +5131,7 @@
                                                             </div>
                 
                 
-                                                        </div>   --}}
+                                                        </div>
                                     
                                                         @if($ganador_1 == 0 && $user->id == 1)
                                     

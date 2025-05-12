@@ -14,26 +14,30 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
+use Illuminate\Support\Facades\Cache;
 
 class JugarSorteo extends Component
 {
-    public $cant_cartones, $cartones_todos, $i, $boton_pulsado, $linea_h = 0, $linea_v = 0, $c_e= 0, $diag_iz = 0, $diag_d= 0, $crup_p = 0, $cruz_g = 0,$visible, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
+    public $fichasCache,$cant_cartones, $cartones_todos, $i, $boton_pulsado, $linea_h = 0, $linea_v = 0, $c_e= 0, $diag_iz = 0, $diag_d= 0, $crup_p = 0, $cruz_g = 0,$visible, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
 
-    public $user;
+    public $user,$fichas;
 
    protected $listeners = [
         'render' => 'render',
        // 'echo:sorteo_fichas,NewFichaSorteo' => 'emitir_sonido',
        'echo:sorteo_fichas,.ficha.sorteada' => 'emitir_sonido',
+       'echo:sorteo_fichas,ficha.sorteada' => 'invalidateCacheFichas',
         'echo:ganador,NewGanador' => 'emitir_sonido_ganador',
         'echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' ,
         'finalizar' => 'finalizar',
-        'ganador_fin' => 'ganador_fin'
+        'ganador_fin' => 'ganador_fin',
+        'fichaAgregada' => 'invalidateCacheFichas',
+        'fichasReiniciadas' => 'invalidateCacheFichas'
     ];
 
    public $initialized = false;
    
-   public function mount(){
+    public function mount(){
 
         $this->visible = 0;
 
@@ -45,18 +49,20 @@ class JugarSorteo extends Component
         $this->type_2 = $this->sorteo->type_2;
         $this->type_3 = $this->sorteo->type_3;
 
-        $this->cartones_todos = CartonSorteo::with('sorteo:id') // Carga solo datos necesarios de la relación
-            ->where('sorteo_id', $this->sorteo->id) // Más eficiente que whereHas
+        $this->cartones_todos = CartonSorteo::where('sorteo_id', $this->sorteo->id) // Más eficiente que whereHas
             ->where('status_pago', 'Pago recibido')
             ->where('status_juego', 'Sin estado')
-            ->select(['id']) // Solo columnas necesarias
-            ->get();
+            ->get(); // Solo necesitamos los IDs
+
 
             
 
         $this->cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
-        ->where('status_carton','No disponible')
-        ->count();
+            ->where('status_carton','No disponible')
+            ->toBase()
+            ->count();
+
+        
 
         if(CartonGanador::where('sorteo_id',$this->sorteo->id)
             ->where('lugar','Primero')
@@ -76,71 +82,60 @@ class JugarSorteo extends Component
                 $this->ganador_1 = 1;
             }
 
-
-        /*$ganadores_actuales_primer =  CartonGanador::where('sorteo_id',$this->sorteo->id)
-            ->where('lugar','Primero')
-            ->exists();
-        
-        $ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo->id)
-            ->where('lugar','Segundo')
-            ->exists();
-        
-        $ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo->id)
-            ->where('lugar','Tercero')
-            ->exists();
-        
-        if($ganadores_actuales_primer)  $this->ganador_3 = 1;
-        if($ganadores_actuales_segundo) $this->ganador_2 = 1;
-        if($ganadores_actuales_tercer) $this->ganador_1 = 1; */
-
         if($this->ganador_1 == 0) $this->i = 3;
         if($this->ganador_2 == 0 && $this->ganador_1 == 1) $this->i = 2;
         if($this->ganador_3 == 0 && $this->ganador_2 == 1)  $this->i = 1;
 
-        /*if($this->ganador_1 == 1 && $this->ganador_2 == 0){
-        
-            $ganadores_sorteo_1 = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                ->where('lugar','Tercero')
-                ->get();
-        
-            foreach($ganadores_sorteo_1 as $ganador_yo){
-                                        
-                if($this->sorteo->type_3 == 'Tradicional'){
-                    if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Horizontal') $this->linea_h = 1;
-                    if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Vertical') $this->linea_v = 1;
-                    if($ganador_yo->type == 'Cuatro esquinas') $this->c_e = 1;
-                    if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Izquierda') $this->diag_iz = 1;
-                    if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Derecha') $this->diag_d = 1;
-                    if($ganador_yo->type == 'Cruz G.') $this->cruz_g = 1;
-                    if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
-                }
-            }
-        }
-                        
-
-        if($this->ganador_2 == 1 && $this->ganador_3 == 0){
-        
-            $ganadores_sorteo_1 = CartonGanador::with('carton')
-                ->where('sorteo_id',$this->sorteo->id)
-                ->where('lugar','Segundo')
-                ->get();
-        
-            foreach($ganadores_sorteo_1 as $ganador_yo){
-                if($this->sorteo->type_2 == 'Tradicional'){
-                    if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Horizontal') $this->linea_h = 1;
-                    if($ganador_yo->type == 'Lineal' && $ganador_yo->type_lineal == 'Vertical') $this->linea_v = 1;
-                    if($ganador_yo->type == 'Cuatro esquinas') $this->c_e = 1;
-                    if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Izquierda') $this->diag_iz = 1;
-                    if($ganador_yo->type == 'Diagonal' && $ganador_yo->type_lineal == 'Derecha') $this->diag_d = 1;
-                    if($ganador_yo->type == 'Cruz G.') $this->cruz_g = 1;
-                    if($ganador_yo->type == 'Cruz P.') $this->crup_p = 1;
-                }
-            }
-        }*/
-
         $fecha_actual = date("Y-m-d H:i:s");
         $this->hoy= new DateTime($fecha_actual);
 
+    }
+
+
+    protected function getFichasSorteadas()
+    {
+       /* $cacheKey = "sorteo_{$this->sorteo->id}_fichas_actualizadas";
+        
+        // Si ya está en cache, lo devuelve. Si no, ejecuta la consulta y guarda en cache
+        $fichas = Cache::remember($cacheKey, now()->addHours(2), function() {
+            return SorteoFicha::where('sorteo_id', $this->sorteo->id)
+                ->orderByDesc('created_at')
+                ->select(['id', 'letra', 'numero'])
+                ->get() // Convertimos a array para más eficiencia\
+                ->toArray();
+
+        });
+
+        return collect($fichas); // Siempre devolver como colección*/
+
+        $cacheKey = "sorteo_{$this->sorteo->id}_fichas_actualizadas";
+    
+        $fichas = Cache::remember($cacheKey, now()->addHours(2), function() {
+            return SorteoFicha::where('sorteo_id', $this->sorteo->id)
+                ->orderByDesc('created_at')
+                ->get(['id', 'letra', 'numero']);
+        });
+        
+        // Garantizar que siempre sea colección de objetos
+        return collect($fichas)->map(function ($item) {
+            return is_array($item) ? (object) $item : $item;
+        });
+ 
+    }
+
+    public function invalidateCacheFichas($payload)
+    {
+        // Verifica que la ficha es para este sorteo
+        if (isset($payload['sorteo_id']) && $payload['sorteo_id'] == $this->sorteo->id) {
+            $cacheKey = "sorteo_{$this->sorteo->id}_fichas_actualizadas";
+            Cache::forget($cacheKey);
+            
+            // Opción 1: Recargar datos inmediatamente
+            $this->fichas = $this->getFichasSorteadas();
+            
+            // Opción 2: Forzar actualización del componente
+            $this->emitSelf('refreshComponent');
+        }
     }
 
 
@@ -167,42 +162,6 @@ class JugarSorteo extends Component
 
     }
 
-    public function ganancia_sorteo_primer(){
-
-        $this->cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
-            ->where('status_carton','No disponible')
-            ->count();
-
-        $sorteo_s = Sorteo::where('id',$this->sorteo->id)->first();
-
-        return $this->cant_cartones * ($sorteo_s->porcentaje_ganancia * 0.01);
-    }
-
-    public function ganancia_sorteo_segundo(){
-
-        $this->cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
-            ->where('status_carton','No disponible')
-            ->count();
-
-        $sorteo_s = Sorteo::where('id',$this->sorteo->id)->first();
-
-        return $this->cant_cartones * ($sorteo_s->porcentaje_ganancia_2do_lugar * 0.01);
-
-    }
-
-    public function ganancia_sorteo_tercero(){
-
-        $this->cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
-            ->where('status_carton','No disponible')
-            ->count();
-
-        $sorteo_s = Sorteo::where('id',$this->sorteo->id)->first();
-
-        return $this->cant_cartones * ($sorteo_s->porcentaje_ganancia_3er_lugar * 0.01);
-
-    }
-
-
 
     public function background_ultimo($item){
 
@@ -221,6 +180,23 @@ class JugarSorteo extends Component
         }
     }
 
+    public function ganancia_sorteo_primer(){
+
+        return $this->cant_cartones * ($this->sorteo->porcentaje_ganancia * 0.01);
+    }
+
+    public function ganancia_sorteo_segundo(){
+
+        return $this->cant_cartones * ($this->sorteo->porcentaje_ganancia_2do_lugar * 0.01);
+
+    }
+
+    public function ganancia_sorteo_tercero(){
+
+        return $this->cant_cartones * ($this->sorteo->porcentaje_ganancia_3er_lugar * 0.01);
+
+    }
+
 
     public function background($item){
         $ficha_nueva = SorteoFicha::where('sorteo_id',$this->sorteo->id)->get();
@@ -236,22 +212,9 @@ class JugarSorteo extends Component
         }
     }
 
-    public function premio($carton){
-
-        $ultimo_sorteo = CartonGanador::latest('id')->first();
-
-        $premio = CartonGanador::where('sorteo_id',$ultimo_sorteo->sorteo_id )
-            ->where('carton_id',$carton)
-            ->first()->premio;
-
-        return $premio;
-
-
-    }
-
     public function posicion($item,$content,$carton){
 
-        $carton = Carton::where('id',$carton)->first();
+        $carton = Carton::find($carton);
 
         if($content == 1) $content = 'content_1';
         elseif($content == 2) $content = 'content_2';
@@ -1125,11 +1088,22 @@ class JugarSorteo extends Component
 
        // $fichas = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->get();
 
-       $fichas = SorteoFicha::where('sorteo_id', $this->sorteo->id)
+      /* $fichas = SorteoFicha::where('sorteo_id', $this->sorteo->id)
             ->orderBy('created_at', 'DESC')  // Más explícito que latest()
             ->select(['id', 'letra', 'numero'])  // Solo columnas necesarias
-            ->get();
+            ->get();*/
 
+        $this->fichas = $this->getFichasSorteadas();
+
+        if (is_array($this->fichas)) {
+            $this->fichas = collect($this->fichas);
+        }
+
+
+        
+
+
+  
         /*$mis_cartones = CartonSorteo::whereHas('sorteo',function(Builder $query){
             $query->where('id',$this->sorteo->id);
             })
@@ -1148,7 +1122,7 @@ class JugarSorteo extends Component
 
         
 
-        if($fichas->isEmpty() == false){
+            if($this->fichas->isNotEmpty()){
 
             $cartones_ganadores = CartonGanador::where('sorteo_id',$this->sorteo->id)->get(); 
             //$ficha_ultima = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->first()->id;
@@ -1161,14 +1135,14 @@ class JugarSorteo extends Component
 
         else{
 
-            $fichas = [];
+            $this->fichas = [];
             $cartones_ganadores = CartonGanador::where('sorteo_id',$this->sorteo->id)->get(); 
             $ficha_ultima = 0;
 
         }
 
     
-        return view('livewire.jugar-sorteo',compact('cartones_ganadores','ficha_ultima','fichas','mis_cartones'));
+        return view('livewire.jugar-sorteo',compact('cartones_ganadores','ficha_ultima','mis_cartones'));
     }
 
    

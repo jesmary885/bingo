@@ -5,40 +5,57 @@ namespace App\Events;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow; // Cambio clave
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Bus\Queueable;
 
-class NewFichaSorteo implements ShouldBroadcast
+class NewFichaSorteo implements ShouldBroadcastNow // Implementa ShouldBroadcastNow
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels,Queueable;
 
-    public $id;
-    public $numero;
-    public $letra;
+    public $ficha;
+    public $sorteoId;
 
     public function __construct($ficha)
     {
-        $this->id = $ficha['id'];
-        $this->numero = $ficha['numero'];
-        $this->letra = $ficha['letra'];
+        $this->ficha = $ficha;
+
+        // Asegurar que tenemos el sorteo_id disponible
+        $this->sorteoId = is_array($ficha) ? $ficha['sorteo_id'] : 
+        (is_object($ficha) ? $ficha->sorteo_id : null);
     }
 
     public function broadcastOn()
     {
-        return new Channel('sorteo_fichas');
+        return [
+            new Channel('sorteo_fichas'), // Canal general
+            new Channel('sorteo.'.$this->sorteoId) // Canal específico por sorteo
+        ];
     }
 
     public function broadcastWith()
     {
         return [
-            'id' => $this->id,
-            'numero' => $this->numero,
-            'letra' => $this->letra
+            'id' => $this->ficha['id'] ?? $this->ficha->id,
+            'numero' => $this->ficha['numero'],
+            'letra' => $this->ficha['letra'],
+            'sorteo_id' => $this->sorteoId, // Añadido para manejo de cache
+            'timestamp' => now()->toISOString() // Para medir sincronización
         ];
     }
 
     public function broadcastAs()
     {
         return 'ficha.sorteada';
+    }
+
+    // Nuevo: Configuración de velocidad
+    public function broadcastWhen()
+    {
+        return app()->environment('production') 
+            ? true 
+            : config('broadcasting.debug', false);
     }
 }
