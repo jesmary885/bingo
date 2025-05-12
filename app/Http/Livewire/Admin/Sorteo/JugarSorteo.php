@@ -18,6 +18,7 @@ use App\Models\UserGanancias;
 use App\Models\UserSaldo;
 use Livewire\Component;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Cache;
 
 class JugarSorteo extends Component
 {
@@ -510,6 +511,11 @@ class JugarSorteo extends Component
             ]);
 
             $this->numeros_seleccionados[] = $numero_n;
+
+             // Invalidar el cache específico
+            $cacheKey = "sorteo_{$this->sorteo}_fichas_actualizadas";
+            Cache::forget($cacheKey);
+    
 
          
 
