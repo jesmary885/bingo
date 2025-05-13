@@ -5204,7 +5204,36 @@
 
                             <div class="grid grid-cols-5 md:grid-cols-8 gap-1 mt-4">
 
-                             
+                                <aside class="col-start-1 col-end-6 overflow-y-hidden md:col-span-1 overflow-x-auto md:h-162 md:overflow-x-hidden md:overflow-y-auto bg-blue-500 border p-2 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700  " >
+                                    <div class="w-full flex justify-start md:flex-col md:max-h-96">
+                                        <p class=" font-Allerta text-sm md:text-md lg:text-lg font-bold text-white text-center ">FICHAS</p>
+                                        @foreach($fichas as $ficha)
+                                            <div class="relative mr-2 md:mr-0 md:w-full mt-7">
+                                                @if($ficha_ultima == $ficha->id)
+                                                    <div class="w-full flex justify-center">
+                                                        <div class="bg-red-500 w-16 h-16 absolute rounded-full shadow-2xl shadow-red-500 animate-ping border-2 flex justify-center items-center"></div>
+                                                    </div>
+                                                @endif
+
+                                                <div class="w-full flex justify-center">
+                                                    <div class="@if($ficha_ultima == $ficha->id) h-14 w-14 lg:h-16 lg:w-16 @else h-14 w-14 animate-pulse animate-fade-right @endif mx-auto my-auto border-2 rounded-full @if($ficha_ultima == $ficha->id) bg-red-700 @else bg-blue-700 @endif relative bola-3d">
+                                                        <!-- Efecto de luz para el 3D -->
+                                                        <div class="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-white/30 rounded-full blur-sm"></div>
+
+                                                        <!-- Contenido de la ficha -->
+                                                        <p class="text-center font-bold text-white mt-1">
+                                                            {{$ficha->letra}}
+                                                        </p>
+                                                        <p class="text-center font-bold text-white">
+                                                            {{$ficha->numero}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                        
+                                </aside>
 
                                 <div class="col-span-3 md:col-span-5 p-2 ">
 
@@ -5214,68 +5243,7 @@
 
                                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 font-Arima mt-7 mx-1">
 
-                                            @foreach ($mis_cartones as $carton)
-                                
-                                                <div class=" bg-white rounded-md shadow-md overflow-hidden">
-                                                    <div class=" bg-blue-500 rounded-t-md shadow-md overflow-hidden md:max-w-xl ">
-                                
-                                                        <div class="flex justify-center ">
-                                
-                                                            <img src="{{Storage::url('img/logo4.png') }}" alt="" class="block h-16 w-36 ">
-                                
-                                                        </div>
-
-                                                        <hr  class="mt-2" >
-                                
-                                                        <div class="grid grid-cols-5 gap-0.5 justify-center mb-0.5 mt-1">
-                                
-                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center ml-1  py-2  font-bold">B</div>
-                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mx-0.5 py-2 font-bold">I</div>
-                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mx-0.5 py-2 font-bold">N</div>
-                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mx-0.5 py-2 font-bold">G</div>
-                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mr-1 py-2 font-bold">O</div>
-                                                        </div>
-                                
-                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5 ">
-                                                            @foreach (json_decode($carton->carton->content_1) as $item)
-                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">  {{$item}}  </div>
-                                                            @endforeach
-                                                        </div>
-                                
-                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
-                                                            @foreach (json_decode($carton->carton->content_2) as $item)
-                                                                <div class="{{$this->background($item)}} bg-gray-100  text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
-                                                            @endforeach
-                                                        </div>
-                                
-                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
-                                                            @foreach (json_decode($carton->carton->content_3) as $item)
-                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
-                                                            @endforeach
-                                                        </div>
-                                
-                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
-                                                            @foreach (json_decode($carton->carton->content_4) as $item)
-                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
-                                                            @endforeach
-                                                        </div>
-                                
-                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
-                                                            @foreach (json_decode($carton->carton->content_5) as $item)
-                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>
-                                                            @endforeach
-                                                        </div>
-
-                                                        <div class="bg-blue-600 m-1 text-center">
-                                                            <p class=" text-white  text-xs ">CARTÓN NRO. {{$carton->carton->id}}  </p>
-                                                        </div>
-                                
-                                                        
-                                
-                                                    </div>
-                                                </div>
-
-                                            @endforeach
+                                        
                                 
                                         </div>
                                     </div>
