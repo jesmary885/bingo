@@ -114,6 +114,22 @@ class IniciarSorteo extends Component
         }*/
 
 
+        $sort = CartonSorteo::where('sorteo_id', 1)->get();
+
+        foreach ($sort as $sorte){
+
+            $us = rand(2, 5);
+
+            $sorte->update([
+                'user_id' => $us,
+                'status_carton' => 'No disponible',
+                'status_pago' => 'Pago recibido',
+                'pago_id' => '2'
+            ]);
+
+        }
+
+
 
         $busqueda_sorteo = Sorteo::where('status','Aperturado')->get();
 
