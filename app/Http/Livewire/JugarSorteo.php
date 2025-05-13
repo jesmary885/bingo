@@ -1015,7 +1015,7 @@ class JugarSorteo extends Component
         
 
     
-        return view('livewire.jugar-sorteo',compact('cartones_ganadores','ficha_ultima','mis_cartones'));
+        return view('livewire.jugar-sorteo');
     }
 
    
