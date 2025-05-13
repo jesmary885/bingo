@@ -62,6 +62,7 @@ class JugarSorteo extends Component
             ->toBase()
             ->count();
 
+
         
 
         if(CartonGanador::where('sorteo_id',$this->sorteo->id)
@@ -92,51 +93,18 @@ class JugarSorteo extends Component
     }
 
 
+
     protected function getFichasSorteadas()
     {
-       /* $cacheKey = "sorteo_{$this->sorteo->id}_fichas_actualizadas";
-        
-        // Si ya está en cache, lo devuelve. Si no, ejecuta la consulta y guarda en cache
-        $fichas = Cache::remember($cacheKey, now()->addHours(2), function() {
-            return SorteoFicha::where('sorteo_id', $this->sorteo->id)
-                ->orderByDesc('created_at')
-                ->select(['id', 'letra', 'numero'])
-                ->get() // Convertimos a array para más eficiencia\
-                ->toArray();
-
-        });
-
-        return collect($fichas); // Siempre devolver como colección*/
-
-        $cacheKey = "sorteo_{$this->sorteo->id}_fichas_actualizadas";
     
-        $fichas = Cache::remember($cacheKey, now()->addHours(2), function() {
+
             return SorteoFicha::where('sorteo_id', $this->sorteo->id)
-                ->orderByDesc('created_at')
-                ->get(['id', 'letra', 'numero']);
-        });
-        
-        // Garantizar que siempre sea colección de objetos
-        return collect($fichas)->map(function ($item) {
-            return is_array($item) ? (object) $item : $item;
-        });
+            ->orderByDesc('created_at')
+            ->get(['id', 'letra', 'numero']);
  
     }
 
-    public function invalidateCacheFichas($payload)
-    {
-        // Verifica que la ficha es para este sorteo
-        if (isset($payload['sorteo_id']) && $payload['sorteo_id'] == $this->sorteo->id) {
-            $cacheKey = "sorteo_{$this->sorteo->id}_fichas_actualizadas";
-            Cache::forget($cacheKey);
-            
-            // Opción 1: Recargar datos inmediatamente
-            $this->fichas = $this->getFichasSorteadas();
-            
-            // Opción 2: Forzar actualización del componente
-            $this->emitSelf('refreshComponent');
-        }
-    }
+
 
 
     public function emitir_sonido_ganador(){
@@ -1086,21 +1054,8 @@ class JugarSorteo extends Component
     public function render()
     {
 
-       // $fichas = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->get();
-
-      /* $fichas = SorteoFicha::where('sorteo_id', $this->sorteo->id)
-            ->orderBy('created_at', 'DESC')  // Más explícito que latest()
-            ->select(['id', 'letra', 'numero'])  // Solo columnas necesarias
-            ->get();*/
 
         $this->fichas = $this->getFichasSorteadas();
-
-        if (is_array($this->fichas)) {
-            $this->fichas = collect($this->fichas);
-        }
-
-
-        
 
 
   

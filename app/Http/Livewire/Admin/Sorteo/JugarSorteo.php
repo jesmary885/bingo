@@ -512,12 +512,6 @@ class JugarSorteo extends Component
 
             $this->numeros_seleccionados[] = $numero_n;
 
-             // Invalidar el cache específico
-            $cacheKey = "sorteo_{$this->sorteo}_fichas_actualizadas";
-            Cache::forget($cacheKey);
-    
-
-         
 
         }else{
 
