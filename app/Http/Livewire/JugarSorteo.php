@@ -24,15 +24,7 @@ class JugarSorteo extends Component
 
    protected $listeners = [
         'render' => 'render',
-       // 'echo:sorteo_fichas,NewFichaSorteo' => 'emitir_sonido',
-       'echo:sorteo_fichas,.ficha.sorteada' => 'emitir_sonido',
-       'echo:sorteo_fichas,ficha.sorteada' => 'invalidateCacheFichas',
-        'echo:ganador,NewGanador' => 'emitir_sonido_ganador',
-        'echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' ,
-        'finalizar' => 'finalizar',
-        'ganador_fin' => 'ganador_fin',
-        'fichaAgregada' => 'invalidateCacheFichas',
-        'fichasReiniciadas' => 'invalidateCacheFichas'
+
     ];
 
    public $initialized = false;
