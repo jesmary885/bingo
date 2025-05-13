@@ -5086,7 +5086,36 @@
 
                             <div class="grid grid-cols-5 md:grid-cols-8 gap-1 mt-4">
 
-                              
+                                <aside class="col-start-1 col-end-6 overflow-y-hidden md:col-span-1 overflow-x-auto md:h-162 md:overflow-x-hidden md:overflow-y-auto bg-blue-500 border p-2 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700  " >
+                                    <div class="w-full flex justify-start md:flex-col md:max-h-96">
+                                        <p class=" font-Allerta text-sm md:text-md lg:text-lg font-bold text-white text-center ">FICHAS</p>
+                                        @foreach($fichas as $ficha)
+                                            <div class="relative mr-2 md:mr-0 md:w-full mt-7">
+                                                @if($ficha_ultima == $ficha->id)
+                                                    <div class="w-full flex justify-center">
+                                                        <div class="bg-red-500 w-16 h-16 absolute rounded-full shadow-2xl shadow-red-500 animate-ping border-2 flex justify-center items-center"></div>
+                                                    </div>
+                                                @endif
+
+                                                <div class="w-full flex justify-center">
+                                                    <div class="@if($ficha_ultima == $ficha->id) h-14 w-14 lg:h-16 lg:w-16 @else h-14 w-14 animate-pulse animate-fade-right @endif mx-auto my-auto border-2 rounded-full @if($ficha_ultima == $ficha->id) bg-red-700 @else bg-blue-700 @endif relative bola-3d">
+                                                        <!-- Efecto de luz para el 3D -->
+                                                        <div class="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-white/30 rounded-full blur-sm"></div>
+
+                                                        <!-- Contenido de la ficha -->
+                                                        <p class="text-center font-bold text-white mt-1">
+                                                            {{$ficha->letra}}
+                                                        </p>
+                                                        <p class="text-center font-bold text-white">
+                                                            {{$ficha->numero}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                        
+                                </aside>
 
                                 <div class="col-span-3 md:col-span-5 p-2 ">
 
