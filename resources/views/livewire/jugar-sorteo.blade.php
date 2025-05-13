@@ -5066,7 +5066,6 @@
                                 <div id="accordion-flush" data-accordion="collapse"
                                     data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
                                     data-inactive-classes="text-gray-500 dark:text-gray-400">
-                                    
 
                                  <h2 id="accordion-flush-heading-3">
                                         <button wire:click="visible_todos" type="button" class="flex justify-between items-center py-5 w-full font-medium text-left text-gray-500  border-gray-200 dark:border-gray-700 dark:text-gray-400 focus:outline-none  " data-accordion-target="#accordion-flush-body-3" aria-expanded="false" aria-controls="accordion-flush-body-3">
@@ -5079,7 +5078,6 @@
                                     <div id="accordion-flush-body-3" class="@if($visible == 0) hidden @endif" aria-labelledby="accordion-flush-heading-3">
                                         <div class="py-5  ">
                                             <div class="flex overflow-x-auto  ">
-
                                                 @foreach ($cartones_todos as $todo_c)
                          
                                                          <div class=" bg-blue-500 mr-2 rounded-md shadow-md w-24  ">
