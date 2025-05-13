@@ -1,6 +1,49 @@
 <div>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
+    <style>
+
+.mi-div {
+            width: 100%;
+            height: 100%;
+            background-image: url('/img/banderin.svg');
+            background-size: cover; /* Ajusta el SVG al tamaño del div */
+            background-position: center; /* Centra el SVG */
+            background-repeat: no-repeat; /* Evita que se repita */
+        }
+
+        .mi-estrellas {
+            width: 100%;
+            height: 100%;
+            background-image: url('/img/estrellas.svg');
+            background-size: cover; /* Ajusta el SVG al tamaño del div */
+            background-position: center; /* Centra el SVG */
+            background-repeat: no-repeat; /* Evita que se repita */
+        }
+
+                                         /* Pantallas grandes (lg o más): elimina background-position: center */
+                @media (min-width: 1024px) {
+                    .mi-div {
+                        background-position: initial; /* O usa "left", "top", etc. según necesites */
+                    }
+                }
+
+        @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(calc(100% - 5px)); /* Rebote en la parte inferior */
+      }
+    }
+
+    .animate-bounce {
+      animation: bounce 2s infinite ease-in-out;
+    }
+
+
+      </style>
 
 
             <div class="relative block p-4  overflow-hidden bg-white  mb-2 mt-1 font-Arima ">
@@ -5026,130 +5069,12 @@
                                     
 
                                  <h2 id="accordion-flush-heading-3">
-                                        <button wire:click="visible_todos" type="button" class="flex justify-between items-center py-5 w-full font-medium text-left text-gray-500  border-gray-200 dark:border-gray-700 dark:text-gray-400 focus:outline-none  " data-accordion-target="#accordion-flush-body-3" aria-expanded="false" aria-controls="accordion-flush-body-3">
-                                        
-                                            
-                                            <span class="font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500 ml-4">CARTONES DE TODOS LOS PARTICIPANTES</span>
-                                            <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                        </button>
+                                    
                                     </h2> 
                                     <div id="accordion-flush-body-3" class="@if($visible == 0) hidden @endif" aria-labelledby="accordion-flush-heading-3">
                                         <div class="py-5  ">
                                             <div class="flex overflow-x-auto  ">
 
-                                                @foreach ($cartones_todos as $todo_c)
-                         
-                                                         <div class=" bg-blue-500 mr-2 rounded-md shadow-md w-24  ">
-                                                            <div class="grid grid-cols-5 gap-0.5 justify-center mb-0.5 mt-1 w-24 ">  
-                                                    
-                                                                <div class=" bg-blue-500 text-white justify-center ml-1 text-xs text-center  py-2 font-bold">B</div>  
-                                                                <div class=" bg-blue-500 text-white justify-center mx-0.5 text-xs  text-center  py-2 font-bold">I</div>  
-                                                                <div class=" bg-blue-500 text-white justify-center mx-0.5 text-xs  text-center py-2  font-bold">N</div>  
-                                                                <div class=" bg-blue-500 text-white justify-center mx-0.5 text-xs  text-center py-2  font-bold">G</div>  
-                                                                <div class=" bg-blue-500 text-white justify-center mr-1 text-xs  text-center py-2  font-bold">O</div>  
-                                                            </div>  
-                                                    
-                                                            <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22  mb-0.5">  
-                                                                @foreach (json_decode($todo_c->carton->content_1) as $item)
-                                                                    <div class="bg-gray-100  {{$this->background($item)}}  text-xs justify-center text-center py-2 font-bold">{{$item}}</div>  
-                                                                @endforeach
-                                                            </div>  
-                                                    
-                                                            <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 w-22  mb-0.5">  
-                                                                @foreach (json_decode($todo_c->carton->content_2) as $item)
-                                                                    <div class="bg-gray-100 {{$this->background($item)}}  text-xs justify-center text-center py-2 font-bold">{{$item}}</div>  
-                                                                @endforeach
-                                                            </div> 
-                
-                                                            <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 w-22  mb-0.5">  
-                                                                @foreach (json_decode($todo_c->carton->content_3) as $item)
-                                                                    <div class="bg-gray-100 {{$this->background($item)}} text-xs justify-center text-center py-2 font-bold">{{$item}}</div>  
-                                                                @endforeach
-                                                            </div> 
-                                                    
-                                                            <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 w-22  mb-0.5">  
-                                                                @foreach (json_decode($todo_c->carton->content_4) as $item)
-                                                                    <div class="bg-gray-100 {{$this->background($item)}} text-xs justify-center text-center py-2 font-bold">{{$item}}</div>  
-                                                                @endforeach
-                                                            </div> 
-                                                    
-                                                            <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 w-22  mb-0.5">  
-                                                                @foreach (json_decode($todo_c->carton->content_5) as $item)
-                                                                    <div class="bg-gray-100 {{$this->background($item)}} text-xs justify-center text-center py-2 font-bold">{{$item}}</div>  
-                                                                @endforeach
-                                                            </div> 
-                
-                                                            <div class="bg-blue-600 m-1 text-center w-20 ">
-                                                                <p class=" text-white  text-xs ">Cartón Nro. {{$todo_c->carton->id}}  </p>
-                                                            </div>
-                
-                                                            <div class="bg-blue-500 m-1 text-center w-20 ">
-                                                                <p class=" text-white text-xs "> {{$this->nombre($todo_c->user->name)}}</p>
-                                                            </div>
-                
-                
-                                                        </div>   --}}
-                                    
-                                                        @if($ganador_1 == 0 && $user->id == 1)
-                                    
-                                                            @if($type_3 == 'Lineal')
-                                                                    {{$this->verifi_linea_horizontal($todo_c->carton->id)}} 
-                                                                    {{$this->verifi_linea_vertical($todo_c->carton->id)}}
-                                                            @elseif($type_3 == 'Diagonal')
-                                                                    {{$this->diagonal_iz($todo_c->carton->id)}}
-                                                                    {{$this->diagonal_dr($todo_c->carton->id)}}
-                                                            @elseif($type_3 == 'Cruz_grande')
-                                                                    {{$this->cruz_grande($todo_c->carton->id)}}
-                                                            @elseif($type_3 == 'Cruz_pequena')
-                                                                    {{$this->cruz_pequeña($todo_c->carton->id)}}
-                                                            @elseif($type_3 == 'Cuatro_esquinas')
-                                                                    {{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}
-                                                            @else
-                                                                {{$this->verifi_carton_lleno($todo_c->carton->id)}}
-                                                            @endif
-                                                        @endif
-
-                                                        @if($ganador_1 == 1 && $ganador_2 == 0 && $user->id == 1)
-                                    
-                                                            @if($type_2 == 'Lineal')
-                                                                    {{$this->verifi_linea_horizontal($todo_c->carton->id)}} 
-                                                                    {{$this->verifi_linea_vertical($todo_c->carton->id)}}
-                                                            @elseif($type_2 == 'Diagonal')
-                                                                    {{$this->diagonal_iz($todo_c->carton->id)}}
-                                                                    {{$this->diagonal_dr($todo_c->carton->id)}}
-                                                            @elseif($type_2 == 'Cruz_grande')
-                                                                    {{$this->cruz_grande($todo_c->carton->id)}}
-                                                            @elseif($type_2 == 'Cruz_pequena')
-                                                                    {{$this->cruz_pequeña($todo_c->carton->id)}}
-                                                            @elseif($type_2 == 'Cuatro_esquinas')
-                                                                    {{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}
-                                                            @else
-                                                                {{$this->verifi_carton_lleno($todo_c->carton->id)}}
-                                                            @endif
-                                    
-                                                        @endif
-
-                                                        @if($ganador_1 == 1 && $ganador_2 == 1 && $ganador_3 == 0 && $user->id == 1)
-                                    
-                                                            @if($type_1 == 'Lineal')
-                                                                    {{$this->verifi_linea_horizontal($todo_c->carton->id)}} 
-                                                                    {{$this->verifi_linea_vertical($todo_c->carton->id)}}
-                                                            @elseif($type_1 == 'Diagonal')
-                                                                    {{$this->diagonal_iz($todo_c->carton->id)}}
-                                                                    {{$this->diagonal_dr($todo_c->carton->id)}}
-                                                            @elseif($type_1 == 'Cruz_grande')
-                                                                    {{$this->cruz_grande($todo_c->carton->id)}}
-                                                            @elseif($type_1 == 'Cruz_pequena')
-                                                                    {{$this->cruz_pequeña($todo_c->carton->id)}}
-                                                            @elseif($type_1 == 'Cuatro_esquinas')
-                                                                    {{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}
-                                                            @else
-                                                                {{$this->verifi_carton_lleno($todo_c->carton->id)}}
-                                                            @endif
-                                    
-                                                        @endif
-
-                                                @endforeach
                                             </div>
 
                                         </div>
@@ -5194,77 +5119,7 @@
 
                                 <div class="col-span-3 md:col-span-5 p-2 ">
 
-                                    <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-70 mi-div h-full">
-
-                                        <p class=" font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500 text-center"  >MIS CARTONES</p>
-
-                                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 font-Arima mt-7 mx-1">
-
-                                            @foreach ($mis_cartones as $carton)
-                                
-                                                <div class=" bg-white rounded-md shadow-md overflow-hidden">
-                                                    <div class=" bg-blue-500 rounded-t-md shadow-md overflow-hidden md:max-w-xl ">
-                                
-                                                        <div class="flex justify-center ">
-                                
-                                                            <img src="{{Storage::url('img/logo4.png') }}" alt="" class="block h-16 w-36 ">
-                                
-                                                        </div>
-
-                                                        <hr  class="mt-2" >
-                                
-                                                        <div class="grid grid-cols-5 gap-0.5 justify-center mb-0.5 mt-1">
-                                
-                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center ml-1  py-2  font-bold">B</div>
-                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mx-0.5 py-2 font-bold">I</div>
-                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mx-0.5 py-2 font-bold">N</div>
-                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mx-0.5 py-2 font-bold">G</div>
-                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mr-1 py-2 font-bold">O</div>
-                                                        </div>
-                                
-                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5 ">
-                                                            @foreach (json_decode($carton->carton->content_1) as $item)
-                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">  {{$item}}  </div>
-                                                            @endforeach
-                                                        </div>
-                                
-                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
-                                                            @foreach (json_decode($carton->carton->content_2) as $item)
-                                                                <div class="{{$this->background($item)}} bg-gray-100  text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
-                                                            @endforeach
-                                                        </div>
-                                
-                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
-                                                            @foreach (json_decode($carton->carton->content_3) as $item)
-                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
-                                                            @endforeach
-                                                        </div>
-                                
-                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
-                                                            @foreach (json_decode($carton->carton->content_4) as $item)
-                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
-                                                            @endforeach
-                                                        </div>
-                                
-                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
-                                                            @foreach (json_decode($carton->carton->content_5) as $item)
-                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>
-                                                            @endforeach
-                                                        </div>
-
-                                                        <div class="bg-blue-600 m-1 text-center">
-                                                            <p class=" text-white  text-xs ">CARTÓN NRO. {{$carton->carton->id}}  </p>
-                                                        </div>
-                                
-                                                        
-                                
-                                                    </div>
-                                                </div>
-
-                                            @endforeach
-                                
-                                        </div>
-                                    </div>
+                                    
                                 </div>
 
                                 <div class="col-span-2 md:col-span-2 mi-estrellas  overflow-y-auto  border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-2 " >
