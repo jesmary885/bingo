@@ -24,7 +24,15 @@ class JugarSorteo extends Component
 
    protected $listeners = [
         'render' => 'render',
-
+       // 'echo:sorteo_fichas,NewFichaSorteo' => 'emitir_sonido',
+       'echo:sorteo_fichas,.ficha.sorteada' => 'emitir_sonido',
+       'echo:sorteo_fichas,ficha.sorteada' => 'invalidateCacheFichas',
+        'echo:ganador,NewGanador' => 'emitir_sonido_ganador',
+        'echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' ,
+        'finalizar' => 'finalizar',
+        'ganador_fin' => 'ganador_fin',
+        'fichaAgregada' => 'invalidateCacheFichas',
+        'fichasReiniciadas' => 'invalidateCacheFichas'
     ];
 
    public $initialized = false;
@@ -37,6 +45,50 @@ class JugarSorteo extends Component
 
         $this->user = auth()->user();
     
+        $this->type_1 = $this->sorteo->type_1;
+        $this->type_2 = $this->sorteo->type_2;
+        $this->type_3 = $this->sorteo->type_3;
+
+        $this->cartones_todos = CartonSorteo::where('sorteo_id', $this->sorteo->id) // Más eficiente que whereHas
+            ->where('status_pago', 'Pago recibido')
+            ->where('status_juego', 'Sin estado')
+            ->get(); // Solo necesitamos los IDs
+
+
+            
+
+        $this->cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
+            ->where('status_carton','No disponible')
+            ->toBase()
+            ->count();
+
+
+        
+
+        if(CartonGanador::where('sorteo_id',$this->sorteo->id)
+            ->where('lugar','Primero')
+            ->exists()){ 
+                $this->ganador_3 = 1;
+            }
+
+        if(CartonGanador::where('sorteo_id',$this->sorteo->id)
+            ->where('lugar','Segundo')
+            ->exists()){ 
+                $this->ganador_2 = 1;
+            }
+
+        if(CartonGanador::where('sorteo_id',$this->sorteo->id)
+            ->where('lugar','Tercero')
+            ->exists()){ 
+                $this->ganador_1 = 1;
+            }
+
+        if($this->ganador_1 == 0) $this->i = 3;
+        if($this->ganador_2 == 0 && $this->ganador_1 == 1) $this->i = 2;
+        if($this->ganador_3 == 0 && $this->ganador_2 == 1)  $this->i = 1;
+
+        $fecha_actual = date("Y-m-d H:i:s");
+        $this->hoy= new DateTime($fecha_actual);
 
     }
 
@@ -1002,12 +1054,60 @@ class JugarSorteo extends Component
     public function render()
     {
 
+       // $fichas = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->get();
 
-      
+      /* $fichas = SorteoFicha::where('sorteo_id', $this->sorteo->id)
+            ->orderBy('created_at', 'DESC')  // Más explícito que latest()
+            ->select(['id', 'letra', 'numero'])  // Solo columnas necesarias
+            ->get();*/
+
+        $this->fichas = $this->getFichasSorteadas();
+
+
+
         
 
+
+  
+        /*$mis_cartones = CartonSorteo::whereHas('sorteo',function(Builder $query){
+            $query->where('id',$this->sorteo->id);
+            })
+            ->where('user_id', $this->user->id)
+            ->where('status_pago', 'Pago recibido')
+            ->where('status_juego', 'Sin estado')
+            ->get();*/
+
+        $mis_cartones = CartonSorteo::with('sorteo:id') // Carga solo datos necesarios de la relación
+            ->where('sorteo_id', $this->sorteo->id) // Más eficiente que whereHas
+            ->where('user_id', $this->user->id)
+            ->where('status_pago', 'Pago recibido')
+            ->where('status_juego', 'Sin estado')
+         //   ->select(['id']) // Solo columnas necesarias
+            ->get();
+
+        
+
+            if($this->fichas->isNotEmpty()){
+
+            $cartones_ganadores = CartonGanador::where('sorteo_id',$this->sorteo->id)->get(); 
+            //$ficha_ultima = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->first()->id;
+
+            $ficha_ultima = SorteoFicha::where('sorteo_id', $this->sorteo->id)
+                ->orderBy('created_at', 'DESC')
+                ->value('id');
+
+        }
+
+        else{
+
+            $this->fichas = [];
+            $cartones_ganadores = CartonGanador::where('sorteo_id',$this->sorteo->id)->get(); 
+            $ficha_ultima = 0;
+
+        }
+
     
-        return view('livewire.jugar-sorteo');
+        return view('livewire.jugar-sorteo',compact('cartones_ganadores','ficha_ultima','mis_cartones'));
     }
 
    

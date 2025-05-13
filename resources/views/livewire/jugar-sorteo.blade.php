@@ -1,49 +1,6 @@
 <div>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
-        <style>
-
-            .mi-div {
-                width: 100%;
-                height: 100%;
-                background-image: url('/img/banderin.svg');
-                background-size: cover; /* Ajusta el SVG al tamaño del div */
-                background-position: center; /* Centra el SVG */
-                background-repeat: no-repeat; /* Evita que se repita */
-            }
-
-            .mi-estrellas {
-                width: 100%;
-                height: 100%;
-                background-image: url('/img/estrellas.svg');
-                background-size: cover; /* Ajusta el SVG al tamaño del div */
-                background-position: center; /* Centra el SVG */
-                background-repeat: no-repeat; /* Evita que se repita */
-            }
-
-                                            /* Pantallas grandes (lg o más): elimina background-position: center */
-            @media (min-width: 1024px) {
-                .mi-div {
-                    background-position: initial; /* O usa "left", "top", etc. según necesites */
-                }
-            }
-
-            @keyframes bounce {
-                0%, 100% {
-                    transform: translateY(0);
-                }
-                50% {
-                    transform: translateY(calc(100% - 5px)); /* Rebote en la parte inferior */
-                }
-            }
-
-            .animate-bounce {
-                animation: bounce 2s infinite ease-in-out;
-            }
-
-
-        </style>
 
 
             <div class="relative block p-4  overflow-hidden bg-white  mb-2 mt-1 font-Arima ">
@@ -5080,7 +5037,119 @@
                                         <div class="py-5  ">
                                             <div class="flex overflow-x-auto  ">
 
-                                               
+                                                @foreach ($cartones_todos as $todo_c)
+                         
+                                                         <div class=" bg-blue-500 mr-2 rounded-md shadow-md w-24  ">
+                                                            <div class="grid grid-cols-5 gap-0.5 justify-center mb-0.5 mt-1 w-24 ">  
+                                                    
+                                                                <div class=" bg-blue-500 text-white justify-center ml-1 text-xs text-center  py-2 font-bold">B</div>  
+                                                                <div class=" bg-blue-500 text-white justify-center mx-0.5 text-xs  text-center  py-2 font-bold">I</div>  
+                                                                <div class=" bg-blue-500 text-white justify-center mx-0.5 text-xs  text-center py-2  font-bold">N</div>  
+                                                                <div class=" bg-blue-500 text-white justify-center mx-0.5 text-xs  text-center py-2  font-bold">G</div>  
+                                                                <div class=" bg-blue-500 text-white justify-center mr-1 text-xs  text-center py-2  font-bold">O</div>  
+                                                            </div>  
+                                                    
+                                                            <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22  mb-0.5">  
+                                                                @foreach (json_decode($todo_c->carton->content_1) as $item)
+                                                                    <div class="bg-gray-100  {{$this->background($item)}}  text-xs justify-center text-center py-2 font-bold">{{$item}}</div>  
+                                                                @endforeach
+                                                            </div>  
+                                                    
+                                                            <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 w-22  mb-0.5">  
+                                                                @foreach (json_decode($todo_c->carton->content_2) as $item)
+                                                                    <div class="bg-gray-100 {{$this->background($item)}}  text-xs justify-center text-center py-2 font-bold">{{$item}}</div>  
+                                                                @endforeach
+                                                            </div> 
+                
+                                                            <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 w-22  mb-0.5">  
+                                                                @foreach (json_decode($todo_c->carton->content_3) as $item)
+                                                                    <div class="bg-gray-100 {{$this->background($item)}} text-xs justify-center text-center py-2 font-bold">{{$item}}</div>  
+                                                                @endforeach
+                                                            </div> 
+                                                    
+                                                            <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 w-22  mb-0.5">  
+                                                                @foreach (json_decode($todo_c->carton->content_4) as $item)
+                                                                    <div class="bg-gray-100 {{$this->background($item)}} text-xs justify-center text-center py-2 font-bold">{{$item}}</div>  
+                                                                @endforeach
+                                                            </div> 
+                                                    
+                                                            <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 w-22  mb-0.5">  
+                                                                @foreach (json_decode($todo_c->carton->content_5) as $item)
+                                                                    <div class="bg-gray-100 {{$this->background($item)}} text-xs justify-center text-center py-2 font-bold">{{$item}}</div>  
+                                                                @endforeach
+                                                            </div> 
+                
+                                                            <div class="bg-blue-600 m-1 text-center w-20 ">
+                                                                <p class=" text-white  text-xs ">Cartón Nro. {{$todo_c->carton->id}}  </p>
+                                                            </div>
+                
+                                                            <div class="bg-blue-500 m-1 text-center w-20 ">
+                                                                <p class=" text-white text-xs "> {{$this->nombre($todo_c->user->name)}}</p>
+                                                            </div>
+                
+                
+                                                        </div>   --}}
+                                    
+                                                        @if($ganador_1 == 0 && $user->id == 1)
+                                    
+                                                            @if($type_3 == 'Lineal')
+                                                                    {{$this->verifi_linea_horizontal($todo_c->carton->id)}} 
+                                                                    {{$this->verifi_linea_vertical($todo_c->carton->id)}}
+                                                            @elseif($type_3 == 'Diagonal')
+                                                                    {{$this->diagonal_iz($todo_c->carton->id)}}
+                                                                    {{$this->diagonal_dr($todo_c->carton->id)}}
+                                                            @elseif($type_3 == 'Cruz_grande')
+                                                                    {{$this->cruz_grande($todo_c->carton->id)}}
+                                                            @elseif($type_3 == 'Cruz_pequena')
+                                                                    {{$this->cruz_pequeña($todo_c->carton->id)}}
+                                                            @elseif($type_3 == 'Cuatro_esquinas')
+                                                                    {{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}
+                                                            @else
+                                                                {{$this->verifi_carton_lleno($todo_c->carton->id)}}
+                                                            @endif
+                                                        @endif
+
+                                                        @if($ganador_1 == 1 && $ganador_2 == 0 && $user->id == 1)
+                                    
+                                                            @if($type_2 == 'Lineal')
+                                                                    {{$this->verifi_linea_horizontal($todo_c->carton->id)}} 
+                                                                    {{$this->verifi_linea_vertical($todo_c->carton->id)}}
+                                                            @elseif($type_2 == 'Diagonal')
+                                                                    {{$this->diagonal_iz($todo_c->carton->id)}}
+                                                                    {{$this->diagonal_dr($todo_c->carton->id)}}
+                                                            @elseif($type_2 == 'Cruz_grande')
+                                                                    {{$this->cruz_grande($todo_c->carton->id)}}
+                                                            @elseif($type_2 == 'Cruz_pequena')
+                                                                    {{$this->cruz_pequeña($todo_c->carton->id)}}
+                                                            @elseif($type_2 == 'Cuatro_esquinas')
+                                                                    {{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}
+                                                            @else
+                                                                {{$this->verifi_carton_lleno($todo_c->carton->id)}}
+                                                            @endif
+                                    
+                                                        @endif
+
+                                                        @if($ganador_1 == 1 && $ganador_2 == 1 && $ganador_3 == 0 && $user->id == 1)
+                                    
+                                                            @if($type_1 == 'Lineal')
+                                                                    {{$this->verifi_linea_horizontal($todo_c->carton->id)}} 
+                                                                    {{$this->verifi_linea_vertical($todo_c->carton->id)}}
+                                                            @elseif($type_1 == 'Diagonal')
+                                                                    {{$this->diagonal_iz($todo_c->carton->id)}}
+                                                                    {{$this->diagonal_dr($todo_c->carton->id)}}
+                                                            @elseif($type_1 == 'Cruz_grande')
+                                                                    {{$this->cruz_grande($todo_c->carton->id)}}
+                                                            @elseif($type_1 == 'Cruz_pequena')
+                                                                    {{$this->cruz_pequeña($todo_c->carton->id)}}
+                                                            @elseif($type_1 == 'Cuatro_esquinas')
+                                                                    {{$this->verifi_cuatro_esquinas($todo_c->carton->id)}}
+                                                            @else
+                                                                {{$this->verifi_carton_lleno($todo_c->carton->id)}}
+                                                            @endif
+                                    
+                                                        @endif
+
+                                                @endforeach
                                             </div>
 
                                         </div>
@@ -5092,7 +5161,541 @@
 
                             <div class="grid grid-cols-5 md:grid-cols-8 gap-1 mt-4">
 
-          
+                                <aside class="col-start-1 col-end-6 overflow-y-hidden md:col-span-1 overflow-x-auto md:h-162 md:overflow-x-hidden md:overflow-y-auto bg-blue-500 border p-2 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700  " >
+                                    <div class="w-full flex justify-start md:flex-col md:max-h-96">
+                                        <p class=" font-Allerta text-sm md:text-md lg:text-lg font-bold text-white text-center ">FICHAS</p>
+                                        @foreach($fichas as $ficha)
+                                            <div class="relative mr-2 md:mr-0 md:w-full mt-7">
+                                                @if($ficha_ultima == $ficha->id)
+                                                    <div class="w-full flex justify-center">
+                                                        <div class="bg-red-500 w-16 h-16 absolute rounded-full shadow-2xl shadow-red-500 animate-ping border-2 flex justify-center items-center"></div>
+                                                    </div>
+                                                @endif
+
+                                                <div class="w-full flex justify-center">
+                                                    <div class="@if($ficha_ultima == $ficha->id) h-14 w-14 lg:h-16 lg:w-16 @else h-14 w-14 animate-pulse animate-fade-right @endif mx-auto my-auto border-2 rounded-full @if($ficha_ultima == $ficha->id) bg-red-700 @else bg-blue-700 @endif relative bola-3d">
+                                                        <!-- Efecto de luz para el 3D -->
+                                                        <div class="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-white/30 rounded-full blur-sm"></div>
+
+                                                        <!-- Contenido de la ficha -->
+                                                        <p class="text-center font-bold text-white mt-1">
+                                                            {{$ficha->letra}}
+                                                        </p>
+                                                        <p class="text-center font-bold text-white">
+                                                            {{$ficha->numero}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                        
+                                </aside>
+
+                                <div class="col-span-3 md:col-span-5 p-2 ">
+
+                                    <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-70 mi-div h-full">
+
+                                        <p class=" font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500 text-center"  >MIS CARTONES</p>
+
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 font-Arima mt-7 mx-1">
+
+                                            @foreach ($mis_cartones as $carton)
+                                
+                                                <div class=" bg-white rounded-md shadow-md overflow-hidden">
+                                                    <div class=" bg-blue-500 rounded-t-md shadow-md overflow-hidden md:max-w-xl ">
+                                
+                                                        <div class="flex justify-center ">
+                                
+                                                            <img src="{{Storage::url('img/logo4.png') }}" alt="" class="block h-16 w-36 ">
+                                
+                                                        </div>
+
+                                                        <hr  class="mt-2" >
+                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center mb-0.5 mt-1">
+                                
+                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center ml-1  py-2  font-bold">B</div>
+                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mx-0.5 py-2 font-bold">I</div>
+                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mx-0.5 py-2 font-bold">N</div>
+                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mx-0.5 py-2 font-bold">G</div>
+                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mr-1 py-2 font-bold">O</div>
+                                                        </div>
+                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5 ">
+                                                            @foreach (json_decode($carton->carton->content_1) as $item)
+                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">  {{$item}}  </div>
+                                                            @endforeach
+                                                        </div>
+                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
+                                                            @foreach (json_decode($carton->carton->content_2) as $item)
+                                                                <div class="{{$this->background($item)}} bg-gray-100  text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
+                                                            @endforeach
+                                                        </div>
+                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
+                                                            @foreach (json_decode($carton->carton->content_3) as $item)
+                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
+                                                            @endforeach
+                                                        </div>
+                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
+                                                            @foreach (json_decode($carton->carton->content_4) as $item)
+                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
+                                                            @endforeach
+                                                        </div>
+                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
+                                                            @foreach (json_decode($carton->carton->content_5) as $item)
+                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>
+                                                            @endforeach
+                                                        </div>
+
+                                                        <div class="bg-blue-600 m-1 text-center">
+                                                            <p class=" text-white  text-xs ">CARTÓN NRO. {{$carton->carton->id}}  </p>
+                                                        </div>
+                                
+                                                        
+                                
+                                                    </div>
+                                                </div>
+
+                                            @endforeach
+                                
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-span-2 md:col-span-2 mi-estrellas  overflow-y-auto  border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-2 " >
+                                    
+                                    <p class=" font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500 text-center "  >GANADORES</p>
+
+                                    <div class="mt-4">
+                                        @foreach($cartones_ganadores as $cg)
+                                            <div class="py-1 md:py-2 md:px-6 ">
+                                                    <div class=" bg-blue-500 rounded-md shadow-md overflow-hidden md:max-w-xl ">
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center  mb-0.5 mt-1">  
+                                                
+                                                            <div class=" bg-blue-500 text-white justify-center ml-1 text-xs text-center  py-2 font-bold">B</div>  
+                                                            <div class=" bg-blue-500 text-white justify-center mx-0.5 text-xs  text-center  py-2 font-bold">I</div>  
+                                                            <div class=" bg-blue-500 text-white justify-center mx-0.5 text-xs  text-center py-2  font-bold">N</div>  
+                                                            <div class=" bg-blue-500 text-white justify-center mx-0.5 text-xs  text-center py-2  font-bold">G</div>  
+                                                            <div class=" bg-blue-500 text-white justify-center mr-1 text-xs  text-center py-2  font-bold">O</div>  
+                                                        </div>  
+                                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1  mr-1 mb-0.5 ">  
+                                                            @foreach (json_decode($cg->carton->content_1) as $item)
+                                                            
+                                                                <div class="bg-gray-100
+                                                                    @if($cg->type == 'Cuatro esquinas')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '0' || $this->posicion($item,'1',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Cartón lleno')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '0' || $this->posicion($item,'1',$cg->carton->id) == '1' || $this->posicion($item,'1',$cg->carton->id) == '2' || $this->posicion($item,'1',$cg->carton->id) == '3' || $this->posicion($item,'1',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '1')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '0' || $this->posicion($item,'1',$cg->carton->id) == '1' || $this->posicion($item,'1',$cg->carton->id) == '2' || $this->posicion($item,'1',$cg->carton->id) == '3' || $this->posicion($item,'1',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '1')
+                                                                            @if($this->posicion($item,'1',$cg->carton->id) == '0')
+                                                                            bg-yellow-500 
+                                                                            @endif 
+                                                                    @endif
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '2')
+                                                                            @if($this->posicion($item,'1',$cg->carton->id) == '1')
+                                                                            bg-yellow-500 
+                                                                            @endif 
+                                                                    @endif
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '3')
+                                                                            @if($this->posicion($item,'1',$cg->carton->id) == '2')
+                                                                            bg-yellow-500 
+                                                                            @endif 
+                                                                    @endif
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '4')
+                                                                            @if($this->posicion($item,'1',$cg->carton->id) == '3')
+                                                                            bg-yellow-500 
+                                                                            @endif 
+                                                                    @endif
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '5')
+                                                                            @if($this->posicion($item,'1',$cg->carton->id) == '4')
+                                                                            bg-yellow-500 
+                                                                            @endif 
+                                                                    @endif
+
+                                                                
+
+                                                                    @if($cg->type == 'Cuatro esquinas')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '0' || $this->posicion($item,'1',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Izquierda')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '0')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Derecha')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Cruz G.')
+                                                                        @if($this->posicion($item,'1',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+                                                                    
+                                                                    text-xs justify-center text-center py-2 font-bold">
+                                                                    
+                                                                    {{$item}}
+                                                                </div>  
+                                                            @endforeach
+                                                        </div>  
+                                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5"> 
+                                                            @foreach (json_decode($cg->carton->content_2) as $item)
+                                                                <div class="bg-gray-100  
+
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Izquierda')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '1')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Cartón lleno')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '0' || $this->posicion($item,'2',$cg->carton->id) == '1' || $this->posicion($item,'2',$cg->carton->id) == '2' || $this->posicion($item,'2',$cg->carton->id) == '3' || $this->posicion($item,'2',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '2')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '0' || $this->posicion($item,'2',$cg->carton->id) == '1' || $this->posicion($item,'2',$cg->carton->id) == '2' || $this->posicion($item,'2',$cg->carton->id) == '3' || $this->posicion($item,'2',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '1')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '0')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '2')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '1')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '3')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '4')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '3')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '5')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Derecha')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '3')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Cruz P.')
+                                                                        @if($this->posicion($item,'2',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+                                                                    text-xs justify-center text-center py-2 font-bold">
+                                                                    {{$item}}
+                                                                </div>  
+                                                            @endforeach
+                                                        </div> 
+                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">  
+                                                            @foreach (json_decode($cg->carton->content_3) as $item)
+                                                                <div class="bg-gray-100 
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Izquierda')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+                                                                    @if($cg->type == 'Cartón lleno')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '0' || $this->posicion($item,'3',$cg->carton->id) == '1' || $this->posicion($item,'3',$cg->carton->id) == '2' || $this->posicion($item,'3',$cg->carton->id) == '3' || $this->posicion($item,'3',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '3')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '0' || $this->posicion($item,'3',$cg->carton->id) == '1' || $this->posicion($item,'3',$cg->carton->id) == '2' || $this->posicion($item,'3',$cg->carton->id) == '3' || $this->posicion($item,'3',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '1')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '0')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '2')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '1')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '3')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '4')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '3')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '5')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                    
+                                                                
+
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Derecha')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Cruz P.')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '3' ||  $this->posicion($item,'3',$cg->carton->id) == '2' || $this->posicion($item,'3',$cg->carton->id) == '1')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+                                                                    @if($cg->type == 'Cruz G.')
+                                                                        @if($this->posicion($item,'3',$cg->carton->id) == '0' || $this->posicion($item,'3',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+                                                                    text-xs justify-center text-center py-2 font-bold">
+                                                                    {{$item}}
+                                                                </div>  
+                                                            @endforeach
+                                                        </div> 
+                                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">  
+                                                            @foreach (json_decode($cg->carton->content_4) as $item)
+                                                                <div class="bg-gray-100 
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Izquierda')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '3')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Derecha')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '1')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Cartón lleno')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '0' || $this->posicion($item,'4',$cg->carton->id) == '1' || $this->posicion($item,'4',$cg->carton->id) == '2' || $this->posicion($item,'4',$cg->carton->id) == '3' || $this->posicion($item,'4',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '4')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '0' || $this->posicion($item,'4',$cg->carton->id) == '1' || $this->posicion($item,'4',$cg->carton->id) == '2' || $this->posicion($item,'4',$cg->carton->id) == '3' || $this->posicion($item,'4',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif 
+
+
+                                                                    @if($cg->type == 'Cruz P.')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                    @endif
+
+                                                                    @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '1')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '0')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '2')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '1')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '3')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '4')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '3')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '5')
+                                                                        @if($this->posicion($item,'4',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                    text-xs justify-center text-center py-2 font-bold">
+                                                                        {{$item}}
+                                                                </div>  
+                                                            @endforeach
+                                                        </div> 
+                                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">  
+                                                            @foreach (json_decode($cg->carton->content_5) as $item)
+                                                                <div class="bg-gray-100 
+                                                                @if($cg->type == 'Cuatro esquinas') 
+                                                                    @if($this->posicion($item,'5',$cg->carton->id) == '0' || $this->posicion($item,'5',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                    @endif
+                                                                @endif
+
+                                                                @if($cg->type == 'Cartón lleno')
+                                                                    @if($this->posicion($item,'5',$cg->carton->id) == '0' || $this->posicion($item,'5',$cg->carton->id) == '1' || $this->posicion($item,'5',$cg->carton->id) == '2' || $this->posicion($item,'5',$cg->carton->id) == '3' || $this->posicion($item,'5',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                    @endif 
+                                                                @endif 
+
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Horizontal' && $cg->type_numero == '5')
+                                                                    @if($this->posicion($item,'5',$cg->carton->id) == '0' || $this->posicion($item,'5',$cg->carton->id) == '1' || $this->posicion($item,'5',$cg->carton->id) == '2' || $this->posicion($item,'5',$cg->carton->id) == '3' || $this->posicion($item,'5',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                    @endif 
+                                                                @endif 
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '1')
+                                                                        @if($this->posicion($item,'5',$cg->carton->id) == '0')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '2')
+                                                                        @if($this->posicion($item,'5',$cg->carton->id) == '1')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '3')
+                                                                        @if($this->posicion($item,'5',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '4')
+                                                                        @if($this->posicion($item,'5',$cg->carton->id) == '3')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                @if($cg->type == 'Lineal' && $cg->type_lineal == 'Vertical' && $cg->type_numero == '5')
+                                                                        @if($this->posicion($item,'5',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif
+
+                                                                
+
+                                                                @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Izquierda')
+                                                                        @if($this->posicion($item,'5',$cg->carton->id) == '4')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif 
+
+                                                                @if($cg->type == 'Diagonal' && $cg->type_lineal == 'Derecha')
+                                                                    @if($this->posicion($item,'5',$cg->carton->id) == '0')
+                                                                        bg-yellow-500 
+                                                                        @endif 
+                                                                @endif 
+
+                                                                @if($cg->type == 'Cruz G.')
+                                                                    @if($this->posicion($item,'5',$cg->carton->id) == '2')
+                                                                        bg-yellow-500 
+                                                                    @endif 
+                                                                @endif
+
+                                                                
+
+                                                                text-xs justify-center text-center py-2 font-bold">{{$item}}</div>  
+                                                            @endforeach
+                                                        </div> 
+                
+                                                        <div class="bg-blue-600 m-1 text-center">
+                                                            <p class=" text-white  text-xs ">CARTÓN NRO. {{$cg->carton->id}}  </p>
+                                                        </div>
+                
+                                                        <div class="bg-blue-500 m-1 text-center">
+                                                            <p class=" text-white text-xs "> {{$this->nombre($cg->user->name)}}</p>
+                                                        </div>
+
+                                                    
+                                                        <div class="bg-blue-500 m-1 text-center">
+                                                            <p class=" text-white text-xs font-bold  ">Modalidad: {{$cg->type}}  </p>
+                                                        </div>
+
+                                                        <div class="bg-blue-500 m-1 text-center">
+                                                            <p class=" text-white text-xs font-bold uppercase ">LUGAR: {{$cg->lugar}} </p>
+                                                        </div>
+                
+                
+                                                    </div> 
+                                            
+                                            
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                
+
+                                </div>
 
                             </div>
 
