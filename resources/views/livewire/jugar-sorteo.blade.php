@@ -5119,7 +5119,77 @@
 
                                 <div class="col-span-3 md:col-span-5 p-2 ">
 
-                                    
+                                    <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-70 mi-div h-full">
+
+                                        <p class=" font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500 text-center"  >MIS CARTONES</p>
+
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 font-Arima mt-7 mx-1">
+
+                                            @foreach ($mis_cartones as $carton)
+                                
+                                                <div class=" bg-white rounded-md shadow-md overflow-hidden">
+                                                    <div class=" bg-blue-500 rounded-t-md shadow-md overflow-hidden md:max-w-xl ">
+                                
+                                                        <div class="flex justify-center ">
+                                
+                                                            <img src="{{Storage::url('img/logo4.png') }}" alt="" class="block h-16 w-36 ">
+                                
+                                                        </div>
+
+                                                        <hr  class="mt-2" >
+                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center mb-0.5 mt-1">
+                                
+                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center ml-1  py-2  font-bold">B</div>
+                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mx-0.5 py-2 font-bold">I</div>
+                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mx-0.5 py-2 font-bold">N</div>
+                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mx-0.5 py-2 font-bold">G</div>
+                                                            <div class="bg-blue-500 text-white justify-center text-2xl text-center mr-1 py-2 font-bold">O</div>
+                                                        </div>
+                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5 ">
+                                                            @foreach (json_decode($carton->carton->content_1) as $item)
+                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">  {{$item}}  </div>
+                                                            @endforeach
+                                                        </div>
+                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
+                                                            @foreach (json_decode($carton->carton->content_2) as $item)
+                                                                <div class="{{$this->background($item)}} bg-gray-100  text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
+                                                            @endforeach
+                                                        </div>
+                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
+                                                            @foreach (json_decode($carton->carton->content_3) as $item)
+                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
+                                                            @endforeach
+                                                        </div>
+                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
+                                                            @foreach (json_decode($carton->carton->content_4) as $item)
+                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
+                                                            @endforeach
+                                                        </div>
+                                
+                                                        <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
+                                                            @foreach (json_decode($carton->carton->content_5) as $item)
+                                                                <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>
+                                                            @endforeach
+                                                        </div>
+
+                                                        <div class="bg-blue-600 m-1 text-center">
+                                                            <p class=" text-white  text-xs ">CARTÓN NRO. {{$carton->carton->id}}  </p>
+                                                        </div>
+                                
+                                                        
+                                
+                                                    </div>
+                                                </div>
+
+                                            @endforeach
+                                
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="col-span-2 md:col-span-2 mi-estrellas  overflow-y-auto  border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-2 " >
