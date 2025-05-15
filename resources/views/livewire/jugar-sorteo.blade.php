@@ -72,29 +72,34 @@
                                 <div class="py-6 w-full h-full mi-div mx-auto my-auto " >
                                     <div class="container mx-auto  ">
                                         <dh-component>
-                                            <div aria-label="action panel"  tabindex="0" class="focus:outline-none w-11/12 mx-auto mb-4 my-6 md:w-5/12 shadow sm:px-10 sm:py-6 py-4 px-4 bg-white dark:bg-gray-800 rounded-md">
-                                                <p tabindex="0" class="focus:outline-none text-lg text-gray-800 dark:text-gray-100 font-semibold pb-3 text-center">El sorteo ya esta efectuandose</p>
-                                                <p tabindex="0" class="focus:outline-none text-sm text-gray-600 dark:text-gray-400 pb-3 font-normal  ">Le invitamos a ingresar a la sala de juego, haciendo clic en el botón INICIAR </p>
-                                                <div  class="w-12 h-6 mb-2 cursor-pointer rounded-full relative shadow-sm">
-
-
-                                                    <button id="startButton" wire:click="activar_sonido_pulsar"  class="bg-blue-500 mb-2  hover:bg-blue-600 py-3 px-2 text-xs rounded-full font-bold uppercase text-white cursor-pointer tracking-widest focus:outline-none focus:ring-2  focus:ring-blue-500 focus:ring-opacity-50 ">INICIAR</button>
-                                                    
-
-                            
-                                                    
+                                            <div aria-label="action panel" tabindex="0" class="focus:outline-none w-11/12 mx-auto mb-4 my-6 md:w-5/12 shadow sm:px-10 sm:py-6 py-4 px-4 bg-white dark:bg-gray-800 rounded-md">
+                                                <p tabindex="0" class="focus:outline-none text-lg text-gray-800 dark:text-gray-100 font-semibold pb-3 text-center">El sorteo ya está efectuándose</p>
+                                                <p tabindex="0" class="focus:outline-none text-sm text-gray-600 dark:text-gray-400 pb-3 font-normal">Le invitamos a ingresar a la sala de juego, haciendo clic en el botón INICIAR</p>
                                                 
+                                                <!-- Botón con loading MEJORADO -->
+                                                <div class="flex justify-center">
+                                                    <button 
+                                                        wire:click="activar_sonido_pulsar"
+                                                        wire:loading.attr="disabled"
+                                                        wire:loading.class="opacity-50 cursor-not-allowed"
+                                                        class="relative flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 py-3 px-6 text-xs rounded-full font-bold uppercase text-white focus:outline-none transition-all duration-200"
+                                                        x-data="{ isLoading: false }"
+                                                        x-on:click="isLoading = true"
+                                                        x-bind:disabled="isLoading"
+                                                    >
+                                                        <!-- Texto normal -->
+                                                        <span wire:loading.remove x-show="!isLoading">INICIAR</span>
+                                                        
+                                                        <!-- Spinner - Versión MEJORADA -->
+                                                        <span wire:loading.delay x-show="isLoading">
+                                                            <div class="flex space-x-2">
+                                                                <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0s"></div>
+                                                                <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                                                                <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                                                              </div>
+                                                        </span>
+                                                    </button>
                                                 </div>
-                                                <style>
-                                                    .checkbox:checked {
-                                                        /* Apply class right-0*/
-                                                        right: 0;
-                                                    }
-                                                    .checkbox:checked + .toggle-label {
-                                                        /* Apply class bg-indigo-700 */
-                                                        background-color: #4c51bf;
-                                                    }
-                                                </style>
                                             </div>
                                         </dh-component>
                                     </div>

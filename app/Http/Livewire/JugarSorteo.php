@@ -49,9 +49,10 @@ class JugarSorteo extends Component
         $this->type_2 = $this->sorteo->type_2;
         $this->type_3 = $this->sorteo->type_3;
 
-        $this->cartones_todos = CartonSorteo::where('sorteo_id', $this->sorteo->id) // Más eficiente que whereHas
+     $this->cartones_todos = CartonSorteo::where('sorteo_id', $this->sorteo->id) // Más eficiente que whereHas
             ->where('status_pago', 'Pago recibido')
             ->where('status_juego', 'Sin estado')
+            ->select(['id','sorteo_id','carton_id','user_id','status_carton','status_pago','status_juego'])
             ->get(); // Solo necesitamos los IDs
 
 
@@ -779,6 +780,8 @@ class JugarSorteo extends Component
 
     public function activar_sonido_pulsar(){
 
+ 
+
         if( $this->boton_pulsado == 0 ) $this->boton_pulsado = 1;
         else $this->boton_pulsado= 0;
     }
@@ -1077,12 +1080,11 @@ class JugarSorteo extends Component
             ->where('status_juego', 'Sin estado')
             ->get();*/
 
-        $mis_cartones = CartonSorteo::with('sorteo:id') // Carga solo datos necesarios de la relación
-            ->where('sorteo_id', $this->sorteo->id) // Más eficiente que whereHas
+        $mis_cartones = CartonSorteo::where('sorteo_id', $this->sorteo->id) // Más eficiente que whereHas
             ->where('user_id', $this->user->id)
             ->where('status_pago', 'Pago recibido')
             ->where('status_juego', 'Sin estado')
-         //   ->select(['id']) // Solo columnas necesarias
+           ->select(['id','sorteo_id','carton_id','user_id','status_carton','status_pago','status_juego']) // Solo columnas necesarias
             ->get();
 
         
