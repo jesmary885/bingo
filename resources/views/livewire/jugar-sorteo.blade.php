@@ -5061,7 +5061,7 @@
                             </div> 
 
 
-                             {{-- <div class="w-full bg-white border p-2 border-gray-200 rounded-b-lg shadow ">
+                             <div class="w-full bg-white border p-2 border-gray-200 rounded-b-lg shadow ">
 
                                 <div id="accordion-flush" data-accordion="collapse"
                                     data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
@@ -5196,7 +5196,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div> 
 
                         
 
