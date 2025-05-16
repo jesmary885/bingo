@@ -31,7 +31,7 @@
                                 <td class="text-center">{{$user->email}}</td>
                                 <td class="text-center">{{$user->telefono_whatsapp}}</td>
                                 <td class="text-center">
-                                    @livewire('admin.usuarios.cuenta-usuario', ['registro' => $user->id],key($registro->id))
+                                    @livewire('admin.usuarios.cuenta-usuario', ['registro' => $user->id],key($user->id))
                                 </td>
                                 @if($user->retiro_inmediato == null)
                                     <td class="text-center">-</td>
