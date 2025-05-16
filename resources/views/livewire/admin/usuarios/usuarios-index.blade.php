@@ -16,6 +16,7 @@
                         <th class="text-center py-3">Nombre</th>
                         <th class="text-center">Correo</th>
                         <th class="text-center">Nro de teléfono</th>
+                        <th class="text-center">Cuenta de retiro</th>
                         <th class="text-center">Retiro inmediato</th>
                         <th class="text-center">Cantidad de sorteos jugados</th>
                         
@@ -29,6 +30,9 @@
                                 <th class="py-3 text-center font-medium whitespace-nowrap ">{{$user->name}}</th>
                                 <td class="text-center">{{$user->email}}</td>
                                 <td class="text-center">{{$user->telefono_whatsapp}}</td>
+                                <td class="text-center">
+                                    @livewire('admin.usuarios.cuenta-usuario', ['registro' => $user->id],key($registro->id))
+                                </td>
                                 @if($user->retiro_inmediato == null)
                                     <td class="text-center">-</td>
                                 @else
