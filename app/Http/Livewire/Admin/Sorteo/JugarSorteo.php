@@ -41,7 +41,7 @@ class JugarSorteo extends Component
 
     protected $listeners = [
         'render' => 'render', 
-        'echo:ganador,NewGanador' => 'ganad' , 
+        'echo:ganador,.ganador.nuevo' => 'ganad' , 
     ];
 
 

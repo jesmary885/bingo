@@ -11,7 +11,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow; // Cambio clave
 
 class NewGanador implements ShouldBroadcastNow // Implementa ShouldBroadcastNow
 {
-    use Dispatchable, SerializesModels,Queueable;
+    use SerializesModels,Queueable;
 
     public $ganador;
 
@@ -43,6 +43,14 @@ class NewGanador implements ShouldBroadcastNow // Implementa ShouldBroadcastNow
             'premio' => $this->ganador->premio,
         ];
     }
+
+      // Nuevo: Configuración de velocidad
+      public function broadcastWhen()
+      {
+          return app()->environment('production') 
+              ? true 
+              : config('broadcasting.debug', false);
+      }
 
 
 }
