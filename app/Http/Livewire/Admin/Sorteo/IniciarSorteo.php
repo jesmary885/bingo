@@ -141,6 +141,7 @@ class IniciarSorteo extends Component
             foreach($busqueda_cart as $cart){
                 $busqueda_cart_carton = Cart::where('carton_id',$cart->carton_id)
                     ->where('sorteo_id',$cart->sorteo_id)
+                    ->where('status','pagado')
                     ->count();
 
                 if($busqueda_cart_carton > 1){

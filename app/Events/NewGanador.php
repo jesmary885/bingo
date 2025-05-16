@@ -3,24 +3,16 @@
 namespace App\Events;
 
 use App\Models\CartonGanador;
-use App\Models\SorteoFicha;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Bus\Queueable;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow; // Cambio clave
 
-class NewGanador implements ShouldBroadcast
+class NewGanador implements ShouldBroadcastNow // Implementa ShouldBroadcastNow
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, SerializesModels,Queueable;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
     public $ganador;
 
     public function __construct(CartonGanador $ganador )
@@ -28,13 +20,29 @@ class NewGanador implements ShouldBroadcast
         $this->ganador = $ganador;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
     public function broadcastOn()
     {
         return new Channel('ganador');
     }
+
+    public function broadcastAs()
+    {
+        return 'ganador.nuevo';
+    }
+
+    public function broadcastWith()
+    {
+        return [
+            'id' => $this->ganador->id,
+            'carton_id' => $this->ganador->carton_id,
+            'sorteo_id' => $this->ganador->sorteo_id,
+            'type' => $this->ganador->type,
+            'type_lineal' => $this->ganador->type_lineal,
+            'type_numero' => $this->ganador->type_numero,
+            'lugar' => $this->ganador->lugar,
+            'premio' => $this->ganador->premio,
+        ];
+    }
+
+
 }

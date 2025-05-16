@@ -27,7 +27,7 @@ class JugarSorteo extends Component
        // 'echo:sorteo_fichas,NewFichaSorteo' => 'emitir_sonido',
        'echo:sorteo_fichas,.ficha.sorteada' => 'emitir_sonido',
        'echo:sorteo_fichas,ficha.sorteada' => 'invalidateCacheFichas',
-        'echo:ganador,NewGanador' => 'emitir_sonido_ganador',
+        'echo:ganador,.ganador.nuevo' => 'emitir_sonido_ganador', // Agregado el punto aquí
         'echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' ,
         'finalizar' => 'finalizar',
         'ganador_fin' => 'ganador_fin',
@@ -199,413 +199,7 @@ class JugarSorteo extends Component
 
     }
 
-    public function diagonal_iz($carton){
-
-        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)->get();
-        $fichas_carton = Carton::where('id',$carton)->first();
-
-        $cont = 0;
-
-        foreach($fichas_sorteo as $ficha_sorteo ){
-            if(json_decode($fichas_carton->content_1,true)[0] == $ficha_sorteo->numero )$cont ++;
-            if(json_decode($fichas_carton->content_2,true)[1] == $ficha_sorteo->numero )$cont ++;
-            if(json_decode($fichas_carton->content_3,true)[2] == $ficha_sorteo->numero )$cont ++;
-            if(json_decode($fichas_carton->content_4,true)[3] == $ficha_sorteo->numero )$cont ++;
-            if(json_decode($fichas_carton->content_5,true)[4] == $ficha_sorteo->numero )$cont ++;
-        }
-
-        if($cont == 5){
-
-            $buscar = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                ->where('carton_id', $fichas_carton->id)
-                ->first();
-
-            if(!$buscar){
-
-
-                    if($this->ganador_1 == 0){
-                        $this->carton_ganador_1 = $fichas_carton; 
-                        $lugar = 'Tercero'; 
-                    } 
-
-                    if($this->ganador_1 == 1 && $this->ganador_2 == 0) {
-                        $this->carton_ganador_2 = $fichas_carton; 
-                        $lugar = 'Segundo';
-                    }
-
-                    if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) {
-                        $this->carton_ganador_3 = $fichas_carton; 
-                        $lugar = 'Primero';
-                    }
-
-                $user = CartonSorteo::where('carton_id',$carton)
-                    ->where('sorteo_id',$this->sorteo->id)
-                    ->first()
-                    ->user_id;
-
-                CartonGanador::create([
-                    'sorteo_id' => $this->sorteo->id,
-                    'carton_id' => $carton,
-                    'user_id' => $user,
-                    'type' => 'Diagonal',
-                    'type_lineal' => 'Izquierda',
-                    'lugar' => $lugar
-                ]);
-            }
-        }
-    }
-
-    public function cruz_pequeña($carton){
-
-        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)->get();
-        $fichas_carton = Carton::where('id',$carton)->first();
-
-        $cont = 0;
-
-        foreach($fichas_sorteo as $ficha_sorteo ){
-            if(json_decode($fichas_carton->content_2,true)[2] == $ficha_sorteo->numero )$cont ++;
-            if(json_decode($fichas_carton->content_3,true)[1] == $ficha_sorteo->numero )$cont ++;
-            if(json_decode($fichas_carton->content_3,true)[2] == $ficha_sorteo->numero )$cont ++;
-            if(json_decode($fichas_carton->content_3,true)[3] == $ficha_sorteo->numero )$cont ++;
-            if(json_decode($fichas_carton->content_4,true)[2] == $ficha_sorteo->numero )$cont ++;
-        }
-
-        if($cont == 5){
-
-            $buscar = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                ->where('carton_id', $fichas_carton->id)
-                ->first();
-
-            if(!$buscar){
-
-                if($this->ganador_1 == 0){
-                    $this->carton_ganador_1 = $fichas_carton; 
-                    $lugar = 'Tercero'; 
-                } 
-
-                if($this->ganador_1 == 1 && $this->ganador_2 == 0) {
-                    $this->carton_ganador_2 = $fichas_carton; 
-                    $lugar = 'Segundo';
-                }
-
-                if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) {
-                    $this->carton_ganador_3 = $fichas_carton; 
-                    $lugar = 'Primero';
-                }
-
-                $user = CartonSorteo::where('carton_id',$carton)
-                ->where('sorteo_id',$this->sorteo->id)
-                ->first()
-                ->user_id;
-
-                CartonGanador::create([
-                    'sorteo_id' => $this->sorteo->id,
-                    'carton_id' => $carton,
-                    'user_id' => $user,
-                    'type' => 'Cruz P.',
-                    'lugar' => $lugar
-                ]);
-            }
-        }
-    }
-
-    public function cruz_grande($carton){
-
-        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)->get();
-        $fichas_carton = Carton::where('id',$carton)->first();
-
-        $cont = 0;
-
-        foreach($fichas_sorteo as $ficha_sorteo ){
-            if(json_decode($fichas_carton->content_1,true)[2] == $ficha_sorteo->numero )$cont ++;
-            if(json_decode($fichas_carton->content_3,true)[0] == $ficha_sorteo->numero )$cont ++;
-            if(json_decode($fichas_carton->content_3,true)[4] == $ficha_sorteo->numero )$cont ++;
-            if(json_decode($fichas_carton->content_5,true)[2] == $ficha_sorteo->numero )$cont ++;
-        }
-
-        if($cont == 4){
-
-            $buscar = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                ->where('carton_id', $fichas_carton->id)
-                ->first();
-
-            if(!$buscar){
-
-                if($this->ganador_1 == 0){
-                    $this->carton_ganador_1 = $fichas_carton; 
-                    $lugar = 'Tercero'; 
-                } 
-
-                if($this->ganador_1 == 1 && $this->ganador_2 == 0) {
-                    $this->carton_ganador_2 = $fichas_carton; 
-                    $lugar = 'Segundo';
-                }
-
-                if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) {
-                    $this->carton_ganador_3 = $fichas_carton; 
-                    $lugar = 'Primero';
-                }
-
-
-                $user = CartonSorteo::where('carton_id',$carton)
-                ->where('sorteo_id',$this->sorteo->id)
-                ->first()
-                ->user_id;
-
-                CartonGanador::create([
-                    'sorteo_id' => $this->sorteo->id,
-                    'carton_id' => $carton,
-                    'user_id' => $user,
-                    'type' => 'Cruz G.',
-                    'lugar' => $lugar
-                ]);
-            }
-        }
-    }
-
-    public function diagonal_dr($carton){
-
-        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)->get();
-        $fichas_carton = Carton::where('id',$carton)->first();
-
-        $cont = 0;
-
-        foreach($fichas_sorteo as $ficha_sorteo ){
-
-            if(json_decode($fichas_carton->content_1,true)[4] == $ficha_sorteo->numero )$cont ++;
-            if(json_decode($fichas_carton->content_2,true)[3] == $ficha_sorteo->numero )$cont ++;
-            if(json_decode($fichas_carton->content_3,true)[2] == $ficha_sorteo->numero )$cont ++;
-            if(json_decode($fichas_carton->content_4,true)[1] == $ficha_sorteo->numero )$cont ++;
-            if(json_decode($fichas_carton->content_5,true)[0] == $ficha_sorteo->numero )$cont ++;
-
-            if($cont == 5){
-
-                $buscar = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                ->where('carton_id',$carton)
-                ->first();
-
-                if(!$buscar){
-
-    
-                    if($this->ganador_1 == 0){
-                        $this->carton_ganador_1 = $fichas_carton; 
-                        $lugar = 'Tercero'; 
-                    } 
-    
-                    if($this->ganador_1 == 1 && $this->ganador_2 == 0) {
-                        $this->carton_ganador_2 = $fichas_carton; 
-                        $lugar = 'Segundo';
-                    }
-    
-                    if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) {
-                        $this->carton_ganador_3 = $fichas_carton; 
-                        $lugar = 'Primero';
-                    }
-
-                    $user = CartonSorteo::where('carton_id',$carton)
-                    ->where('sorteo_id',$this->sorteo->id)
-                    ->first()
-                    ->user_id;
-    
-                    CartonGanador::create([
-                        'sorteo_id' => $this->sorteo->id,
-                        'carton_id' => $carton,
-                        'user_id' => $user,
-                        'type' => 'Diagonal',
-                        'type_lineal' => 'Derecha',
-                        'lugar' => $lugar
-                    ]);
-                }
-            }
-        }
-    }
-
-    public function verifi_linea_horizontal($carton){
-        $cont1 = 0;
-        $cont2 = 0;
-        $cont3 = 0;
-        $cont4 = 0;
-        $cont5 = 0;
-
-        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)->get();
-        $fichas_carton = Carton::where('id',$carton)->first();
-
-        foreach($fichas_sorteo as $ficha_sorteo ){
-            foreach(json_decode($fichas_carton->content_1) as $ficha_1){
-                if($ficha_sorteo->numero == $ficha_1) $cont1++;
-            }
-            if($cont1 < 5){
-                foreach(json_decode($fichas_carton->content_2) as $ficha_2){
-                    if($ficha_sorteo->numero == $ficha_2) $cont2++;
-                }
-                if($cont2 < 5){
-    
-                    foreach(json_decode($fichas_carton->content_3) as $ficha_3){
-                        if($ficha_sorteo->numero == $ficha_3) $cont3++;
-                    }
-                }
-                if($cont3 < 5){
-                    foreach(json_decode($fichas_carton->content_4) as $ficha_4){
-                        if($ficha_sorteo->numero == $ficha_4) $cont4++;
-                    }
-                    if($cont4 < 5){
-                        foreach(json_decode($fichas_carton->content_5) as $ficha_5){
-                            if($ficha_sorteo->numero == $ficha_5) $cont5++;
-                        }
-                    }
-                }
-            }
-        }
-
-        
-        if($cont1 == 5 || $cont2 == 5 || $cont3 == 5 || $cont4 == 5 || $cont5 == 5){
-            $buscar = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                ->where('carton_id',$carton)
-                ->first();
-
-                if($cont1 == 5) $linea = 1;
-                if($cont2 == 5) $linea = 2;
-                if($cont3 == 5) $linea = 3;
-                if($cont4 == 5) $linea = 4;
-                if($cont5 == 5) $linea = 5;
-
-
-            if(!$buscar){
-
-
-
-                    if($this->ganador_1 == 0){
-                        $this->carton_ganador_1 = Carton::where('id',$carton)->first(); 
-                        $lugar = 'Tercero'; 
-                    } 
-
-                    if($this->ganador_1 == 1 && $this->ganador_2 == 0 && $this->ganador_3 == 0) {
-                        $this->carton_ganador_2 = Carton::where('id',$carton)->first(); 
-                        $lugar = 'Segundo';
-                    }
-
-                    if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) {
-                        $this->carton_ganador_3 = Carton::where('id',$carton)->first(); 
-                        $lugar = 'Primero';
-                    }
-
-            
-
-                $user = CartonSorteo::where('carton_id',$carton)
-                ->where('sorteo_id',$this->sorteo->id)
-                ->first()
-                ->user_id;
-
-
-                CartonGanador::create([
-                    'sorteo_id' => $this->sorteo->id,
-                    'carton_id' => $carton,
-                    'user_id' => $user,
-                    'type' => 'Lineal',
-                    'type_lineal' => 'Horizontal',
-                    'type_numero' => $linea,
-                    'lugar' => $lugar
-                ]);
-
-            }
-        }
-
-    }
-
-    public function verifi_linea_vertical($carton){
-        $columna1 = 0;
-        $columna2 = 0;
-        $columna3 = 0;
-        $columna4 = 0;
-        $columna5 = 0;
-
-        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)->get();
-        $fichas_carton = Carton::where('id',$carton)->first();
-
-        foreach($fichas_sorteo as $ficha_sorteo ){
-
-            if(json_decode($fichas_carton->content_1,true)[0] == $ficha_sorteo->numero )$columna1 ++;
-            if(json_decode($fichas_carton->content_2,true)[0] == $ficha_sorteo->numero )$columna1 ++;
-            if(json_decode($fichas_carton->content_3,true)[0] == $ficha_sorteo->numero )$columna1 ++;
-            if(json_decode($fichas_carton->content_4,true)[0] == $ficha_sorteo->numero )$columna1 ++;
-            if(json_decode($fichas_carton->content_5,true)[0] == $ficha_sorteo->numero )$columna1 ++;
-
-            if(json_decode($fichas_carton->content_1,true)[1] == $ficha_sorteo->numero )$columna2 ++;
-            if(json_decode($fichas_carton->content_2,true)[1] == $ficha_sorteo->numero )$columna2 ++;
-            if(json_decode($fichas_carton->content_3,true)[1] == $ficha_sorteo->numero )$columna2 ++;
-            if(json_decode($fichas_carton->content_4,true)[1] == $ficha_sorteo->numero )$columna2 ++;
-            if(json_decode($fichas_carton->content_5,true)[1] == $ficha_sorteo->numero )$columna2 ++;
-
-            if(json_decode($fichas_carton->content_1,true)[2] == $ficha_sorteo->numero )$columna3 ++;
-            if(json_decode($fichas_carton->content_2,true)[2] == $ficha_sorteo->numero )$columna3 ++;
-            if(json_decode($fichas_carton->content_3,true)[2] == $ficha_sorteo->numero )$columna3 ++;
-            if(json_decode($fichas_carton->content_4,true)[2] == $ficha_sorteo->numero )$columna3 ++;
-            if(json_decode($fichas_carton->content_5,true)[2] == $ficha_sorteo->numero )$columna3 ++;
-
-            if(json_decode($fichas_carton->content_1,true)[3] == $ficha_sorteo->numero )$columna4 ++;
-            if(json_decode($fichas_carton->content_2,true)[3] == $ficha_sorteo->numero )$columna4 ++;
-            if(json_decode($fichas_carton->content_3,true)[3] == $ficha_sorteo->numero )$columna4 ++;
-            if(json_decode($fichas_carton->content_4,true)[3] == $ficha_sorteo->numero )$columna4 ++;
-            if(json_decode($fichas_carton->content_5,true)[3] == $ficha_sorteo->numero )$columna4 ++;
-
-            if(json_decode($fichas_carton->content_1,true)[4] == $ficha_sorteo->numero )$columna5 ++;
-            if(json_decode($fichas_carton->content_2,true)[4] == $ficha_sorteo->numero )$columna5 ++;
-            if(json_decode($fichas_carton->content_3,true)[4] == $ficha_sorteo->numero )$columna5 ++;
-            if(json_decode($fichas_carton->content_4,true)[4] == $ficha_sorteo->numero )$columna5 ++;
-            if(json_decode($fichas_carton->content_5,true)[4] == $ficha_sorteo->numero )$columna5 ++;
-        }
-
-        if($columna1 == 5 || $columna2 == 5 || $columna3 == 5 || $columna4 == 5 || $columna5 == 5){
-            $buscar = CartonGanador::where('sorteo_id',$this->sorteo->id)
-                ->where('carton_id',$carton)
-                ->first();
-
-                if($columna1 == 5) $linea = 1;
-                if($columna2 == 5) $linea = 2;
-                if($columna3 == 5) $linea = 3;
-                if($columna4 == 5) $linea = 4;
-                if($columna5 == 5) $linea = 5;
-
-            if(!$buscar){
-
-
-
-                    if($this->ganador_1 == 0){
-                        $this->carton_ganador_1 = $fichas_carton; 
-                        $lugar = 'Tercero'; 
-                    } 
-
-                    if($this->ganador_1 == 1 && $this->ganador_2 == 0) {
-                        $this->carton_ganador_2 = $fichas_carton; 
-                        $lugar = 'Segundo';
-                    }
-
-                    if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) {
-                        $this->carton_ganador_3 = $fichas_carton; 
-                        $lugar = 'Primero';
-                    }
-
-
-                $user = CartonSorteo::where('carton_id',$carton)
-                ->where('sorteo_id',$this->sorteo->id)
-                ->first()
-                ->user_id;
-
-
-                CartonGanador::create([
-                    'sorteo_id' => $this->sorteo->id,
-                    'carton_id' => $carton,
-                    'user_id' => $user,
-                    'type' => 'Lineal',
-                    'type_lineal' => 'Vertical',
-                    'type_numero' => $linea,
-                    'lugar' => $lugar
-                ]);
-            }
-        }
-    }
-
-    //optimizada
+      //optimizada
 
     public function verifi_cuatro_esquinas($carton){
 
@@ -665,10 +259,432 @@ class JugarSorteo extends Component
         }
     }
 
+    public function diagonal_iz($carton){
+
+        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)
+            ->select(['numero'])
+            ->get();
+
+        $fichas_carton = Carton::find($carton);
+
+        $cont = 0;
+
+        foreach($fichas_sorteo as $ficha_sorteo ){
+            if(json_decode($fichas_carton->content_1,true)[0] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_2,true)[1] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_3,true)[2] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_4,true)[3] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_5,true)[4] == $ficha_sorteo->numero )$cont ++;
+        }
+
+        if($cont == 5){
+
+            $buscar = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                ->where('carton_id', $carton)
+                ->exists();
+
+            if(!$buscar){
+
+                    if($this->ganador_1 == 0){
+                     //   $this->carton_ganador_1 = $fichas_carton; 
+                        $lugar = 'Tercero'; 
+                    } 
+
+                    if($this->ganador_1 == 1 && $this->ganador_2 == 0) {
+                     //   $this->carton_ganador_2 = $fichas_carton; 
+                        $lugar = 'Segundo';
+                    }
+
+                    if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) {
+                     //   $this->carton_ganador_3 = $fichas_carton; 
+                        $lugar = 'Primero';
+                    }
+
+
+                $user = CartonSorteo::where('carton_id', $carton)
+                    ->where('sorteo_id', $this->sorteo->id)
+                    ->value('user_id'); 
+
+                CartonGanador::create([
+                    'sorteo_id' => $this->sorteo->id,
+                    'carton_id' => $carton,
+                    'user_id' => $user,
+                    'type' => 'Diagonal',
+                    'type_lineal' => 'Izquierda',
+                    'lugar' => $lugar
+                ]);
+            }
+        }
+    }
+
+    public function cruz_pequeña($carton){
+
+        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)
+            ->select(['numero'])
+            ->get();
+
+        $fichas_carton = Carton::find($carton);
+
+        $cont = 0;
+
+        foreach($fichas_sorteo as $ficha_sorteo ){
+            if(json_decode($fichas_carton->content_2,true)[2] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_3,true)[1] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_3,true)[2] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_3,true)[3] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_4,true)[2] == $ficha_sorteo->numero )$cont ++;
+        }
+
+        if($cont == 5){
+
+            $buscar = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                ->where('carton_id', $carton)
+                ->exists();
+
+            if(!$buscar){
+
+                    if($this->ganador_1 == 0){
+                     //   $this->carton_ganador_1 = $fichas_carton; 
+                        $lugar = 'Tercero'; 
+                    } 
+
+                    if($this->ganador_1 == 1 && $this->ganador_2 == 0) {
+                     //   $this->carton_ganador_2 = $fichas_carton; 
+                        $lugar = 'Segundo';
+                    }
+
+                    if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) {
+                     //   $this->carton_ganador_3 = $fichas_carton; 
+                        $lugar = 'Primero';
+                    }
+
+
+                $user = CartonSorteo::where('carton_id', $carton)
+                    ->where('sorteo_id', $this->sorteo->id)
+                    ->value('user_id'); 
+
+                CartonGanador::create([
+                    'sorteo_id' => $this->sorteo->id,
+                    'carton_id' => $carton,
+                    'user_id' => $user,
+                    'type' => 'Cruz P.',
+                    'lugar' => $lugar
+                ]);
+            }
+        }
+    }
+
+    public function cruz_grande($carton){
+
+        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)
+            ->select(['numero'])
+            ->get();
+
+        $fichas_carton = Carton::find($carton);
+
+        $cont = 0;
+
+        foreach($fichas_sorteo as $ficha_sorteo ){
+            if(json_decode($fichas_carton->content_1,true)[2] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_3,true)[0] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_3,true)[4] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_5,true)[2] == $ficha_sorteo->numero )$cont ++;
+        }
+
+        if($cont == 4){
+
+            $buscar = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                ->where('carton_id', $carton)
+                ->exists();
+
+            if(!$buscar){
+
+                    if($this->ganador_1 == 0){
+                     //   $this->carton_ganador_1 = $fichas_carton; 
+                        $lugar = 'Tercero'; 
+                    } 
+
+                    if($this->ganador_1 == 1 && $this->ganador_2 == 0) {
+                     //   $this->carton_ganador_2 = $fichas_carton; 
+                        $lugar = 'Segundo';
+                    }
+
+                    if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) {
+                     //   $this->carton_ganador_3 = $fichas_carton; 
+                        $lugar = 'Primero';
+                    }
+
+
+                $user = CartonSorteo::where('carton_id', $carton)
+                    ->where('sorteo_id', $this->sorteo->id)
+                    ->value('user_id'); 
+
+                CartonGanador::create([
+                    'sorteo_id' => $this->sorteo->id,
+                    'carton_id' => $carton,
+                    'user_id' => $user,
+                    'type' => 'Cruz G.',
+                    'lugar' => $lugar
+                ]);
+            }
+        }
+    }
+
+    public function diagonal_dr($carton){
+
+        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)
+            ->select(['numero'])
+            ->get();
+
+        $fichas_carton = Carton::find($carton);
+
+        $cont = 0;
+
+        foreach($fichas_sorteo as $ficha_sorteo ){
+
+            if(json_decode($fichas_carton->content_1,true)[4] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_2,true)[3] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_3,true)[2] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_4,true)[1] == $ficha_sorteo->numero )$cont ++;
+            if(json_decode($fichas_carton->content_5,true)[0] == $ficha_sorteo->numero )$cont ++;
+
+            if($cont == 5){
+
+                $buscar = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                ->where('carton_id', $carton)
+                ->exists();
+
+            if(!$buscar){
+
+                    if($this->ganador_1 == 0){
+                     //   $this->carton_ganador_1 = $fichas_carton; 
+                        $lugar = 'Tercero'; 
+                    } 
+
+                    if($this->ganador_1 == 1 && $this->ganador_2 == 0) {
+                     //   $this->carton_ganador_2 = $fichas_carton; 
+                        $lugar = 'Segundo';
+                    }
+
+                    if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) {
+                     //   $this->carton_ganador_3 = $fichas_carton; 
+                        $lugar = 'Primero';
+                    }
+
+
+                $user = CartonSorteo::where('carton_id', $carton)
+                    ->where('sorteo_id', $this->sorteo->id)
+                    ->value('user_id'); 
+    
+                    CartonGanador::create([
+                        'sorteo_id' => $this->sorteo->id,
+                        'carton_id' => $carton,
+                        'user_id' => $user,
+                        'type' => 'Diagonal',
+                        'type_lineal' => 'Derecha',
+                        'lugar' => $lugar
+                    ]);
+                }
+            }
+        }
+    }
+
+    public function verifi_linea_horizontal($carton){
+        $cont1 = 0;
+        $cont2 = 0;
+        $cont3 = 0;
+        $cont4 = 0;
+        $cont5 = 0;
+
+        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)
+            ->select(['numero'])
+            ->get();
+
+        $fichas_carton = Carton::find($carton);
+
+        foreach($fichas_sorteo as $ficha_sorteo ){
+            foreach(json_decode($fichas_carton->content_1) as $ficha_1){
+                if($ficha_sorteo->numero == $ficha_1) $cont1++;
+            }
+            if($cont1 < 5){
+                foreach(json_decode($fichas_carton->content_2) as $ficha_2){
+                    if($ficha_sorteo->numero == $ficha_2) $cont2++;
+                }
+                if($cont2 < 5){
+    
+                    foreach(json_decode($fichas_carton->content_3) as $ficha_3){
+                        if($ficha_sorteo->numero == $ficha_3) $cont3++;
+                    }
+                }
+                if($cont3 < 5){
+                    foreach(json_decode($fichas_carton->content_4) as $ficha_4){
+                        if($ficha_sorteo->numero == $ficha_4) $cont4++;
+                    }
+                    if($cont4 < 5){
+                        foreach(json_decode($fichas_carton->content_5) as $ficha_5){
+                            if($ficha_sorteo->numero == $ficha_5) $cont5++;
+                        }
+                    }
+                }
+            }
+        }
+
+        
+        if($cont1 == 5 || $cont2 == 5 || $cont3 == 5 || $cont4 == 5 || $cont5 == 5){
+ 
+                if($cont1 == 5) $linea = 1;
+                if($cont2 == 5) $linea = 2;
+                if($cont3 == 5) $linea = 3;
+                if($cont4 == 5) $linea = 4;
+                if($cont5 == 5) $linea = 5;
+
+
+            $buscar = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                ->where('carton_id', $carton)
+                ->exists();
+
+            if(!$buscar){
+
+                    if($this->ganador_1 == 0){
+                     //   $this->carton_ganador_1 = $fichas_carton; 
+                        $lugar = 'Tercero'; 
+                    } 
+
+                    if($this->ganador_1 == 1 && $this->ganador_2 == 0) {
+                     //   $this->carton_ganador_2 = $fichas_carton; 
+                        $lugar = 'Segundo';
+                    }
+
+                    if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) {
+                     //   $this->carton_ganador_3 = $fichas_carton; 
+                        $lugar = 'Primero';
+                    }
+
+
+                $user = CartonSorteo::where('carton_id', $carton)
+                    ->where('sorteo_id', $this->sorteo->id)
+                    ->value('user_id'); 
+
+
+                CartonGanador::create([
+                    'sorteo_id' => $this->sorteo->id,
+                    'carton_id' => $carton,
+                    'user_id' => $user,
+                    'type' => 'Lineal',
+                    'type_lineal' => 'Horizontal',
+                    'type_numero' => $linea,
+                    'lugar' => $lugar
+                ]);
+
+            }
+        }
+
+    }
+
+    public function verifi_linea_vertical($carton){
+        $columna1 = 0;
+        $columna2 = 0;
+        $columna3 = 0;
+        $columna4 = 0;
+        $columna5 = 0;
+
+        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)
+            ->select(['numero'])
+            ->get();
+
+        $fichas_carton = Carton::find($carton);
+
+        foreach($fichas_sorteo as $ficha_sorteo ){
+
+            if(json_decode($fichas_carton->content_1,true)[0] == $ficha_sorteo->numero )$columna1 ++;
+            if(json_decode($fichas_carton->content_2,true)[0] == $ficha_sorteo->numero )$columna1 ++;
+            if(json_decode($fichas_carton->content_3,true)[0] == $ficha_sorteo->numero )$columna1 ++;
+            if(json_decode($fichas_carton->content_4,true)[0] == $ficha_sorteo->numero )$columna1 ++;
+            if(json_decode($fichas_carton->content_5,true)[0] == $ficha_sorteo->numero )$columna1 ++;
+
+            if(json_decode($fichas_carton->content_1,true)[1] == $ficha_sorteo->numero )$columna2 ++;
+            if(json_decode($fichas_carton->content_2,true)[1] == $ficha_sorteo->numero )$columna2 ++;
+            if(json_decode($fichas_carton->content_3,true)[1] == $ficha_sorteo->numero )$columna2 ++;
+            if(json_decode($fichas_carton->content_4,true)[1] == $ficha_sorteo->numero )$columna2 ++;
+            if(json_decode($fichas_carton->content_5,true)[1] == $ficha_sorteo->numero )$columna2 ++;
+
+            if(json_decode($fichas_carton->content_1,true)[2] == $ficha_sorteo->numero )$columna3 ++;
+            if(json_decode($fichas_carton->content_2,true)[2] == $ficha_sorteo->numero )$columna3 ++;
+            if(json_decode($fichas_carton->content_3,true)[2] == $ficha_sorteo->numero )$columna3 ++;
+            if(json_decode($fichas_carton->content_4,true)[2] == $ficha_sorteo->numero )$columna3 ++;
+            if(json_decode($fichas_carton->content_5,true)[2] == $ficha_sorteo->numero )$columna3 ++;
+
+            if(json_decode($fichas_carton->content_1,true)[3] == $ficha_sorteo->numero )$columna4 ++;
+            if(json_decode($fichas_carton->content_2,true)[3] == $ficha_sorteo->numero )$columna4 ++;
+            if(json_decode($fichas_carton->content_3,true)[3] == $ficha_sorteo->numero )$columna4 ++;
+            if(json_decode($fichas_carton->content_4,true)[3] == $ficha_sorteo->numero )$columna4 ++;
+            if(json_decode($fichas_carton->content_5,true)[3] == $ficha_sorteo->numero )$columna4 ++;
+
+            if(json_decode($fichas_carton->content_1,true)[4] == $ficha_sorteo->numero )$columna5 ++;
+            if(json_decode($fichas_carton->content_2,true)[4] == $ficha_sorteo->numero )$columna5 ++;
+            if(json_decode($fichas_carton->content_3,true)[4] == $ficha_sorteo->numero )$columna5 ++;
+            if(json_decode($fichas_carton->content_4,true)[4] == $ficha_sorteo->numero )$columna5 ++;
+            if(json_decode($fichas_carton->content_5,true)[4] == $ficha_sorteo->numero )$columna5 ++;
+        }
+
+        if($columna1 == 5 || $columna2 == 5 || $columna3 == 5 || $columna4 == 5 || $columna5 == 5){
+    
+
+                if($columna1 == 5) $linea = 1;
+                if($columna2 == 5) $linea = 2;
+                if($columna3 == 5) $linea = 3;
+                if($columna4 == 5) $linea = 4;
+                if($columna5 == 5) $linea = 5;
+
+            $buscar = CartonGanador::where('sorteo_id',$this->sorteo->id)
+                ->where('carton_id', $carton)
+                ->exists();
+
+            if(!$buscar){
+
+                    if($this->ganador_1 == 0){
+                     //   $this->carton_ganador_1 = $fichas_carton; 
+                        $lugar = 'Tercero'; 
+                    } 
+
+                    if($this->ganador_1 == 1 && $this->ganador_2 == 0) {
+                     //   $this->carton_ganador_2 = $fichas_carton; 
+                        $lugar = 'Segundo';
+                    }
+
+                    if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) {
+                     //   $this->carton_ganador_3 = $fichas_carton; 
+                        $lugar = 'Primero';
+                    }
+
+
+                $user = CartonSorteo::where('carton_id', $carton)
+                    ->where('sorteo_id', $this->sorteo->id)
+                    ->value('user_id'); 
+
+
+                CartonGanador::create([
+                    'sorteo_id' => $this->sorteo->id,
+                    'carton_id' => $carton,
+                    'user_id' => $user,
+                    'type' => 'Lineal',
+                    'type_lineal' => 'Vertical',
+                    'type_numero' => $linea,
+                    'lugar' => $lugar
+                ]);
+            }
+        }
+    }
+
+  
+
     public function verifi_carton_lleno($carton){
 
-        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)->get();
-        $fichas_carton = Carton::where('id',$carton)->first();
+        $fichas_sorteo = SorteoFicha::where('sorteo_id',$this->sorteo->id)
+            ->select(['numero'])
+            ->get();
+
+        $fichas_carton = Carton::find($carton);
 
         $cont = 0;
 
@@ -699,33 +715,30 @@ class JugarSorteo extends Component
         if($cont == 25){
 
             $buscar = CartonGanador::where('sorteo_id',$this->sorteo->id)
-            ->where('carton_id', $fichas_carton->id)
-            ->first();
+                ->where('carton_id', $carton)
+                ->exists();
 
             if(!$buscar){
 
-
                     if($this->ganador_1 == 0){
-                        $this->carton_ganador_1 = $fichas_carton; 
+                     //   $this->carton_ganador_1 = $fichas_carton; 
                         $lugar = 'Tercero'; 
                     } 
 
                     if($this->ganador_1 == 1 && $this->ganador_2 == 0) {
-                        $this->carton_ganador_2 = $fichas_carton; 
+                     //   $this->carton_ganador_2 = $fichas_carton; 
                         $lugar = 'Segundo';
                     }
 
                     if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0) {
-                        $this->carton_ganador_3 = $fichas_carton; 
+                     //   $this->carton_ganador_3 = $fichas_carton; 
                         $lugar = 'Primero';
                     }
 
-                
 
-                $user = CartonSorteo::where('carton_id',$carton)
-                ->where('sorteo_id',$this->sorteo->id)
-                ->first()
-                ->user_id;
+                $user = CartonSorteo::where('carton_id', $carton)
+                    ->where('sorteo_id', $this->sorteo->id)
+                    ->value('user_id'); 
 
 
                 CartonGanador::create([
@@ -1049,6 +1062,16 @@ class JugarSorteo extends Component
         $this->ganadores_tercer_lugar = CartonGanador::where('sorteo_id',$this->sorteo->id)
             ->where('lugar','Tercero')
             ->get() ?? [];
+
+    }
+
+    public function premio($carton,$sorteo){
+
+      
+
+        return CartonGanador::where('sorteo_id', $sorteo)
+       ->where('carton_id', $carton)
+       ->value('premio'); // Devuelve directamente el valor del campo
 
     }
 
