@@ -5082,14 +5082,14 @@
                                              aria-controls="accordion-flush-body-3"
                                              wire:loading.attr="disabled"
                                              wire:loading.class="opacity-50 cursor-not-allowed"
-                                             x-data="{ isLoading: false }"
                                              wire:loading.attr="disabled"
-                                            wire:loading.class="opacity-50 cursor-not-allowed">
+                                            wire:loading.class="opacity-50 cursor-not-allowed"
+                                            wire:target="visible_todos">
                                         
                                             
-                                            <span wire:loading.remove x-show="!isLoading" class="font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500 ml-4">CARTONES DE TODOS LOS PARTICIPANTES</span>
+                                            <span wire:loading.remove wire:target="visible_todos" class="font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500 ml-4">CARTONES DE TODOS LOS PARTICIPANTES</span>
                                             
-                                            <span wire:loading.delay x-show="isLoading">
+                                            <span wire:loading  wire:target="visible_todos">
                                                 <div class="flex space-x-2">
                                                     <p class="font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500  mr-2 ml-6" > CARGANDO </p>
                                                     <div class="w-3 h-3 bg-blue-300 rounded-full animate-bounce" style="animation-delay: 0s"></div>
