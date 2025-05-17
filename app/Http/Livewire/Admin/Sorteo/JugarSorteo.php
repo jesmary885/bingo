@@ -176,6 +176,8 @@ class JugarSorteo extends Component
                     ->dismissible(true)
                     ->addInfo('Ya hay ganadores en el 3er lugar, continuemos para el 2do lugar');
             }
+
+            array_splice($this->numeros_seleccionados, 0);
         }
         
         elseif($this->ganador_1 == 1 && $this->ganador_2 == 0 && $this->ganadores_actuales_segundo->isEmpty() == false){
