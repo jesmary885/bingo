@@ -5074,12 +5074,37 @@
                                     data-inactive-classes="text-gray-500 dark:text-gray-400">
 
                                  <h2 id="accordion-flush-heading-3">
-                                        <button wire:click="visible_todos" type="button" class="flex justify-between items-center py-5 w-full font-medium text-left text-gray-500  border-gray-200 dark:border-gray-700 dark:text-gray-400 focus:outline-none  " data-accordion-target="#accordion-flush-body-3" aria-expanded="false" aria-controls="accordion-flush-body-3">
+                                        <button wire:click="visible_todos"
+                                            type="button"
+                                            class="flex justify-between items-center py-5 w-full font-medium text-left text-gray-500  border-gray-200 dark:border-gray-700 dark:text-gray-400 focus:outline-none  " 
+                                            data-accordion-target="#accordion-flush-body-3" 
+                                            aria-expanded="false"
+                                             aria-controls="accordion-flush-body-3"
+                                             wire:loading.attr="disabled"
+                                             wire:loading.class="opacity-50 cursor-not-allowed"
+                                             x-data="{ isLoading: false }"
+                                             wire:loading.attr="disabled"
+                                            wire:loading.class="opacity-50 cursor-not-allowed">
                                         
                                             
-                                            <span class="font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500 ml-4">CARTONES DE TODOS LOS PARTICIPANTES</span>
+                                            <span wire:loading.remove x-show="!isLoading" class="font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500 ml-4">CARTONES DE TODOS LOS PARTICIPANTES</span>
+                                            
+                                            <span wire:loading.delay x-show="isLoading">
+                                                <div class="flex space-x-2">
+                                                    <p class="font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500  mr-2 ml-6" > CARGANDO </p>
+                                                    <div class="w-3 h-3 bg-blue-300 rounded-full animate-bounce" style="animation-delay: 0s"></div>
+                                                    <div class="w-3 h-3 bg-blue-300 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                                                    <div class="w-3 h-3 bg-blue-300 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                                                  </div>
+                                            </span>
+                                            
                                             <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                        
+                                        
+
                                         </button>
+
+                                        
                                     </h2> 
                                     <div id="accordion-flush-body-3" class="@if($visible == 0) hidden @endif" aria-labelledby="accordion-flush-heading-3">
                                         <div class="py-5  ">
