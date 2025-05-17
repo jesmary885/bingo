@@ -907,7 +907,7 @@ class JugarSorteo extends Component
                         SorteoFicha::where('sorteo_id', $this->sorteo->id)->delete();
                     }
         
-                    if($this->ganador_1 == 1 && $this->ganador_2 == 0){
+                    elseif($this->ganador_1 == 1 && $this->ganador_2 == 0){
 
                         $ganadores_sorteo_2 = CartonGanador::where('sorteo_id', $this->sorteo->id)
                             ->where('lugar', 'Segundo')
@@ -970,7 +970,7 @@ class JugarSorteo extends Component
                         $this->i = 1;
                     }
         
-                    if($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0){
+                    elseif($this->ganador_1 == 1 && $this->ganador_2 == 1 && $this->ganador_3 == 0){
 
                         $ganadores_sorteo_3 = CartonGanador::where('sorteo_id', $this->sorteo->id)
                             ->where('lugar', 'Primero')
