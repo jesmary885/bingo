@@ -46,10 +46,13 @@
       </style>
 
 
+
             <div class="relative block p-4  overflow-hidden bg-white  mb-2 mt-1 font-Arima ">
         
                     @if($ganador_1 == 0 || $ganador_2 == 0 || $ganador_3 == 0)
-
+                    {{$ganador_1 }}
+                    {{$ganador_2 }}
+                    {{$ganador_3 }}
                         <button 
                             id="audioToggle" 
                             class="fixed  right-4 p-3 bg-green-500 hover:bg-green-600 rounded-full text-white transition-all animate-fade-right shadow-2xl shadow-green-700 border-2"
@@ -6214,6 +6217,8 @@
                     @endif
           
             </div>
+
+            <p></p>
 
 
     
