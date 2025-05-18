@@ -467,13 +467,22 @@ class JugarSorteo extends Component
                     ->where('sorteo_id',$this->sorteo)
                     ->where('status','no_procesado')
                     ->get();
-
-                Pago::create([
-                    'user_id' => $usuario_g->id,
-                    'monto' => $ganancia_d,
-                    'tipo' => 'Retiro',
-                    'status' => 'Pendiente',
-                    'cuenta_id' => $cuenta->id]);
+                
+                if($cuenta){
+                    Pago::create([
+                        'user_id' => $usuario_g->id,
+                        'monto' => $ganancia_d,
+                        'tipo' => 'Retiro',
+                        'status' => 'Pendiente',
+                        'cuenta_id' => $cuenta->id]);
+                }
+                else{
+                    Pago::create([
+                        'user_id' => $usuario_g->id,
+                        'monto' => $ganancia_d,
+                        'tipo' => 'Retiro',
+                        'status' => 'Pendiente']);
+                }
 
                 foreach($ganancias_user_mod as $g_u_m){
                     $g_u_m->update([
