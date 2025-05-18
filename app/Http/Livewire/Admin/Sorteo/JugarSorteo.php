@@ -507,7 +507,7 @@ class JugarSorteo extends Component
 
     }
 
-    public function numero($numero_n){
+    public function selectNumber($numero_n){
 
         $busqueda = SorteoFicha::where('sorteo_id',$this->sorteo)
             ->where('numero',$numero_n)
