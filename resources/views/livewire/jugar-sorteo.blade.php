@@ -4,7 +4,7 @@
 
     <style>
 
-.mi-div {
+        .mi-div {
             width: 100%;
             height: 100%;
             background-image: url('/img/banderin.svg');
@@ -50,21 +50,24 @@
             <div class="relative block p-4  overflow-hidden bg-white  mb-2 mt-1 font-Arima ">
         
                     @if($ganador_1 == 0 || $ganador_2 == 0 || $ganador_3 == 0)
-    
+
                         <button 
-                            id="audioToggle" 
-                            class="fixed  right-4 p-3 bg-green-500 hover:bg-green-600 rounded-full text-white transition-all animate-fade-right shadow-2xl shadow-green-700 border-2"
-                            aria-label="Silenciar música"
-                            >
-                            <svg id="audioIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <!-- Icono de altavoz (estado activo) -->
-                                <path id="soundOn" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                    d="M15.536 8.464a5 5 0 010 7.072M12 6.253v11.5m0-11.5L7.757 9.757M12 6.253l-4.95 4.95a5 5 0 000 7.071"/>
-                                <!-- Icono de silencio (estado oculto por defecto) -->
-                                <path id="soundOff" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                    d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h2l4-4v16l-4-4zm11.828-8.414a5 5 0 010 7.072M15.535 8.464L19.07 5M12 6.253v3.495m0 3.747v3.495"/>
-                            </svg>
-                        </button>
+                                id="audioToggle" 
+                                class="fixed  right-4 p-3 bg-green-500 hover:bg-green-600 rounded-full text-white transition-all animate-fade-right shadow-2xl shadow-green-700 border-2"
+                                aria-label="Silenciar música"
+                                >
+                                <svg id="audioIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <!-- Icono de altavoz (estado activo) -->
+                                    <path id="soundOn" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                        d="M15.536 8.464a5 5 0 010 7.072M12 6.253v11.5m0-11.5L7.757 9.757M12 6.253l-4.95 4.95a5 5 0 000 7.071"/>
+                                    <!-- Icono de silencio (estado oculto por defecto) -->
+                                    <path id="soundOff" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                        d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h2l4-4v16l-4-4zm11.828-8.414a5 5 0 010 7.072M15.535 8.464L19.07 5M12 6.253v3.495m0 3.747v3.495"/>
+                                </svg>
+                            </button>
+
+                  
+                        
 
                         @if($boton_pulsado == 0)
 
@@ -112,8 +115,15 @@
 
                         @else
 
+                          
+                            
+    
+
+                        
+
 
                             <div class="flex items-center rounded-t-lg  bg-blue-500 text-gray-800 border p-2 border-gray-200 shadow">
+
 
                                 
                                 <div class="p-4 w-full">
@@ -6332,73 +6342,45 @@
     });
 </script>
 
-
 <script>
+    // Esperamos a que Livewire esté completamente cargado
+    document.addEventListener('livewire:load', function() {
+        let audioElement = null;
+        
+        // Usamos event delegation para manejar clics
+        document.addEventListener('click', function(event) {
+            if (event.target.closest('#audioToggle')) {
+                if (!audioElement) return;
+                
+                if (audioElement.paused) {
+                    audioElement.play();
+                    document.getElementById('soundOn').classList.remove('hidden');
+                    document.getElementById('soundOff').classList.add('hidden');
+                } else {
+                    audioElement.pause();
+                    document.getElementById('soundOn').classList.add('hidden');
+                    document.getElementById('soundOff').classList.remove('hidden');
+                }
+            }
+        });
 
-
-    document.addEventListener('DOMContentLoaded', function() {
-            const startButton = document.getElementById('startButton');
-            const audioToggle = document.getElementById('audioToggle');
-            const soundOnIcon = document.getElementById('soundOn');
-            const soundOffIcon = document.getElementById('soundOff');
-
-            audioToggle.classList.add('hidden');
-
-            let audioElement = null;
-
-            startButton.addEventListener('click', function() {
-
-                audioToggle.classList.remove('hidden');
-
+        // Escuchamos el evento de Livewire
+        Livewire.on('audioIniciado', () => {
+            // Creamos el elemento de audio solo una vez
+            if (!audioElement) {
                 audioElement = new Audio("{{ asset('img/Skedaddle Back - Nathan Moore.mp3') }}");
                 audioElement.volume = 0.4;
                 audioElement.loop = true;
-
-                // Reproducir el audio
-                audioElement.play().catch(error => {
-                    console.error('Error al reproducir el audio:', error);
-                });
-
-                // Ocultar el botón de inicio
-                startButton.style.display = 'none';
-
-
-                // Mostrar el botón de mute
-                document.getElementById('audioToggle').classList.remove('hidden');
-
-                // Configurar controles de audio
-                setupAudioControls(audioElement);
-            });
-
-            function setupAudioControls(audio) {
-               
                 
-
-                let isMuted = false;
-
-                function toggleAudio() {
-                    isMuted = !isMuted;
-                    
-                    if(isMuted) {
-                        audio.pause();
-                        soundOnIcon.classList.add('hidden');
-                        soundOffIcon.classList.remove('hidden');
-                        audioToggle.setAttribute('aria-label', 'Activar música');
-                    } else {
-                        audio.play();
-                        soundOffIcon.classList.add('hidden');
-                        soundOnIcon.classList.remove('hidden');
-                        audioToggle.setAttribute('aria-label', 'Silenciar música');
-                    }
-                }
-
-                audioToggle.addEventListener('click', toggleAudio);
+                audioElement.play().catch(e => {
+                    console.error("Error al reproducir:", e);
+                });
+                
+                // Mostramos el botón
+                document.getElementById('audioToggle').classList.remove('hidden');
             }
-
+        });
     });
-
-
-
 </script>
 
 

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Cache;
 
 class JugarSorteo extends Component
 {
-    public $fichasCache,$cant_cartones, $cartones_todos, $i, $boton_pulsado, $linea_h = 0, $linea_v = 0, $c_e= 0, $diag_iz = 0, $diag_d= 0, $crup_p = 0, $cruz_g = 0,$visible, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
+    public $fichasCache,$cant_cartones, $audioIniciado = false, $cartones_todos, $i, $boton_pulsado = 0, $linea_h = 0, $linea_v = 0, $c_e= 0, $diag_iz = 0, $diag_d= 0, $crup_p = 0, $cruz_g = 0,$visible, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
 
     public $user,$fichas;
 
@@ -129,6 +129,16 @@ class JugarSorteo extends Component
 
         $this->emit('boton_mute');
 
+    }
+
+    public function activar_sonido_pulsar(){
+
+        if( $this->boton_pulsado == 0 ){
+            $this->boton_pulsado = 1;
+            $this->audioIniciado = true;
+            $this->emit('audioIniciado'); // Usamos "emit" en Livewire 2.x
+        } 
+        else $this->boton_pulsado= 0;
     }
 
 
@@ -791,13 +801,7 @@ class JugarSorteo extends Component
 
     }
 
-    public function activar_sonido_pulsar(){
-
- 
-
-        if( $this->boton_pulsado == 0 ) $this->boton_pulsado = 1;
-        else $this->boton_pulsado= 0;
-    }
+    
 
     public function nombre($nombre){
 
