@@ -16,7 +16,7 @@
             <div class=" w-1/2 ">
 
                 @if($finalizo == 1)
-                    <x-button-enlace wire:click="finalizar()" class="mt-2 font-Allerta">
+                    <x-button-enlace wire:click="finalizar()" class="mt-2 mb-2 font-Allerta">
                         FINALIZAR SORTEO
                     </x-button-enlace>
                 @endif
@@ -51,13 +51,13 @@
 
     
                             @for($i = 1; $i < 16; $i++)
-                            <tr class="border-r dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                            <tr class="border-r dark:bg-gray-800  bg-yellow-100 dark:border-gray-700 border-gray-200">
                                 <!-- Columna B (1-15) -->
                                 <td class="px-6 border-l border-r text-center">
                                     <button 
                                         wire:click="selectNumber('{{ $i }}')"
                                         type="button" 
-                                        class="btn text-3xl font-bold m-2 {{ in_array($i, $numeros_seleccionados) ? 'bg-blue-500 text-white' : 'btn-outline-primary' }}"
+                                        class="btn text-3xl font-extrabold m-2 {{ in_array($i, $numeros_seleccionados) ? 'bg-red-700 text-white border-red-700' : 'btn-outline-primary' }}"
                                         {{ in_array($i, $numeros_seleccionados) ? 'disabled' : '' }}
                                     >
                                         {{ $i }}
@@ -69,7 +69,7 @@
                                     <button 
                                         wire:click="selectNumber('{{ $i+15 }}')"
                                         type="button" 
-                                        class="btn text-3xl font-bold m-2 {{ in_array($i+15, $numeros_seleccionados) ? 'bg-blue-500 text-white' : 'btn-outline-primary' }}"
+                                        class="btn text-3xl font-extrabold m-2 {{ in_array($i+15, $numeros_seleccionados) ? 'bg-red-700 text-white border-red-700' : 'btn-outline-primary' }}"
                                         {{ in_array($i+15, $numeros_seleccionados) ? 'disabled' : '' }}
                                     >
                                         {{ $i+15 }}
@@ -81,7 +81,7 @@
                                     <button 
                                         wire:click="selectNumber('{{ $i+30 }}')"
                                         type="button" 
-                                        class="btn text-3xl font-bold m-2 {{ in_array($i+30, $numeros_seleccionados) ? 'bg-blue-500 text-white' : 'btn-outline-primary' }}"
+                                        class="btn text-3xl font-extrabold m-2 {{ in_array($i+30, $numeros_seleccionados) ? 'bg-red-700 text-white border-red-700  ' : 'btn-outline-primary' }}"
                                         {{ in_array($i+30, $numeros_seleccionados) ? 'disabled' : '' }}
                                     >
                                         {{ $i+30 }}
@@ -92,7 +92,7 @@
                                     <button 
                                         wire:click="selectNumber('{{ $i+45 }}')"
                                         type="button" 
-                                        class="btn text-3xl font-bold m-2 {{ in_array($i+45, $numeros_seleccionados) ? 'bg-blue-500 text-white' : 'btn-outline-primary' }}"
+                                        class="btn text-3xl font-extrabold m-2 {{ in_array($i+45, $numeros_seleccionados) ? 'bg-red-700 text-white border-red-700' : 'btn-outline-primary' }}"
                                         {{ in_array($i+45, $numeros_seleccionados) ? 'disabled' : '' }}
                                     >
                                         {{ $i+45 }}
@@ -104,7 +104,7 @@
                                     <button 
                                         wire:click="selectNumber('{{ $i+60 }}')"
                                         type="button" 
-                                        class="btn text-3xl font-bold m-2 {{ in_array($i+60, $numeros_seleccionados) ? 'bg-blue-500 text-white' : 'btn-outline-primary' }}"
+                                        class="btn text-3xl font-extrabold m-2 {{ in_array($i+60, $numeros_seleccionados) ? 'bg-red-700 text-white border-red-700' : 'btn-outline-primary' }}"
                                         {{ in_array($i+60, $numeros_seleccionados) ? 'disabled' : '' }}
                                     >
                                         {{ $i+60 }}
