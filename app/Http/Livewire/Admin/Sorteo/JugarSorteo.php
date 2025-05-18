@@ -178,6 +178,8 @@ class JugarSorteo extends Component
             }
 
             array_splice($this->numeros_seleccionados, 0);
+
+            $this->emitSelf('render');
         }
         
         elseif($this->ganador_1 == 1 && $this->ganador_2 == 0 && $this->ganadores_actuales_segundo->isEmpty() == false){
