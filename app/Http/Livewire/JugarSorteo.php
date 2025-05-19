@@ -179,7 +179,7 @@ class JugarSorteo extends Component
 
         // El payload contiene los datos enviados desde el servidor
         $fichaData = [
-            'id' => $payload['ficha_id'], // Asegúrate que tu evento envia el ID
+            'id' => $payload['id'], // Asegúrate que tu evento envia el ID
             'letra' => $payload['letra'],
             'numero' => $payload['numero'],
             // Agrega otros campos necesarios
