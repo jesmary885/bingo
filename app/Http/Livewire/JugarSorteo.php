@@ -185,17 +185,18 @@ class JugarSorteo extends Component
         if ($payload) {
 
         // El payload contiene los datos enviados desde el servidor
-        $fichaData = [
-            'id' => $payload['id'] ?? null, // Asegúrate que tu evento envia el ID
-            'letra' => $payload['letra'],
-            'numero' => $payload['numero'],
-            // Agrega otros campos necesarios
-        ];
-        
-        // Actualizamos el array de fichas
-        //array_push($this->fichas, $fichaData);
-        $this->fichas = array_merge($this->fichas, [$fichaData]);
-        $this->ficha_ultima = $payload['id'] ;
+            $fichaData = [
+                'id' => $payload['id'] ?? null, // Asegúrate que tu evento envia el ID
+                'letra' => $payload['letra'],
+                'numero' => $payload['numero'],
+                // Agrega otros campos necesarios
+            ];
+            
+            // Actualizamos el array de fichas
+            //array_push($this->fichas, $fichaData);
+            //$this->fichas = array_merge($this->fichas, [$fichaData]);
+            array_unshift($this->fichas, $fichaData); // Agrega al inicio en lugar del final
+            $this->ficha_ultima = $payload['id'] ;
 
         }else{
             // Si no viene la ficha, hacer una consulta ligera
@@ -206,6 +207,7 @@ class JugarSorteo extends Component
             if ($ultimaFicha) {
                 //array_push($this->fichas, $ultimaFicha->toArray());
                 $this->fichas = array_merge($this->fichas, [$ultimaFicha->toArray()]);
+                array_unshift($this->fichas, [$ultimaFicha->toArray()]); // Agrega al inicio en lugar del final
                 $this->ficha_ultima = $ultimaFicha->id;
             }
 
@@ -1034,6 +1036,8 @@ class JugarSorteo extends Component
                         $this->i = 2;
 
                         SorteoFicha::where('sorteo_id', $this->sorteo->id)->delete();
+
+                        $this->fichas = [];
                     }
         
                     elseif($this->ganador_1 == 1 && $this->ganador_2 == 0){
