@@ -113,12 +113,18 @@ class JugarSorteo extends Component
 
          // Cargar cartones con sus relaciones necesarias
         $cartonesSorteo = CartonSorteo::with(['carton' => function($query) {
-            $query->select('id', 'content_1', 'content_2', 'content_3', 'content_4', 'content_5');
+                $query->select('id', 'content_1', 'content_2', 'content_3', 'content_4', 'content_5');
             }])
             ->where('sorteo_id', $this->sorteo->id)
             ->where('user_id', $this->user->id)
             ->where('status_pago', 'Pago recibido')
             ->where('status_juego', 'Sin estado')
+            ->get();
+
+        $cartonesGanador = CartonGanador::with(['carton' => function($query) {
+                $query->select('id', 'content_1', 'content_2', 'content_3', 'content_4', 'content_5');
+            }])
+            ->where('sorteo_id', $this->sorteo->id)
             ->get();
         
          // Cargar cartones del usuario
@@ -141,32 +147,28 @@ class JugarSorteo extends Component
         })->toArray();
 
 
-        $cartonesGanador = CartonGanador::with(['carton' => function($query) {
-            $query->select('id', 'content_1', 'content_2', 'content_3', 'content_4', 'content_5');
-        }])
-        ->where('sorteo_id', $this->sorteo->id)
-        ->get();
+        
 
-        $this->cartones_ganadores = $cartonesGanador ->map(function($cartonesGanador) {
+        $this->cartones_ganadores = $cartonesGanador ->map(function($cartonesGanador) use ($safeJsonDecode) {
             return [
                 'id' => $cartonesGanador->id,
                 'sorteo_id' => $cartonesGanador->sorteo_id,
                 'carton_id' => $cartonesGanador->carton_id,
                 'carton' => [
                     'id' => $cartonesGanador->carton->id,
-                    'content_1' => json_decode($cartonesGanador->carton->content_1, true),
-                    'content_2' => json_decode($cartonesGanador->carton->content_2, true),
-                    'content_3' => json_decode($cartonesGanador->carton->content_3, true),
-                    'content_4' => json_decode($cartonesGanador->carton->content_4, true),
-                    'content_5' => json_decode($cartonesGanador->carton->content_5, true),
+                    'content_1' => $safeJsonDecode($cartonesGanador->carton->content_1),
+                    'content_2' => $safeJsonDecode($cartonesGanador->carton->content_2),
+                    'content_3' => $safeJsonDecode($cartonesGanador->carton->content_3),
+                    'content_4' => $safeJsonDecode($cartonesGanador->carton->content_4),
+                    'content_5' => $safeJsonDecode($cartonesGanador->carton->content_5),
                 ],
             ];
         })->toArray();
              
          // Cargar cartones ganadores
-         $this->cartones_ganadores = CartonGanador::where('sorteo_id', $this->sorteo->id)
+        /* $this->cartones_ganadores = CartonGanador::where('sorteo_id', $this->sorteo->id)
              ->get()
-             ->toArray();
+             ->toArray();*/
              
          // Obtener última ficha
          $this->ficha_ultima = $this->fichas ? end($this->fichas)['id'] : 0;
