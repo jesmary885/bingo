@@ -515,11 +515,18 @@ class JugarSorteo extends Component
             ->where('numero',$numero_n)
             ->exists();
 
+        if($numero_n >=1 && $numero_n <= 15) $letra = 'B';
+        elseif($numero_n >=16 && $numero_n <= 30) $letra = 'I';
+        elseif($numero_n >=31 && $numero_n <= 45) $letra = 'N';
+        elseif($numero_n >=46 && $numero_n <= 60) $letra = 'G';
+        else $letra = 'O';
+
+
         if(!$busqueda){
 
             SorteoFicha::create([
                 'sorteo_id' => $this->sorteo,
-                'letra' => $this->letra_select,
+                'letra' => $letra,
                 'numero' => $numero_n,
             ]);
 

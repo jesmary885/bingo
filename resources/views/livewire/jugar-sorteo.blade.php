@@ -5248,23 +5248,23 @@
                                         <p class=" font-Allerta text-sm md:text-md lg:text-lg font-bold text-white text-center ">FICHAS</p>
                                         @foreach($fichas as $ficha)
                                             <div class="relative mr-2 md:mr-0 md:w-full mt-7">
-                                                @if($ficha_ultima == $ficha->id)
+                                                @if($ficha_ultima == $ficha['id'])
                                                     <div class="w-full flex justify-center">
                                                         <div class="bg-red-500 w-16 h-16 absolute rounded-full shadow-2xl shadow-red-500 animate-ping border-2 flex justify-center items-center"></div>
                                                     </div>
                                                 @endif
 
                                                 <div class="w-full flex justify-center">
-                                                    <div class="@if($ficha_ultima == $ficha->id) h-14 w-14 lg:h-16 lg:w-16 @else h-14 w-14 animate-pulse animate-fade-right @endif mx-auto my-auto border-2 rounded-full @if($ficha_ultima == $ficha->id) bg-red-700 @else bg-blue-700 @endif relative bola-3d">
+                                                    <div class="@if($ficha_ultima == $ficha['id']) h-14 w-14 lg:h-16 lg:w-16 @else h-14 w-14 animate-pulse animate-fade-right @endif mx-auto my-auto border-2 rounded-full @if($ficha_ultima == $ficha['id']) bg-red-700 @else bg-blue-700 @endif relative bola-3d">
                                                         <!-- Efecto de luz para el 3D -->
                                                         <div class="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-white/30 rounded-full blur-sm"></div>
 
                                                         <!-- Contenido de la ficha -->
                                                         <p class="text-center font-bold text-white mt-1">
-                                                            {{$ficha->letra}}
+                                                            {{ $ficha['letra'] }}
                                                         </p>
                                                         <p class="text-center font-bold text-white">
-                                                            {{$ficha->numero}}
+                                                            {{ $ficha['numero'] }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -5305,37 +5305,37 @@
                                                         </div>
                                 
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5 ">
-                                                            @foreach (json_decode($carton->carton->content_1) as $item)
+                                                            @foreach ($carton['carton']['content_1'] as $item)
                                                                 <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">  {{$item}}  </div>
                                                             @endforeach
                                                         </div>
                                 
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
-                                                            @foreach (json_decode($carton->carton->content_2) as $item)
+                                                            @foreach ($carton['carton']['content_2'] as $item)
                                                                 <div class="{{$this->background($item)}} bg-gray-100  text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
                                                             @endforeach
                                                         </div>
                                 
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
-                                                            @foreach (json_decode($carton->carton->content_3) as $item)
+                                                            @foreach ($carton['carton']['content_3'] as $item)
                                                                 <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
                                                             @endforeach
                                                         </div>
                                 
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
-                                                            @foreach (json_decode($carton->carton->content_4) as $item)
+                                                            @foreach ($carton['carton']['content_4'] as $item)
                                                                 <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}} </div>
                                                             @endforeach
                                                         </div>
                                 
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">
-                                                            @foreach (json_decode($carton->carton->content_5) as $item)
+                                                            @foreach ($carton['carton']['content_5'] as $item)
                                                                 <div class="{{$this->background($item)}} bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>
                                                             @endforeach
                                                         </div>
 
                                                         <div class="bg-blue-600 m-1 text-center">
-                                                            <p class=" text-white  text-xs ">CARTÓN NRO. {{$carton->carton->id}}  </p>
+                                                            <p class=" text-white  text-xs ">CARTÓN NRO. {{$carton['carton']['id']}}  </p>
                                                         </div>
                                 
                                                         
@@ -5354,7 +5354,7 @@
                                     <p class=" font-Allerta text-sm md:text-md lg:text-lg font-bold text-blue-500 text-center "  >GANADORES</p>
 
                                     <div class="mt-4">
-                                        @foreach($cartones_ganadores as $cg)
+                                        {{-- @foreach($cartones_ganadores as $cg)
                                             <div class="py-1 md:py-2 md:px-6 ">
                                                     <div class=" bg-blue-500 rounded-md shadow-md overflow-hidden md:max-w-xl ">
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center  mb-0.5 mt-1">  
@@ -5773,7 +5773,7 @@
                                             
                                             
                                             </div>
-                                        @endforeach
+                                        @endforeach --}}
                                     </div>
                                 
 
