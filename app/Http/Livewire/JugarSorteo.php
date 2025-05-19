@@ -175,19 +175,27 @@ class JugarSorteo extends Component
 
     public function nuevaFichaRecibida($payload){
 
+         // Asegurarnos que $this->fichas sea un array
+        if ($this->fichas instanceof \Illuminate\Support\Collection) {
+            $this->fichas = $this->fichas->toArray();
+        } elseif (!is_array($this->fichas)) {
+            $this->fichas = [];
+        }
+
         if ($payload) {
 
         // El payload contiene los datos enviados desde el servidor
         $fichaData = [
-            'id' => $payload['id'], // Asegúrate que tu evento envia el ID
+            'id' => $payload['id'] ?? null, // Asegúrate que tu evento envia el ID
             'letra' => $payload['letra'],
             'numero' => $payload['numero'],
             // Agrega otros campos necesarios
         ];
         
         // Actualizamos el array de fichas
-        array_push($this->fichas, $fichaData);
-        $this->ficha_ultima = $payload['ficha_id'];
+        //array_push($this->fichas, $fichaData);
+        $this->fichas = array_merge($this->fichas, [$fichaData]);
+        $this->ficha_ultima = $payload['id'] ;
 
         }else{
             // Si no viene la ficha, hacer una consulta ligera
@@ -196,7 +204,8 @@ class JugarSorteo extends Component
                 ->first(['id', 'letra', 'numero']);
                 
             if ($ultimaFicha) {
-                array_push($this->fichas, $ultimaFicha->toArray());
+                //array_push($this->fichas, $ultimaFicha->toArray());
+                $this->fichas = array_merge($this->fichas, [$ultimaFicha->toArray()]);
                 $this->ficha_ultima = $ultimaFicha->id;
             }
 
