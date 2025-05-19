@@ -5756,7 +5756,7 @@
                                                         </div>
                 
                                                         <div class="bg-blue-500 m-1 text-center">
-                                                            <p class=" text-white text-xs "> {{$this->nombre($cg['user']['name'])}}</p>
+                                                            <p class=" text-white text-xs "> {{$this->nombre($cg['user_name'])}}</p>
                                                         </div>
 
                                                     
@@ -6215,7 +6215,7 @@
                                                         </div>
                 
                                                         <div class="bg-blue-500 m-1 text-center">
-                                                            <p class=" text-white text-xs "> {{$this->nombre($cg['user']['name'])}}</p>
+                                                            <p class=" text-white text-xs "> {{$this->nombre($cg['user_name'])}}</p>
                                                         </div>
 
                                                         <div class="bg-blue-500 m-1 text-center">

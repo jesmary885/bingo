@@ -121,9 +121,14 @@ class JugarSorteo extends Component
             ->where('status_juego', 'Sin estado')
             ->get();
 
-        $cartonesGanador = CartonGanador::with(['carton' => function($query) {
+        $cartonesGanador = CartonGanador::with([
+            'carton' => function($query) {
                 $query->select('id', 'content_1', 'content_2', 'content_3', 'content_4', 'content_5');
-            }])
+            },
+            'user' => function($query) {
+                $query->select('id', 'name', 'email'); // Selecciona solo los campos necesarios
+            }
+            ])
             ->where('sorteo_id', $this->sorteo->id)
             ->get();
         
@@ -154,6 +159,13 @@ class JugarSorteo extends Component
                 'id' => $cartonesGanador->id,
                 'sorteo_id' => $cartonesGanador->sorteo_id,
                 'carton_id' => $cartonesGanador->carton_id,
+                'type_lineal' => $cartonesGanador->type_lineal,
+                'type_numero' => $cartonesGanador->type_numero,
+                'lugar' => $cartonesGanador->lugar,
+                'premio' => $cartonesGanador->premio,
+                'user_id' => $cartonesGanador->user_id,
+                'user_name' => $cartonesGanador->user->name, // Acceso al nombre del usuario
+                'user_email' => $cartonesGanador->user->email, // Opcional: email del usuario
                 'carton' => [
                     'id' => $cartonesGanador->carton->id,
                     'content_1' => $safeJsonDecode($cartonesGanador->carton->content_1),
@@ -208,7 +220,7 @@ class JugarSorteo extends Component
                 
             if ($ultimaFicha) {
                 //array_push($this->fichas, $ultimaFicha->toArray());
-                $this->fichas = array_merge($this->fichas, [$ultimaFicha->toArray()]);
+               // $this->fichas = array_merge($this->fichas, [$ultimaFicha->toArray()]);
                 array_unshift($this->fichas, [$ultimaFicha->toArray()]); // Agrega al inicio en lugar del final
                 $this->ficha_ultima = $ultimaFicha->id;
             }
