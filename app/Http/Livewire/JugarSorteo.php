@@ -65,7 +65,7 @@ class JugarSorteo extends Component
 
         $this->visible = 0;
 
-        $this->fichas = is_array($this->fichas) ? $this->fichas : [];
+        $this->fichas = [];
 
         $this->ganador_user_login = 0;
 
@@ -123,8 +123,16 @@ class JugarSorteo extends Component
 
     public function cargarDatosIniciales(){
 
+        try {
+            $fichas = $this->getFichasSorteadas();
+            $this->fichas = is_array($fichas) ? $fichas : $fichas->toArray();
+        } catch (\Exception $e) {
+            $this->fichas = []; // Fallback seguro
+            \Log::error("Error cargando fichas: " . $e->getMessage());
+        }
+
          // Cargar fichas iniciales
-         $this->fichas = $this->getFichasSorteadas()->toArray();
+         $this->fichas = $this->getFichasSorteadas();
 
          // Función helper para decodificar seguro
         $safeJsonDecode = function($data) {
@@ -265,10 +273,14 @@ class JugarSorteo extends Component
     protected function getFichasSorteadas()
     {
     
+        if (!$this->sorteo || !$this->sorteo->id) {
+            return [];
+        }
 
-            return SorteoFicha::where('sorteo_id', $this->sorteo->id)
+        return SorteoFicha::where('sorteo_id', $this->sorteo->id)
             ->orderByDesc('created_at')
-            ->get(['id', 'letra', 'numero']);
+            ->get(['id', 'letra', 'numero'])
+            ->toArray(); // Conversión explícita
  
     }
 
