@@ -41,8 +41,8 @@ class JugarSorteo extends Component
     return [
         'render' => 'render',
        // 'echo:sorteo_fichas,NewFichaSorteo' => 'emitir_sonido',
-       //'echo:sorteo_fichas,.ficha.sorteada' => 'nuevaFichaRecibida',
-       'echo:sorteo.'.$this->getSorteoIdProperty().',ficha.sorteada' => 'nuevaFichaRecibida',
+       'echo:sorteo_fichas,.ficha.sorteada' => 'nuevaFichaRecibida',
+       //'echo:sorteo.'.$this->getSorteoIdProperty().',ficha.sorteada' => 'nuevaFichaRecibida',
      //  'echo:sorteo_fichas,ficha.sorteada' => 'invalidateCacheFichas',
         'echo:ganador,.ganador.nuevo' => 'emitir_sonido_ganador', // Agregado el punto aquí
         'echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' ,

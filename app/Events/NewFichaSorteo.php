@@ -33,12 +33,13 @@ class NewFichaSorteo implements ShouldBroadcastNow // Implementa ShouldBroadcast
 
     public function broadcastOn()
     {
-      /*  return [
+        return [
             new Channel('sorteo_fichas'), // Canal general
             new Channel('sorteo.'.$this->sorteoId) // Canal específico por sorteo
-        ];*/
+        ];
 
-        return new Channel('sorteo.'.$this->ficha->sorteo_id); // Canal específico
+       // return new Channel('sorteo.'.$this->ficha->sorteo_id); // Canal específico
+
     }
 
     public function broadcastWith()
