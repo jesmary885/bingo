@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\Livewire\CartonGanador as LivewireCartonGanador;
 use App\Models\Carton;
 use App\Models\CartonGanador;
 use App\Models\CartonSorteo;
@@ -11,10 +10,8 @@ use App\Models\Sorteo;
 use App\Models\SorteoFicha;
 use DateTime;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class JugarSorteo extends Component
 {
@@ -25,10 +22,27 @@ class JugarSorteo extends Component
 
     public $user;
 
-   protected $listeners = [
+  /* protected $listeners = [
         'render' => 'render',
        // 'echo:sorteo_fichas,NewFichaSorteo' => 'emitir_sonido',
-       'echo:sorteo_fichas,.ficha.sorteada' => 'nuevaFichaRecibida',
+       //'echo:sorteo_fichas,.ficha.sorteada' => 'nuevaFichaRecibida',
+       'echo:sorteo.'.$this->getSorteoIdProperty().',ficha.sorteada' => 'nuevaFichaRecibida',
+     //  'echo:sorteo_fichas,ficha.sorteada' => 'invalidateCacheFichas',
+        'echo:ganador,.ganador.nuevo' => 'emitir_sonido_ganador', // Agregado el punto aquí
+        'echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' ,
+        'finalizar' => 'finalizar',
+        'ganador_fin' => 'ganador_fin',
+    //    'fichaAgregada' => 'invalidateCacheFichas',
+    //    'fichasReiniciadas' => 'invalidateCacheFichas'
+    ];*/
+
+    protected function getListeners()
+    {
+    return [
+        'render' => 'render',
+       // 'echo:sorteo_fichas,NewFichaSorteo' => 'emitir_sonido',
+       //'echo:sorteo_fichas,.ficha.sorteada' => 'nuevaFichaRecibida',
+       'echo:sorteo.'.$this->getSorteoIdProperty().',ficha.sorteada' => 'nuevaFichaRecibida',
      //  'echo:sorteo_fichas,ficha.sorteada' => 'invalidateCacheFichas',
         'echo:ganador,.ganador.nuevo' => 'emitir_sonido_ganador', // Agregado el punto aquí
         'echo:cambio_estado_sorteo,CambioEstadoSorteo' => 'mount' ,
@@ -37,6 +51,13 @@ class JugarSorteo extends Component
     //    'fichaAgregada' => 'invalidateCacheFichas',
     //    'fichasReiniciadas' => 'invalidateCacheFichas'
     ];
+    }
+
+
+    public function getSorteoIdProperty()
+{
+    return $this->sorteo->id ?? 0; // Asegura que siempre haya un valor
+}
 
    public $initialized = false;
    
@@ -197,6 +218,8 @@ class JugarSorteo extends Component
             $this->fichas = [];
         }
 
+        \Log::info("[Jugador] Ficha recibida ID: {$payload['id']} - ".now());
+
         if ($payload) {
 
         // El payload contiene los datos enviados desde el servidor
@@ -210,7 +233,8 @@ class JugarSorteo extends Component
             // Actualizamos el array de fichas
             //array_push($this->fichas, $fichaData);
             //$this->fichas = array_merge($this->fichas, [$fichaData]);
-           array_unshift($this->fichas, $fichaData); // Agrega al inicio en lugar del final
+           //array_unshift($this->fichas, $fichaData); // Agrega al inicio en lugar del final
+           $this->fichas = array_prepend($this->fichas, $payload);
             $this->ficha_ultima = $payload['id'] ;
 
         }else{

@@ -20,19 +20,24 @@ class NewFichaSorteo implements ShouldBroadcastNow // Implementa ShouldBroadcast
 
     public function __construct($ficha)
     {
-        $this->ficha = $ficha;
+       
 
         // Asegurar que tenemos el sorteo_id disponible
-        $this->sorteoId = is_array($ficha) ? $ficha['sorteo_id'] : 
-        (is_object($ficha) ? $ficha->sorteo_id : null);
+       /* $this->sorteoId = is_array($ficha) ? $ficha['sorteo_id'] : 
+        (is_object($ficha) ? $ficha->sorteo_id : null);*/
+
+        $this->ficha = $ficha;
+        $this->sorteoId = $ficha['sorteo_id'] ?? $ficha->sorteo_id; // Más limpio
     }
 
     public function broadcastOn()
     {
-        return [
+      /*  return [
             new Channel('sorteo_fichas'), // Canal general
             new Channel('sorteo.'.$this->sorteoId) // Canal específico por sorteo
-        ];
+        ];*/
+
+        return new Channel('sorteo.'.$this->sorteoId); // Canal específico
     }
 
     public function broadcastWith()
@@ -52,10 +57,10 @@ class NewFichaSorteo implements ShouldBroadcastNow // Implementa ShouldBroadcast
     }
 
     // Nuevo: Configuración de velocidad
-    public function broadcastWhen()
+  /*  public function broadcastWhen()
     {
         return app()->environment('production') 
             ? true 
             : config('broadcasting.debug', false);
-    }
+    }*/
 }

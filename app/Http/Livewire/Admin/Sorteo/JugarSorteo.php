@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Sorteo;
 
+use App\Events\NewFichaSorteo;
 use App\Http\Livewire\FichasSorteo;
 use App\Models\Cart;
 use App\Models\CartonGanador;
@@ -17,8 +18,7 @@ use App\Models\UserGanadorSorteo;
 use App\Models\UserGanancias;
 use App\Models\UserSaldo;
 use Livewire\Component;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class JugarSorteo extends Component
 {
@@ -524,11 +524,14 @@ class JugarSorteo extends Component
 
         if(!$busqueda){
 
-            SorteoFicha::create([
+            $ficha = SorteoFicha::create([
                 'sorteo_id' => $this->sorteo,
                 'letra' => $letra,
                 'numero' => $numero_n,
             ]);
+
+            \Log::info("[Admin-Livewire] Ficha generada ID: {$ficha->id} - Tiempo: ".now()->format('H:i:s.u'));
+            event(new NewFichaSorteo($ficha)); // Disparar evento
 
             $this->numeros_seleccionados[] = $numero_n;
 
