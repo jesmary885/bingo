@@ -5248,6 +5248,9 @@
                                         <p class=" font-Allerta text-sm md:text-md lg:text-lg font-bold text-white text-center ">FICHAS</p>
                                         @foreach($fichas as $ficha)
                                             <div class="relative mr-2 md:mr-0 md:w-full mt-7">
+
+                                                {{$ficha_ultima}}
+                              
                                                 @if($ficha_ultima == $ficha['id'])
                                                     <div class="w-full flex justify-center">
                                                         <div class="bg-red-500 w-16 h-16 absolute rounded-full shadow-2xl shadow-red-500 animate-ping border-2 flex justify-center items-center"></div>
@@ -5382,37 +5385,37 @@
                                                                         @endif 
                                                                     @endif 
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Horizontal' && $cg['type']['numero']  == '1')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Horizontal' && $cg['type_numero']  == '1')
                                                                         @if($this->posicion($item,'1',$cg['carton']['id']) == '0' || $this->posicion($item,'1',$cg['carton']['id']) == '1' || $this->posicion($item,'1',$cg['carton']['id']) == '2' || $this->posicion($item,'1',$cg['carton']['id']) == '3' || $this->posicion($item,'1',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                     @endif 
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '1')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '1')
                                                                             @if($this->posicion($item,'1',$cg['carton']['id']) == '0')
                                                                             bg-yellow-500 
                                                                             @endif 
                                                                     @endif
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '2')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '2')
                                                                             @if($this->posicion($item,'1',$cg['carton']['id']) == '1')
                                                                             bg-yellow-500 
                                                                             @endif 
                                                                     @endif
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '3')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '3')
                                                                             @if($this->posicion($item,'1',$cg['carton']['id']) == '2')
                                                                             bg-yellow-500 
                                                                             @endif 
                                                                     @endif
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '4')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '4')
                                                                             @if($this->posicion($item,'1',$cg['carton']['id']) == '3')
                                                                             bg-yellow-500 
                                                                             @endif 
                                                                     @endif
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '5')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '5')
                                                                             @if($this->posicion($item,'1',$cg['carton']['id']) == '4')
                                                                             bg-yellow-500 
                                                                             @endif 
@@ -5426,13 +5429,13 @@
                                                                         @endif 
                                                                     @endif
 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Izquierda')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Izquierda')
                                                                         @if($this->posicion($item,'1',$cg['carton']['id']) == '0')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                     @endif
 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Derecha')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Derecha')
                                                                         @if($this->posicion($item,'1',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5452,10 +5455,10 @@
                                                         </div>  
                                                 
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5"> 
-                                                            @foreach (json_decode($cg->carton->content_2) as $item)
+                                                            @foreach ($cg['carton']['content_2'] as $item)
                                                                 <div class="bg-gray-100  
 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Izquierda')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Izquierda')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '1')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5468,45 +5471,45 @@
                                                                     @endif
 
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Horizontal' && $cg['type']['numero']  == '2')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Horizontal' && $cg['type_numero']  == '2')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '0' || $this->posicion($item,'2',$cg['carton']['id']) == '1' || $this->posicion($item,'2',$cg['carton']['id']) == '2' || $this->posicion($item,'2',$cg['carton']['id']) == '3' || $this->posicion($item,'2',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                     @endif 
 
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '1')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '1')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '0')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '2')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '2')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '1')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '3')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '3')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '2')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '4')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '4')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '3')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '5')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '5')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Derecha')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Derecha')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '3')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5525,9 +5528,9 @@
                                                         </div> 
                 
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">  
-                                                            @foreach (json_decode($cg->carton->content_3) as $item)
+                                                            @foreach ($cg['carton']['content_3'] as $item)
                                                                 <div class="bg-gray-100 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Izquierda')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Izquierda')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '2')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5539,38 +5542,38 @@
                                                                         @endif 
                                                                     @endif 
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Horizontal' && $cg['type']['numero']  == '3')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Horizontal' && $cg['type_numero']  == '3')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '0' || $this->posicion($item,'3',$cg['carton']['id']) == '1' || $this->posicion($item,'3',$cg['carton']['id']) == '2' || $this->posicion($item,'3',$cg['carton']['id']) == '3' || $this->posicion($item,'3',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                     @endif 
 
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '1')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '1')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '0')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '2')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '2')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '1')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '3')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '3')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '2')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '4')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '4')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '3')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '5')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '5')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5579,7 +5582,7 @@
                                                                     
                                                                 
 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Derecha')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Derecha')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '2')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5604,15 +5607,15 @@
                                                         </div> 
                                                 
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">  
-                                                            @foreach (json_decode($cg->carton->content_4) as $item)
+                                                            @foreach ($cg['carton']['content_4'] as $item)
                                                                 <div class="bg-gray-100 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Izquierda')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Izquierda')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '3')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                     @endif 
 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Derecha')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Derecha')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '1')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5624,7 +5627,7 @@
                                                                         @endif 
                                                                     @endif 
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Horizontal' && $cg['type']['numero']  == '4')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Horizontal' && $cg['type_numero']  == '4')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '0' || $this->posicion($item,'4',$cg['carton']['id']) == '1' || $this->posicion($item,'4',$cg['carton']['id']) == '2' || $this->posicion($item,'4',$cg['carton']['id']) == '3' || $this->posicion($item,'4',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5637,31 +5640,31 @@
                                                                         @endif 
                                                                     @endif
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '1')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '1')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '0')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '2')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '2')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '1')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '3')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '3')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '2')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '4')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '4')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '3')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '5')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '5')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5674,7 +5677,7 @@
                                                         </div> 
                                                 
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">  
-                                                            @foreach (json_decode($cg->carton->content_5) as $item)
+                                                            @foreach ($cg['carton']['content_5']  as $item)
                                                                 <div class="bg-gray-100 
                                                                 @if($cg['type'] == 'Cuatro esquinas') 
                                                                     @if($this->posicion($item,'5',$cg['carton']['id']) == '0' || $this->posicion($item,'5',$cg['carton']['id']) == '4')
@@ -5689,37 +5692,37 @@
                                                                 @endif 
 
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Horizontal' && $cg['type']['numero']  == '5')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Horizontal' && $cg['type_numero']  == '5')
                                                                     @if($this->posicion($item,'5',$cg['carton']['id']) == '0' || $this->posicion($item,'5',$cg['carton']['id']) == '1' || $this->posicion($item,'5',$cg['carton']['id']) == '2' || $this->posicion($item,'5',$cg['carton']['id']) == '3' || $this->posicion($item,'5',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                     @endif 
                                                                 @endif 
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '1')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '1')
                                                                         @if($this->posicion($item,'5',$cg['carton']['id']) == '0')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '2')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '2')
                                                                         @if($this->posicion($item,'5',$cg['carton']['id']) == '1')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '3')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '3')
                                                                         @if($this->posicion($item,'5',$cg['carton']['id']) == '2')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '4')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '4')
                                                                         @if($this->posicion($item,'5',$cg['carton']['id']) == '3')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '5')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '5')
                                                                         @if($this->posicion($item,'5',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5727,13 +5730,13 @@
 
                                                                 
 
-                                                                @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Izquierda')
+                                                                @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Izquierda')
                                                                         @if($this->posicion($item,'5',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif 
 
-                                                                @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Derecha')
+                                                                @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Derecha')
                                                                     @if($this->posicion($item,'5',$cg['carton']['id']) == '0')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5836,37 +5839,37 @@
                                                                         @endif 
                                                                     @endif 
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Horizontal' && $cg['type']['numero']  == '1')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Horizontal' && $cg['type_numero']  == '1')
                                                                         @if($this->posicion($item,'1',$cg['carton']['id']) == '0' || $this->posicion($item,'1',$cg['carton']['id']) == '1' || $this->posicion($item,'1',$cg['carton']['id']) == '2' || $this->posicion($item,'1',$cg['carton']['id']) == '3' || $this->posicion($item,'1',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                     @endif 
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '1')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '1')
                                                                         @if($this->posicion($item,'1',$cg['carton']['id']) == '0')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '2')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '2')
                                                                         @if($this->posicion($item,'1',$cg['carton']['id']) == '1')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '3')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '3')
                                                                         @if($this->posicion($item,'1',$cg['carton']['id']) == '2')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '4')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '4')
                                                                         @if($this->posicion($item,'1',$cg['carton']['id']) == '3')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '5')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '5')
                                                                         @if($this->posicion($item,'1',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5881,13 +5884,13 @@
                                                                         @endif 
                                                                     @endif
 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Izquierda')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Izquierda')
                                                                         @if($this->posicion($item,'1',$cg['carton']['id']) == '0')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                     @endif
 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Derecha')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Derecha')
                                                                         @if($this->posicion($item,'1',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5910,7 +5913,7 @@
                                                             @foreach (json_decode($cg->carton->content_2) as $item)
                                                                 <div class="bg-gray-100  
 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Izquierda')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Izquierda')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '1')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5923,37 +5926,37 @@
                                                                     @endif
 
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Horizontal' && $cg['type']['numero']  == '2')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Horizontal' && $cg['type_numero']  == '2')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '0' || $this->posicion($item,'2',$cg['carton']['id']) == '1' || $this->posicion($item,'2',$cg['carton']['id']) == '2' || $this->posicion($item,'2',$cg['carton']['id']) == '3' || $this->posicion($item,'2',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                     @endif 
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '1')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '1')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '0')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '2')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '2')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '1')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '3')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '3')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '2')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '4')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '4')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '3')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '5')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '5')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5962,7 +5965,7 @@
 
                                                                     
 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Derecha')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Derecha')
                                                                         @if($this->posicion($item,'2',$cg['carton']['id']) == '3')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5983,7 +5986,7 @@
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5">  
                                                             @foreach (json_decode($cg->carton->content_3) as $item)
                                                                 <div class="bg-gray-100 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Izquierda')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Izquierda')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '2')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -5995,37 +5998,37 @@
                                                                         @endif 
                                                                     @endif 
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Horizontal' && $cg['type']['numero']  == '3')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Horizontal' && $cg['type_numero']  == '3')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '0' || $this->posicion($item,'3',$cg['carton']['id']) == '1' || $this->posicion($item,'3',$cg['carton']['id']) == '2' || $this->posicion($item,'3',$cg['carton']['id']) == '3' || $this->posicion($item,'3',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                     @endif 
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '1')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '1')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '0')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '2')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '2')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '1')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '3')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '3')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '2')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '4')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '4')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '3')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '5')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '5')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -6034,7 +6037,7 @@
                                                                     
                 
 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Derecha')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Derecha')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '2')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -6061,13 +6064,13 @@
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5">
                                                             @foreach (json_decode($cg->carton->content_4) as $item)
                                                                 <div class="bg-gray-100 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Izquierda')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Izquierda')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '3')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                     @endif 
 
-                                                                    @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Derecha')
+                                                                    @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Derecha')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '1')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -6079,7 +6082,7 @@
                                                                         @endif 
                                                                     @endif 
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Horizontal' && $cg['type']['numero']  == '4')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Horizontal' && $cg['type_numero']  == '4')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '0' || $this->posicion($item,'4',$cg['carton']['id']) == '1' || $this->posicion($item,'4',$cg['carton']['id']) == '2' || $this->posicion($item,'4',$cg['carton']['id']) == '3' || $this->posicion($item,'4',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -6094,31 +6097,31 @@
 
                                                                     
 
-                                                                    @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '1')
+                                                                    @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '1')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '0')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '2')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '2')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '1')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '3')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '3')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '2')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '4')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '4')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '3')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '5')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '5')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -6145,7 +6148,7 @@
                                                                     @endif 
                                                                 @endif 
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Horizontal' && $cg['type']['numero']  == '5')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Horizontal' && $cg['type_numero']  == '5')
                                                                     @if($this->posicion($item,'5',$cg['carton']['id']) == '0' || $this->posicion($item,'5',$cg['carton']['id']) == '1' || $this->posicion($item,'5',$cg['carton']['id']) == '2' || $this->posicion($item,'5',$cg['carton']['id']) == '3' || $this->posicion($item,'5',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                     @endif 
@@ -6154,31 +6157,31 @@
 
                                                             
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '1')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '1')
                                                                         @if($this->posicion($item,'5',$cg['carton']['id']) == '0')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '2')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '2')
                                                                         @if($this->posicion($item,'5',$cg['carton']['id']) == '1')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero'] == '3')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero'] == '3')
                                                                         @if($this->posicion($item,'5',$cg['carton']['id']) == '2')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '4')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '4')
                                                                         @if($this->posicion($item,'5',$cg['carton']['id']) == '3')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif
 
-                                                                @if($cg['type'] == 'Lineal' && $cg['type']['lineal']== 'Vertical' && $cg['type']['numero']  == '5')
+                                                                @if($cg['type'] == 'Lineal' && $cg['type_lineal']== 'Vertical' && $cg['type_numero']  == '5')
                                                                         @if($this->posicion($item,'5',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
@@ -6186,13 +6189,13 @@
 
 
 
-                                                                @if($cg['type'] == 'Diagonal' && $cg['type']['lineal']== 'Izquierda')
+                                                                @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Izquierda')
                                                                         @if($this->posicion($item,'5',$cg['carton']['id']) == '4')
                                                                         bg-yellow-500 
                                                                         @endif 
                                                                 @endif 
 
-                                                                @if($cg['type'] == 'Diagonal' && $cg['type']['lineal'] == 'Derecha')
+                                                                @if($cg['type'] == 'Diagonal' && $cg['type_lineal'] == 'Derecha')
                                                                     @if($this->posicion($item,'5',$cg['carton']['id']) == '0')
                                                                         bg-yellow-500 
                                                                         @endif 

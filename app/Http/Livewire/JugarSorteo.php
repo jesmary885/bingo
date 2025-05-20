@@ -161,6 +161,7 @@ class JugarSorteo extends Component
                 'carton_id' => $cartonesGanador->carton_id,
                 'type_lineal' => $cartonesGanador->type_lineal,
                 'type_numero' => $cartonesGanador->type_numero,
+                'type' => $cartonesGanador->type,
                 'lugar' => $cartonesGanador->lugar,
                 'premio' => $cartonesGanador->premio,
                 'user_id' => $cartonesGanador->user_id,
@@ -183,7 +184,7 @@ class JugarSorteo extends Component
              ->toArray();*/
              
          // Obtener última ficha
-         $this->ficha_ultima = $this->fichas ? end($this->fichas)['id'] : 0;
+         $this->ficha_ultima = $this->fichas[0]['id'] ?? 0;
 
     }
 
@@ -209,7 +210,7 @@ class JugarSorteo extends Component
             // Actualizamos el array de fichas
             //array_push($this->fichas, $fichaData);
             //$this->fichas = array_merge($this->fichas, [$fichaData]);
-            array_unshift($this->fichas, $fichaData); // Agrega al inicio en lugar del final
+           array_unshift($this->fichas, $fichaData); // Agrega al inicio en lugar del final
             $this->ficha_ultima = $payload['id'] ;
 
         }else{
