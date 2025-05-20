@@ -228,6 +228,10 @@ class JugarSorteo extends Component
             $this->fichas = [];
         }*/
 
+        if (!is_array($this->fichas)) {
+            $this->fichas = [];
+        }
+
 
         if ($payload) {
 
@@ -243,7 +247,8 @@ class JugarSorteo extends Component
             //array_push($this->fichas, $fichaData);
             //$this->fichas = array_merge($this->fichas, [$fichaData]);
            //array_unshift($this->fichas, $fichaData); // Agrega al inicio en lugar del final
-           $this->fichas = array_unshift($this->fichas, $payload);
+           //$this->fichas = array_unshift($this->fichas, $payload);
+           $this->fichas = array_merge([$payload], (array)$this->fichas);
             $this->ficha_ultima = $payload['id'] ;
 
         }else{
