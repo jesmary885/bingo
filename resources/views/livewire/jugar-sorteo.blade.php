@@ -5248,8 +5248,6 @@
                                         <p class=" font-Allerta text-sm md:text-md lg:text-lg font-bold text-white text-center ">FICHAS</p>
                                         @foreach($fichas as $ficha)
                                             <div class="relative mr-2 md:mr-0 md:w-full mt-7">
-
-                                                {{$ficha_ultima}}
                               
                                                 @if($ficha_ultima == $ficha['id'])
                                                     <div class="w-full flex justify-center">
