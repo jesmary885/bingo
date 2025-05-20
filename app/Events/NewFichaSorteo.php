@@ -26,6 +26,7 @@ class NewFichaSorteo implements ShouldBroadcastNow // Implementa ShouldBroadcast
        /* $this->sorteoId = is_array($ficha) ? $ficha['sorteo_id'] : 
         (is_object($ficha) ? $ficha->sorteo_id : null);*/
 
+        
         $this->ficha = $ficha;
         $this->sorteoId = $ficha['sorteo_id'] ?? $ficha->sorteo_id; // Más limpio
     }
@@ -37,7 +38,7 @@ class NewFichaSorteo implements ShouldBroadcastNow // Implementa ShouldBroadcast
             new Channel('sorteo.'.$this->sorteoId) // Canal específico por sorteo
         ];*/
 
-        return new Channel('sorteo.'.$this->sorteoId); // Canal específico
+        return new Channel('sorteo.'.$this->ficha->sorteo_id); // Canal específico
     }
 
     public function broadcastWith()
@@ -46,7 +47,7 @@ class NewFichaSorteo implements ShouldBroadcastNow // Implementa ShouldBroadcast
             'id' => $this->ficha['id'] ?? $this->ficha->id,
             'numero' => $this->ficha['numero'],
             'letra' => $this->ficha['letra'],
-            'sorteo_id' => $this->sorteoId, // Añadido para manejo de cache
+            'sorteo_id' => $this->ficha->sorteo_id, // Añadido para manejo de cache
             'timestamp' => now()->toISOString() // Para medir sincronización
         ];
     }

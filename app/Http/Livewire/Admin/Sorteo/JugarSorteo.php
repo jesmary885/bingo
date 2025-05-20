@@ -530,9 +530,6 @@ class JugarSorteo extends Component
                 'numero' => $numero_n,
             ]);
 
-            \Log::info("[Admin-Livewire] Ficha generada ID: {$ficha->id} - Tiempo: ".now()->format('H:i:s.u'));
-            event(new NewFichaSorteo($ficha)); // Disparar evento
-
             $this->numeros_seleccionados[] = $numero_n;
 
 
