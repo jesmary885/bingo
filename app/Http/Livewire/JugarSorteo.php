@@ -65,6 +65,8 @@ class JugarSorteo extends Component
 
         $this->visible = 0;
 
+        $this->fichas = is_array($this->fichas) ? $this->fichas : [];
+
         $this->ganador_user_login = 0;
 
         $this->user = auth()->user();
@@ -212,11 +214,11 @@ class JugarSorteo extends Component
     public function nuevaFichaRecibida($payload){
 
          // Asegurarnos que $this->fichas sea un array
-        if ($this->fichas instanceof \Illuminate\Support\Collection) {
+     /*   if ($this->fichas instanceof \Illuminate\Support\Collection) {
             $this->fichas = $this->fichas->toArray();
         } elseif (!is_array($this->fichas)) {
             $this->fichas = [];
-        }
+        }*/
 
 
         if ($payload) {
@@ -345,6 +347,9 @@ class JugarSorteo extends Component
     public function background($item){
        // $ficha_nueva = SorteoFicha::where('sorteo_id',$this->sorteo->id)->get();
 
+       if (!is_array($this->fichas)) {
+            return ''; // Retorna cadena vacía si no es array
+        }
 
         foreach ($this->fichas as $ficha){
 
