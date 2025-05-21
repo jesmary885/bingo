@@ -469,7 +469,7 @@ class JugarSorteo extends Component
                     'lugar' => $lugar
                 ]);
 
-                $this->actualizarCartonesGanadores();
+                //$this->actualizarCartonesGanadores();
             }
         }
     }
@@ -529,7 +529,7 @@ class JugarSorteo extends Component
                     'lugar' => $lugar
                 ]);
 
-                $this->actualizarCartonesGanadores();
+              //  $this->actualizarCartonesGanadores();
             }
         }
     }
@@ -588,7 +588,7 @@ class JugarSorteo extends Component
                     'lugar' => $lugar
                 ]);
 
-                $this->actualizarCartonesGanadores();
+              //  $this->actualizarCartonesGanadores();
             }
         }
     }
@@ -646,7 +646,7 @@ class JugarSorteo extends Component
                     'lugar' => $lugar
                 ]);
 
-                $this->actualizarCartonesGanadores();
+             //   $this->actualizarCartonesGanadores();
             }
         }
     }
@@ -706,7 +706,7 @@ class JugarSorteo extends Component
                         'lugar' => $lugar
                     ]);
 
-                    $this->actualizarCartonesGanadores();
+                   // $this->actualizarCartonesGanadores();
                 }
             }
         }
@@ -799,7 +799,7 @@ class JugarSorteo extends Component
                     'lugar' => $lugar
                 ]);
 
-                $this->actualizarCartonesGanadores();
+               // $this->actualizarCartonesGanadores();
 
             }
         }
@@ -898,7 +898,7 @@ class JugarSorteo extends Component
                     'lugar' => $lugar
                 ]);
 
-                $this->actualizarCartonesGanadores();
+               // $this->actualizarCartonesGanadores();
             }
         }
     }
@@ -976,7 +976,7 @@ class JugarSorteo extends Component
                     'lugar' => $lugar
                 ]);
 
-                $this->actualizarCartonesGanadores();
+                //$this->actualizarCartonesGanadores();
             }
         }
     }
@@ -1125,6 +1125,10 @@ class JugarSorteo extends Component
 
                         $this->ganador_1 = 1;
 
+                        $this->actualizarCartonesGanadores();
+
+                        
+
                         $this->i = 2;
 
                         SorteoFicha::where('sorteo_id', $this->sorteo->id)->delete();
@@ -1190,8 +1194,11 @@ class JugarSorteo extends Component
                             }
                         }
 
+
                         $this->ganador_1 = 1;
                         $this->ganador_2 = 1;
+                        $this->actualizarCartonesGanadores();
+
                         $this->i = 1;
                     }
         
@@ -1259,6 +1266,8 @@ class JugarSorteo extends Component
                         $this->ganador_1 = 1;
                         $this->ganador_2 = 1;
                         $this->ganador_3 = 1;
+
+                        $this->actualizarCartonesGanadores();
 
 
                         if($this->sorteo_finalizado == 1){
