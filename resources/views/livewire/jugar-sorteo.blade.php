@@ -5824,7 +5824,7 @@
                                                         </div>  
                                                 
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5 ">  
-                                                            @foreach (json_decode($cg->carton->content_1) as $item)
+                                                            @foreach ($cg['carton']['content_1'] as $item)
                                                             
                                                                 <div class="bg-gray-100
                                                                     @if($cg['type'] == 'Cuatro esquinas')
@@ -5910,7 +5910,7 @@
                                                         </div>  
                                                 
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5">  
-                                                            @foreach (json_decode($cg->carton->content_2) as $item)
+                                                            @foreach ($cg['carton']['content_2'] as $item)
                                                                 <div class="bg-gray-100  
 
                                                                     @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Izquierda')
@@ -5984,7 +5984,7 @@
                                                         </div> 
                 
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5">  
-                                                            @foreach (json_decode($cg->carton->content_3) as $item)
+                                                            @foreach ($cg['carton']['content_3'] as $item)
                                                                 <div class="bg-gray-100 
                                                                     @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Izquierda')
                                                                         @if($this->posicion($item,'3',$cg['carton']['id']) == '2')
@@ -6062,7 +6062,7 @@
                                                         </div> 
                                                 
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5">
-                                                            @foreach (json_decode($cg->carton->content_4) as $item)
+                                                            @foreach ($cg['carton']['content_4'] as $item)
                                                                 <div class="bg-gray-100 
                                                                     @if($cg['type'] == 'Diagonal' && $cg['type_lineal']== 'Izquierda')
                                                                         @if($this->posicion($item,'4',$cg['carton']['id']) == '3')
@@ -6134,7 +6134,7 @@
                                                         </div> 
                                                 
                                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1  w-22 xl:w-auto mb-0.5">  
-                                                            @foreach (json_decode($cg->carton->content_5) as $item)
+                                                            @foreach ($cg['carton']['content_5'] as $item)
                                                                 <div class="bg-gray-100 
                                                                 @if($cg['type'] == 'Cuatro esquinas') 
                                                                     @if($this->posicion($item,'5',$cg['carton']['id']) == '0' || $this->posicion($item,'5',$cg['carton']['id']) == '4')
