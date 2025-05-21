@@ -134,7 +134,16 @@ class JugarSorteo extends Component
          // Cargar fichas iniciales
          $this->fichas = $this->getFichasSorteadas();
 
-         // Función helper para decodificar seguro
+        $this->actualizarMisCartones();
+
+        $this->actualizarCartonesGanadores();
+
+         $this->ficha_ultima = $this->fichas[0]['id'] ?? 0;
+
+    }
+
+    public function actualizarMisCartones(){
+
         $safeJsonDecode = function($data) {
             if (is_array($data)) {
                 return $data; // Ya es array, no necesita decodificación
@@ -142,21 +151,18 @@ class JugarSorteo extends Component
             return json_decode($data, true) ?? []; // Decodifica o retorna array vacío si falla
         };
 
-        $this->actualizarCartonesGanadores();
-
-         // Cargar cartones con sus relaciones necesarias
         $cartonesSorteo = CartonSorteo::with(['carton' => function($query) {
-                $query->select('id', 'content_1', 'content_2', 'content_3', 'content_4', 'content_5');
-            }])
-            ->where('sorteo_id', $this->sorteo->id)
-            ->where('user_id', $this->user->id)
-            ->where('status_pago', 'Pago recibido')
-            ->where('status_juego', 'Sin estado')
-            ->get();
+            $query->select('id', 'content_1', 'content_2', 'content_3', 'content_4', 'content_5');
+        }])
+        ->where('sorteo_id', $this->sorteo->id)
+        ->where('user_id', $this->user->id)
+        ->where('status_pago', 'Pago recibido')
+        ->where('status_juego', 'Sin estado')
+        ->get();
 
-       
-         // Cargar cartones del usuario
-         $this->mis_cartones = $cartonesSorteo->map(function($cartonSorteo) use ($safeJsonDecode) {
+   
+     // Cargar cartones del usuario
+        $this->mis_cartones = $cartonesSorteo->map(function($cartonSorteo) use ($safeJsonDecode) {
             return [
                 'id' => $cartonSorteo->id,
                 'sorteo_id' => $cartonSorteo->sorteo_id,
@@ -173,20 +179,6 @@ class JugarSorteo extends Component
                 'status_juego' => $cartonSorteo->status_juego
             ];
         })->toArray();
-
-
-        
-
-        
-             
-         // Cargar cartones ganadores
-        /* $this->cartones_ganadores = CartonGanador::where('sorteo_id', $this->sorteo->id)
-             ->get()
-             ->toArray();*/
-             
-         // Obtener última ficha
-         $this->ficha_ultima = $this->fichas[0]['id'] ?? 0;
-
     }
 
     public function actualizarCartonesGanadores(){
@@ -1097,6 +1089,8 @@ class JugarSorteo extends Component
                                     'nro' => '1'
                                 ]);
                             }
+
+                            $this->actualizarMisCartones();
                         }
                         else{
                     
@@ -1168,6 +1162,8 @@ class JugarSorteo extends Component
                                     'nro' => '2'
                                 ]);
                             }
+
+                            $this->actualizarMisCartones();
                         }
                         else{
                     
@@ -1235,6 +1231,8 @@ class JugarSorteo extends Component
                                     'nro' => '3'
                                 ]);
                             }
+
+                            $this->actualizarMisCartones();
                         }
                         else{
                     
