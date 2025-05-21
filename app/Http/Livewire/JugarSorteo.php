@@ -142,6 +142,8 @@ class JugarSorteo extends Component
             return json_decode($data, true) ?? []; // Decodifica o retorna array vacío si falla
         };
 
+        $this->actualizarCartonesGanadores();
+
          // Cargar cartones con sus relaciones necesarias
         $cartonesSorteo = CartonSorteo::with(['carton' => function($query) {
                 $query->select('id', 'content_1', 'content_2', 'content_3', 'content_4', 'content_5');
@@ -152,17 +154,7 @@ class JugarSorteo extends Component
             ->where('status_juego', 'Sin estado')
             ->get();
 
-        $cartonesGanador = CartonGanador::with([
-            'carton' => function($query) {
-                $query->select('id', 'content_1', 'content_2', 'content_3', 'content_4', 'content_5');
-            },
-            'user' => function($query) {
-                $query->select('id', 'name', 'email'); // Selecciona solo los campos necesarios
-            }
-            ])
-            ->where('sorteo_id', $this->sorteo->id)
-            ->get();
-        
+       
          // Cargar cartones del usuario
          $this->mis_cartones = $cartonesSorteo->map(function($cartonSorteo) use ($safeJsonDecode) {
             return [
@@ -185,29 +177,7 @@ class JugarSorteo extends Component
 
         
 
-        $this->cartones_ganadores = $cartonesGanador ->map(function($cartonesGanador) use ($safeJsonDecode) {
-            return [
-                'id' => $cartonesGanador->id,
-                'sorteo_id' => $cartonesGanador->sorteo_id,
-                'carton_id' => $cartonesGanador->carton_id,
-                'type_lineal' => $cartonesGanador->type_lineal,
-                'type_numero' => $cartonesGanador->type_numero,
-                'type' => $cartonesGanador->type,
-                'lugar' => $cartonesGanador->lugar,
-                'premio' => $cartonesGanador->premio,
-                'user_id' => $cartonesGanador->user_id,
-                'user_name' => $cartonesGanador->user->name, // Acceso al nombre del usuario
-                'user_email' => $cartonesGanador->user->email, // Opcional: email del usuario
-                'carton' => [
-                    'id' => $cartonesGanador->carton->id,
-                    'content_1' => $safeJsonDecode($cartonesGanador->carton->content_1),
-                    'content_2' => $safeJsonDecode($cartonesGanador->carton->content_2),
-                    'content_3' => $safeJsonDecode($cartonesGanador->carton->content_3),
-                    'content_4' => $safeJsonDecode($cartonesGanador->carton->content_4),
-                    'content_5' => $safeJsonDecode($cartonesGanador->carton->content_5),
-                ],
-            ];
-        })->toArray();
+        
              
          // Cargar cartones ganadores
         /* $this->cartones_ganadores = CartonGanador::where('sorteo_id', $this->sorteo->id)
@@ -217,6 +187,52 @@ class JugarSorteo extends Component
          // Obtener última ficha
          $this->ficha_ultima = $this->fichas[0]['id'] ?? 0;
 
+    }
+
+    public function actualizarCartonesGanadores(){
+
+        $safeJsonDecode = function($data) {
+            if (is_array($data)) {
+                return $data; // Ya es array, no necesita decodificación
+            }
+            return json_decode($data, true) ?? []; // Decodifica o retorna array vacío si falla
+        };
+
+        $cartonesGanador = CartonGanador::with([
+            'carton' => function($query) {
+                $query->select('id', 'content_1', 'content_2', 'content_3', 'content_4', 'content_5');
+            },
+            'user' => function($query) {
+                $query->select('id', 'name', 'email'); // Selecciona solo los campos necesarios
+            }
+            ])
+            ->where('sorteo_id', $this->sorteo->id)
+            ->get();
+
+            $this->cartones_ganadores = $cartonesGanador ->map(function($cartonesGanador) use ($safeJsonDecode) {
+                return [
+                    'id' => $cartonesGanador->id,
+                    'sorteo_id' => $cartonesGanador->sorteo_id,
+                    'carton_id' => $cartonesGanador->carton_id,
+                    'type_lineal' => $cartonesGanador->type_lineal,
+                    'type_numero' => $cartonesGanador->type_numero,
+                    'type' => $cartonesGanador->type,
+                    'lugar' => $cartonesGanador->lugar,
+                    'premio' => $cartonesGanador->premio,
+                    'user_id' => $cartonesGanador->user_id,
+                    'user_name' => $cartonesGanador->user->name, // Acceso al nombre del usuario
+                    'user_email' => $cartonesGanador->user->email, // Opcional: email del usuario
+                    'carton' => [
+                        'id' => $cartonesGanador->carton->id,
+                        'content_1' => $safeJsonDecode($cartonesGanador->carton->content_1),
+                        'content_2' => $safeJsonDecode($cartonesGanador->carton->content_2),
+                        'content_3' => $safeJsonDecode($cartonesGanador->carton->content_3),
+                        'content_4' => $safeJsonDecode($cartonesGanador->carton->content_4),
+                        'content_5' => $safeJsonDecode($cartonesGanador->carton->content_5),
+                    ],
+                ];
+            })->toArray();
+        
     }
 
     public function nuevaFichaRecibida($payload){
@@ -452,6 +468,8 @@ class JugarSorteo extends Component
                     'type' => 'Cuatro esquinas',
                     'lugar' => $lugar
                 ]);
+
+                $this->actualizarCartonesGanadores();
             }
         }
     }
@@ -510,6 +528,8 @@ class JugarSorteo extends Component
                     'type_lineal' => 'Izquierda',
                     'lugar' => $lugar
                 ]);
+
+                $this->actualizarCartonesGanadores();
             }
         }
     }
@@ -567,6 +587,8 @@ class JugarSorteo extends Component
                     'type' => 'Cruz P.',
                     'lugar' => $lugar
                 ]);
+
+                $this->actualizarCartonesGanadores();
             }
         }
     }
@@ -623,6 +645,8 @@ class JugarSorteo extends Component
                     'type' => 'Cruz G.',
                     'lugar' => $lugar
                 ]);
+
+                $this->actualizarCartonesGanadores();
             }
         }
     }
@@ -681,6 +705,8 @@ class JugarSorteo extends Component
                         'type_lineal' => 'Derecha',
                         'lugar' => $lugar
                     ]);
+
+                    $this->actualizarCartonesGanadores();
                 }
             }
         }
@@ -772,6 +798,8 @@ class JugarSorteo extends Component
                     'type_numero' => $linea,
                     'lugar' => $lugar
                 ]);
+
+                $this->actualizarCartonesGanadores();
 
             }
         }
@@ -869,6 +897,8 @@ class JugarSorteo extends Component
                     'type_numero' => $linea,
                     'lugar' => $lugar
                 ]);
+
+                $this->actualizarCartonesGanadores();
             }
         }
     }
@@ -945,6 +975,8 @@ class JugarSorteo extends Component
                     'type' => 'Cartón lleno',
                     'lugar' => $lugar
                 ]);
+
+                $this->actualizarCartonesGanadores();
             }
         }
     }
