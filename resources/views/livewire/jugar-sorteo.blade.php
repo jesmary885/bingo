@@ -6224,7 +6224,7 @@
                                                         <div class="bg-blue-500 m-1 text-center">
                                                         
 
-                                                            <p class=" text-white text-xs ">Ganancia: {{round($this->premio($cg['carton']['id'],$cg->sorteo_id),2)}} $ </p>
+                                                            <p class=" text-white text-xs ">Ganancia: {{round($this->premio($cg['carton']['id'],$cg['sorteo_id']),2)}} $ </p>
                                                         </div>
 
                                                         <div class="bg-blue-500 m-1 text-center">
