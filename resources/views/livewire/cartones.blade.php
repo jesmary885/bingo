@@ -1635,25 +1635,25 @@
                                         </div>  
                 
                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">  
-                                            @foreach ($carton['carton']['content_1'] as $item)
+                                            @foreach ($carton['carton']['content_2'] as $item)
                                                 <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
                                             @endforeach
                                         </div> 
                 
                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">  
-                                            @foreach ($carton['carton']['content_1'] as $item)
+                                            @foreach ($carton['carton']['content_3'] as $item)
                                                 <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
                                             @endforeach
                                         </div> 
                 
                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">  
-                                            @foreach ($carton['carton']['content_1'] as $item)
+                                            @foreach ($carton['carton']['content_4'] as $item)
                                                 <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
                                             @endforeach
                                         </div> 
                 
                                         <div class="grid grid-cols-5 gap-0.5 justify-center ml-1 mr-1 mb-0.5">  
-                                            @foreach ($carton['carton']['content_1'] as $item)
+                                            @foreach ($carton['carton']['content_5'] as $item)
                                                 <div class="bg-gray-100 text-lg justify-center text-center py-2 font-bold">{{$item}}</div>  
                                             @endforeach
                                         </div> 
