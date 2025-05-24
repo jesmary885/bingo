@@ -169,7 +169,7 @@ class Cartones extends Component
                     ->position('x', 'center')
                     ->position('y', 'center')
                     ->dismissible(true)
-                    ->addError('El número de cartón ingresado no existe');
+                    ->addError('El número de cartón ingresado no existe!');
 
                 $this->ver_todos_act = 0;
 
@@ -185,7 +185,7 @@ class Cartones extends Component
                 ->position('x', 'center')
                 ->position('y', 'center')
                 ->dismissible(true)
-                ->addError('No ha ingresao un número de cartón!');
+                ->addError('No ha ingresado un número de cartón!');
         } 
 
     }
