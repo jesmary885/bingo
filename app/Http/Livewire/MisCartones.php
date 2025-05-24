@@ -11,7 +11,10 @@ class MisCartones extends Component
 {
 
 
-    protected $listeners = ['render' => 'render','echo:cambio_cs,CambioEstadoCartonSorteo' => 'render'];
+    protected $listeners = [
+        'render' => 'render',
+        'echo:cambio_cs,.cambio.carton' => 'render',
+    ];
 
     public $sorteo, $status_carton='1', $tipo_cartones;
 
