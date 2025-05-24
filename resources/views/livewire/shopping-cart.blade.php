@@ -1907,7 +1907,7 @@
                             <div class="mt-6 mb-2 text-center">
     
                                 <p class="font-semibold text-sm md:text-md text-gray-700 uppercase text-center">
-                                   Ingrese los últimos cuatro(4) digitos de su referencia
+                                   Ingrese los últimos seis(6) dígitos de su referencia
                                 </p>
     
                                 <div class="w-full flex justify-center mt-2">

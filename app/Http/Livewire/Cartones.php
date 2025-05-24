@@ -40,7 +40,7 @@ class Cartones extends Component
         $this->loadInitialData();
     }
 
-    public function verCartones(){
+    public function verCartones($cartonesSorteo){
 
         $safeJsonDecode = function($data) {
             if (is_array($data)) {
@@ -48,34 +48,26 @@ class Cartones extends Component
             }
             return json_decode($data, true) ?? []; // Decodifica o retorna array vacío si falla
         };
-
-
-            $cartonesSorteo = CartonSorteo::with(['carton' => function($query) {
-                $query->select('id', 'content_1', 'content_2', 'content_3', 'content_4', 'content_5');
-            }])
-            ->where('sorteo_id', $this->sorteo)
-            ->get();
-    
-       
+            
          // Cargar cartones del usuario
-            $this->cartones = $cartonesSorteo->map(function($cartonSorteo) use ($safeJsonDecode) {
-                return [
-                    'id' => $cartonSorteo->id,
-                    'sorteo_id' => $cartonSorteo->sorteo_id,
-                    'carton_id' => $cartonSorteo->carton_id,
-                    'carton' => [
-                        'id' => $cartonSorteo->carton->id,
-                        'content_1' => $safeJsonDecode($cartonSorteo->carton->content_1),
-                        'content_2' => $safeJsonDecode($cartonSorteo->carton->content_2),
-                        'content_3' => $safeJsonDecode($cartonSorteo->carton->content_3),
-                        'content_4' => $safeJsonDecode($cartonSorteo->carton->content_4),
-                        'content_5' => $safeJsonDecode($cartonSorteo->carton->content_5),
-                    ],
-                    'status_pago' => $cartonSorteo->status_pago,
-                    'status_juego' => $cartonSorteo->status_juego,
-                    'status_carton' => $cartonSorteo->status_carton 
-                ];
-            })->toArray();
+        $this->cartones = $cartonesSorteo->map(function($cartonSorteo) use ($safeJsonDecode) {
+            return [
+                'id' => $cartonSorteo->id,
+                'sorteo_id' => $cartonSorteo->sorteo_id,
+                'carton_id' => $cartonSorteo->carton_id,
+                'carton' => [
+                    'id' => $cartonSorteo->carton->id,
+                    'content_1' => $safeJsonDecode($cartonSorteo->carton->content_1),
+                    'content_2' => $safeJsonDecode($cartonSorteo->carton->content_2),
+                    'content_3' => $safeJsonDecode($cartonSorteo->carton->content_3),
+                    'content_4' => $safeJsonDecode($cartonSorteo->carton->content_4),
+                    'content_5' => $safeJsonDecode($cartonSorteo->carton->content_5),
+                ],
+                'status_pago' => $cartonSorteo->status_pago,
+                'status_juego' => $cartonSorteo->status_juego,
+                'status_carton' => $cartonSorteo->status_carton 
+            ];
+        })->toArray();
 
         foreach ($cartonesSorteo as $carton) {
             
@@ -86,11 +78,15 @@ class Cartones extends Component
 
     }
 
-
-
     protected function loadInitialData(){
         
-        $this->verCartones();
+        $cartonesSorteo = CartonSorteo::with(['carton' => function($query) {
+            $query->select('id', 'content_1', 'content_2', 'content_3', 'content_4', 'content_5');
+        }])
+        ->where('sorteo_id', $this->sorteo)
+        ->get();
+
+        $this->verCartones($cartonesSorteo);
         $this->updateCounts();
     }
 
@@ -119,6 +115,7 @@ class Cartones extends Component
     }
 
     public function ver_todos(){
+        $this->reset(['search']);
         $this->ver_todos_act = 0;
     }
 
@@ -137,6 +134,61 @@ class Cartones extends Component
         $this->emitTo('dropdown-cart', 'render');
 
     }*/
+
+    public function busqueda_cartones(){
+        
+        if($this->search){
+            $carton_select =  Carton::find($this->search) ;
+
+            if($carton_select){
+
+                $cartonesSorteo = CartonSorteo::with(['carton' => function($query) {
+                        $query->select('id', 'content_1', 'content_2', 'content_3', 'content_4', 'content_5');
+                    }])
+                    ->where('carton_id',$this->search)
+                    ->where('sorteo_id', $this->sorteo)
+                    ->get();
+            
+                $this->verCartones($cartonesSorteo);
+
+                $this->ver_todos_act = 1;
+                
+            }
+
+            else{
+                $cartonesSorteo = CartonSorteo::with(['carton' => function($query) {
+                    $query->select('id', 'content_1', 'content_2', 'content_3', 'content_4', 'content_5');
+                }])
+                ->where('sorteo_id', $this->sorteo)
+                ->get();
+        
+                $this->verCartones($cartonesSorteo);
+
+                notyf()
+                    ->duration(5000) // 2 seconds
+                    ->position('x', 'center')
+                    ->position('y', 'center')
+                    ->dismissible(true)
+                    ->addError('El número de cartón ingresado no existe');
+
+                $this->ver_todos_act = 0;
+
+                $this->reset(['search']);
+            }
+
+        }else {
+
+            $this->ver_todos_act = 0;
+
+            notyf()
+                ->duration(5000) // 2 seconds
+                ->position('x', 'center')
+                ->position('y', 'center')
+                ->dismissible(true)
+                ->addError('No ha ingresao un número de cartón!');
+        } 
+
+    }
 
     public function color($serial_carton){
 
@@ -280,44 +332,25 @@ class Cartones extends Component
         } 
 
         if($this->ver_todos_act == 0){
-            $this->verCartones();
+
+            $cartonesSorteo = CartonSorteo::with(['carton' => function($query) {
+                $query->select('id', 'content_1', 'content_2', 'content_3', 'content_4', 'content_5');
+            }])
+            ->where('sorteo_id', $this->sorteo)
+            ->get();
+    
+            $this->verCartones($cartonesSorteo);
         }
 
         else{
 
-            $rules = $this->rules;
-            $this->validate($rules);
-
-            $carton_select =  Carton::find($this->search) ;
-
-            if($carton_select){
-
-                $this->cartones = CartonSorteo::where('sorteo_id', $this->sorteo)
-                    ->with('carton')
-                    ->where('carton_id',$this->search)
-                    ->get()
-                    ->toArray();
-            }
-
-            else{
-                $this->cartones = [];
-
-                notyf()
-                ->duration(9000) // 2 seconds
-                ->addError('El número de cartón ingresado no existe');
-            }
+            $this->busqueda_cartones();
 
         }
 
         $this->cambiando = 0;
 
-
         return view('livewire.cartones',compact('cart_count'));
-
-
-        
-
-
 
     }
 }

@@ -28,7 +28,7 @@ class ShoppingCart extends Component
     public $saldo, $user, $subtotal,$telefono,$pendiente, $t_w, $c_u,$opcion_retiro_inmediato = 0, $metodo_select = 0, $dolar_valor, $procesa = 0, $adjunta = 0, $constancia,$referencia;
 
     protected $rules = [
-        'constancia' => 'required|image|max:2048',
+        'constancia' => 'required|image|max:2048 ',
         'referencia' => 'required',
     ];
 
