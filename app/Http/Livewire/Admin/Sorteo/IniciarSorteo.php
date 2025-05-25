@@ -88,7 +88,7 @@ class IniciarSorteo extends Component
 
         $report = 0;
 
-        try {
+       /* try {
             // 1. Desactivar verificación de claves foráneas
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
             
@@ -111,7 +111,7 @@ class IniciarSorteo extends Component
             // Asegurarse de reactivar las verificaciones incluso si hay error
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
             echo "Error: " . $e->getMessage();
-        }
+        }*/
 
 
       /*  $sort = CartonSorteo::where('sorteo_id', 1)->get();
