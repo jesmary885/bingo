@@ -1125,7 +1125,8 @@ class JugarSorteo extends Component
 
                         $this->i = 2;
 
-                        SorteoFicha::where('sorteo_id', $this->sorteo->id)->delete();
+                        
+                        //SorteoFicha::where('sorteo_id', $this->sorteo->id)->delete();
 
                         $this->fichas = [];
                     }

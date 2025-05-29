@@ -1800,7 +1800,7 @@
                                             </div>
                         
                                             <div class="flex">
-                                                 <p  class=" text-blue-600 text-md md:text-lg text-center font-Allerta "> Banesco (0131)  </p>
+                                                 <p  class=" text-blue-600 text-md md:text-lg text-center font-Allerta "> Banesco (0134)  </p>
                                             </div>
 
                                         </div>

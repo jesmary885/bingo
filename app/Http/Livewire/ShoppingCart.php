@@ -165,116 +165,126 @@ class ShoppingCart extends Component
                     ]);
         
                 }
-        
 
-        
-                $cuentas_usuario_l = CuentasUser::where('user_id',$this->user->id)
+                $busqueda_constancia = Pago::where('referencia',$this->referencia)->exists();
+
+                if($busqueda_constancia) {
+                     notyf()
+                    ->duration(9000) // 2 seconds
+                    ->position('x', 'center')
+                    ->position('y', 'center')
+                    ->dismissible(true)
+                    ->addError('La referencia ingresada ya existe, ingrese el número correcto');
+                }
+                else{
+                    $cuentas_usuario_l = CuentasUser::where('user_id',$this->user->id)
                     ->get();
                 
-                if($cuentas_usuario_l->isEmpty() == false && $cuentas_usuario_l) $this->c_u = 1;
-        
-                if($this->c_u == 1){
-                    if($this->metodo_select != 3){
-                        $rules = $this->rules;
-                        $this->validate($rules);
+                    if($cuentas_usuario_l->isEmpty() == false && $cuentas_usuario_l) $this->c_u = 1;
             
-                        $constancia = Storage::put('transacciones', $this->constancia);
-            
-                    }
-            
-                    if($this->metodo_select == 1) $metodo= 'Binance';
-                    elseif($this->metodo_select == 2) $metodo= 'Pago movil';
-                    else $metodo= 'Saldo';
+                    if($this->c_u == 1){
+                        if($this->metodo_select != 3){
+                            $rules = $this->rules;
+                            $this->validate($rules);
+                
+                            $constancia = Storage::put('transacciones', $this->constancia);
+                
+                        }
+                
+                        if($this->metodo_select == 1) $metodo= 'Binance';
+                        elseif($this->metodo_select == 2) $metodo= 'Pago movil';
+                        else $metodo= 'Saldo';
 
-                    $registro_carro = Cart::where('user_id',$this->user->id)
-                        ->where('status','no_pagado')
-                        ->get();
-
-                        $subtotal = Cart::where('user_id',$this->user->id)
+                        $registro_carro = Cart::where('user_id',$this->user->id)
                             ->where('status','no_pagado')
-                            ->sum('precio');
+                            ->get();
 
-                        $cantidad = Cart::where('user_id',$this->user->id)
-                            ->where('status','no_pagado')
-                            ->count();
-            
-                    if($this->metodo_select == 3){
-            
-                        $user = User::where('id',$this->user->id)->first();
-            
-                        $saldo_nuevo = $user->saldo_actual->saldo - $subtotal;
+                            $subtotal = Cart::where('user_id',$this->user->id)
+                                ->where('status','no_pagado')
+                                ->sum('precio');
 
-                        UserSaldo::where('user_id',$this->user->id)->first()
-                            ->update([
-                                'saldo' =>  $saldo_nuevo,
+                            $cantidad = Cart::where('user_id',$this->user->id)
+                                ->where('status','no_pagado')
+                                ->count();
+                
+                        if($this->metodo_select == 3){
+                
+                            $user = User::where('id',$this->user->id)->first();
+                
+                            $saldo_nuevo = $user->saldo_actual->saldo - $subtotal;
+
+                            UserSaldo::where('user_id',$this->user->id)->first()
+                                ->update([
+                                    'saldo' =>  $saldo_nuevo,
+                                ]);
+
+                            foreach($registro_carro as $item){
+                
+                                CartonSorteo::where('sorteo_id', $item->sorteo_id)
+                                    ->where('carton_id',$item->carton_id)
+                                    ->first()
+                                    ->update([
+                                        'status_carton' => 'No disponible',
+                                        'status_pago' => 'Pago recibido',
+                                        'user_id' => $this->user->id
+                                    ]);
+
+                                    $item->update([
+                                        'status' => 'pagado'
+                                    ]);
+                            }
+
+                
+                        }
+                        else{
+                            $pago_proc = Pago::create([
+                                'user_id' => $this->user->id,
+                                'metodo_pago' => $metodo,
+                                'monto' => $subtotal,
+                                'constancia' => $constancia,
+                                'referencia' => $this->referencia,
+                                'tipo' => 'Pago de carton',
+                                'status' => 'Pendiente',
+                                'cantidad' => $cantidad, 
                             ]);
 
-                        foreach($registro_carro as $item){
-            
-                            CartonSorteo::where('sorteo_id', $item->sorteo_id)
-                                ->where('carton_id',$item->carton_id)
-                                ->first()
-                                ->update([
-                                    'status_carton' => 'No disponible',
-                                    'status_pago' => 'Pago recibido',
-                                    'user_id' => $this->user->id
+                        
+                
+                            foreach($registro_carro as $item){
+                                CartonSorteo::where('sorteo_id', $item->sorteo_id)
+                                    ->where('carton_id',$item->carton_id)
+                                    ->first()
+                                    ->update([
+                                        'pago_id' => $pago_proc->id,
+                                        'user_id' => $this->user->id
                                 ]);
 
                                 $item->update([
-                                    'status' => 'pagado'
+                                    'status' => 'pagado',
+                                    'pago_id' => $pago_proc->id
                                 ]);
+
+                                PagoSorteo::create([
+                                    'sorteo_id' => $item->sorteo_id,
+                                    'pago_id' => $item->pago_id,
+                                    'status' => 'Pendiente',
+                                ]);
+                            }
+                
                         }
 
-            
+                        
+                
+                        return redirect()->route('mis-cartones');
                     }
+
                     else{
-                        $pago_proc = Pago::create([
-                            'user_id' => $this->user->id,
-                            'metodo_pago' => $metodo,
-                            'monto' => $subtotal,
-                            'constancia' => $constancia,
-                            'referencia' => $this->referencia,
-                            'tipo' => 'Pago de carton',
-                            'status' => 'Pendiente',
-                            'cantidad' => $cantidad, 
-                        ]);
-
-                    
-            
-                        foreach($registro_carro as $item){
-                            CartonSorteo::where('sorteo_id', $item->sorteo_id)
-                                ->where('carton_id',$item->carton_id)
-                                ->first()
-                                ->update([
-                                    'pago_id' => $pago_proc->id,
-                                    'user_id' => $this->user->id
-                            ]);
-
-                            $item->update([
-                                'status' => 'pagado',
-                                'pago_id' => $pago_proc->id
-                            ]);
-
-                            PagoSorteo::create([
-                                'sorteo_id' => $item->sorteo_id,
-                                'pago_id' => $item->pago_id,
-                                'status' => 'Pendiente',
-                            ]);
-                        }
-            
+                        notyf()
+                        ->duration(9000) // 2 seconds
+                        ->addError('Por favor, Registra tu cuenta para continuar');
                     }
 
-                    
-            
-                    return redirect()->route('mis-cartones');
                 }
-
-                else{
-                    notyf()
-                    ->duration(9000) // 2 seconds
-                    ->addError('Por favor, Registra tu cuenta para continuar');
-                }
-
 
         }
 

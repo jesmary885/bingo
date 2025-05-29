@@ -177,6 +177,8 @@ class JugarSorteo extends Component
                     ->addInfo('Ya hay ganadores en el 3er lugar, continuemos para el 2do lugar');
             }
 
+            SorteoFicha::where('sorteo_id', $this->sorteo)->delete();
+
             array_splice($this->numeros_seleccionados, 0);
 
             $this->emitSelf('render');
