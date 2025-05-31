@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\CartonSorteo;
+use App\Models\MetodoPago;
 use App\Models\Sorteo;
 use Livewire\Component;
 
@@ -26,7 +27,8 @@ class GananciaSorteo extends Component
         
 
         $ganancia_dolares = $cant_cartones * ($sorteo_s->porcentaje_ganancia * 0.01);
-        $dolar_hoy = valor_dolar_hoy();
+        $dolar_hoy = MetodoPago::where('name', 'Pago Movil')
+           ->value('valor');;
 
         $this->ganancia_dolares_2do = $cant_cartones * ($sorteo_s->porcentaje_ganancia_2do_lugar * 0.01);
 

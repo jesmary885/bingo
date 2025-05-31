@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MetodoPago;
 use GuzzleHttp\Client;
 
 use App\Models\Sorteo;
@@ -21,10 +22,9 @@ class HomeController extends Controller
         $sorteos = Sorteo::where('status','Aperturado')
             ->get();
             
-        $dolar_hoy = valor_dolar_hoy();
+        $dolar_hoy = MetodoPago::where('name', 'Pago Movil')
+           ->value('valor');
 
-
- 
         return view('home',compact('sorteos','dolar_hoy'));
  
      }

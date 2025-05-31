@@ -2015,6 +2015,8 @@
                                             
                                             </div>
                                             <div class="flex flex-col flex-grow  mt-2">
+
+                                                @if($tipo_sorteo_global == 'Pago' )
                                             
             
                                                     @if($ganador_1 == 0 )
@@ -2041,6 +2043,12 @@
                                                     @if($ganador_1 == 1 && $ganador_2 == 1 && $ganador_3 == 0)
                                                         <p class="font-Allerta text-xs md:text-lg  font-bold text-red-500">(1er lugar)</p>
                                                     @endif
+                                                @else
+
+                                                    <div class="text-yellow-500 font-Allerta font-extrabold uppercase underline text-xs md:text-lg">PRIMERA RONDA</div>
+                                                    <p class="font-Allerta text-xs md:text-lg  font-bold text-red-500">(1er lugar)</p>
+
+                                                @endif
             
                                                 
                                             </div>
@@ -2051,6 +2059,8 @@
                                             <div class="flex flex-row bg-white shadow-sm rounded p-1">
                                                 <div class="flex items-center justify-center flex-shrink-0 h-20  w-32  rounded-xl text-blue-500">
                                                     <figure>
+
+                                                        @if($tipo_sorteo_global == 'Pago' )
 
                                                             @if(${"type_{$i}"} == 'Lineal')
 
@@ -2078,10 +2088,18 @@
                                                             
                                                             @endif
 
+                                                        @else
+
+                                                            <img class="  object-fill h-24 w-24  py-2 pr-2" src="{{Storage::url('img/carton_lleno.png') }}"alt="">
+
+                                                        @endif
+
                                                     </figure>
                                             </div>
                                             <div class="flex flex-col flex-grow mt-2 ">
                                                 <div class="font-Allerta text-xs md:text-md lg:text-lg font-bold text-blue-500 ">FORMACIÓN</div>
+
+                                                    @if($tipo_sorteo_global == 'Pago' )
 
                                               
                                                         @if(${"type_{$i}"} == 'Lineal')
@@ -2109,6 +2127,12 @@
                                                             <div class="text-yellow-500 font-Allerta font-extrabold text-xs md:text-lg underline">CARTÓN LLENO</div>
                                                         
                                                         @endif
+
+                                                    @else
+
+                                                        <div class="text-yellow-500 font-Allerta font-extrabold text-xs md:text-lg underline">CARTÓN LLENO</div>
+                                                        
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -5063,10 +5087,18 @@
                                                 
                                                 </div>
                                                 <div class="flex flex-col flex-grow mt-2">
+                                                    @if($tipo_sorteo_global == 'Pago' )
 
-                                                    <p class="font-Allerta text-xs md:text-sm font-bold text-blue-500"> 1er lugar=<span class="text-yellow-500 text-xs md:text-sm font-bold">{{$this->ganancia_sorteo_primer()}}$</span></p>
-                                                    <p class="font-Allerta text-xs md:text-sm font-bold text-blue-500"> 2do lugar=<span class="text-yellow-500 text-xs md:text-sm font-bold">{{$this->ganancia_sorteo_segundo()}}$</span></p>
-                                                    <p class="font-Allerta text-xs md:text-sm font-bold text-blue-500"> 3er lugar=<span class="text-yellow-500 text-xs md:text-sm font-bold">{{$this->ganancia_sorteo_tercero()}}$</span></p>
+                                                        <p class="font-Allerta text-xs md:text-sm font-bold text-blue-500"> 1er lugar=<span class="text-yellow-500 text-xs md:text-sm font-bold">{{$this->ganancia_sorteo_primer()}}$</span></p>
+                                                        <p class="font-Allerta text-xs md:text-sm font-bold text-blue-500"> 2do lugar=<span class="text-yellow-500 text-xs md:text-sm font-bold">{{$this->ganancia_sorteo_segundo()}}$</span></p>
+                                                        <p class="font-Allerta text-xs md:text-sm font-bold text-blue-500"> 3er lugar=<span class="text-yellow-500 text-xs md:text-sm font-bold">{{$this->ganancia_sorteo_tercero()}}$</span></p>
+
+                                                    @else
+
+                                                        <p class="font-Allerta text-xs md:text-sm font-bold text-blue-500"> Sorteo <span class="text-yellow-500 text-xs md:text-sm font-bold">GRATIS</span></p>
+
+                                                    @endif
+                                        
                                          
                                                 </div>
                                             </div>
@@ -5767,9 +5799,13 @@
                                                             <p class=" text-white text-xs font-bold  ">Modalidad: {{$cg['type']}}  </p>
                                                         </div>
 
-                                                        <div class="bg-blue-500 m-1 text-center">
-                                                            <p class=" text-white text-xs font-bold uppercase ">LUGAR: {{$cg['lugar']}} </p>
-                                                        </div>
+                                                         @if($tipo_sorteo_global == 'Pago' )
+
+                                                            <div class="bg-blue-500 m-1 text-center">
+                                                                <p class=" text-white text-xs font-bold uppercase ">LUGAR: {{$cg['lugar']}} </p>
+                                                            </div>
+
+                                                        @endif
                 
                 
                                                     </div> 
@@ -6221,19 +6257,27 @@
                                                             <p class=" text-white text-xs "> {{$this->nombre($cg['user_name'])}}</p>
                                                         </div>
 
-                                                        <div class="bg-blue-500 m-1 text-center">
-                                                        
+                                                         @if($tipo_sorteo_global == 'Pago' )
 
-                                                            <p class=" text-white text-xs ">Ganancia: {{round($this->premio($cg['carton']['id'],$cg['sorteo_id']),2)}} $ </p>
-                                                        </div>
+                                                            <div class="bg-blue-500 m-1 text-center">
+                                                            
+
+                                                                <p class=" text-white text-xs ">Ganancia: {{round($this->premio($cg['carton']['id'],$cg['sorteo_id']),2)}} $ </p>
+                                                            </div>
+
+                                                        @endif
 
                                                         <div class="bg-blue-500 m-1 text-center">
                                                             <p class=" text-white text-xs font-bold  ">Modalidad: {{$cg['type']}}  </p>
                                                         </div>
 
-                                                        <div class="bg-blue-500 m-1 text-center">
-                                                            <p class=" text-white text-xs font-bold uppercase ">LUGAR: {{$cg['lugar']}} </p>
-                                                        </div>
+                                                         @if($tipo_sorteo_global == 'Pago' )
+
+                                                            <div class="bg-blue-500 m-1 text-center">
+                                                                <p class=" text-white text-xs font-bold uppercase ">LUGAR: {{$cg['lugar']}} </p>
+                                                            </div>
+
+                                                        @endif
                 
                 
                                                     </div> 

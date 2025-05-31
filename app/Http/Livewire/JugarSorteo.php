@@ -18,6 +18,7 @@ class JugarSorteo extends Component
     public $fichas = [];
     public $ficha_ultima = 0;
     public $cartones_ganadores = [];
+    public $tipo_sorteo_global;
     public $mis_cartones = [], $cant_cartones, $audioIniciado = false, $cartones_todos, $i, $boton_pulsado = 0, $linea_h = 0, $linea_v = 0, $c_e= 0, $diag_iz = 0, $diag_d= 0, $crup_p = 0, $cruz_g = 0,$visible, $ganadores_primer_lugar, $ganadores_segundo_lugar, $ganadores_tercer_lugar, $sorteo_finalizado = 0,$sorteo_finalizado_nro, $ganador_1 = 0,$ganador_2 = 0,$ganador_3 = 0,$cant_lugares,$cont_ganador,$valor_dolar_hoy, $ganador_user_login, $carton_ganador_1 , $carton_ganador_2, $carton_ganador_3, $hoy, $sorteo, $type_1, $type_2, $type_3, $cont, $sorteo_iniciado = 0, $cartones_sorteo_iniciado;
 
     public $user;
@@ -70,10 +71,20 @@ class JugarSorteo extends Component
         $this->ganador_user_login = 0;
 
         $this->user = auth()->user();
+
+        if($this->sorteo->type_sorteo == 'Pago'){
+
+            $this->type_1 = $this->sorteo->type_1;
+            $this->type_2 = $this->sorteo->type_2;
+            $this->type_3 = $this->sorteo->type_3;
+            $this->tipo_sorteo_global == 'Pago';
+
+        }else{
+            $this->type_1 = $this->sorteo->type_1;
+            $this->tipo_sorteo_global == 'Gratis';
+        }
     
-        $this->type_1 = $this->sorteo->type_1;
-        $this->type_2 = $this->sorteo->type_2;
-        $this->type_3 = $this->sorteo->type_3;
+        
 
         $this->cargarDatosIniciales();
 
@@ -112,9 +123,13 @@ class JugarSorteo extends Component
                 $this->ganador_1 = 1;
             }
 
-        if($this->ganador_1 == 0) $this->i = 3;
-        if($this->ganador_2 == 0 && $this->ganador_1 == 1) $this->i = 2;
-        if($this->ganador_3 == 0 && $this->ganador_2 == 1)  $this->i = 1;
+        if($this->sorteo->type_sorteo == 'Pago'){
+            if($this->ganador_1 == 0) $this->i = 3;
+            if($this->ganador_2 == 0 && $this->ganador_1 == 1) $this->i = 2;
+            if($this->ganador_3 == 0 && $this->ganador_2 == 1)  $this->i = 1;
+        }else{
+            if($this->ganador_1 == 0) $this->i = 3;
+        }
 
         $fecha_actual = date("Y-m-d H:i:s");
         $this->hoy= new DateTime($fecha_actual);
@@ -1073,14 +1088,26 @@ class JugarSorteo extends Component
                                 ->where('sorteo_id',$this->sorteo->id)
                                 ->where('nro','1')
                                 ->exists()){ 
+
+                                if($this->sorteo->type_sorteo == 'Pago'){
                     
                                 
-                                notyf()
-                                    ->duration(0)
-                                    ->position('x', 'center')
-                                    ->position('y', 'center')
-                                    ->dismissible(true)
-                                    ->addInfo('Felicidades ha ganado el tercer lugar en el sorteo Nro '. $this->sorteo->id );
+                                    notyf()
+                                        ->duration(0)
+                                        ->position('x', 'center')
+                                        ->position('y', 'center')
+                                        ->dismissible(true)
+                                        ->addInfo('Felicidades ha ganado el tercer lugar en el sorteo Nro '. $this->sorteo->id );
+                                }else{
+
+                                    notyf()
+                                        ->duration(0)
+                                        ->position('x', 'center')
+                                        ->position('y', 'center')
+                                        ->dismissible(true)
+                                        ->addInfo('Felicidades ha ganado en nuestro sorteo gratis Nro '. $this->sorteo->id );
+
+                                }
                                                 
 
                                 Notification_Sorteo::create([
@@ -1106,13 +1133,29 @@ class JugarSorteo extends Component
                                         'sorteo_id' => $this->sorteo->id,
                                         'nro' => '1'
                                     ]);
+
+                                    if($this->sorteo->type_sorteo == 'Pago'){
                                         
-                                    notyf()
-                                        ->duration(0) // 2 seconds
-                                        ->position('x', 'center')
-                                        ->position('y', 'center')
-                                        ->dismissible(true)
-                                        ->addInfo('Ya hay un ganador en el 3er lugar, y su(s) carton(es) NO se encuentra entre los ganadores, tienes oportunidad para el premio del 2do lugar, continuemos ' );
+                                        notyf()
+                                            ->duration(0) // 2 seconds
+                                            ->position('x', 'center')
+                                            ->position('y', 'center')
+                                            ->dismissible(true)
+                                            ->addInfo('Ya hay un ganador en el 3er lugar, y su(s) carton(es) NO se encuentra entre los ganadores, tienes oportunidad para el premio del 2do lugar, continuemos ' );
+
+                                    }else{
+
+                                        notyf()
+                                            ->duration(0) // 2 seconds
+                                            ->position('x', 'center')
+                                            ->position('y', 'center')
+                                            ->dismissible(true)
+                                            ->addInfo('Ya hay un ganador en nuestro sorteo gratis. Puede consultar los cartones ganadores y fichas sorteadas en la cabecera de la página '. '<img class="	far fa-hand-point-up" src="" alt="">' );
+
+                                            if($this->sorteo_finalizado == 1){
+                                                $this->emit('finalizar');
+                                            }
+                                    }
                                 }
                             }
                         }

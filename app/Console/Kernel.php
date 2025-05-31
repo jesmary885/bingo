@@ -24,6 +24,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('referidos:pendientes')->everyMinute(); 
         $schedule->command('verif:cartones')->everyMinute();
+        $schedule->command('cambio:monetario')->everyTwoHours();
     }
 
     /**

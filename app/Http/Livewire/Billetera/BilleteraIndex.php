@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Billetera;
 
+use App\Models\MetodoPago;
 use App\Models\Pago;
 use App\Models\User;
 use App\Models\UserSaldo;
@@ -30,7 +31,8 @@ class BilleteraIndex extends Component
         }
 
         $user_saldo = UserSaldo::where('user_id',Auth::id())->first()->saldo;
-        $dolar_hoy = valor_dolar_hoy();
+        $dolar_hoy = MetodoPago::where('name', 'Pago Movil')
+           ->value('valor');
 
         return view('livewire.billetera.billetera-index',compact('movimientos','dolar_hoy','user_saldo'));
     }

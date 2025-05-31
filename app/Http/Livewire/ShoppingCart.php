@@ -81,7 +81,8 @@ class ShoppingCart extends Component
     public function render()
     {
 
-        $this->dolar_valor = valor_dolar_hoy();
+        $this->dolar_valor = MetodoPago::where('name', 'Pago Movil')
+           ->value('valor');
 
 
         $content = Cart::where('user_id',$this->user->id)

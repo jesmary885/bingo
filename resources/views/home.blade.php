@@ -5548,7 +5548,15 @@
                                             <span class="ml-2 text-lg font-semibold text-white"> @livewire('cartones-disponibles-cant', ['sorteo' => $sorteo->id])</span>
                                             <span  class=" text-lg font-semibold text-white ">
 
+                                                @if($sorteo->type_sorteo == 'Pago')
+
                                                 Precio por cartón: 1$ ({{$dolar_hoy * $sorteo->precio_carton_dolar}} Bs)
+
+                                                @else
+
+                                                SORTEO GRATIS
+
+                                                @endif
 
                                             </span>
 
@@ -5573,8 +5581,12 @@
 
 
                                     <p class="text-lg text-gray-800 font-bold">Lanzamiento: {{\Carbon\Carbon::parse($sorteo->fecha_ejecucion)->format('d-m-Y h:i')}}</p>
+
+                                    @if($sorteo->type_sorteo == 'Pago')
                                     
                                     <p class="text-lg text-blue-700 font-bold mt-2 underline leading-8 underline-offset-6">GANANCIA ACTUAL  @livewire('ganancia-sorteo', ['sorteo' => $sorteo->id])</p>
+
+                                    @endif
                                 </div>
                                 {{-- @if($sorteo->type_2 == null && $sorteo->type_3 == null)
                                     <h3 class="font-medium text-sm md:text-lg leading-8 text-blue-700 underline">
