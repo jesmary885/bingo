@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\URL;  // ¡Esta línea es crucial!
 
 class PasswordResetMail extends Mailable
 {
@@ -22,7 +23,7 @@ class PasswordResetMail extends Mailable
     public function __construct($user)
     {
         $this->user = $user;
-        $this->resetUrl = URL::temporarySignedRoute(
+        $this->resetUrl = URl::temporarySignedRoute(
             'password.reset',
             now()->addMinutes(30),  // Enlace válido por 30 minutos
             ['token' => $user->password_reset_token]  // Ajusta según tu lógica
