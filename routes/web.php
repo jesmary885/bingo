@@ -44,6 +44,10 @@ Route::get('/test-redis', function() {
     return Redis::get('test');
 });
 
+Route::get('/reset-password/{token}', function ($token) {
+    return view('auth.reset-password', ['token' => $token]);
+})->name('password.reset');
+
 Route::get('/auth/redirect', [AuthController::class,'redirect'])->name('auth.redirect');
 
 Route::post('logout_out', [AuthController::class,'logout'])->name('logout_out');

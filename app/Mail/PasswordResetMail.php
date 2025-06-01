@@ -12,30 +12,28 @@ use Illuminate\Support\Facades\URL;  // ¡Esta línea es crucial!
 
 class PasswordResetMail extends Mailable
 {
-     use Queueable, SerializesModels;
+      use Queueable, SerializesModels;
 
-    public $user;  // Datos del usuario
-    public $resetUrl;  // URL para restablecer contraseña
+    public $user;
+    public $resetUrl;
 
-    /**
-     * Create a new message instance.
-     */
     public function __construct($user)
     {
         $this->user = $user;
-        $this->resetUrl = URl::temporarySignedRoute(
-            'password.reset',
-            now()->addMinutes(30),  // Enlace válido por 30 minutos
-            ['token' => $user->password_reset_token]  // Ajusta según tu lógica
-        );
+        
+        // Genera el token de reseteo usando el sistema de Laravel
+        $token = Password::createToken($user);
+        
+        // Genera la URL correctamente
+        $this->resetUrl = URL::route('password.reset', [
+            'token' => $token,
+            'email' => $user->email
+        ]);
     }
 
-    /**
-     * Build the message.
-     */
     public function build()
     {
-        return $this->subject('Restablece tu contraseña en ' . config('app.name'))
-                   ->markdown('emails.password_reset');  // Usa markdown para diseño responsive
+        return $this->markdown('emails.password_reset')
+                   ->subject('Restablecer tu contraseña');
     }
 }
