@@ -269,6 +269,7 @@ class CrearSorteo extends Component
                 'fecha_ejecucion' => $this->fecha_inicio,
                 'type_1' => 'Carton lleno',
                 'type_sorteo' => 'Gratis',
+                'precio_carton_dolar' => '1',
                 'status' => 'Aperturado']);
 
                 $this->reset(['fecha_inicio','tipo_sorteo_global']);

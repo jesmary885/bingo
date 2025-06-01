@@ -77,11 +77,11 @@ class JugarSorteo extends Component
             $this->type_1 = $this->sorteo->type_1;
             $this->type_2 = $this->sorteo->type_2;
             $this->type_3 = $this->sorteo->type_3;
-            $this->tipo_sorteo_global == 'Pago';
+            $this->tipo_sorteo_global ='Pago';
 
         }else{
             $this->type_1 = $this->sorteo->type_1;
-            $this->tipo_sorteo_global == 'Gratis';
+            $this->tipo_sorteo_global = 'Gratis';
         }
     
         

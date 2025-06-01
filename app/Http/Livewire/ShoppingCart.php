@@ -249,8 +249,6 @@ class ShoppingCart extends Component
                                 'cantidad' => $cantidad, 
                             ]);
 
-                        
-                
                             foreach($registro_carro as $item){
                                 CartonSorteo::where('sorteo_id', $item->sorteo_id)
                                     ->where('carton_id',$item->carton_id)

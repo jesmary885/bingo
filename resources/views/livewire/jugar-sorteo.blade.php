@@ -2099,6 +2099,8 @@
                                             <div class="flex flex-col flex-grow mt-2 ">
                                                 <div class="font-Allerta text-xs md:text-md lg:text-lg font-bold text-blue-500 ">FORMACIÓN</div>
 
+                                                
+
                                                     @if($tipo_sorteo_global == 'Pago' )
 
                                               

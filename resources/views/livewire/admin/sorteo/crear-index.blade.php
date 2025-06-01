@@ -21,6 +21,10 @@
                                 <th class="text-center py-3">
                                     Fecha de ejecución
                                 </th>
+
+                                <th class="text-center py-3">
+                                    Tipo
+                                </th>
                                 
                                 <th 
                                     class="text-center">
@@ -85,6 +89,10 @@
                                 
                                 <td class="py-3 text-center">
                                 {{\Carbon\Carbon::parse($sorteo->fecha_ejecucion)->format('d-m-Y h:i')}}
+                                </td>
+
+                                <td class="text-center">
+                                    {{$sorteo->type_sorteo}}
                                 </td>
 
                                 <td class="text-center">
