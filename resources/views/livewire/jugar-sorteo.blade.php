@@ -49,11 +49,9 @@
 
             <div class="relative block p-4  overflow-hidden bg-white  mb-2 mt-1 font-Arima ">
         
-                 @if($tipo_sorteo_global == 'Pago' )
-                    @if($ganador_1 == 0 || $ganador_2 == 0 || $ganador_3 == 0)
-                @else
-                    @if($ganador_1 == 0)
-                @endif
+               
+                    @if($ganador_1 == 0  || ($tipo_sorteo_global == 'Pago' && ($ganador_2 == 0 || $ganador_3 == 0)))
+       
 
                         <button 
                                 id="audioToggle" 
