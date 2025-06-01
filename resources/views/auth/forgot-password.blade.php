@@ -7,10 +7,10 @@
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ __('¿Olvidaste tu contraseña? No hay problema. Solo indícanos tu dirección de correo electrónico y te enviaremos un enlace para restablecer tu contraseña que te permitirá elegir una nueva.') }}
+            {{ __('Actualmente el servicio para restablecer la contraseña por correo esta fuera de servicio, comunicate con nuestros administradores para cambiar tu contraseña de forma manual') }}
         </div>
 
-        @if (session('status'))
+        {{-- @if (session('status'))
             <div class="mb-4 font-medium text-sm text-green-600">
                 {{ session('status') }}
             </div>
@@ -30,7 +30,7 @@
                 <x-button>
                     {{ __('Enlace de restablecimiento de contraseña') }}
                 </x-button>
-            </div>
+            </div> --}}
         </form>
     </x-authentication-card>
 </x-guest-layout>

@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\URL;  // ¡Esta línea es crucial!
 
 class PasswordResetMail extends Mailable
