@@ -49,7 +49,11 @@
 
             <div class="relative block p-4  overflow-hidden bg-white  mb-2 mt-1 font-Arima ">
         
-                    @if($this->verificar_tipo_sorteo())
+                 @if($tipo_sorteo_global == 'Pago' )
+                    @if($ganador_1 == 0 || $ganador_2 == 0 || $ganador_3 == 0)
+                @else
+                    @if($ganador_1 == 0)
+                @endif
 
                         <button 
                                 id="audioToggle" 
@@ -2099,7 +2103,7 @@
                                             <div class="flex flex-col flex-grow mt-2 ">
                                                 <div class="font-Allerta text-xs md:text-md lg:text-lg font-bold text-blue-500 ">FORMACIÓN</div>
 
-
+                                                
 
                                                     @if($tipo_sorteo_global == 'Pago' )
 

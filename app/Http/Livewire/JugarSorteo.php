@@ -157,15 +157,6 @@ class JugarSorteo extends Component
 
     }
 
-    public function verificar_tipo_sorteo(){
-
-        if($this->tipo_sorteo_global == 'Pago'){
-            return ('$ganador_1 == 0 || $ganador_2 == 0 || $ganador_3 == 0');
-        }else{
-             return ('$ganador_1 == 0');
-        }
-    }
-
     public function actualizarMisCartones(){
 
         $safeJsonDecode = function($data) {
