@@ -6,8 +6,8 @@
             </div>
         </x-slot>
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Actualmente el servicio para restablecer la contraseña por correo esta fuera de servicio, comunicate con nuestros administradores para cambiar tu contraseña de forma manual') }}
+        <div class="mb-4 text-sm text-gray-600 text-center ">
+            {{ __('Actualmente el servicio para restablecer la contraseña por correo esta fuera de servicio!, comunícate con nuestros administradores para cambiar tu contraseña de forma manual') }}
         </div>
 
         {{-- @if (session('status'))

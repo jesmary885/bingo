@@ -39,7 +39,11 @@
                                     <td class="text-center">{{$user->retiro_inmediato}}</td>
                                 @endif
                                 <td class="text-center">{{$this->sorteos_jugados($user->id)}}</td>
+                                <td class="text-center">
 
+                                    @livewire('admin.usuarios.cambiar-contrasena', ['user' => $user],key($user->id))
+
+                                </td>
 
                             </tr>
                         @endforeach
