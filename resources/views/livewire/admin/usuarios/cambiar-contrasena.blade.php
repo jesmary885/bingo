@@ -33,7 +33,9 @@
 
                 <div class="container">
 
-                    <input type="text" wire:model="nueva_contrasena" id="nueva_contrasena" class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-2.5 py-1 ml-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+           
+
+                    <input type="text" wire:model="nueva_contrasena" id="nueva_contrasena" class="mt-2 bg-gray-50 border w-1/3  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 ml-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nueva Contraseña" required />
 
 
 

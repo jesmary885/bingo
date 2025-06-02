@@ -45,7 +45,8 @@ class UsuariosIndex extends Component
 
     public function render()
     {
-        $users = User::paginate(20);
+        $users = User::where('email', 'LIKE', '%' . $this->search . '%')
+            ->paginate(20);
 
         return view('livewire.admin.usuarios.usuarios-index',compact('users'));
     }

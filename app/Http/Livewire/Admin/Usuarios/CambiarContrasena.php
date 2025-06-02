@@ -40,7 +40,7 @@ class CambiarContrasena extends Component
         $rules = $this->rules;
         $this->validate($rules);
 
-        DB::table('users')->where('id', $this->user->id)->update(['password' => Hash::make($this->user->email)]);
+        DB::table('users')->where('id', $this->user->id)->update(['password' => Hash::make($this->nueva_contrasena)]);
 
         $this->emit('alert','Contrasena modificada correctamente');
         $this->emitTo('admin.usuarios.usuarios-index','render');

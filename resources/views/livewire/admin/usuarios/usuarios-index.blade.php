@@ -19,6 +19,8 @@
                         <th class="text-center">Cuenta de retiro</th>
                         <th class="text-center">Retiro inmediato</th>
                         <th class="text-center">Cantidad de sorteos jugados</th>
+
+                        <th class="text-center"></th>
                         
 
                     </tr>
@@ -41,7 +43,7 @@
                                 <td class="text-center">{{$this->sorteos_jugados($user->id)}}</td>
                                 <td class="text-center">
 
-                                    @livewire('admin.usuarios.cambiar-contrasena', ['user' => $user],key($user->id))
+                                    @livewire('admin.usuarios.cambiar-contrasena', ['user' => $user],key($user->id.'1'))
 
                                 </td>
 
