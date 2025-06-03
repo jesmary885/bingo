@@ -248,6 +248,10 @@ class JugarSorteo extends Component
                     ->position('y', 'center')
                     ->dismissible(true)
                     ->addInfo('Ya hay ganadores en el 2do lugar, continuemos para el 1er lugar');
+
+                    SorteoFicha::where('sorteo_id', $this->sorteo)->delete();
+                    array_splice($this->numeros_seleccionados, 0);
+                    $this->emitSelf('render');
             }
         }
 

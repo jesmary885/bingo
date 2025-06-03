@@ -221,6 +221,7 @@ class CrearSorteo extends Component
                             'precio_carton_dolar' => $this->precio_carton_dolar,
                             'type_2' => null,
                             'type_3' => null,
+                            'type_sorteo' => $this->tipo_sorteo_global,
                             'porcentaje_ganancia_2do_lugar' => null,
                             'porcentaje_ganancia_3er_lugar' => null,
                             'status' => $this->estado]);
@@ -236,6 +237,7 @@ class CrearSorteo extends Component
                             'porcentaje_ganancia' => $this->porcentaje_ganancia,
                             'porcentaje_ganancia_2do_lugar' => $this->porcentaje_ganancia_2,
                             'porcentaje_ganancia_3er_lugar' => null,
+                            'type_sorteo' => $this->tipo_sorteo_global,
                             'status' => $this->estado,
                             'precio_carton_dolar' => $this->precio_carton_dolar]);
                     }else{
@@ -249,6 +251,7 @@ class CrearSorteo extends Component
                             'porcentaje_ganancia_2do_lugar' => $this->porcentaje_ganancia_2,
                             'porcentaje_ganancia_3er_lugar' => $this->porcentaje_ganancia_3,
                             'precio_carton_dolar' => $this->precio_carton_dolar,
+                            'type_sorteo' => $this->tipo_sorteo_global,
                             'status' => $this->estado]);
                         
                     }
