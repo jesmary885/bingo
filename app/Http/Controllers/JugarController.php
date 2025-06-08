@@ -23,7 +23,7 @@ class JugarController extends Controller
             })
             ->where('user_id', auth()->user()->id)
             ->where('status_pago', 'Pago recibido')
-            ->where('status_juego', 'Sin estado')
+            //->where('status_juego', 'Sin estado')
             ->count(); 
 
             if($cartones >= 1 || auth()->user()->id == 1){
