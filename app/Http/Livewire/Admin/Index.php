@@ -92,9 +92,9 @@ class Index extends Component
         else $porcentaje = 11.8;
 
 
-        $resultado = ($porcentaje / 100) * $numero;
+        $resultado = (($porcentaje / 100) * $numero) * $this->dolar_hoy ;
 
-        return round($resultado * $this->dolar_hoy , 1);
+        return round($resultado , 1);
     }
 
     public function cartones_vendidos($sorteo_id){
