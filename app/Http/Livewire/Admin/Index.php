@@ -49,6 +49,53 @@ class Index extends Component
         return view('livewire.admin.index',compact('registros_dias','ganancias_dia','ganancias_mes'));
     }
 
+    public function ganancia_dolar_bing($sorteo){
+
+        $numero = EmpresaGanancias::where('sorteo_id',$sorteo)->value('ganancia');
+     
+
+        return $numero;
+
+    }
+
+    public function ganancia_dolar_bing_bs($sorteo){
+
+         $numero = EmpresaGanancias::where('sorteo_id',$sorteo)->value('ganancia');
+     
+
+        return $numero * $this->dolar_hoy;
+
+    }
+
+    public function ganancia_dolar_admin($admin,$sorteo){
+
+        $numero = EmpresaGanancias::where('sorteo_id',$sorteo)->value('ganancia');
+
+        if($admin == 'abogada') $porcentaje = 5;
+        elseif($admin == 'jesmary' || $admin == 'erik') $porcentaje = 18;
+        else $porcentaje = 11.8;
+
+
+        $resultado = ($porcentaje / 100) * $numero;
+
+        return $resultado;
+
+    }
+
+    public function ganancia_dolar_admin_bs($admin,$sorteo){
+
+        $numero = EmpresaGanancias::where('sorteo_id',$sorteo)->value('ganancia');
+
+        if($admin == 'abogada') $porcentaje = 5;
+        elseif($admin == 'jesmary' || $admin == 'erik') $porcentaje = 18;
+        else $porcentaje = 11.8;
+
+
+        $resultado = ($porcentaje / 100) * $numero;
+
+        return $resultado * $this->dolar_hoy;
+    }
+
     public function cartones_vendidos($sorteo_id){
 
         return CartonSorteo::where('sorteo_id',$sorteo_id)

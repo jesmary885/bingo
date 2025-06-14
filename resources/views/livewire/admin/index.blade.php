@@ -114,6 +114,21 @@
                             <th class="text-center">Cant de cartones vendidos</th>
                             <th class="text-center">Precio cartón</th>
                             <th class="text-center">Ganancia BING+</th>
+                            <th class="text-center">Abogada</th>
+                            <th class="text-center">Ángel</th>
+                            <th class="text-center">Cristián</th>
+                            <th class="text-center">Erik</th>
+                            <th class="text-center">Jesmary</th>
+                            <th class="text-center">Jesús</th>
+                            <th class="text-center">Miguel</th>
+                            <th class="text-center">Norberto</th>
+
+
+                            $numero = 200;
+$porcentaje = 15;
+$resultado = ($porcentaje / 100) * $numero;
+
+
                         </tr>
                     </thead>
                     <tbody>
@@ -124,10 +139,15 @@
                                     <th class="py-3 text-center font-medium whitespace-nowrap ">{{$sorteo->id}}</th>
                                     <td class="text-center">{{$this->cartones_vendidos($sorteo->id)}}</td>
                                     <td class="text-center">{{$sorteo->precio_carton_dolar}} $</td>
-                                    <td class="text-center">{{$this->ganancia_bing($sorteo->id)}} $</td>
-                                   
-                                    
-    
+                                      <td class="text-center">{{$this->ganancia_dolar_bing($sorteo->id)}} $ - (Bs. {{$this->ganancia_dolar_bing_bs($sorteo->id)}})</td>
+                                    <td class="text-center">{{$this->ganancia_dolar_admin('abogada',$sorteo->id)}} $ - (Bs. {{$this->ganancia_dolar_admin_bs('abogada',$sorteo->id)}}) </td>
+                                    <td class="text-center">{{$this->ganancia_dolar_admin('angel',$sorteo->id)}} $ - (Bs. {{$this->ganancia_dolar_admin_bs('angel',$sorteo->id)}}) </td>
+                                    <td class="text-center">{{$this->ganancia_dolar_admin('cristian',$sorteo->id)}} $ - (Bs. {{$this->ganancia_dolar_admin_bs('cristian',$sorteo->id)}}) </td>
+                                    <td class="text-center">{{$this->ganancia_dolar_admin('erik',$sorteo->id)}} $ - (Bs. {{$this->ganancia_dolar_admin_bs('erik',$sorteo->id)}}) </td>
+                                    <td class="text-center">{{$this->ganancia_dolar_admin('jesmary',$sorteo->id)}} $ - (Bs. {{$this->ganancia_dolar_admin_bs('jesmary',$sorteo->id)}}) </td>
+                                    <td class="text-center">{{$this->ganancia_dolar_admin('jesus',$sorteo->id)}} $ - (Bs. {{$this->ganancia_dolar_admin_bs('jesus',$sorteo->id)}}) </td>
+                                    <td class="text-center">{{$this->ganancia_dolar_admin('miguel',$sorteo->id)}} $ - (Bs. {{$this->ganancia_dolar_admin_bs('miguel',$sorteo->id)}}) </td>
+                                    <td class="text-center">{{$this->ganancia_dolar_admin('norberto',$sorteo->id)}} $ - (Bs. {{$this->ganancia_dolar_admin_bs('norberto',$sorteo->id)}}) </td>
     
                                 </tr>
                             @endforeach

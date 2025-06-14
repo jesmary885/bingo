@@ -27,7 +27,7 @@ class ReferidosCommand extends Command
     protected $description = 'Command description';
 
     /**
-     * Execute the console command.
+
      *
      * @return int
      */

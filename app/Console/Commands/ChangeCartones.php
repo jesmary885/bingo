@@ -15,17 +15,13 @@ class ChangeCartones extends Command
     protected $signature = "change:cartones";
 
     /**
-     * The console command description.
+
      *
      * @var string
      */
     protected $description = "Command description";
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
+
     public function handle()
     {
 
