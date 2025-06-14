@@ -124,10 +124,6 @@
                             <th class="text-center">Norberto</th>
 
 
-                            $numero = 200;
-$porcentaje = 15;
-$resultado = ($porcentaje / 100) * $numero;
-
 
                         </tr>
                     </thead>

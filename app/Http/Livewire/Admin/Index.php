@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\CartonSorteo;
 use App\Models\EmpresaGanancias;
+use App\Models\MetodoPago;
 use App\Models\Sorteo;
 use App\Models\User;
 use Livewire\Component;
@@ -52,9 +53,9 @@ class Index extends Component
     public function ganancia_dolar_bing($sorteo){
 
         $numero = EmpresaGanancias::where('sorteo_id',$sorteo)->value('ganancia');
-     
 
-        return $numero;
+    
+        return round($numero,1);
 
     }
 
@@ -63,7 +64,7 @@ class Index extends Component
          $numero = EmpresaGanancias::where('sorteo_id',$sorteo)->value('ganancia');
      
 
-        return $numero * $this->dolar_hoy;
+        return (round($numero,1) * $this->dolar_hoy);
 
     }
 
@@ -78,7 +79,7 @@ class Index extends Component
 
         $resultado = ($porcentaje / 100) * $numero;
 
-        return $resultado;
+        return round($resultado,1) ;
 
     }
 
@@ -93,7 +94,7 @@ class Index extends Component
 
         $resultado = ($porcentaje / 100) * $numero;
 
-        return $resultado * $this->dolar_hoy;
+        return round($resultado * $this->dolar_hoy , 1);
     }
 
     public function cartones_vendidos($sorteo_id){
@@ -114,7 +115,8 @@ class Index extends Component
 
         if($this->fecha_inicio && $this->fecha_fin){
 
-            $this->dolar_hoy = valor_dolar_hoy();
+            $this->dolar_hoy =  MetodoPago::where('name', 'Pago Movil')
+            ->value('valor');
 
         
 
