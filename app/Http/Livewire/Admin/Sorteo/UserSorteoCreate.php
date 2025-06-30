@@ -17,11 +17,12 @@ class UserSorteoCreate extends Component
     
     public $isopen = false;
 
-    public $usuarios, $user_id, $carton_id, $sorteos, $sorteo_id, $comentario, $sorteo;
+    public $usuarios, $user_id, $carton_id, $sorteos, $sorteo_id, $comentario, $sorteo,$motivo;
 
     protected $rules = [
         'user_id' => 'required',
         'comentario' => 'required',
+        'motivo' => 'required',
 
     ];
 
@@ -73,6 +74,9 @@ class UserSorteoCreate extends Component
 
         }
 
+        if($this->motivo == 'pago') $motivo = 'Pago recibido';
+        else $motivo = 'Premio';
+
         
         CartonSorteo::where('sorteo_id',$this->sorteo_id)
             ->where('carton_id',$this->carton_id)
@@ -82,7 +86,7 @@ class UserSorteoCreate extends Component
                 'carton_id' => $this->carton_id,
                 'status_carton' => 'No disponible',
                 'status_juego' => 'Sin estado',
-                'status_pago' => 'Pago recibido'
+                'status_pago' => $motivo
             ]);
 
         Modificaciones::create([

@@ -56,6 +56,27 @@
 
                     </div>
 
+                    <div class="flex justify-between" >
+
+
+                        <div class="w-1/2 mt-4">
+                            <div class="flex justify-start ml-4 mb-2 " >
+
+                                <p class="font-bold justify-start ">Tipo de asignación</p>
+
+                            </div>
+          
+    
+                            <select wire:model="motivo" title="Rol de usuario" class="block font-semibold w-full bg-gray-200 text-gray-700 py-2 px-2 pr-8 leading-tight rounded focus:outline-none focus:border-gray-500">
+                                 <option value="" selected>Seleccione una opción</option>
+                                <option value="pago">Cartón pagado</option>
+                                <option value="gratis">Obsequio por promoción</option>
+                            </select>
+                            <x-input-error for="motivo" />
+                        </div>
+
+                    </div>
+
 
                     <div class="form-group mt-4">
 

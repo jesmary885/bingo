@@ -314,6 +314,7 @@ class JugarSorteo extends Component
 
             $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo)
             ->where('status_carton','No disponible')
+            ->where('status_carton','Pago recibido') //aqui voy a poner obsequiado a los que se otorgen como premio
             ->count();
 
             foreach($this->ganadores_actuales_tercer as $ganador_tercer){
@@ -583,8 +584,6 @@ class JugarSorteo extends Component
 
     public function render()
     {
-
-       //$fichas = SorteoFicha::where('sorteo_id',$this->sorteo)->get();
 
         return view('livewire.admin.sorteo.jugar-sorteo');
     }

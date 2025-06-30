@@ -21,9 +21,12 @@ class MisCartones extends Component
 
     public function color($serial_carton){
 
+
+
         $busqueda =  CartonSorteo::where('id', $serial_carton)->first()->status_pago;
 
         if($busqueda == 'Pago recibido') return 'bg-blue-500';
+        elseif($busqueda == 'Premio') return 'bg-blue-500';
         else return 'bg-yellow-500'; 
     
 

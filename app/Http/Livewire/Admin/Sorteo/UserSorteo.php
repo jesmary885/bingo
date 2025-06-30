@@ -34,6 +34,16 @@ class UserSorteo extends Component
     }*/
     }
 
+    public function adjudicacion($sorteo){
+
+        $carton_tipo = CartonSorteo::where('id',$sorteo)->first()->status_pago;
+
+        if($carton_tipo == 'Pago recibido') return 'Carton vendido';
+        elseif($carton_tipo == 'Premio') return 'Carton premiado';
+        else return 'Carton disponible';
+
+    }
+
     public function render()
     {
 
