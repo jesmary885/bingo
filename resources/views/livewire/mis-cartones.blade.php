@@ -2172,7 +2172,7 @@
 
                 <div class="p-2 text-grey-darker text-justify flex flex-row border-t">
 
-                    @if($carton->status_pago == 'Pago recibido')
+                    @if($carton->status_pago == 'Pago recibido' || $carton->status_pago == 'Premio')
 
                         <div class="mt-2">
 
