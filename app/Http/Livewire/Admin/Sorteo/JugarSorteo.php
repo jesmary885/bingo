@@ -314,6 +314,7 @@ class JugarSorteo extends Component
 
             $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo)
             ->where('status_carton','No disponible')
+            ->where('status_carton','Pago recibido') //aqui voy a poner obsequiado a los que se otorgen como premio
             ->count();
 
             foreach($this->ganadores_actuales_tercer as $ganador_tercer){
@@ -453,7 +454,6 @@ class JugarSorteo extends Component
             ->get();
 
         foreach($cart_sorteo as $cart_){
-
             $cart_->delete();
         }
 

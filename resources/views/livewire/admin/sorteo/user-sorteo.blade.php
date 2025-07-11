@@ -28,7 +28,7 @@
                                     Carton Nro.
                                 </th>
 
-                                <th 
+                                <th >
                             
                                 </th>
 
@@ -109,6 +109,11 @@
                                     Carton Nro.
                                 </th>
 
+                                 <th 
+                                    class="text-center">
+                                    Adjudicación
+                                </th>
+
                                 <th>
                                 </th>
                             </tr>
@@ -141,6 +146,10 @@
 
                                 <td class="text-center">
                                     {{$sorteo->carton->id}} 
+                                </td>
+
+                                 <td class="text-center">
+                                    {{$this->adjudicacion($sorteo->id)}}
                                 </td>
 
 

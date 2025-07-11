@@ -89,7 +89,10 @@ class JugarSorteo extends Component
         $this->cargarDatosIniciales();
 
      $this->cartones_todos = CartonSorteo::where('sorteo_id', $this->sorteo->id) // Más eficiente que whereHas
-            ->where('status_pago', 'Pago recibido')
+            ->where(function($query) {
+                $query->where('status_pago', 'Pago recibido')
+                ->orWhere('status_pago', 'Premio');
+            })
             ->where('status_juego', 'Sin estado')
             ->select(['id','sorteo_id','carton_id','user_id','status_carton','status_pago','status_juego'])
             ->get(); // Solo necesitamos los IDs
@@ -171,7 +174,10 @@ class JugarSorteo extends Component
         }])
         ->where('sorteo_id', $this->sorteo->id)
         ->where('user_id', $this->user->id)
-        ->where('status_pago', 'Pago recibido')
+        ->where(function($query) {
+            $query->where('status_pago', 'Pago recibido')
+                ->orWhere('status_pago', 'Premio');
+        })
         ->where('status_juego', 'Sin estado')
         ->get();
 
@@ -1041,12 +1047,16 @@ class JugarSorteo extends Component
         if($this->sorteo){
 
             $carton_sorteo_activo = CartonSorteo::where('user_id', $this->user->id)
-                ->where('status_pago', 'Pago recibido')
+                ->where(function($query) {
+                    $query->where('status_pago', 'Pago recibido')
+                        ->orWhere('status_pago', 'Premio');
+                })
                 ->where('sorteo_id',$this->sorteo->id)
                 ->exists();
 
             $this->cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
                 ->where('status_carton','No disponible')
+                ->where('status_pago', 'Pago recibido')
                 ->toBase()
                 ->count();
         }
@@ -1057,12 +1067,16 @@ class JugarSorteo extends Component
                 ->first();
 
             $carton_sorteo_activo = CartonSorteo::where('user_id', $this->user->id)
-                ->where('status_pago', 'Pago recibido')
+                ->where(function($query) {
+                    $query->where('status_pago', 'Pago recibido')
+                        ->orWhere('status_pago', 'Premio');
+                })
                 ->where('sorteo_id',$this->sorteo->id)
                 ->exists();
 
             $this->cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
                 ->where('status_carton','No disponible')
+                ->where('status_pago', 'Pago recibido')
                 ->toBase()
                 ->count();
         }
@@ -1343,8 +1357,6 @@ class JugarSorteo extends Component
 
     public function premio($carton,$sorteo){
 
-      
-
         return CartonGanador::where('sorteo_id', $sorteo)
        ->where('carton_id', $carton)
        ->value('premio'); // Devuelve directamente el valor del campo
@@ -1356,37 +1368,6 @@ class JugarSorteo extends Component
     public function render()
     {
 
-
-        /*$this->fichas = $this->getFichasSorteadas();
-
-
-        $mis_cartones = CartonSorteo::where('sorteo_id', $this->sorteo->id) // Más eficiente que whereHas
-            ->where('user_id', $this->user->id)
-            ->where('status_pago', 'Pago recibido')
-            ->where('status_juego', 'Sin estado')
-           ->select(['id','sorteo_id','carton_id','user_id','status_carton','status_pago','status_juego']) // Solo columnas necesarias
-            ->get();
-
-    
-
-            if($this->fichas->isNotEmpty()){
-
-            $cartones_ganadores = CartonGanador::where('sorteo_id',$this->sorteo->id)->get(); 
-            //$ficha_ultima = SorteoFicha::where('sorteo_id',$this->sorteo->id)->latest()->first()->id;
-
-            $ficha_ultima = SorteoFicha::where('sorteo_id', $this->sorteo->id)
-                ->orderBy('created_at', 'DESC')
-                ->value('id');
-
-        }
-
-        else{
-
-            $this->fichas = [];
-            $cartones_ganadores = CartonGanador::where('sorteo_id',$this->sorteo->id)->get(); 
-            $ficha_ultima = 0;
-
-        }*/
 
     
         return view('livewire.jugar-sorteo',[

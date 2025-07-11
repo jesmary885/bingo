@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Http\Livewire\Admin\Referidos;
@@ -76,7 +77,7 @@ class PremiarAdd extends Component
         $c->update([
                 'status_carton' => 'No disponible',
                 'user_id' => $this->user->id,
-                'status_pago' => 'Pago recibido',
+                'status_pago' => 'Premio',
             ]);
 
         $this->emit('alert','Datos registrados correctamente');

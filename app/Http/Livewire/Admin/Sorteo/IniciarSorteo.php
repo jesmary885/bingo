@@ -72,6 +72,16 @@ class IniciarSorteo extends Component
 
         return CartonSorteo::where('sorteo_id',$sorteo)
             ->where('status_carton','No disponible')
+            ->where('status_pago', 'Pago recibido')
+            ->count();
+
+    }
+
+      public function cartones_regalados($sorteo){
+
+        return CartonSorteo::where('sorteo_id',$sorteo)
+            ->where('status_carton','No disponible')
+            ->where('status_pago', 'Premio')
             ->count();
 
     }

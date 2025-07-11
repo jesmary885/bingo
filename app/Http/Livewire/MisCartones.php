@@ -10,7 +10,6 @@ use Livewire\Component;
 class MisCartones extends Component
 {
 
-
     protected $listeners = [
         'render' => 'render',
         'echo:cambio_cs,.cambio.carton' => 'render',
@@ -24,6 +23,7 @@ class MisCartones extends Component
         $busqueda =  CartonSorteo::where('id', $serial_carton)->first()->status_pago;
 
         if($busqueda == 'Pago recibido') return 'bg-blue-500';
+        elseif($busqueda == 'Premio') return 'bg-blue-500';
         else return 'bg-yellow-500'; 
     
 

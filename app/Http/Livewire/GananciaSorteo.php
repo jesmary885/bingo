@@ -20,6 +20,7 @@ class GananciaSorteo extends Component
 
         $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo)
             ->where('status_carton','No disponible')
+            ->where('status_pago', 'Pago recibido')
             ->count();
 
         $sorteo_s = Sorteo::where('id',$this->sorteo)->first();
