@@ -5580,7 +5580,7 @@
                                 <div class=" items-center w-full pb-4 ">
 
 
-                                    <p class="text-lg text-gray-800 font-bold">Lanzamiento: {{\Carbon\Carbon::parse($sorteo->fecha_ejecucion)->format('d-m-Y h:i')}}</p>
+                                    <p class="text-lg text-gray-800 font-bold">LanzamientoHH: {{\Carbon\Carbon::parse($sorteo->fecha_ejecucion)->format('d-m-Y h:i')}}</p>
 
                                     @if($sorteo->type_sorteo == 'Pago')
                                     
