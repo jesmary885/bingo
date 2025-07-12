@@ -175,8 +175,13 @@ class JugarSorteo extends Component
         ->where('sorteo_id', $this->sorteo->id)
         ->where('user_id', $this->user->id)
         ->where(function($query) {
+<<<<<<< HEAD
         $query->where('status_pago', 'Pago recibido')
               ->orWhere('status_pago', 'Premio');
+=======
+            $query->where('status_pago', 'Pago recibido')
+                ->orWhere('status_pago', 'Premio');
+>>>>>>> 30e905f
         })
         ->where('status_juego', 'Sin estado')
         ->get();
@@ -1056,6 +1061,7 @@ class JugarSorteo extends Component
 
             $this->cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
                 ->where('status_carton','No disponible')
+                ->where('status_pago', 'Pago recibido')
                 ->toBase()
                 ->count();
         }
@@ -1075,6 +1081,7 @@ class JugarSorteo extends Component
 
             $this->cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo->id)
                 ->where('status_carton','No disponible')
+                ->where('status_pago', 'Pago recibido')
                 ->toBase()
                 ->count();
         }
@@ -1249,6 +1256,7 @@ class JugarSorteo extends Component
 
                         $this->ganador_1 = 1;
                         $this->ganador_2 = 1;
+                        $this->fichas = [];
                         $this->actualizarCartonesGanadores();
 
                         $this->i = 1;
@@ -1355,8 +1363,6 @@ class JugarSorteo extends Component
 
     public function premio($carton,$sorteo){
 
-      
-
         return CartonGanador::where('sorteo_id', $sorteo)
        ->where('carton_id', $carton)
        ->value('premio'); // Devuelve directamente el valor del campo
@@ -1368,6 +1374,11 @@ class JugarSorteo extends Component
     public function render()
     {
 
+<<<<<<< HEAD
+=======
+
+    
+>>>>>>> 30e905f
         return view('livewire.jugar-sorteo',[
             'fichas' => $this->fichas,
             'ficha_ultima' => $this->ficha_ultima,

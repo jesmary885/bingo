@@ -10,7 +10,6 @@ use Livewire\Component;
 class MisCartones extends Component
 {
 
-
     protected $listeners = [
         'render' => 'render',
         'echo:cambio_cs,.cambio.carton' => 'render',

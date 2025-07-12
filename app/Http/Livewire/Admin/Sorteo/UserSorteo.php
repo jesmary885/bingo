@@ -34,6 +34,10 @@ class UserSorteo extends Component
     }*/
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 30e905f
     public function adjudicacion($sorteo){
 
         $carton_tipo = CartonSorteo::where('id',$sorteo)->first()->status_pago;
@@ -44,6 +48,10 @@ class UserSorteo extends Component
 
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 30e905f
     public function render()
     {
 

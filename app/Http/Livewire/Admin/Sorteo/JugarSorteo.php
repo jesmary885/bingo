@@ -312,6 +312,18 @@ class JugarSorteo extends Component
 
         if($this->tipo_sorteo_global == 'Pago'){
 
+            $this->ganadores_actuales_primer = CartonGanador::where('sorteo_id',$this->sorteo)
+            ->where('lugar','Primero')
+            ->get();
+
+            $this->ganadores_actuales_segundo = CartonGanador::where('sorteo_id',$this->sorteo)
+                ->where('lugar','Segundo')
+                ->get();
+
+            $this->ganadores_actuales_tercer = CartonGanador::where('sorteo_id',$this->sorteo)
+                ->where('lugar','Tercero')
+                ->get();
+
             $cant_cartones = CartonSorteo::where('sorteo_id',$this->sorteo)
             ->where('status_carton','No disponible')
             ->where('status_carton','Pago recibido') //aqui voy a poner obsequiado a los que se otorgen como premio
@@ -454,7 +466,6 @@ class JugarSorteo extends Component
             ->get();
 
         foreach($cart_sorteo as $cart_){
-
             $cart_->delete();
         }
 
@@ -534,10 +545,14 @@ class JugarSorteo extends Component
             ->dismissible(true)
             ->addInfo('Ha finalizado correctamente el sorteo');
 
+            
+
 
             /////////////////////////////////////////////////////////////////////////////////////////////////
 
         }
+
+   
 
         $this->emitTo('jugar-sorteo', 'finalizar');
 
