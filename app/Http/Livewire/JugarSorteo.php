@@ -175,13 +175,8 @@ class JugarSorteo extends Component
         ->where('sorteo_id', $this->sorteo->id)
         ->where('user_id', $this->user->id)
         ->where(function($query) {
-<<<<<<< HEAD
         $query->where('status_pago', 'Pago recibido')
               ->orWhere('status_pago', 'Premio');
-=======
-            $query->where('status_pago', 'Pago recibido')
-                ->orWhere('status_pago', 'Premio');
->>>>>>> 30e905f
         })
         ->where('status_juego', 'Sin estado')
         ->get();
@@ -1374,11 +1369,6 @@ class JugarSorteo extends Component
     public function render()
     {
 
-<<<<<<< HEAD
-=======
-
-    
->>>>>>> 30e905f
         return view('livewire.jugar-sorteo',[
             'fichas' => $this->fichas,
             'ficha_ultima' => $this->ficha_ultima,

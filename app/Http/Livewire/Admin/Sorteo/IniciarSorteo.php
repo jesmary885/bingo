@@ -77,11 +77,7 @@ class IniciarSorteo extends Component
 
     }
 
-<<<<<<< HEAD
-    public function cartones_regalados($sorteo){
-=======
       public function cartones_regalados($sorteo){
->>>>>>> 30e905f
 
         return CartonSorteo::where('sorteo_id',$sorteo)
             ->where('status_carton','No disponible')
