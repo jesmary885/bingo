@@ -13,7 +13,7 @@
             <table class="table text-sm table-bordered table-responsive-lg table-responsive-md table-responsive-sm">
                 <thead class="text-xs uppercase bg-gray-700 text-gray-400">
                     <tr>
-                        <th class="text-center py-3">Nombre</th>
+                        <th class="text-center py-3">Nombre y apellido</th>
                         <th class="text-center">Correo</th>
                         <th class="text-center">Nro de teléfono</th>
                         <th class="text-center">Cuenta de retiro</th>
