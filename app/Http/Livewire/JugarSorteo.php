@@ -1251,6 +1251,7 @@ class JugarSorteo extends Component
 
                         $this->ganador_1 = 1;
                         $this->ganador_2 = 1;
+                        $this->fichas = [];
                         $this->actualizarCartonesGanadores();
 
                         $this->i = 1;
