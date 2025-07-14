@@ -22,10 +22,8 @@
                    
                             <div class="flex flex-col items-center mx-5 space-y-1">
                                 <h2 class="text-lg font-medium text-blue-500 dark:text-gray-200">SORTEO NRO. {{$sorteo->id}}  <span class="text-md font-semibold text-red-600"> ({{$this->cartones_vendidos($sorteo->id)}} cartones vendidos - {{$this->cartones_regalados($sorteo->id)}} cartones premiados - {{$this->cartones_no_vendidos($sorteo->id)}} cartones por vender)</span></h2>
-<<<<<<< HEAD
+
                             </div>
-=======
->>>>>>> 30e905f
                         </div>
                         <h2 class="text-xs font-bold text-gray-500  dark:text-gray-300">Fecha de ejecución: {{$sorteo->fecha_ejecucion}} </h2>
                     </div>

@@ -4204,10 +4204,9 @@ function cleanupAttributes(el, names) {
   });
 }
 function cleanupElement(el) {
-  if (el._x_cleanups) {
-    while (el._x_cleanups.length)
-      el._x_cleanups.pop()();
-  }
+  el._x_effects?.forEach(dequeueJob);
+  while (el._x_cleanups?.length)
+    el._x_cleanups.pop()();
 }
 var observer = new MutationObserver(onMutate);
 var currentlyObserving = false;
@@ -4255,7 +4254,7 @@ function onMutate(mutations) {
     deferredMutations = deferredMutations.concat(mutations);
     return;
   }
-  let addedNodes = /* @__PURE__ */ new Set();
+  let addedNodes = [];
   let removedNodes = /* @__PURE__ */ new Set();
   let addedAttributes = /* @__PURE__ */ new Map();
   let removedAttributes = /* @__PURE__ */ new Map();
@@ -4263,8 +4262,24 @@ function onMutate(mutations) {
     if (mutations[i].target._x_ignoreMutationObserver)
       continue;
     if (mutations[i].type === "childList") {
-      mutations[i].addedNodes.forEach((node) => node.nodeType === 1 && addedNodes.add(node));
-      mutations[i].removedNodes.forEach((node) => node.nodeType === 1 && removedNodes.add(node));
+      mutations[i].removedNodes.forEach((node) => {
+        if (node.nodeType !== 1)
+          return;
+        if (!node._x_marker)
+          return;
+        removedNodes.add(node);
+      });
+      mutations[i].addedNodes.forEach((node) => {
+        if (node.nodeType !== 1)
+          return;
+        if (removedNodes.has(node)) {
+          removedNodes.delete(node);
+          return;
+        }
+        if (node._x_marker)
+          return;
+        addedNodes.push(node);
+      });
     }
     if (mutations[i].type === "attributes") {
       let el = mutations[i].target;
@@ -4297,29 +4312,15 @@ function onMutate(mutations) {
     onAttributeAddeds.forEach((i) => i(el, attrs));
   });
   for (let node of removedNodes) {
-    if (addedNodes.has(node))
+    if (addedNodes.some((i) => i.contains(node)))
       continue;
     onElRemoveds.forEach((i) => i(node));
   }
-  addedNodes.forEach((node) => {
-    node._x_ignoreSelf = true;
-    node._x_ignore = true;
-  });
   for (let node of addedNodes) {
-    if (removedNodes.has(node))
-      continue;
     if (!node.isConnected)
       continue;
-    delete node._x_ignoreSelf;
-    delete node._x_ignore;
     onElAddeds.forEach((i) => i(node));
-    node._x_ignore = true;
-    node._x_ignoreSelf = true;
   }
-  addedNodes.forEach((node) => {
-    delete node._x_ignoreSelf;
-    delete node._x_ignore;
-  });
   addedNodes = null;
   removedNodes = null;
   addedAttributes = null;
@@ -4463,26 +4464,22 @@ function magic(name, callback) {
   magics[name] = callback;
 }
 function injectMagics(obj, el) {
+  let memoizedUtilities = getUtilities(el);
   Object.entries(magics).forEach(([name, callback]) => {
-    let memoizedUtilities = null;
-    function getUtilities() {
-      if (memoizedUtilities) {
-        return memoizedUtilities;
-      } else {
-        let [utilities, cleanup2] = getElementBoundUtilities(el);
-        memoizedUtilities = { interceptor, ...utilities };
-        onElRemoved(el, cleanup2);
-        return memoizedUtilities;
-      }
-    }
     Object.defineProperty(obj, `$${name}`, {
       get() {
-        return callback(el, getUtilities());
+        return callback(el, memoizedUtilities);
       },
       enumerable: false
     });
   });
   return obj;
+}
+function getUtilities(el) {
+  let [utilities, cleanup2] = getElementBoundUtilities(el);
+  let utils = { interceptor, ...utilities };
+  onElRemoved(el, cleanup2);
+  return utils;
 }
 
 // packages/alpinejs/src/utils/error.js
@@ -4867,21 +4864,29 @@ var initInterceptors2 = [];
 function interceptInit(callback) {
   initInterceptors2.push(callback);
 }
+var markerDispenser = 1;
 function initTree(el, walker = walk, intercept = () => {
 }) {
+  if (findClosest(el, (i) => i._x_ignore))
+    return;
   deferHandlingDirectives(() => {
     walker(el, (el2, skip) => {
+      if (el2._x_marker)
+        return;
       intercept(el2, skip);
       initInterceptors2.forEach((i) => i(el2, skip));
       directives(el2, el2.attributes).forEach((handle) => handle());
+      if (!el2._x_ignore)
+        el2._x_marker = markerDispenser++;
       el2._x_ignore && skip();
     });
   });
 }
 function destroyTree(root, walker = walk) {
   walker(root, (el) => {
-    cleanupAttributes(el);
     cleanupElement(el);
+    cleanupAttributes(el);
+    delete el._x_marker;
   });
 }
 function warnAboutMissingPlugins() {
@@ -5388,7 +5393,7 @@ function bind(el, name, value, modifiers = []) {
   }
 }
 function bindInputValue(el, value) {
-  if (el.type === "radio") {
+  if (isRadio(el)) {
     if (el.attributes.value === void 0) {
       el.value = value;
     }
@@ -5399,7 +5404,7 @@ function bindInputValue(el, value) {
         el.checked = checkedAttrLooseCompare(el.value, value);
       }
     }
-  } else if (el.type === "checkbox") {
+  } else if (isCheckbox(el)) {
     if (Number.isInteger(value)) {
       el.value = value;
     } else if (!Array.isArray(value) && typeof value !== "boolean" && ![null, void 0].includes(value)) {
@@ -5475,34 +5480,37 @@ function safeParseBoolean(rawValue) {
   }
   return rawValue ? Boolean(rawValue) : null;
 }
+var booleanAttributes = /* @__PURE__ */ new Set([
+  "allowfullscreen",
+  "async",
+  "autofocus",
+  "autoplay",
+  "checked",
+  "controls",
+  "default",
+  "defer",
+  "disabled",
+  "formnovalidate",
+  "inert",
+  "ismap",
+  "itemscope",
+  "loop",
+  "multiple",
+  "muted",
+  "nomodule",
+  "novalidate",
+  "open",
+  "playsinline",
+  "readonly",
+  "required",
+  "reversed",
+  "selected",
+  "shadowrootclonable",
+  "shadowrootdelegatesfocus",
+  "shadowrootserializable"
+]);
 function isBooleanAttr(attrName) {
-  const booleanAttributes = [
-    "disabled",
-    "checked",
-    "required",
-    "readonly",
-    "open",
-    "selected",
-    "autofocus",
-    "itemscope",
-    "multiple",
-    "novalidate",
-    "allowfullscreen",
-    "allowpaymentrequest",
-    "formnovalidate",
-    "autoplay",
-    "controls",
-    "loop",
-    "muted",
-    "playsinline",
-    "default",
-    "ismap",
-    "reversed",
-    "async",
-    "defer",
-    "nomodule"
-  ];
-  return booleanAttributes.includes(attrName);
+  return booleanAttributes.has(attrName);
 }
 function attributeShouldntBePreservedIfFalsy(name) {
   return !["aria-pressed", "aria-checked", "aria-expanded", "aria-selected"].includes(name);
@@ -5534,6 +5542,12 @@ function getAttributeBinding(el, name, fallback) {
     return !![name, "true"].includes(attr);
   }
   return attr;
+}
+function isCheckbox(el) {
+  return el.type === "checkbox" || el.localName === "ui-checkbox" || el.localName === "ui-switch";
+}
+function isRadio(el) {
+  return el.type === "radio" || el.localName === "ui-radio";
 }
 
 // packages/alpinejs/src/utils/debounce.js
@@ -5613,10 +5627,10 @@ function store(name, value) {
     return stores[name];
   }
   stores[name] = value;
+  initInterceptors(stores[name]);
   if (typeof value === "object" && value !== null && value.hasOwnProperty("init") && typeof value.init === "function") {
     stores[name].init();
   }
-  initInterceptors(stores[name]);
 }
 function getStores() {
   return stores;
@@ -5704,7 +5718,7 @@ var Alpine = {
   get raw() {
     return raw;
   },
-  version: "3.14.1",
+  version: "3.14.9",
   flushAndStopDeferringMutations,
   dontAutoEvaluateFunctions,
   disableEffectScheduling,
@@ -6645,7 +6659,6 @@ directive("teleport", (el, { modifiers, expression }, { cleanup: cleanup2 }) => 
     placeInDom(clone2, target, modifiers);
     skipDuringClone(() => {
       initTree(clone2);
-      clone2._x_ignore = true;
     })();
   });
   el._x_teleportPutBack = () => {
@@ -6654,7 +6667,12 @@ directive("teleport", (el, { modifiers, expression }, { cleanup: cleanup2 }) => 
       placeInDom(el._x_teleport, target2, modifiers);
     });
   };
-  cleanup2(() => clone2.remove());
+  cleanup2(
+    () => mutateDom(() => {
+      clone2.remove();
+      destroyTree(clone2);
+    })
+  );
 });
 var teleportContainerDuringClone = document.createElement("div");
 function getTarget(expression) {
@@ -6888,7 +6906,7 @@ directive("model", (el, { modifiers, expression }, { effect: effect3, cleanup: c
     setValue(getInputValue(el, modifiers, e, getValue()));
   });
   if (modifiers.includes("fill")) {
-    if ([void 0, null, ""].includes(getValue()) || el.type === "checkbox" && Array.isArray(getValue()) || el.tagName.toLowerCase() === "select" && el.multiple) {
+    if ([void 0, null, ""].includes(getValue()) || isCheckbox(el) && Array.isArray(getValue()) || el.tagName.toLowerCase() === "select" && el.multiple) {
       setValue(
         getInputValue(el, modifiers, { target: el }, getValue())
       );
@@ -6930,7 +6948,7 @@ function getInputValue(el, modifiers, event, currentValue) {
   return mutateDom(() => {
     if (event instanceof CustomEvent && event.detail !== void 0)
       return event.detail !== null && event.detail !== void 0 ? event.detail : event.target.value;
-    else if (el.type === "checkbox") {
+    else if (isCheckbox(el)) {
       if (Array.isArray(currentValue)) {
         let newValue = null;
         if (modifiers.includes("number")) {
@@ -6961,7 +6979,7 @@ function getInputValue(el, modifiers, event, currentValue) {
       });
     } else {
       let newValue;
-      if (el.type === "radio") {
+      if (isRadio(el)) {
         if (event.target.checked) {
           newValue = event.target.value;
         } else {
@@ -7177,7 +7195,12 @@ directive("for", (el, { expression }, { effect: effect3, cleanup: cleanup2 }) =>
   el._x_lookup = {};
   effect3(() => loop(el, iteratorNames, evaluateItems, evaluateKey));
   cleanup2(() => {
-    Object.values(el._x_lookup).forEach((el2) => el2.remove());
+    Object.values(el._x_lookup).forEach((el2) => mutateDom(
+      () => {
+        destroyTree(el2);
+        el2.remove();
+      }
+    ));
     delete el._x_prevKeys;
     delete el._x_lookup;
   });
@@ -7246,11 +7269,12 @@ function loop(el, iteratorNames, evaluateItems, evaluateKey) {
     }
     for (let i = 0; i < removes.length; i++) {
       let key = removes[i];
-      if (!!lookup[key]._x_effects) {
-        lookup[key]._x_effects.forEach(dequeueJob);
-      }
-      lookup[key].remove();
-      lookup[key] = null;
+      if (!(key in lookup))
+        continue;
+      mutateDom(() => {
+        destroyTree(lookup[key]);
+        lookup[key].remove();
+      });
       delete lookup[key];
     }
     for (let i = 0; i < moves.length; i++) {
@@ -7375,12 +7399,10 @@ directive("if", (el, { expression }, { effect: effect3, cleanup: cleanup2 }) => 
     });
     el._x_currentIfEl = clone2;
     el._x_undoIf = () => {
-      walk(clone2, (node) => {
-        if (!!node._x_effects) {
-          node._x_effects.forEach(dequeueJob);
-        }
+      mutateDom(() => {
+        destroyTree(clone2);
+        clone2.remove();
       });
-      clone2.remove();
       delete el._x_currentIfEl;
     };
     return clone2;
@@ -9602,101 +9624,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
-/* harmony import */ var _alpinejs_focus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @alpinejs/focus */ "./node_modules/@alpinejs/focus/dist/module.esm.js");
-
-
-
-window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"];
-alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].plugin(_alpinejs_focus__WEBPACK_IMPORTED_MODULE_2__["default"]);
-alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
-
-/***/ }),
-
-/***/ "./resources/js/bootstrap.js":
-/*!***********************************!*\
-  !*** ./resources/js/bootstrap.js ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
-
-
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
-
-
-window.axios = (axios__WEBPACK_IMPORTED_MODULE_1___default());
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// import Echo from 'laravel-echo';
-
-// import Pusher from 'pusher-js';
-// window.Pusher = Pusher;
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: import.meta.env.VITE_PUSHER_APP_KEY,
-//     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'mt1',
-//     wsHost: import.meta.env.VITE_PUSHER_HOST ?? `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
-//     wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
-//     wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
-//     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
-//     enabledTransports: ['ws', 'wss'],
-// });
-
-/*
-import Echo from 'laravel-echo';
-
-window.Pusher = require('pusher-js');
-
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: process.env.MIX_PUSHER_APP_KEY,
-    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    forceTLS: true
-});*/
-
-
-window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
-window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
-  broadcaster: 'pusher',
-  key: 'public-key-123',
-  cluster: "mt1",
-  wsHost: 'proyectobingomas.site',
-  wsPort: 443,
-  wssport: 443,
-  forceTLS: true,
-  disableStats: true,
-  enabledTransports: ['wss', 'ws'],
-  path: '/app'
-});
-
-/***/ }),
-
 /***/ "./node_modules/bootstrap/dist/js/bootstrap.esm.js":
 /*!*********************************************************!*\
   !*** ./node_modules/bootstrap/dist/js/bootstrap.esm.js ***!
@@ -9722,8 +9649,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _popperjs_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @popperjs/core */ "./node_modules/@popperjs/core/lib/index.js");
 /* harmony import */ var _popperjs_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @popperjs/core */ "./node_modules/@popperjs/core/lib/popper.js");
 /*!
-  * Bootstrap v5.3.3 (https://getbootstrap.com/)
-  * Copyright 2011-2024 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap v5.3.5 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 
@@ -9924,7 +9851,7 @@ const noop = () => {};
  * @param {HTMLElement} element
  * @return void
  *
- * @see https://www.charistheo.io/blog/2021/02/restart-a-css-animation-with-javascript/#restarting-a-css-animation
+ * @see https://www.harrytheo.com/blog/2021/02/restart-a-css-animation-with-javascript/#restarting-a-css-animation
  */
 const reflow = element => {
   element.offsetHeight; // eslint-disable-line no-unused-expressions
@@ -9969,7 +9896,7 @@ const defineJQueryPlugin = plugin => {
   });
 };
 const execute = (possibleCallback, args = [], defaultValue = possibleCallback) => {
-  return typeof possibleCallback === 'function' ? possibleCallback(...args) : defaultValue;
+  return typeof possibleCallback === 'function' ? possibleCallback.call(...args) : defaultValue;
 };
 const executeAfterTransition = (callback, transitionElement, waitForTransition = true) => {
   if (!waitForTransition) {
@@ -10291,7 +10218,7 @@ const Manipulator = {
     const bsKeys = Object.keys(element.dataset).filter(key => key.startsWith('bs') && !key.startsWith('bsConfig'));
     for (const key of bsKeys) {
       let pureKey = key.replace(/^bs/, '');
-      pureKey = pureKey.charAt(0).toLowerCase() + pureKey.slice(1, pureKey.length);
+      pureKey = pureKey.charAt(0).toLowerCase() + pureKey.slice(1);
       attributes[pureKey] = normalizeData(element.dataset[key]);
     }
     return attributes;
@@ -10366,7 +10293,7 @@ class Config {
  * Constants
  */
 
-const VERSION = '5.3.3';
+const VERSION = '5.3.5';
 
 /**
  * Class definition
@@ -11581,7 +11508,7 @@ class Dropdown extends BaseComponent {
   }
   _createPopper() {
     if (typeof _popperjs_core__WEBPACK_IMPORTED_MODULE_0__ === 'undefined') {
-      throw new TypeError('Bootstrap\'s dropdowns require Popper (https://popper.js.org)');
+      throw new TypeError('Bootstrap\'s dropdowns require Popper (https://popper.js.org/docs/v2/)');
     }
     let referenceElement = this._element;
     if (this._config.reference === 'parent') {
@@ -11660,7 +11587,7 @@ class Dropdown extends BaseComponent {
     }
     return {
       ...defaultBsPopperConfig,
-      ...execute(this._config.popperConfig, [defaultBsPopperConfig])
+      ...execute(this._config.popperConfig, [undefined, defaultBsPopperConfig])
     };
   }
   _selectMenuItem({
@@ -12847,7 +12774,7 @@ class TemplateFactory extends Config {
     return this._config.sanitize ? sanitizeHtml(arg, this._config.allowList, this._config.sanitizeFn) : arg;
   }
   _resolvePossibleFunction(arg) {
-    return execute(arg, [this]);
+    return execute(arg, [undefined, this]);
   }
   _putElementInTemplate(element, templateElement) {
     if (this._config.html) {
@@ -12946,7 +12873,7 @@ const DefaultType$3 = {
 class Tooltip extends BaseComponent {
   constructor(element, config) {
     if (typeof _popperjs_core__WEBPACK_IMPORTED_MODULE_0__ === 'undefined') {
-      throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org)');
+      throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org/docs/v2/)');
     }
     super(element, config);
 
@@ -12992,7 +12919,6 @@ class Tooltip extends BaseComponent {
     if (!this._isEnabled) {
       return;
     }
-    this._activeTrigger.click = !this._activeTrigger.click;
     if (this._isShown()) {
       this._leave();
       return;
@@ -13180,7 +13106,7 @@ class Tooltip extends BaseComponent {
     return offset;
   }
   _resolvePossibleFunction(arg) {
-    return execute(arg, [this._element]);
+    return execute(arg, [this._element, this._element]);
   }
   _getPopperConfig(attachment) {
     const defaultBsPopperConfig = {
@@ -13218,7 +13144,7 @@ class Tooltip extends BaseComponent {
     };
     return {
       ...defaultBsPopperConfig,
-      ...execute(this._config.popperConfig, [defaultBsPopperConfig])
+      ...execute(this._config.popperConfig, [undefined, defaultBsPopperConfig])
     };
   }
   _setListeners() {
@@ -14405,6 +14331,16 @@ var EventFormatter = /*#__PURE__*/function () {
   return EventFormatter;
 }();
 
+function isConstructor(obj) {
+  try {
+    new obj();
+  } catch (err) {
+    if (err.message.includes('is not a constructor')) return false;
+  }
+
+  return true;
+}
+
 /**
  * This class represents a Pusher channel.
  */
@@ -14615,8 +14551,8 @@ var PusherEncryptedPrivateChannel = /*#__PURE__*/function (_PusherChannel) {
  * This class represents a Pusher presence channel.
  */
 
-var PusherPresenceChannel = /*#__PURE__*/function (_PusherChannel) {
-  _inherits(PusherPresenceChannel, _PusherChannel);
+var PusherPresenceChannel = /*#__PURE__*/function (_PusherPrivateChannel) {
+  _inherits(PusherPresenceChannel, _PusherPrivateChannel);
 
   var _super = _createSuper(PusherPresenceChannel);
 
@@ -14677,7 +14613,7 @@ var PusherPresenceChannel = /*#__PURE__*/function (_PusherChannel) {
   }]);
 
   return PusherPresenceChannel;
-}(PusherChannel);
+}(PusherPrivateChannel);
 
 /**
  * This class represents a Socket.io channel.
@@ -15077,11 +15013,40 @@ var NullPrivateChannel = /*#__PURE__*/function (_NullChannel) {
 }(NullChannel);
 
 /**
+ * This class represents a null private channel.
+ */
+
+var NullEncryptedPrivateChannel = /*#__PURE__*/function (_NullChannel) {
+  _inherits(NullEncryptedPrivateChannel, _NullChannel);
+
+  var _super = _createSuper(NullEncryptedPrivateChannel);
+
+  function NullEncryptedPrivateChannel() {
+    _classCallCheck(this, NullEncryptedPrivateChannel);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(NullEncryptedPrivateChannel, [{
+    key: "whisper",
+    value:
+    /**
+     * Send a whisper event to other clients in the channel.
+     */
+    function whisper(eventName, data) {
+      return this;
+    }
+  }]);
+
+  return NullEncryptedPrivateChannel;
+}(NullChannel);
+
+/**
  * This class represents a null presence channel.
  */
 
-var NullPresenceChannel = /*#__PURE__*/function (_NullChannel) {
-  _inherits(NullPresenceChannel, _NullChannel);
+var NullPresenceChannel = /*#__PURE__*/function (_NullPrivateChannel) {
+  _inherits(NullPresenceChannel, _NullPrivateChannel);
 
   var _super = _createSuper(NullPresenceChannel);
 
@@ -15130,7 +15095,7 @@ var NullPresenceChannel = /*#__PURE__*/function (_NullChannel) {
   }]);
 
   return NullPresenceChannel;
-}(NullChannel);
+}(NullPrivateChannel);
 
 var Connector = /*#__PURE__*/function () {
   /**
@@ -15587,7 +15552,7 @@ var NullConnector = /*#__PURE__*/function (_Connector) {
   }, {
     key: "encryptedPrivateChannel",
     value: function encryptedPrivateChannel(name) {
-      return new NullPrivateChannel();
+      return new NullEncryptedPrivateChannel();
     }
     /**
      * Get a presence channel instance by name.
@@ -15681,7 +15646,7 @@ var Echo = /*#__PURE__*/function () {
         this.connector = new SocketIoConnector(this.options);
       } else if (this.options.broadcaster == 'null') {
         this.connector = new NullConnector(this.options);
-      } else if (typeof this.options.broadcaster == 'function') {
+      } else if (typeof this.options.broadcaster == 'function' && isConstructor(this.options.broadcaster)) {
         this.connector = new this.options.broadcaster(this.options);
       } else {
         throw new Error("Broadcaster ".concat(_typeof(this.options.broadcaster), " ").concat(this.options.broadcaster, " is not supported."));
@@ -15759,6 +15724,10 @@ var Echo = /*#__PURE__*/function () {
   }, {
     key: "encryptedPrivate",
     value: function encryptedPrivate(channel) {
+      if (this.connector instanceof SocketIoConnector) {
+        throw new Error("Broadcaster ".concat(_typeof(this.options.broadcaster), " ").concat(this.options.broadcaster, " does not support encrypted private channels."));
+      }
+
       return this.connector.encryptedPrivateChannel(channel);
     }
     /**
@@ -15864,19 +15833,6 @@ var Echo = /*#__PURE__*/function () {
 }();
 
 
-
-
-/***/ }),
-
-/***/ "./resources/css/app.css":
-/*!*******************************!*\
-  !*** ./resources/css/app.css ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
 
 
 /***/ }),
@@ -16082,7 +16038,7 @@ process.umask = function() { return 0; };
 /***/ ((module) => {
 
 /*!
- * Pusher JavaScript Library v8.4.0-rc2
+ * Pusher JavaScript Library v8.4.0
  * https://pusher.com/
  *
  * Copyright 2020, Pusher
@@ -16099,7 +16055,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	var installedModules = {};
 /******/
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_673__(moduleId) {
+/******/ 	function __nested_webpack_require_669__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId]) {
@@ -16113,7 +16069,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 		};
 /******/
 /******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __nested_webpack_require_673__);
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __nested_webpack_require_669__);
 /******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
@@ -16124,20 +16080,20 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__nested_webpack_require_673__.m = modules;
+/******/ 	__nested_webpack_require_669__.m = modules;
 /******/
 /******/ 	// expose the module cache
-/******/ 	__nested_webpack_require_673__.c = installedModules;
+/******/ 	__nested_webpack_require_669__.c = installedModules;
 /******/
 /******/ 	// define getter function for harmony exports
-/******/ 	__nested_webpack_require_673__.d = function(exports, name, getter) {
-/******/ 		if(!__nested_webpack_require_673__.o(exports, name)) {
+/******/ 	__nested_webpack_require_669__.d = function(exports, name, getter) {
+/******/ 		if(!__nested_webpack_require_669__.o(exports, name)) {
 /******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
-/******/ 	__nested_webpack_require_673__.r = function(exports) {
+/******/ 	__nested_webpack_require_669__.r = function(exports) {
 /******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 		}
@@ -16149,35 +16105,35 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// mode & 2: merge all properties of value into the ns
 /******/ 	// mode & 4: return value when already ns object
 /******/ 	// mode & 8|1: behave like require
-/******/ 	__nested_webpack_require_673__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __nested_webpack_require_673__(value);
+/******/ 	__nested_webpack_require_669__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __nested_webpack_require_669__(value);
 /******/ 		if(mode & 8) return value;
 /******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
 /******/ 		var ns = Object.create(null);
-/******/ 		__nested_webpack_require_673__.r(ns);
+/******/ 		__nested_webpack_require_669__.r(ns);
 /******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __nested_webpack_require_673__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __nested_webpack_require_669__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__nested_webpack_require_673__.n = function(module) {
+/******/ 	__nested_webpack_require_669__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
 /******/ 			function getDefault() { return module['default']; } :
 /******/ 			function getModuleExports() { return module; };
-/******/ 		__nested_webpack_require_673__.d(getter, 'a', getter);
+/******/ 		__nested_webpack_require_669__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
 /******/
 /******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__nested_webpack_require_673__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/ 	__nested_webpack_require_669__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__nested_webpack_require_673__.p = "";
+/******/ 	__nested_webpack_require_669__.p = "";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __nested_webpack_require_673__(__nested_webpack_require_673__.s = 2);
+/******/ 	return __nested_webpack_require_669__(__nested_webpack_require_669__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -16625,19 +16581,19 @@ exports.decode = decode;
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __nested_webpack_require_19905__) {
+/***/ (function(module, exports, __nested_webpack_require_19901__) {
 
 // required so we don't have to do require('pusher').default etc.
-module.exports = __nested_webpack_require_19905__(3).default;
+module.exports = __nested_webpack_require_19901__(3).default;
 
 
 /***/ }),
 /* 3 */
-/***/ (function(module, __nested_webpack_exports__, __nested_webpack_require_20109__) {
+/***/ (function(module, __nested_webpack_exports__, __nested_webpack_require_20105__) {
 
 "use strict";
 // ESM COMPAT FLAG
-__nested_webpack_require_20109__.r(__nested_webpack_exports__);
+__nested_webpack_require_20105__.r(__nested_webpack_exports__);
 
 // CONCATENATED MODULE: ./src/runtimes/web/dom/script_receiver_factory.ts
 class ScriptReceiverFactory {
@@ -16669,7 +16625,7 @@ var ScriptReceivers = new ScriptReceiverFactory('_pusher_script_', 'Pusher.Scrip
 
 // CONCATENATED MODULE: ./src/core/defaults.ts
 var Defaults = {
-    VERSION: "8.4.0-rc2",
+    VERSION: "8.4.0",
     PROTOCOL: 7,
     wsPort: 80,
     wssPort: 443,
@@ -16686,15 +16642,15 @@ var Defaults = {
     unavailableTimeout: 10000,
     userAuthentication: {
         endpoint: '/pusher/user-auth',
-        transport: 'ajax'
+        transport: 'ajax',
     },
     channelAuthorization: {
         endpoint: '/pusher/auth',
-        transport: 'ajax'
+        transport: 'ajax',
     },
     cdn_http: "http://js.pusher.com",
     cdn_https: "https://js.pusher.com",
-    dependency_suffix: ""
+    dependency_suffix: "",
 };
 /* harmony default export */ var defaults = (Defaults);
 
@@ -16759,7 +16715,7 @@ var Dependencies = new dependency_loader_DependencyLoader({
     cdn_https: defaults.cdn_https,
     version: defaults.VERSION,
     suffix: defaults.dependency_suffix,
-    receivers: DependenciesReceivers
+    receivers: DependenciesReceivers,
 });
 
 // CONCATENATED MODULE: ./src/core/utils/url_store.ts
@@ -16767,21 +16723,21 @@ const urlStore = {
     baseUrl: 'https://pusher.com',
     urls: {
         authenticationEndpoint: {
-            path: '/docs/channels/server_api/authenticating_users'
+            path: '/docs/channels/server_api/authenticating_users',
         },
         authorizationEndpoint: {
-            path: '/docs/channels/server_api/authorizing-users/'
+            path: '/docs/channels/server_api/authorizing-users/',
         },
         javascriptQuickStart: {
-            path: '/docs/javascript_quick_start'
+            path: '/docs/javascript_quick_start',
         },
         triggeringClientEvents: {
-            path: '/docs/client_api_guide/client_events#trigger-events'
+            path: '/docs/client_api_guide/client_events#trigger-events',
         },
         encryptedChannelSupport: {
-            fullUrl: 'https://github.com/pusher/pusher-js/tree/cc491015371a4bde5743d1c87a0fbac0feb53195#encrypted-channel-support'
-        }
-    }
+            fullUrl: 'https://github.com/pusher/pusher-js/tree/cc491015371a4bde5743d1c87a0fbac0feb53195#encrypted-channel-support',
+        },
+    },
 };
 const buildLogSuffix = function (key) {
     const urlPrefix = 'See:';
@@ -16951,7 +16907,7 @@ var cb_encode = function (ccc) {
         b64chars.charAt(ord >>> 18),
         b64chars.charAt((ord >>> 12) & 63),
         padlen >= 2 ? '=' : b64chars.charAt((ord >>> 6) & 63),
-        padlen >= 1 ? '=' : b64chars.charAt(ord & 63)
+        padlen >= 1 ? '=' : b64chars.charAt(ord & 63),
     ];
     return chars.join('');
 };
@@ -17026,7 +16982,7 @@ var Util = {
         return function (object) {
             return object[name].apply(object, boundArguments.concat(arguments));
         };
-    }
+    },
 };
 /* harmony default export */ var util = (Util);
 
@@ -17408,7 +17364,7 @@ var getAgent = function (sender, useTLS) {
 };
 var jsonp_timeline_jsonp = {
     name: 'jsonp',
-    getAgent
+    getAgent,
 };
 /* harmony default export */ var jsonp_timeline = (jsonp_timeline_jsonp);
 
@@ -17433,13 +17389,13 @@ var ws = {
     getInitial: function (key, params) {
         var path = (params.httpPath || '') + getGenericPath(key, 'flash=false');
         return getGenericURL('ws', params, path);
-    }
+    },
 };
 var http = {
     getInitial: function (key, params) {
         var path = (params.httpPath || '/pusher') + getGenericPath(key);
         return getGenericURL('http', params, path);
-    }
+    },
 };
 var sockjs = {
     getInitial: function (key, params) {
@@ -17447,7 +17403,7 @@ var sockjs = {
     },
     getPath: function (key, params) {
         return getGenericPath(key);
-    }
+    },
 };
 
 // CONCATENATED MODULE: ./src/core/events/callback_registry.ts
@@ -17465,7 +17421,7 @@ class callback_registry_CallbackRegistry {
             this._callbacks[prefixedEventName] || [];
         this._callbacks[prefixedEventName].push({
             fn: callback,
-            context: context
+            context: context,
         });
     }
     remove(name, callback, context) {
@@ -17528,7 +17484,7 @@ class dispatcher_Dispatcher {
             this.global_callbacks = [];
             return this;
         }
-        this.global_callbacks = filter(this.global_callbacks || [], c => c !== callback);
+        this.global_callbacks = filter(this.global_callbacks || [], (c) => c !== callback);
         return this;
     }
     unbind_all() {
@@ -17649,7 +17605,7 @@ class transport_connection_TransportConnection extends dispatcher_Dispatcher {
             this.changeState('closed', {
                 code: closeEvent.code,
                 reason: closeEvent.reason,
-                wasClean: closeEvent.wasClean
+                wasClean: closeEvent.wasClean,
             });
         }
         else {
@@ -17668,13 +17624,13 @@ class transport_connection_TransportConnection extends dispatcher_Dispatcher {
         this.socket.onopen = () => {
             this.onOpen();
         };
-        this.socket.onerror = error => {
+        this.socket.onerror = (error) => {
             this.onError(error);
         };
-        this.socket.onclose = closeEvent => {
+        this.socket.onclose = (closeEvent) => {
             this.onClose(closeEvent);
         };
-        this.socket.onmessage = message => {
+        this.socket.onmessage = (message) => {
             this.onMessage(message);
         };
         if (this.supportsPing()) {
@@ -17698,7 +17654,7 @@ class transport_connection_TransportConnection extends dispatcher_Dispatcher {
         this.state = state;
         this.timeline.info(this.buildTimelineMessage({
             state: state,
-            params: params
+            params: params,
         }));
         this.emit(state, params);
     }
@@ -17738,7 +17694,7 @@ var WSTransport = new transport_Transport({
     },
     getSocket: function (url) {
         return runtime.createWebSocket(url);
-    }
+    },
 });
 var httpConfiguration = {
     urls: http,
@@ -17746,29 +17702,29 @@ var httpConfiguration = {
     supportsPing: true,
     isInitialized: function () {
         return true;
-    }
+    },
 };
 var streamingConfiguration = extend({
     getSocket: function (url) {
         return runtime.HTTPFactory.createStreamingSocket(url);
-    }
+    },
 }, httpConfiguration);
 var pollingConfiguration = extend({
     getSocket: function (url) {
         return runtime.HTTPFactory.createPollingSocket(url);
-    }
+    },
 }, httpConfiguration);
 var xhrConfiguration = {
     isSupported: function () {
         return runtime.isXHRSupported();
-    }
+    },
 };
 var XHRStreamingTransport = new transport_Transport((extend({}, streamingConfiguration, xhrConfiguration)));
-var XHRPollingTransport = new transport_Transport(extend({}, pollingConfiguration, xhrConfiguration));
+var XHRPollingTransport = new transport_Transport((extend({}, pollingConfiguration, xhrConfiguration)));
 var Transports = {
     ws: WSTransport,
     xhr_streaming: XHRStreamingTransport,
-    xhr_polling: XHRPollingTransport
+    xhr_polling: XHRPollingTransport,
 };
 /* harmony default export */ var transports = (Transports);
 
@@ -17793,25 +17749,25 @@ var SockJSTransport = new transport_Transport({
     getSocket: function (url, options) {
         return new window.SockJS(url, null, {
             js_path: Dependencies.getPath('sockjs', {
-                useTLS: options.useTLS
+                useTLS: options.useTLS,
             }),
-            ignore_null_origin: options.ignoreNullOrigin
+            ignore_null_origin: options.ignoreNullOrigin,
         });
     },
     beforeOpen: function (socket, path) {
         socket.send(JSON.stringify({
-            path: path
+            path: path,
         }));
-    }
+    },
 });
 var xdrConfiguration = {
     isSupported: function (environment) {
         var yes = runtime.isXDRSupported(environment.useTLS);
         return yes;
-    }
+    },
 };
 var XDRStreamingTransport = new transport_Transport((extend({}, streamingConfiguration, xdrConfiguration)));
-var XDRPollingTransport = new transport_Transport(extend({}, pollingConfiguration, xdrConfiguration));
+var XDRPollingTransport = new transport_Transport((extend({}, pollingConfiguration, xdrConfiguration)));
 transports.xdr_streaming = XDRStreamingTransport;
 transports.xdr_polling = XDRPollingTransport;
 transports.sockjs = SockJSTransport;
@@ -17856,7 +17812,7 @@ class assistant_to_the_transport_manager_AssistantToTheTransportManager {
     }
     createConnection(name, priority, key, options) {
         options = extend({}, options, {
-            activityTimeout: this.pingDelay
+            activityTimeout: this.pingDelay,
         });
         var connection = this.transport.createConnection(name, priority, key, options);
         var openTimestamp = null;
@@ -17865,7 +17821,7 @@ class assistant_to_the_transport_manager_AssistantToTheTransportManager {
             connection.bind('closed', onClosed);
             openTimestamp = util.now();
         };
-        var onClosed = closeEvent => {
+        var onClosed = (closeEvent) => {
             connection.unbind('closed', onClosed);
             if (closeEvent.code === 1002 || closeEvent.code === 1003) {
                 this.manager.reportDeath();
@@ -17901,7 +17857,7 @@ const Protocol = {
             var pusherEvent = {
                 event: messageData.event,
                 channel: messageData.channel,
-                data: pusherEventData
+                data: pusherEventData,
             };
             if (messageData.user_id) {
                 pusherEvent.user_id = messageData.user_id;
@@ -17924,13 +17880,13 @@ const Protocol = {
             return {
                 action: 'connected',
                 id: message.data.socket_id,
-                activityTimeout: message.data.activity_timeout * 1000
+                activityTimeout: message.data.activity_timeout * 1000,
             };
         }
         else if (message.event === 'pusher:error') {
             return {
                 action: this.getCloseAction(message.data),
-                error: this.getCloseError(message.data)
+                error: this.getCloseError(message.data),
             };
         }
         else {
@@ -17968,14 +17924,14 @@ const Protocol = {
                 type: 'PusherError',
                 data: {
                     code: closeEvent.code,
-                    message: closeEvent.reason || closeEvent.message
-                }
+                    message: closeEvent.reason || closeEvent.message,
+                },
             };
         }
         else {
             return null;
         }
-    }
+    },
 };
 /* harmony default export */ var protocol_protocol = (Protocol);
 
@@ -18028,7 +17984,7 @@ class connection_Connection extends dispatcher_Dispatcher {
                     this.emit('error', {
                         type: 'MessageParseError',
                         error: e,
-                        data: messageEvent.data
+                        data: messageEvent.data,
                     });
                 }
                 if (pusherEvent !== undefined) {
@@ -18037,7 +17993,7 @@ class connection_Connection extends dispatcher_Dispatcher {
                         case 'pusher:error':
                             this.emit('error', {
                                 type: 'PusherError',
-                                data: pusherEvent.data
+                                data: pusherEvent.data,
                             });
                             break;
                         case 'pusher:ping':
@@ -18053,17 +18009,17 @@ class connection_Connection extends dispatcher_Dispatcher {
             activity: () => {
                 this.emit('activity');
             },
-            error: error => {
+            error: (error) => {
                 this.emit('error', error);
             },
-            closed: closeEvent => {
+            closed: (closeEvent) => {
                 unbindListeners();
                 if (closeEvent && closeEvent.code) {
                     this.handleCloseEvent(closeEvent);
                 }
                 this.transport = null;
                 this.emit('closed');
-            }
+            },
         };
         var unbindListeners = () => {
             objectApply(listeners, (listener, event) => {
@@ -18101,7 +18057,7 @@ class handshake_Handshake {
         this.transport.close();
     }
     bindListeners() {
-        this.onMessage = m => {
+        this.onMessage = (m) => {
             this.unbindListeners();
             var result;
             try {
@@ -18115,7 +18071,7 @@ class handshake_Handshake {
             if (result.action === 'connected') {
                 this.finish('connected', {
                     connection: new connection_Connection(result.id, this.transport),
-                    activityTimeout: result.activityTimeout
+                    activityTimeout: result.activityTimeout,
                 });
             }
             else {
@@ -18123,7 +18079,7 @@ class handshake_Handshake {
                 this.transport.close();
             }
         };
-        this.onClosed = closeEvent => {
+        this.onClosed = (closeEvent) => {
             this.unbindListeners();
             var action = protocol_protocol.getCloseAction(closeEvent) || 'backoff';
             var error = protocol_protocol.getCloseError(closeEvent);
@@ -18232,14 +18188,14 @@ class channel_Channel extends dispatcher_Dispatcher {
                 logger.error(error.toString());
                 this.emit('pusher:subscription_error', Object.assign({}, {
                     type: 'AuthError',
-                    error: error.message
+                    error: error.message,
                 }, error instanceof HTTPAuthError ? { status: error.status } : {}));
             }
             else {
                 this.pusher.send_event('pusher:subscribe', {
                     auth: data.auth,
                     channel_data: data.channel_data,
-                    channel: this.name
+                    channel: this.name,
                 });
             }
         });
@@ -18247,7 +18203,7 @@ class channel_Channel extends dispatcher_Dispatcher {
     unsubscribe() {
         this.subscribed = false;
         this.pusher.send_event('pusher:unsubscribe', {
-            channel: this.name
+            channel: this.name,
         });
     }
     cancelSubscription() {
@@ -18264,7 +18220,7 @@ class private_channel_PrivateChannel extends channel_Channel {
     authorize(socketId, callback) {
         return this.pusher.config.channelAuthorizer({
             channelName: this.name,
-            socketId: socketId
+            socketId: socketId,
         }, callback);
     }
 }
@@ -18279,7 +18235,7 @@ class members_Members {
         if (Object.prototype.hasOwnProperty.call(this.members, id)) {
             return {
                 id: id,
-                info: this.members[id]
+                info: this.members[id],
             };
         }
         else {
@@ -18421,10 +18377,10 @@ class presence_channel_PresenceChannel extends private_channel_PrivateChannel {
 }
 
 // EXTERNAL MODULE: ./node_modules/@stablelib/utf8/lib/utf8.js
-var utf8 = __nested_webpack_require_20109__(1);
+var utf8 = __nested_webpack_require_20105__(1);
 
 // EXTERNAL MODULE: ./node_modules/@stablelib/base64/lib/base64.js
-var base64 = __nested_webpack_require_20109__(0);
+var base64 = __nested_webpack_require_20105__(0);
 
 // CONCATENATED MODULE: ./src/core/channels/encrypted_channel.ts
 
@@ -18551,11 +18507,6 @@ class connection_manager_ConnectionManager extends dispatcher_Dispatcher {
         });
         this.updateStrategy();
     }
-    switchCluster(key) {
-        this.key = key;
-        this.updateStrategy();
-        this.retryIn(0);
-    }
     connect() {
         if (this.connection || this.runner) {
             return;
@@ -18600,7 +18551,7 @@ class connection_manager_ConnectionManager extends dispatcher_Dispatcher {
                 if (handshake.action === 'error') {
                     this.emit('error', {
                         type: 'HandshakeError',
-                        error: handshake.error
+                        error: handshake.error,
                     });
                     this.timeline.error({ handshakeError: handshake.error });
                 }
@@ -18631,7 +18582,7 @@ class connection_manager_ConnectionManager extends dispatcher_Dispatcher {
         this.strategy = this.options.getStrategy({
             key: this.key,
             timeline: this.timeline,
-            useTLS: this.usingTLS
+            useTLS: this.usingTLS,
         });
     }
     retryIn(delay) {
@@ -18683,7 +18634,7 @@ class connection_manager_ConnectionManager extends dispatcher_Dispatcher {
     }
     buildConnectionCallbacks(errorCallbacks) {
         return extend({}, errorCallbacks, {
-            message: message => {
+            message: (message) => {
                 this.resetActivityCheck();
                 this.emit('message', message);
             },
@@ -18693,7 +18644,7 @@ class connection_manager_ConnectionManager extends dispatcher_Dispatcher {
             activity: () => {
                 this.resetActivityCheck();
             },
-            error: error => {
+            error: (error) => {
                 this.emit('error', error);
             },
             closed: () => {
@@ -18701,7 +18652,7 @@ class connection_manager_ConnectionManager extends dispatcher_Dispatcher {
                 if (this.shouldRetry()) {
                     this.retryIn(1000);
                 }
-            }
+            },
         });
     }
     buildHandshakeCallbacks(errorCallbacks) {
@@ -18712,11 +18663,11 @@ class connection_manager_ConnectionManager extends dispatcher_Dispatcher {
                 this.setConnection(handshake.connection);
                 this.socket_id = this.connection.id;
                 this.updateState('connected', { socket_id: this.socket_id });
-            }
+            },
         });
     }
     buildErrorCallbacks() {
-        let withErrorEmitted = callback => {
+        let withErrorEmitted = (callback) => {
             return (result) => {
                 if (result.error) {
                     this.emit('error', { type: 'WebSocketError', error: result.error });
@@ -18738,7 +18689,7 @@ class connection_manager_ConnectionManager extends dispatcher_Dispatcher {
             }),
             retry: withErrorEmitted(() => {
                 this.retryIn(0);
-            })
+            }),
         };
     }
     setConnection(connection) {
@@ -18871,7 +18822,7 @@ var Factory = {
     },
     createAssistantToTheTransportManager(manager, transport, options) {
         return new assistant_to_the_transport_manager_AssistantToTheTransportManager(manager, transport, options);
-    }
+    },
 };
 /* harmony default export */ var factory = (Factory);
 
@@ -18885,7 +18836,7 @@ class transport_manager_TransportManager {
     getAssistant(transport) {
         return factory.createAssistantToTheTransportManager(this, transport, {
             minPingDelay: this.options.minPingDelay,
-            maxPingDelay: this.options.maxPingDelay
+            maxPingDelay: this.options.maxPingDelay,
         });
     }
     isAlive() {
@@ -18949,7 +18900,7 @@ class sequential_strategy_SequentialStrategy {
                 if (runner) {
                     runner.forceMinPriority(p);
                 }
-            }
+            },
         };
     }
     tryStrategy(strategy, minPriority, options, callback) {
@@ -18979,7 +18930,7 @@ class sequential_strategy_SequentialStrategy {
             },
             forceMinPriority: function (p) {
                 runner.forceMinPriority(p);
-            }
+            },
         };
     }
 }
@@ -19024,7 +18975,7 @@ function connect(strategies, minPriority, callbackBuilder) {
             apply(runners, function (runner) {
                 runner.forceMinPriority(p);
             });
-        }
+        },
     };
 }
 function allRunnersFailed(runners) {
@@ -19067,11 +19018,11 @@ class websocket_prioritized_cached_strategy_WebSocketPrioritizedCachedStrategy {
                     this.timeline.info({
                         cached: true,
                         transport: info.transport,
-                        latency: info.latency
+                        latency: info.latency,
                     });
                     strategies.push(new sequential_strategy_SequentialStrategy([transport], {
                         timeout: info.latency * 2 + 1000,
-                        failFast: true
+                        failFast: true,
                     }));
                 }
                 else {
@@ -19107,7 +19058,7 @@ class websocket_prioritized_cached_strategy_WebSocketPrioritizedCachedStrategy {
                 if (runner) {
                     runner.forceMinPriority(p);
                 }
-            }
+            },
         };
     }
 }
@@ -19137,7 +19088,7 @@ function storeTransportCache(usingTLS, transport, latency, cacheSkipCount) {
                 timestamp: util.now(),
                 transport: transport,
                 latency: latency,
-                cacheSkipCount: cacheSkipCount
+                cacheSkipCount: cacheSkipCount,
             });
         }
         catch (e) {
@@ -19183,7 +19134,7 @@ class delayed_strategy_DelayedStrategy {
                 if (runner) {
                     runner.forceMinPriority(p);
                 }
-            }
+            },
         };
     }
 }
@@ -19247,29 +19198,29 @@ var getDefaultStrategy = function (config, baseOptions, defineTransport) {
     var ws_options = Object.assign({}, baseOptions, {
         hostNonTLS: config.wsHost + ':' + config.wsPort,
         hostTLS: config.wsHost + ':' + config.wssPort,
-        httpPath: config.wsPath
+        httpPath: config.wsPath,
     });
     var wss_options = Object.assign({}, ws_options, {
-        useTLS: true
+        useTLS: true,
     });
     var sockjs_options = Object.assign({}, baseOptions, {
         hostNonTLS: config.httpHost + ':' + config.httpPort,
         hostTLS: config.httpHost + ':' + config.httpsPort,
-        httpPath: config.httpPath
+        httpPath: config.httpPath,
     });
     var timeouts = {
         loop: true,
         timeout: 15000,
-        timeoutLimit: 60000
+        timeoutLimit: 60000,
     };
     var ws_manager = new transport_manager_TransportManager({
         minPingDelay: 10000,
-        maxPingDelay: config.activityTimeout
+        maxPingDelay: config.activityTimeout,
     });
     var streaming_manager = new transport_manager_TransportManager({
         lives: 2,
         minPingDelay: 10000,
-        maxPingDelay: config.activityTimeout
+        maxPingDelay: config.activityTimeout,
     });
     var ws_transport = defineTransportStrategy('ws', 'ws', 3, ws_options, ws_manager);
     var wss_transport = defineTransportStrategy('wss', 'ws', 3, wss_options, ws_manager);
@@ -19282,36 +19233,36 @@ var getDefaultStrategy = function (config, baseOptions, defineTransport) {
     var wss_loop = new sequential_strategy_SequentialStrategy([wss_transport], timeouts);
     var sockjs_loop = new sequential_strategy_SequentialStrategy([sockjs_transport], timeouts);
     var streaming_loop = new sequential_strategy_SequentialStrategy([
-        new IfStrategy(testSupportsStrategy(xhr_streaming_transport), xhr_streaming_transport, xdr_streaming_transport)
+        new IfStrategy(testSupportsStrategy(xhr_streaming_transport), xhr_streaming_transport, xdr_streaming_transport),
     ], timeouts);
     var polling_loop = new sequential_strategy_SequentialStrategy([
-        new IfStrategy(testSupportsStrategy(xhr_polling_transport), xhr_polling_transport, xdr_polling_transport)
+        new IfStrategy(testSupportsStrategy(xhr_polling_transport), xhr_polling_transport, xdr_polling_transport),
     ], timeouts);
     var http_loop = new sequential_strategy_SequentialStrategy([
         new IfStrategy(testSupportsStrategy(streaming_loop), new best_connected_ever_strategy_BestConnectedEverStrategy([
             streaming_loop,
-            new delayed_strategy_DelayedStrategy(polling_loop, { delay: 4000 })
-        ]), polling_loop)
+            new delayed_strategy_DelayedStrategy(polling_loop, { delay: 4000 }),
+        ]), polling_loop),
     ], timeouts);
     var http_fallback_loop = new IfStrategy(testSupportsStrategy(http_loop), http_loop, sockjs_loop);
     var wsStrategy;
     if (baseOptions.useTLS) {
         wsStrategy = new best_connected_ever_strategy_BestConnectedEverStrategy([
             ws_loop,
-            new delayed_strategy_DelayedStrategy(http_fallback_loop, { delay: 2000 })
+            new delayed_strategy_DelayedStrategy(http_fallback_loop, { delay: 2000 }),
         ]);
     }
     else {
         wsStrategy = new best_connected_ever_strategy_BestConnectedEverStrategy([
             ws_loop,
             new delayed_strategy_DelayedStrategy(wss_loop, { delay: 2000 }),
-            new delayed_strategy_DelayedStrategy(http_fallback_loop, { delay: 5000 })
+            new delayed_strategy_DelayedStrategy(http_fallback_loop, { delay: 5000 }),
         ]);
     }
     return new websocket_prioritized_cached_strategy_WebSocketPrioritizedCachedStrategy(new FirstConnectedStrategy(new IfStrategy(testSupportsStrategy(ws_transport), wsStrategy, http_fallback_loop)), definedTransports, {
         ttl: 1800000,
         timeline: baseOptions.timeline,
-        useTLS: baseOptions.useTLS
+        useTLS: baseOptions.useTLS,
     });
 };
 /* harmony default export */ var default_strategy = (getDefaultStrategy);
@@ -19321,7 +19272,7 @@ var getDefaultStrategy = function (config, baseOptions, defineTransport) {
 /* harmony default export */ var transport_connection_initializer = (function () {
     var self = this;
     self.timeline.info(self.buildTimelineMessage({
-        transport: self.name + (self.options.useTLS ? 's' : '')
+        transport: self.name + (self.options.useTLS ? 's' : ''),
     }));
     if (self.hooks.isInitialized()) {
         self.changeState('initialized');
@@ -19377,7 +19328,7 @@ var http_xdomain_request_hooks = {
     abortRequest: function (xdr) {
         xdr.ontimeout = xdr.onerror = xdr.onprogress = xdr.onload = null;
         xdr.abort();
-    }
+    },
 };
 /* harmony default export */ var http_xdomain_request = (http_xdomain_request_hooks);
 
@@ -19501,7 +19452,7 @@ class http_socket_HTTPSocket {
             this.onclose({
                 code: code,
                 reason: reason,
-                wasClean: wasClean
+                wasClean: wasClean,
             });
         }
     }
@@ -19569,10 +19520,10 @@ class http_socket_HTTPSocket {
     }
     openStream() {
         this.stream = runtime.createSocketRequest('POST', getUniqueURL(this.hooks.getReceiveURL(this.location, this.session)));
-        this.stream.bind('chunk', chunk => {
+        this.stream.bind('chunk', (chunk) => {
             this.onChunk(chunk);
         });
-        this.stream.bind('finished', status => {
+        this.stream.bind('finished', (status) => {
             this.hooks.onFinished(this, status);
         });
         this.stream.bind('buffer_too_long', () => {
@@ -19600,7 +19551,7 @@ function getLocation(url) {
     var parts = /([^\?]*)\/*(\??.*)/.exec(url);
     return {
         base: parts[1],
-        queryString: parts[2]
+        queryString: parts[2],
     };
 }
 function getSendURL(url, session) {
@@ -19639,7 +19590,7 @@ var http_streaming_socket_hooks = {
     },
     onFinished: function (socket, status) {
         socket.onClose(1006, 'Connection interrupted (' + status + ')', false);
-    }
+    },
 };
 /* harmony default export */ var http_streaming_socket = (http_streaming_socket_hooks);
 
@@ -19660,7 +19611,7 @@ var http_polling_socket_hooks = {
         else {
             socket.onClose(1006, 'Connection interrupted (' + status + ')', false);
         }
-    }
+    },
 };
 /* harmony default export */ var http_polling_socket = (http_polling_socket_hooks);
 
@@ -19691,7 +19642,7 @@ var http_xhr_request_hooks = {
     abortRequest: function (xhr) {
         xhr.onreadystatechange = null;
         xhr.abort();
-    }
+    },
 };
 /* harmony default export */ var http_xhr_request = (http_xhr_request_hooks);
 
@@ -19716,7 +19667,7 @@ var HTTP = {
     },
     createRequest(hooks, method, url) {
         return new http_request_HTTPRequest(hooks, method, url);
-    }
+    },
 };
 /* harmony default export */ var http_http = (HTTP);
 
@@ -19867,7 +19818,7 @@ var Runtime = {
             return random / Math.pow(2, 32);
         };
         return Math.floor(random() * max);
-    }
+    },
 };
 /* harmony default export */ var runtime = (Runtime);
 
@@ -19922,7 +19873,7 @@ class timeline_Timeline {
             version: this.options.version,
             cluster: this.options.cluster,
             features: this.options.features,
-            timeline: this.events
+            timeline: this.events,
         }, this.options.params);
         this.events = [];
         sendfn(data, (error, result) => {
@@ -19955,7 +19906,7 @@ class transport_strategy_TransportStrategy {
     }
     isSupported() {
         return this.transport.isSupported({
-            useTLS: this.options.useTLS
+            useTLS: this.options.useTLS,
         });
     }
     connect(minPriority, callback) {
@@ -20013,7 +19964,7 @@ class transport_strategy_TransportStrategy {
                     transport.close();
                 }
             },
-            forceMinPriority: p => {
+            forceMinPriority: (p) => {
                 if (connected) {
                     return;
                 }
@@ -20025,7 +19976,7 @@ class transport_strategy_TransportStrategy {
                         transport.close();
                     }
                 }
-            }
+            },
         };
     }
 }
@@ -20035,7 +19986,7 @@ function failAttempt(error, callback) {
     });
     return {
         abort: function () { },
-        forceMinPriority: function () { }
+        forceMinPriority: function () { },
     };
 }
 
@@ -20077,9 +20028,9 @@ var strategy_builder_UnsupportedStrategy = {
             abort: function () {
                 deferred.ensureAborted();
             },
-            forceMinPriority: function () { }
+            forceMinPriority: function () { },
         };
-    }
+    },
 };
 
 // CONCATENATED MODULE: ./src/core/options.ts
@@ -20174,8 +20125,8 @@ const ChannelAuthorizerProxy = (pusher, authOptions, channelAuthorizerGenerator)
         authEndpoint: authOptions.endpoint,
         auth: {
             params: authOptions.params,
-            headers: authOptions.headers
-        }
+            headers: authOptions.headers,
+        },
     };
     return (params, callback) => {
         const channel = pusher.channel(params.channelName);
@@ -20208,7 +20159,7 @@ function getConfig(opts, pusher) {
         useTLS: shouldUseTLS(opts),
         wsHost: getWebsocketHost(opts),
         userAuthenticator: buildUserAuthenticator(opts),
-        channelAuthorizer: buildChannelAuthorizer(opts, pusher)
+        channelAuthorizer: buildChannelAuthorizer(opts, pusher),
     };
     if ('disabledTransports' in opts)
         config.disabledTransports = opts.disabledTransports;
@@ -20259,12 +20210,10 @@ function getEnableStatsConfig(opts) {
     }
     return false;
 }
-const hasCustomHandler = (auth) => {
-    return 'customHandler' in auth && auth['customHandler'] != null;
-};
 function buildUserAuthenticator(opts) {
     const userAuthentication = Object.assign(Object.assign({}, defaults.userAuthentication), opts.userAuthentication);
-    if (hasCustomHandler(userAuthentication)) {
+    if ('customHandler' in userAuthentication &&
+        userAuthentication['customHandler'] != null) {
         return userAuthentication['customHandler'];
     }
     return user_authenticator(userAuthentication);
@@ -20277,7 +20226,7 @@ function buildChannelAuth(opts, pusher) {
     else {
         channelAuthorization = {
             transport: opts.authTransport || defaults.authTransport,
-            endpoint: opts.authEndpoint || defaults.authEndpoint
+            endpoint: opts.authEndpoint || defaults.authEndpoint,
         };
         if ('auth' in opts) {
             if ('params' in opts.auth)
@@ -20285,17 +20234,15 @@ function buildChannelAuth(opts, pusher) {
             if ('headers' in opts.auth)
                 channelAuthorization.headers = opts.auth.headers;
         }
-        if ('authorizer' in opts) {
-            return {
-                customHandler: ChannelAuthorizerProxy(pusher, channelAuthorization, opts.authorizer)
-            };
-        }
+        if ('authorizer' in opts)
+            channelAuthorization.customHandler = ChannelAuthorizerProxy(pusher, channelAuthorization, opts.authorizer);
     }
     return channelAuthorization;
 }
 function buildChannelAuthorizer(opts, pusher) {
     const channelAuthorization = buildChannelAuth(opts, pusher);
-    if (hasCustomHandler(channelAuthorization)) {
+    if ('customHandler' in channelAuthorization &&
+        channelAuthorization['customHandler'] != null) {
         return channelAuthorization['customHandler'];
     }
     return channel_authorizer(channelAuthorization);
@@ -20313,12 +20260,12 @@ class watchlist_WatchlistFacade extends dispatcher_Dispatcher {
         this.bindWatchlistInternalEvent();
     }
     handleEvent(pusherEvent) {
-        pusherEvent.data.events.forEach(watchlistEvent => {
+        pusherEvent.data.events.forEach((watchlistEvent) => {
             this.emit(watchlistEvent.name, watchlistEvent);
         });
     }
     bindWatchlistInternalEvent() {
-        this.pusher.connection.bind('message', pusherEvent => {
+        this.pusher.connection.bind('message', (pusherEvent) => {
             var eventName = pusherEvent.event;
             if (eventName === 'pusher_internal:watchlist_events') {
                 this.handleEvent(pusherEvent);
@@ -20362,7 +20309,7 @@ class user_UserFacade extends dispatcher_Dispatcher {
             }
             this.pusher.send_event('pusher:signin', {
                 auth: authData.auth,
-                user_data: authData.user_data
+                user_data: authData.user_data,
             });
         };
         this.pusher = pusher;
@@ -20376,7 +20323,7 @@ class user_UserFacade extends dispatcher_Dispatcher {
             }
         });
         this.watchlist = new watchlist_WatchlistFacade(pusher);
-        this.pusher.connection.bind('message', event => {
+        this.pusher.connection.bind('message', (event) => {
             var eventName = event.event;
             if (eventName === 'pusher:signin_success') {
                 this._onSigninSuccess(event.data);
@@ -20403,7 +20350,7 @@ class user_UserFacade extends dispatcher_Dispatcher {
             return;
         }
         this.pusher.config.userAuthenticator({
-            socketId: this.pusher.connection.socket_id
+            socketId: this.pusher.connection.socket_id,
         }, this._onAuthorize);
     }
     _onSigninSuccess(data) {
@@ -20424,7 +20371,7 @@ class user_UserFacade extends dispatcher_Dispatcher {
         this._subscribeChannels();
     }
     _subscribeChannels() {
-        const ensure_subscribed = channel => {
+        const ensure_subscribed = (channel) => {
             if (channel.subscriptionPending && channel.subscriptionCancelled) {
                 channel.reinstateSubscription();
             }
@@ -20502,8 +20449,7 @@ class pusher_Pusher {
         checkAppKey(app_key);
         validateOptions(options);
         this.key = app_key;
-        this.options = options;
-        this.config = getConfig(this.options, this);
+        this.config = getConfig(options, this);
         this.channels = factory.createChannels();
         this.global_emitter = new dispatcher_Dispatcher();
         this.sessionID = runtime.randomInt(1000000000);
@@ -20513,12 +20459,12 @@ class pusher_Pusher {
             params: this.config.timelineParams || {},
             limit: 50,
             level: timeline_level.INFO,
-            version: defaults.VERSION
+            version: defaults.VERSION,
         });
         if (this.config.enableStats) {
             this.timelineSender = factory.createTimelineSender(this.timeline, {
                 host: this.config.statsHost,
-                path: '/timeline/v2/' + runtime.TimelineTransport.name
+                path: '/timeline/v2/' + runtime.TimelineTransport.name,
             });
         }
         var getStrategy = (options) => {
@@ -20530,7 +20476,7 @@ class pusher_Pusher {
             activityTimeout: this.config.activityTimeout,
             pongTimeout: this.config.pongTimeout,
             unavailableTimeout: this.config.unavailableTimeout,
-            useTLS: Boolean(this.config.useTLS)
+            useTLS: Boolean(this.config.useTLS),
         });
         this.connection.bind('connected', () => {
             this.subscribeAll();
@@ -20538,7 +20484,7 @@ class pusher_Pusher {
                 this.timelineSender.send(this.connection.isUsingTLS());
             }
         });
-        this.connection.bind('message', event => {
+        this.connection.bind('message', (event) => {
             var eventName = event.event;
             var internal = eventName.indexOf('pusher_internal:') === 0;
             if (event.channel) {
@@ -20557,7 +20503,7 @@ class pusher_Pusher {
         this.connection.bind('disconnected', () => {
             this.channels.disconnect();
         });
-        this.connection.bind('error', err => {
+        this.connection.bind('error', (err) => {
             logger.warn(err);
         });
         pusher_Pusher.instances.push(this);
@@ -20566,13 +20512,6 @@ class pusher_Pusher {
         if (pusher_Pusher.isReady) {
             this.connect();
         }
-    }
-    switchCluster(options) {
-        const { appKey, cluster } = options;
-        this.key = appKey;
-        this.options = Object.assign(Object.assign({}, this.options), { cluster });
-        this.config = getConfig(this.options, this);
-        this.connection.switchCluster(this.key);
     }
     channel(name) {
         return this.channels.find(name);
@@ -20680,6 +20619,114 @@ runtime.setup(pusher_Pusher);
 /******/ ]);
 });
 //# sourceMappingURL=pusher.js.map
+
+/***/ }),
+
+/***/ "./resources/css/app.css":
+/*!*******************************!*\
+  !*** ./resources/css/app.css ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./resources/js/app.js":
+/*!*****************************!*\
+  !*** ./resources/js/app.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
+/* harmony import */ var _alpinejs_focus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @alpinejs/focus */ "./node_modules/@alpinejs/focus/dist/module.esm.js");
+
+
+
+window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"];
+alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].plugin(_alpinejs_focus__WEBPACK_IMPORTED_MODULE_2__["default"]);
+alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
+
+/***/ }),
+
+/***/ "./resources/js/bootstrap.js":
+/*!***********************************!*\
+  !*** ./resources/js/bootstrap.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
+
+
+/**
+ * We'll load the axios HTTP library which allows us to easily issue requests
+ * to our Laravel back-end. This library automatically handles sending the
+ * CSRF token as a header based on the value of the "XSRF" token cookie.
+ */
+
+
+window.axios = (axios__WEBPACK_IMPORTED_MODULE_1___default());
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/**
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows your team to easily build robust real-time web applications.
+ */
+
+// import Echo from 'laravel-echo';
+
+// import Pusher from 'pusher-js';
+// window.Pusher = Pusher;
+
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: import.meta.env.VITE_PUSHER_APP_KEY,
+//     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'mt1',
+//     wsHost: import.meta.env.VITE_PUSHER_HOST ?? `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
+//     wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
+//     wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
+//     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
+//     enabledTransports: ['ws', 'wss'],
+// });
+
+/*
+import Echo from 'laravel-echo';
+
+window.Pusher = require('pusher-js');
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    forceTLS: true
+});*/
+
+
+window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
+window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
+  broadcaster: 'pusher',
+  key: 'public-key-123',
+  cluster: "mt1",
+  wsHost: 'proyectobingomas.site',
+  wsPort: 443,
+  wssport: 443,
+  forceTLS: true,
+  disableStats: true,
+  enabledTransports: ['wss', 'ws'],
+  path: '/app'
+});
 
 /***/ })
 
