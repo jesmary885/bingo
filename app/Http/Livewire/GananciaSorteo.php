@@ -25,15 +25,16 @@ class GananciaSorteo extends Component
 
         $sorteo_s = Sorteo::where('id',$this->sorteo)->first();
 
-        
-
-        $ganancia_dolares = $cant_cartones * ($sorteo_s->porcentaje_ganancia * 0.01);
         $dolar_hoy = MetodoPago::where('name', 'Pago Movil')
            ->value('valor');
 
-        $this->ganancia_dolares_2do = $cant_cartones * ($sorteo_s->porcentaje_ganancia_2do_lugar * 0.01);
+        $precio_carton = $sorteo_s->precio_carton_dolar;
+        
+        $ganancia_dolares = $cant_cartones * ($sorteo_s->porcentaje_ganancia * 0.01) * $precio_carton;
+        
+        $this->ganancia_dolares_2do = $cant_cartones * ($sorteo_s->porcentaje_ganancia_2do_lugar * 0.01) * $precio_carton;
 
-        $this->ganancia_dolares_3er = $cant_cartones * ($sorteo_s->porcentaje_ganancia_3er_lugar * 0.01);
+        $this->ganancia_dolares_3er = $cant_cartones * ($sorteo_s->porcentaje_ganancia_3er_lugar * 0.01) * $precio_carton;
 
 
 
