@@ -5550,7 +5550,7 @@
 
                                                 @if($sorteo->type_sorteo == 'Pago')
 
-                                                Precio por cartón: 1$ ({{$dolar_hoy * $sorteo->precio_carton_dolar}} Bs)
+                                                Precio por cartón: {{$sorteo->precio_carton_dolar}}$ ({{$dolar_hoy * $sorteo->precio_carton_dolar}} Bs)
 
                                                 @else
 
